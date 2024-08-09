@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99194161ef5325542991b8b8237c8344, type: 3}
+  m_Name: TutorialItem
+  m_EditorClassIdentifier: 
+  itemName: tutorialItem
+  itemType: 1
+  maxStack: 1
+  icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  krName: "\uD29C\uD1A0\uB9AC\uC5BC \uD14C\uC2A4\uD2B8 \uC544\uC774\uD15C"
+  description: "\uD14C\uC2A4\uD2B8 \uC544\uC774\uD15C \uB4E4\uC5B4\uC654\uB098\uC694?"
+  price: 1000
+  isTradingItem: 1
+  equipType: 1
+  statList: []
