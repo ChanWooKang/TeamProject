@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChanWooCameraCtrl : MonoBehaviour
+public class CameraCtrl : MonoBehaviour
 {
     public Transform target;
     public Vector3 offSetPos;

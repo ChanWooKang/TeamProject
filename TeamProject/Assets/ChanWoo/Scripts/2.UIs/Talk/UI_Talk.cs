@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChanWooUI_Talk : MonoBehaviour
+public class UI_Talk : MonoBehaviour
 {
     //UI Parent 오브젝트
     public GameObject mainObject;
