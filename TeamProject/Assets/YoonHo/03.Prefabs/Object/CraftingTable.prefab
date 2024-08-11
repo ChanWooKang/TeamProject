@@ -115,6 +115,7 @@ MonoBehaviour:
   layerGround: 6
   green: {fileID: 2100000, guid: 7533efa71986d1f4f97ce67b850abc7e, type: 2}
   red: {fileID: 2100000, guid: 6dc7d60713187c04cbd3f20020e54720, type: 2}
+  blue: {fileID: 2100000, guid: f772f1e669cceb84d9f9e288e984582a, type: 2}
 --- !u!54 &1436622279608546036
 Rigidbody:
   m_ObjectHideFlags: 0

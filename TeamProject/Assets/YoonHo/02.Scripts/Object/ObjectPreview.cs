@@ -7,22 +7,30 @@ public class ObjectPreview : MonoBehaviour
     [SerializeField] List<Collider> colliderList = new List<Collider>(); // 충돌한 오브젝트들 저장할 리스트
 
     [SerializeField]
-    private int layerGround; // 지형 레이어 (무시하게 할 것)
-    private const int IGNORE_RAYCAST_LAYER = 2;  // ignore_raycast (무시하게 할 것)
+    int layerGround; // 지형 레이어 (무시하게 할 것)
+    const int IGNORE_RAYCAST_LAYER = 2;  // ignore_raycast (무시하게 할 것)
+
+    [SerializeField] bool m_isFixed;
 
     [SerializeField]
-    private Material green;
+    Material green;
     [SerializeField]
-    private Material red;
-
-
-    void Update()
+    Material red;
+    [SerializeField]
+    Material blue;
+    private void Awake()
     {
-        ChangeColor();
+        m_isFixed = false;
+    }
+    void Update()
+    {        
+            ChangeColor();
     }
 
     private void ChangeColor()
     {
+        if (m_isFixed)
+            return;
         if (colliderList.Count > 0)
             SetColor(red);
         else
@@ -47,6 +55,11 @@ public class ObjectPreview : MonoBehaviour
     {
         if (other.gameObject.layer != layerGround && other.gameObject.layer != IGNORE_RAYCAST_LAYER)
             colliderList.Add(other);
+
+        if(other.gameObject.tag == "Player")
+        {
+
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -58,5 +71,10 @@ public class ObjectPreview : MonoBehaviour
     public bool isBuildable()
     {
         return colliderList.Count == 0;
+    }
+    public void FixedObject()
+    {
+        m_isFixed = true;
+        SetColor(blue);
     }
 }

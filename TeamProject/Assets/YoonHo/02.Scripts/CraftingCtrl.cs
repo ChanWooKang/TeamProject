@@ -25,4 +25,13 @@ public class CraftingCtrl : MonoBehaviour
                 m_UICrafting.OpenUI();
         }      
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        
+    }
 }
