@@ -9,12 +9,15 @@ public class PlayerCtrl : MonoBehaviour
     public PlayerStat Stat;
     [SerializeField] Transform playerBody;
     [SerializeField] Transform cameraArm;
+    [SerializeField] WeaponCtrl EquipWeapon;
+    [SerializeField] Renderer render;
     #endregion [ Component ]
 
     #region [ 전역변수 ]
-    float moveSpeed;
-    float h, v;
+    public bool isDead = false;
     GameObject nearObject = null;
+    float moveSpeed;    
+    //bool ContinueAttack = false;
     #endregion [ 전역변수 ]
 
     #region [ Property ]
@@ -45,6 +48,11 @@ public class PlayerCtrl : MonoBehaviour
     {
         //나중에는 데이터 로드 
         Stat.Init();        
+    }
+
+    void ChangeColor(Color color)
+    {
+        render.material.color = color;
     }
 
     //마우스 인식하여 카메라 회전 및 플레이어 회전
@@ -136,7 +144,19 @@ public class PlayerCtrl : MonoBehaviour
     //이놈은 공격 작업
     void OnLeftMouseEvent(MouseEvent evt)
     {
+        switch (evt)
+        {
+            case MouseEvent.PointerDown:
+                //ContinueAttack = true;
+                EquipWeapon.OnWeaponUse(Stat.Damage);
+                break;
+            case MouseEvent.Press:
 
+                break;
+            case MouseEvent.PointerUp:
+                //ContinueAttack = false;
+                break;
+        }
     }
 
     //줌 하거나 우클릭으로 할만한것들
@@ -150,6 +170,27 @@ public class PlayerCtrl : MonoBehaviour
 
     }
     #endregion [ Mouse Event ]
+
+    public void OnDamage(float damage)
+    {
+        if (isDead)
+            return;
+
+        isDead = Stat.GetHit(damage);
+        StopCoroutine(OnDamageEvent());
+        StartCoroutine(OnDamageEvent());
+    }
+
+    IEnumerator OnDamageEvent()
+    {
+        if (isDead)
+        {
+            //죽었을때 행동
+        }
+        ChangeColor(Color.gray);
+        yield return new WaitForSeconds(0.3f);
+        ChangeColor(Color.red);
+    }
 
     void OnTriggerStay(Collider other)
     {

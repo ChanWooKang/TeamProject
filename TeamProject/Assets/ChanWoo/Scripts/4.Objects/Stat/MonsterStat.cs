@@ -26,13 +26,13 @@ public class MonsterStat : BaseStat
         _level = 1;
         _hp = 200;
         _maxHp = 200;
-        _damage = 30;
+        _damage = 2;
         _defense = 5;
         _moveSpeed = 6;
-        _traceRange = 20;
+        _traceRange = 10;
         _traceSpeed = 8;
         _attackRange = 5;
-        _attackDelay = 1;
+        _attackDelay = 2;
         _minGold = 50;
         _maxGold = 100;
         _exp = 60;
@@ -42,29 +42,5 @@ public class MonsterStat : BaseStat
     {
         if (stat != null)
             stat.EXP += _exp;
-    }
-
-    //[SerializeField] int[] _weightProbs;
-    //public virtual void Attack(Animator anim) { }
-
-    //public virtual void SpeacialAttack(Vector3 targetPos) { }
-    //public int PickPattern()
-    //{
-    //    int sum = 0;
-    //    int i = 0;
-    //    for (; i < _weightProbs.Length; i++)
-    //        sum += _weightProbs[i];
-    //    int randValue = Random.Range(0, sum + 1);
-    //    for (i = 0; i < _weightProbs.Length; i++)
-    //    {
-    //        if (_weightProbs[i] > randValue)
-    //        {
-    //            return i;
-    //        }
-    //        else
-    //            randValue -= _weightProbs[i];
-    //    }
-
-    //    return 1;
-    //}
+    }    
 }

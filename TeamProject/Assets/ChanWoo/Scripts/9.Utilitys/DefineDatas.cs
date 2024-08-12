@@ -34,6 +34,20 @@ namespace DefineDatas
         Gold
     }
 
+    public enum eMonsterType
+    {
+
+    }
+
+    public enum eMonsterState
+    {
+        DEAD    = 0,
+        IDLE,
+        PATROL,
+        TRACE,
+        ATTACK,
+    }
+
 
     public interface IFSMState<T>
     {
