@@ -61,7 +61,7 @@ public class TalkManager : MonoBehaviour
     public Dialogue[] Parse(string csvFileName)
     {
         List<Dialogue> dialogueList = new List<Dialogue>();
-        TextAsset csvData = Resources.Load<TextAsset>(csvFileName);
+        TextAsset csvData = Resources.Load<TextAsset>($"CSV/{csvFileName}");
 
         string[] data = csvData.text.Split(new char[] {'\n'});
         for (int i = 1; i < data.Length;)
