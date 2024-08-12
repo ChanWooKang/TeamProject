@@ -1,17 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectPreview : MonoBehaviour
 {
-    [SerializeField] List<Collider> colliderList = new List<Collider>(); // 충돌한 오브젝트들 저장할 리스트
-
+    [SerializeField]
+    List<Collider> colliderList = new List<Collider>(); // 충돌한 오브젝트들 저장할 리스트
+    UIWorkload m_uiWorkload;
     [SerializeField]
     int layerGround; // 지형 레이어 (무시하게 할 것)
     const int IGNORE_RAYCAST_LAYER = 2;  // ignore_raycast (무시하게 할 것)
-
-    [SerializeField] bool m_isFixed;
-
+    
+    bool m_isFixed;
+    bool m_isDone;
+    [SerializeField]
+    GameObject m_uiWorkloadPrefab;
+    [SerializeField]
+    Material m_originalMaterial;
     [SerializeField]
     Material green;
     [SerializeField]
@@ -21,10 +25,30 @@ public class ObjectPreview : MonoBehaviour
     private void Awake()
     {
         m_isFixed = false;
+        m_isDone = false;
     }
     void Update()
-    {        
-            ChangeColor();
+    {
+        ChangeColor();
+        if (m_uiWorkload != null && m_uiWorkload.isActiveAndEnabled)
+        {
+            if (Input.GetKey(KeyCode.F))
+                if (m_uiWorkload.PressFkey())
+                {
+                    SetColor(m_originalMaterial);
+                    BoxCollider collider = GetComponent<BoxCollider>();
+                    collider.isTrigger = false;                    
+                    m_isDone = true;
+                    gameObject.transform.parent.gameObject.isStatic = true;
+                }
+            if (Input.GetKeyUp(KeyCode.F))
+                m_uiWorkload.UpFKey();
+            if (Input.GetKey(KeyCode.C))
+                if (m_uiWorkload.PressCKey())
+                    Destroy(gameObject);
+            if (Input.GetKeyUp(KeyCode.C))
+                m_uiWorkload.UpCKey();
+        }
     }
 
     private void ChangeColor()
@@ -56,9 +80,16 @@ public class ObjectPreview : MonoBehaviour
         if (other.gameObject.layer != layerGround && other.gameObject.layer != IGNORE_RAYCAST_LAYER)
             colliderList.Add(other);
 
-        if(other.gameObject.tag == "Player")
+        if (m_isFixed && other.gameObject.tag == "Player" && !m_isDone)
         {
-
+            if (m_uiWorkload == null)
+            {
+                GameObject ui = Instantiate(m_uiWorkloadPrefab);
+                ui.transform.position = gameObject.transform.position + gameObject.transform.up * 1.5f + gameObject.transform.right * 1.5f;
+                m_uiWorkload = ui.GetComponentInChildren<UIWorkload>();
+            }
+            else
+                m_uiWorkload.OpenUI();
         }
     }
 
@@ -66,6 +97,14 @@ public class ObjectPreview : MonoBehaviour
     {
         if (other.gameObject.layer != layerGround && other.gameObject.layer != IGNORE_RAYCAST_LAYER)
             colliderList.Remove(other);
+
+        if (m_isFixed && other.CompareTag("Player"))
+        {
+            if (m_uiWorkload != null)
+            {
+                m_uiWorkload.CloseUI();
+            }
+        }
     }
 
     public bool isBuildable()
@@ -77,4 +116,5 @@ public class ObjectPreview : MonoBehaviour
         m_isFixed = true;
         SetColor(blue);
     }
+
 }
