@@ -19,6 +19,8 @@ public class CraftingCtrl : MonoBehaviour
             if (m_UICrafting == null)
             {
                 GameObject ui = Instantiate(m_UICraftingPrefab);
+                Canvas canvas = ui.GetComponent<Canvas>();
+                canvas.worldCamera = GameObject.FindGameObjectWithTag("UICamera").GetComponent<Camera>();
                 m_UICrafting = ui.GetComponent<UI_Craft>();
             }
             else

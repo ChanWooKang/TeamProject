@@ -18,7 +18,7 @@ public class UI_Workload : MonoBehaviour
     {
         m_mainCam = Camera.main;
         m_canvas = GetComponent<Canvas>();
-        m_canvas.worldCamera = m_mainCam;
+        
     }
     void Update()
     {

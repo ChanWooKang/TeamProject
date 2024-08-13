@@ -85,6 +85,8 @@ public class ObjectPreview : MonoBehaviour
             if (m_uiWorkload == null)
             {
                 GameObject ui = Instantiate(m_uiWorkloadPrefab);
+                Canvas canvas = ui.GetComponent<Canvas>();
+                canvas.worldCamera = GameObject.FindGameObjectWithTag("UICamera").GetComponent<Camera>();
                 ui.transform.position = gameObject.transform.position + gameObject.transform.up * 1.5f + gameObject.transform.right * 1.5f;
                 m_uiWorkload = ui.GetComponentInChildren<UI_Workload>();
             }
