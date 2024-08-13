@@ -21,6 +21,10 @@ public class SOItem : ScriptableObject
     //아이템 무게
     public float itemWeight;
 
+    //제작 아이템 경우 
+    //필요 아이템
+    public List<RequiredItem> NeedItems;
+
     //UI 아이콘
     public Sprite icon;
     //UI 아이템 이름 한글 작성
@@ -29,3 +33,5 @@ public class SOItem : ScriptableObject
     [Multiline]
     public string desc;
 }
+
+

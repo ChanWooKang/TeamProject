@@ -13,6 +13,8 @@ public class UI_Inventory : MonoBehaviour
     public Text InvenWeightText;
     UI_Slot[] slots;    
 
+    public UI_Slot[] GetInvenSlots { get { return slots; } }
+
     public void Init()
     {
         slots = Slot_Parent.GetComponentsInChildren<UI_Slot>();
@@ -60,6 +62,14 @@ public class UI_Inventory : MonoBehaviour
             weights += slot.itemWeight;
         }
         return weights;
+    }
+
+    public void UseItemAtSlot(int slotNumber, int count)
+    {
+        if (slotNumber >= slots.Length)
+            return;
+
+        slots[slotNumber].SetSlotCount(-count);
     }
 
     public void AcquireItem(SOItem newItem, int count = 1)

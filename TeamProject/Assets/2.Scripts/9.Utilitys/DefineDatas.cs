@@ -88,3 +88,27 @@ namespace DefineDatas
         public EXPData() { }
     }
 }
+
+
+//아이템 관련 클래스 정리
+namespace DefineDatas
+{
+    [System.Serializable]
+    public class RequiredItem
+    {
+        public SOItem items;
+        public int cnt;
+    }
+
+    public class ItemSlotAndCount
+    {
+        public List<int> slotNumbers = new List<int>();
+        public List<int> itemCounts = new List<int>();
+
+        public ItemSlotAndCount(List<int> slots, List<int> items)
+        {
+            slotNumbers = slots;
+            itemCounts = items;
+        }
+    }
+}

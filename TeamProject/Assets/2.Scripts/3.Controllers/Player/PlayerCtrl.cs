@@ -17,8 +17,10 @@ public class PlayerCtrl : MonoBehaviour
     #region [ 전역변수 ]
     public bool isDead = false;
     GameObject nearObject = null;
-    float moveSpeed;    
+    float moveSpeed;
     //bool ContinueAttack = false;
+
+    public List<RequiredItem> TestItemRequired;
     #endregion [ 전역변수 ]
 
     #region [ Property ]
@@ -75,7 +77,26 @@ public class PlayerCtrl : MonoBehaviour
     {
         OnMoveEvent(Input.GetKey(KeyCode.LeftShift),Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         OnInteractEvent(Input.GetKeyDown(KeyCode.F));
-        OnInventoryEvent(Input.GetKeyDown(KeyCode.I));        
+        OnInventoryEvent(Input.GetKeyDown(KeyCode.I));
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            //TestMaking
+            ItemSlotAndCount itemSlots = InventoryManager._inst.CheckEnoughItem(TestItemRequired);
+            if (itemSlots != null)
+            {
+                for(int i = 0; i < itemSlots.slotNumbers.Count; i++)
+                {
+                    InventoryManager._inst.UseItemForBuild(itemSlots.slotNumbers[i], itemSlots.itemCounts[i]);
+                }
+
+                Debug.Log("제작 완료");
+            }
+            else
+            {
+                Debug.Log("재료 부족");
+            }
+        }
     }
 
     void OnMoveEvent(bool btnDown,float horizontal, float vertical)

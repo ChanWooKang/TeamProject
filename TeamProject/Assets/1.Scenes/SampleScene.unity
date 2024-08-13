@@ -1689,6 +1689,9 @@ MonoBehaviour:
   EquipWeapon: {fileID: 8016454231210626422}
   render: {fileID: 8016454230802112487}
   isDead: 0
+  TestItemRequired:
+  - items: {fileID: 11400000, guid: 4d14be5ddd78a2d458ce2609be9f8ef0, type: 2}
+    cnt: 2
 --- !u!4 &8016454229222076305
 Transform:
   m_ObjectHideFlags: 0
