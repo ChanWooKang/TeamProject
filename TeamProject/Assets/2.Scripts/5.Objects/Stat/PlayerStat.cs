@@ -61,7 +61,7 @@ public class PlayerStat : BaseStat
         _moveSpeed = 5;
         _runSpeed = 10;
         _bonusStat = 0;
-        _carryWeight = 999;
+        _carryWeight = 9999999;
     }
 
     public void LevelUp(int level)
