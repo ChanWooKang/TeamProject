@@ -17,13 +17,13 @@ public class InputManager
     const float tick = 0.25f;
 
     public void OnUpdate()
-    {
+    {                
+        if (Input.anyKey && KeyAction != null)
+            KeyAction.Invoke();
+
         //UI위 마우스 포인터가 있을 때 UI클릭 외 마우스 (좌클릭, 우클릭)작업 불가        
         if (EventSystem.current.IsPointerOverGameObject())
             return;
-
-        if (Input.anyKey && KeyAction != null)
-            KeyAction.Invoke();        
 
         //좌클릭 관련
         if (LeftMouseAction != null)
