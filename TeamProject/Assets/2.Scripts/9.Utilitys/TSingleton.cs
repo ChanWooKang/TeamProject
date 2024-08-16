@@ -6,7 +6,10 @@ public class TSingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     static T _uniqueInstance;
     static object _lock = new object();
-
+    protected virtual void Init()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     public static T _inst
     {
         get

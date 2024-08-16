@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_Craft : MonoBehaviour
 {
     [SerializeField] GameObject m_CraftSlotButton;
 
     [SerializeField] GameObject m_prefabObj;
-
+    Button m_slotBtn;    
     GameObject m_previewObj;
     GameObject m_craftingObj;
 
@@ -52,6 +53,7 @@ public class UI_Craft : MonoBehaviour
         m_isPreviewActivated = true;
         m_CraftSlotButton.SetActive(false);
     }
+    
     void PreviewPositionUpdate()
     {
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out m_hitInfo, m_range, m_layerMask))

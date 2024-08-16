@@ -12,6 +12,7 @@ public class ObjectPreview : MonoBehaviour
     
     bool m_isFixed;
     bool m_isDone;
+    public bool IsDone { get { return m_isDone; } }
     [SerializeField]
     GameObject m_uiWorkloadPrefab;
     [SerializeField]
@@ -37,7 +38,7 @@ public class ObjectPreview : MonoBehaviour
                 {
                     SetColor(m_originalMaterial);
                     BoxCollider collider = GetComponent<BoxCollider>();
-                    collider.isTrigger = false;                    
+                    //collider.isTrigger = false;                    
                     m_isDone = true;
                     gameObject.transform.parent.gameObject.isStatic = true;
                 }

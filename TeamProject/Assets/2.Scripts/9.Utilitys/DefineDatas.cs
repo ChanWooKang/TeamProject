@@ -60,6 +60,12 @@ namespace DefineDatas
     {
         Dictionary<Key, Value> Make();
     }
+
+    public enum LowDataType
+    {
+
+    }
+
 }
 
 // 데이터 관련 클래스 정리

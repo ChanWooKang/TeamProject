@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DefineDatas;
 
 public class UI_Workload : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class UI_Workload : MonoBehaviour
     Slider m_fSlider;
     [SerializeField]
     Slider m_cSlider;
+
+    List<RequiredItem> m_listRequiredItem;
     void Start()
     {
         m_mainCam = Camera.main;
@@ -36,6 +39,7 @@ public class UI_Workload : MonoBehaviour
     }
     public bool PressFkey()
     {
+        float pel = 106f;
         m_fSlider.value += Time.deltaTime;
         if(m_fSlider.value >= 1)
         {
@@ -66,4 +70,6 @@ public class UI_Workload : MonoBehaviour
     {
         transform.LookAt(m_mainCam.transform);
     }
+   
+    
 }
