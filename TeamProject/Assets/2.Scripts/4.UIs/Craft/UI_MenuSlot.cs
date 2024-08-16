@@ -32,12 +32,12 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             if(m_x < 5)
             {
                 m_uiInfoBox.gameObject.transform.SetParent(m_infoBoxPoses[0]);
-                m_uiInfoBox.OpenBox();
+                m_uiInfoBox.OpenBox("test", "test");
             }
             else
             {
                 m_uiInfoBox.gameObject.transform.SetParent(m_infoBoxPoses[1]);
-                m_uiInfoBox.OpenBox();
+                m_uiInfoBox.OpenBox("test", "test");
             }
         }
         else
@@ -45,12 +45,12 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             if (m_x < 5)
             {
                 m_uiInfoBox.gameObject.transform.SetParent(m_infoBoxPoses[2]);
-                m_uiInfoBox.OpenBox();
+                m_uiInfoBox.OpenBox("test", "test");
             }
             else
             {
                 m_uiInfoBox.gameObject.transform.SetParent(m_infoBoxPoses[3]);
-                m_uiInfoBox.OpenBox();
+                m_uiInfoBox.OpenBox("test", "test");
             }
         }
         m_uiInfoBox.transform.SetParent(transform.parent);

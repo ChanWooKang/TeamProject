@@ -12,12 +12,15 @@ public class UI_InfoBox : MonoBehaviour
 
     List<UI_MaterialSlot> m_listMeterialSlots;
     
-    public void OpenBox()
+    public void OpenBox(string name, string desc)
     {
         gameObject.SetActive(true);
         m_parentRT = GetComponentInParent<RectTransform>();
         m_parentRT.offsetMin = Vector2.zero;
         m_parentRT.offsetMax = Vector2.zero;
+
+        m_txtName.text = name;
+        m_txtDesc.text = desc;
     }
     public void CloseBox()
     {
