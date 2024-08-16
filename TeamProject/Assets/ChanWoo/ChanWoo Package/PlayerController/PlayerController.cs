@@ -17,15 +17,16 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Player Stat")]
     [Tooltip(" MoveSpeed in m/s")]
-    public float MoveSpeed = 2.0f;
+    public float MoveSpeed;
     [Tooltip(" SprintSpeed in m/s")]
-    public float SprintSpeed = 5.335f;
+    public float SprintSpeed;
     [Tooltip("Accel & Decel")]
     public float SpeedChangeRate = 10.0f;
     [Tooltip("Smooth Rotate SpeedTime")]
     [Range(0.0f, 0.3f)] public float RotationSmoothTime = 0.12f;
-
-    [Space(10)]
+    [Tooltip("Check Player State is Dead")]
+    public bool isDead;
+    
     [Header("Jump")]
     [Tooltip("Jump Height")]
     public float JumpHeight = 1.2f;
@@ -35,8 +36,7 @@ public class PlayerController : MonoBehaviour
     public float JumpTimeOut = 0.5f;
     [Tooltip("Fall State Required Time")]
     public float FallTimeOut = 0.15f;
-
-    [Space(10)]
+    
     [Header("Player Grounded")]
     [Tooltip("Player Grounded Check")]
     public bool Grounded = true;
@@ -46,8 +46,7 @@ public class PlayerController : MonoBehaviour
     public float GroundedRadius = 0.28f;
     [Tooltip("Layers Ground")]
     public LayerMask GroundLayers;
-
-    [Space(10)]
+    
     [Tooltip("Follow Target Set in Cinemachine VirtualCamer Follow root")]
     public GameObject CinemachineCameraTarget;
     [Tooltip("Camera up Able Degress")]
@@ -58,16 +57,15 @@ public class PlayerController : MonoBehaviour
     public float CameraAngleOverride = 0.0f;
     [Tooltip("For locking the camera position on all axis")]
     public bool LockCameraPosition = false;
-
-    [Space(10)]
+    
     [Header("Audios")]
     public AudioClip LandingAudioClip;
     public AudioClip[] FootstepAudioClips;
     [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
-    [Space(10)]
     [Header("Components")]
     public GameObject MainCamera;
+    public PlayerStat Stat;
 
     //Cinemachine
     float _cinemachineTargetYaw;
@@ -122,6 +120,8 @@ public class PlayerController : MonoBehaviour
 #endif
         }
     }
+    TalkManager talkManager { get { return TalkManager._talk; } }
+
 
     private void Start()
     {
@@ -170,6 +170,18 @@ public class PlayerController : MonoBehaviour
 
         //Component Setting
         _mainCamera = MainCamera;
+        LoadStat();
+    }
+
+    void LoadStat()
+    {
+        Stat.Init();
+
+        MoveSpeed = Stat.MoveSpeed;
+        SprintSpeed = Stat.RunSpeed;
+
+        InventoryManager._inst.MaxItemWeights = Stat.CarryWeight;
+
     }
 
     void ChangeColor(Color color)
@@ -179,7 +191,7 @@ public class PlayerController : MonoBehaviour
             render.material.color = color;
         }
     }
-    
+
     #endregion [ Sub Method ]
 
     #region [ Animations ]
@@ -284,6 +296,8 @@ public class PlayerController : MonoBehaviour
     {
         float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
+        Debug.Log(_input.move);
+        
         if (_input.move == Vector2.zero) targetSpeed = 0.0f;
 
         float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
@@ -298,10 +312,12 @@ public class PlayerController : MonoBehaviour
                 Time.deltaTime * SpeedChangeRate);
 
             _speed = Mathf.Round(_speed * 1000f) / 1000f;
+            
         }
         else
         {
             _speed = targetSpeed;
+            
         }
 
         _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
@@ -345,18 +361,33 @@ public class PlayerController : MonoBehaviour
     {
         if (_input.interact)
         {
-            Debug.Log("Gotit");
+            if (_nearObject.TryGetComponent(out ObjectData objData))
+            {
+                if (objData.isNPC)
+                {
+                    talkManager.ShowText(_nearObject, objData.objID, objData.name);
+                }
+                else
+                {
+                    if (_nearObject.TryGetComponent(out BaseItem item))
+                    {
+                        if (item.Root())
+                        {
+                            _nearObject = null;
+                        }
 
-            _input.interact = false;
-        }
+                    }
+                }
+                _input.interact = false;
+            }
+        }            
     }
 
     void InventoryEvent()
     {
         if (_input.inventory)
         {
-            Debug.Log("Inventory Try Opne or Close");
-
+            InventoryManager._inst.invenUI.TryOpenInventory();
             _input.inventory = false;
         }
     }
@@ -365,9 +396,10 @@ public class PlayerController : MonoBehaviour
     #region [ OnDamaged ] 
     public void OnDamage(float damage)
     {
-        //if(isDead)
-        //return;
+        if(isDead)
+            return;
 
+        isDead = Stat.GetHit(damage);
         //UnitaskVoid 사용시 .Forget()
         if (_source != null)
             _source = new CancellationTokenSource();
@@ -421,7 +453,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag(""))
+        if (other.CompareTag("Interact"))
         {
             _nearObject = other.gameObject;
         }
@@ -429,9 +461,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag(""))
+        if (other.CompareTag("Interact"))
         {
             _nearObject = null;
+            if (talkManager.talkUI.mainObject.activeSelf)
+            {
+                //대화 UI가 켜져있을경우 끄기
+                talkManager.ResetData();
+            }
         }
     }
     #endregion [ Trigger Event ] 

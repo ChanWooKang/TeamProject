@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class LowBase : MonoBehaviour
+public abstract class LowBase
 {
     Dictionary<string, Dictionary<string, string>> m_sheetDatas = new Dictionary<string, Dictionary<string, string>>();
 
