@@ -11,9 +11,11 @@ public class Managers : MonoBehaviour
     InputManager Input = new InputManager();
     FileManager File = new FileManager();
     DataManager Data = new DataManager();
+    TableManager Table = new TableManager();
     public static InputManager _input { get { return _inst.Input; } }
     public static FileManager _file { get { return _inst.File; } }
     public static DataManager _data { get { return _inst.Data; } }
+    public static TableManager _table { get { return _inst.Table; } }
     #endregion [ Core ]
 
     #region [ Data ] 
@@ -33,6 +35,7 @@ public class Managers : MonoBehaviour
             DontDestroyOnLoad(go);
             _uniqueInstance = go.GetComponent<Managers>();
             _uniqueInstance.File.Init();
+            _uniqueInstance.Table.Init();
             _uniqueInstance.Data.Init();
         }
     }
@@ -40,6 +43,7 @@ public class Managers : MonoBehaviour
     public static void Clear()
     {
         _input.Clear();
+        
     }
 
     void Update()
