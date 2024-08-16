@@ -7,15 +7,15 @@ using System.Linq;
 using System.Reflection;
 
 
-public class TableManager : TSingleton<TableManager>
+public class TableManager 
 {
     Dictionary<LowDataType, LowBase> m_gameTables = new Dictionary<LowDataType, LowBase>();
 
-    protected override void Init()
-    {
-        base.Init();
-
+    public void Init()
+    {        
         m_gameTables = new Dictionary<LowDataType, LowBase>();
+
+        LoadTableAll();
     }
 
     // 전체 로드
