@@ -378,8 +378,9 @@ public class PlayerController : MonoBehaviour
 
                     }
                 }
-                _input.interact = false;
+               
             }
+            _input.interact = false;
         }            
     }
 

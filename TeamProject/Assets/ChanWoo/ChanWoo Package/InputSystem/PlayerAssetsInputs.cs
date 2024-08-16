@@ -88,7 +88,7 @@ public class PlayerAssetsInputs : MonoBehaviour
 
     private void OnApplicationFocus(bool hasFocus)
     {
-        SetCursorState(cursorLocked);
+       // SetCursorState(cursorLocked);
     }
 
     private void SetCursorState(bool newState)

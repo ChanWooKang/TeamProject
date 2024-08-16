@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 1436622279608546039}
   - component: {fileID: 1436622279608546043}
   - component: {fileID: 3779830681617116546}
+  - component: {fileID: 8264041299077969412}
   m_Layer: 0
   m_Name: model
-  m_TagString: Untagged
+  m_TagString: Interact
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,6 +133,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_uiInteractionObj: {fileID: 2671872734054659491, guid: df6f02719b63fcf4abcf05ebbc914772, type: 3}
+--- !u!114 &8264041299077969412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436622279608546042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25478309541e5294d914f6cc57d0d73e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objID: 0
+  type: 0
+  isNPC: 0
 --- !u!1 &1436622280055881262
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,9 +157,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1436622280055881263}
+  - component: {fileID: 5382666512668582422}
   m_Layer: 0
   m_Name: CraftingTable
-  m_TagString: Untagged
+  m_TagString: Interact
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,3 +180,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5382666512668582422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436622280055881262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25478309541e5294d914f6cc57d0d73e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objID: 0
+  type: 0
+  isNPC: 0
