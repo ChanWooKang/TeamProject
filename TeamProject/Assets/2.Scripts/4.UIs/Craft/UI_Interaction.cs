@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DefineDatas;
 
 public class UI_Interaction : MonoBehaviour
 {
@@ -18,12 +19,7 @@ public class UI_Interaction : MonoBehaviour
     Vector2Int m_maxMenuVolAmount;
 
     bool m_isNew = true;
-    private void Awake()
-    {
-        //юс╫ц
-        m_maxMenuVolAmount = new Vector2Int(10, 2);
-        
-    }
+   
     private void Update()
     {
         if (m_uiCraftObj.activeSelf)
@@ -60,6 +56,7 @@ public class UI_Interaction : MonoBehaviour
         m_uiCraftObj.SetActive(false);
         if (m_isNew)
         {
+            DecideSlotCount();
             int num = 0;
             for (int i = 0; i < m_maxMenuVolAmount.y; i++)
             {
@@ -72,7 +69,7 @@ public class UI_Interaction : MonoBehaviour
                     float x = (m_startSlot.sizeDelta.x + 10) * j;
                     float y = -(m_startSlot.sizeDelta.y + 10) * i;
                     rect.anchoredPosition = new Vector2(x, y);
-                    slot.InitSlot(j, i);
+                    slot.InitSlot(num, j, i);
                     num++;
                     m_listUIMenuSlot.Add(slot);
                     m_isNew = false;
@@ -85,5 +82,24 @@ public class UI_Interaction : MonoBehaviour
     {
         m_uiMenuObj.SetActive(false);
         m_uiCraftObj.SetActive(true);
+    }
+
+    void DecideSlotCount()
+    {
+        LowBase weaponTable = Managers._table.Get(LowDataType.WeaponTable);
+        int count = weaponTable.MaxCount();
+        int x = 0;
+        int y = 0;
+        if (count < 10)
+        {
+            x = count;
+            y = 1;
+        }
+        else if(count > 10)
+        {
+            x = 10;
+            y = count % 10;
+        }
+        m_maxMenuVolAmount = new Vector2Int(x, y);
     }
 }
