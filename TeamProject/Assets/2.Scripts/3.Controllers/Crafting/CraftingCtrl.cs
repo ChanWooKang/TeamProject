@@ -22,6 +22,7 @@ public class CraftingCtrl : MonoBehaviour
                 Canvas canvas = ui.GetComponent<Canvas>();
                 canvas.worldCamera = GameObject.FindGameObjectWithTag("UICamera").GetComponent<Camera>();
                 m_UICrafting = ui.GetComponent<UI_Craft>();
+                m_UICrafting.OpenUI();
             }
             else
                 m_UICrafting.OpenUI();

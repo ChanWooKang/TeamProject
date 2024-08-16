@@ -21,7 +21,7 @@ public class UI_Interaction : MonoBehaviour
     private void Awake()
     {
         //юс╫ц
-        m_maxMenuVolAmount = new Vector2Int(4, 1);
+        m_maxMenuVolAmount = new Vector2Int(10, 2);
         
     }
     private void Update()
@@ -60,6 +60,7 @@ public class UI_Interaction : MonoBehaviour
         m_uiCraftObj.SetActive(false);
         if (m_isNew)
         {
+            int num = 0;
             for (int i = 0; i < m_maxMenuVolAmount.y; i++)
             {
                 for (int j = 0; j < m_maxMenuVolAmount.x; j++)
@@ -71,7 +72,8 @@ public class UI_Interaction : MonoBehaviour
                     float x = (m_startSlot.sizeDelta.x + 10) * j;
                     float y = -(m_startSlot.sizeDelta.y + 10) * i;
                     rect.anchoredPosition = new Vector2(x, y);
-
+                    slot.InitSlot(j, i);
+                    num++;
                     m_listUIMenuSlot.Add(slot);
                     m_isNew = false;
                 }

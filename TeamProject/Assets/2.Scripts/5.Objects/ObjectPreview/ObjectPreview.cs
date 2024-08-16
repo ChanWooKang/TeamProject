@@ -90,6 +90,7 @@ public class ObjectPreview : MonoBehaviour
                 canvas.worldCamera = GameObject.FindGameObjectWithTag("UICamera").GetComponent<Camera>();
                 ui.transform.position = gameObject.transform.position + gameObject.transform.up * 1.5f + gameObject.transform.right * 1.5f;
                 m_uiWorkload = ui.GetComponentInChildren<UI_Workload>();
+                m_uiWorkload.OpenUI();
             }
             else
                 m_uiWorkload.OpenUI();
