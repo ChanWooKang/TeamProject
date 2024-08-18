@@ -48,6 +48,15 @@ namespace DefineDatas
         ATTACK,
     }
 
+    public enum ePlayerAnimParams
+    {
+        Speed,
+        Ground,
+        Jump,
+        FreeFall,
+        MotionSpeed
+    }
+
 
     public interface IFSMState<T>
     {
