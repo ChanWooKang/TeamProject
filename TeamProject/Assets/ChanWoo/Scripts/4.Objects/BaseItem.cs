@@ -7,6 +7,7 @@ public class BaseItem
 {
     protected int _index;
     protected eItemType _type;
+    protected eEquipType _eType;
     protected string _nameEn;
     protected string _desc;
     protected string _spriteName;
@@ -20,6 +21,7 @@ public class BaseItem
 
     public int Index { get { return _index; } }
     public eItemType Type { get { return _type; } set { _type = value; } }
+    public eEquipType EquipType { get { return _eType; } set { _eType = value; } }
     public string NameEn { get { return _nameEn; } }
     public string Desc { get { return _desc; } }
     public string SpriteName { get { return _spriteName; } }
@@ -37,6 +39,9 @@ public class BaseItem
         _nameKr = nameKr;
         _weight = weight;
         _maxStack = 999;
+
+        //Test
+        _eType = (eEquipType)((index / 100) - 1);
     }
 
     

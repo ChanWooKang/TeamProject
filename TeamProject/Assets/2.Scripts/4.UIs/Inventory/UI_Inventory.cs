@@ -18,10 +18,10 @@ public class UI_Inventory : MonoBehaviour
     public void Init()
     {
         slots = Slot_Parent.GetComponentsInChildren<UI_Slot>();
-        foreach (UI_Slot slot in slots)
+        for(int i = 0; i < slots.Length; i++)
         {
-            slot.Init();
-        }
+            slots[i].Init();
+        }        
         CloseUI();
     }  
 

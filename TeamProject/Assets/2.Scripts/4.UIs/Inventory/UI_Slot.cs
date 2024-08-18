@@ -5,21 +5,36 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DefineDatas;
 
-public class UI_Slot : MonoBehaviour
+public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
+    enum GameObjects
+    {
+        ItemIcon,
+        CountParent,
+        CountText,
+        WeightParent,
+        WeightText
+    }
+
     [Header("Components")]
-    public Image Item_Image;
-    public Text Count_Text;
-    public Text Weight_Text;
-    public GameObject Count_Parent;
-    public GameObject Weight_Parent;
+    Image Item_Image;
+    Text Count_Text;
+    Text Weight_Text;
+    GameObject Count_Parent;
+    GameObject Weight_Parent;
 
     public BaseItem itemData;
     public int itemCount;
     public float itemWeight;
 
-    public void Init()
+    public override void Init()
     {
+        Bind<GameObject>(typeof(GameObjects));
+        Item_Image = GetObject((int)GameObjects.ItemIcon).GetComponent<Image>();
+        Count_Text = GetObject((int)GameObjects.CountText).GetComponent<Text>();
+        Weight_Text = GetObject((int)GameObjects.WeightText).GetComponent<Text>();
+        Count_Parent = GetObject((int)GameObjects.CountParent);
+        Weight_Parent = GetObject((int)GameObjects.WeightParent);        
         ClearSlot();
     }
 
@@ -85,10 +100,91 @@ public class UI_Slot : MonoBehaviour
         itemCount = 0;
         itemWeight = 0;
         Item_Image.sprite = null;
-        SetAlpha(0);
         Count_Text.text = "";
         Count_Parent.SetActive(false);
         Weight_Text.text = "";
         Weight_Parent.SetActive(false);
+        SetAlpha(0);        
+    }
+
+    void ChangeSlot()
+    {
+        BaseItem tempItem = itemData;
+        int tempCount = itemCount;
+        AddItem(DragSlot._inst.SlotInven.itemData, DragSlot._inst.SlotInven.itemCount);
+        if (tempItem != null)
+            DragSlot._inst.SlotInven.AddItem(tempItem, tempCount);
+        else
+            DragSlot._inst.SlotInven.ClearSlot();
+
+    }
+
+    //우클릭 장착 혹은 사용
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if(eventData.button == PointerEventData.InputButton.Right)
+        {            
+            if (itemData != null)
+            {
+                switch (itemData.Type)
+                {
+                    case eItemType.Equipment:                    
+                        if(InventoryManager.ActiveChangeEquip == false)
+                        {
+                            InventoryManager._inst.OnChangeEvent?.Invoke(itemData.EquipType, itemData, 0, true);
+                            ClearSlot();
+                        }
+                        break;                    
+                }
+            }
+        }
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (itemData != null)
+        {
+            DragSlot._inst.isFromInven = true;
+            DragSlot._inst.SetCanvas(false);
+            DragSlot._inst.SlotInven = this;
+            DragSlot._inst.DragSetImage(Item_Image);
+        }
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (itemData != null)
+        {
+            DragSlot._inst._rect.position = eventData.position;
+        }
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        DragSlot._inst.SetAlpha(0);
+        DragSlot._inst.SetCanvas(true);
+        DragSlot._inst.SlotInven = null;
+        DragSlot._inst._rect.position = Vector2.zero;
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        if (DragSlot._inst.isFromInven)
+        {
+            if (DragSlot._inst.SlotInven != null)
+                ChangeSlot();
+        }
+        else
+        {
+            if(InventoryManager.ActiveChangeEquip == false)
+            {
+                UI_EquipSlot slot = DragSlot._inst.SlotEquip;
+                if (InventoryManager._inst.CheckSlot(slot.item) == false)
+                {
+                    InventoryManager._inst.OnChangeEvent?.Invoke(slot.item.EquipType, slot.item, slot.SlotIndex, false);
+                    DragSlot._inst.SlotEquip.ClearSlot();
+                }
+            }
+        }
     }
 }

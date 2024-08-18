@@ -35,6 +35,15 @@ namespace DefineDatas
         Gold
     }
 
+    public enum eEquipType
+    {
+        Unknown = 0,
+        Weapon,
+        Head,
+        Armor,
+        Max_Count
+    }
+
     public enum eMonsterType
     {
 

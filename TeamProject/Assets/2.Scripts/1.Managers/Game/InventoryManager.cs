@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,12 +13,20 @@ public class InventoryManager : MonoBehaviour
 
     [Header("Components")]
     public UI_Inventory invenUI;
-    List<BaseItem> _items;
+    public UI_Equipment equipUI;
+
+    //Action
+    public Action<eEquipType, BaseItem,int,bool> OnChangeEvent;
+    //public Dictionary<eEquipType, BaseItem[]> Dict_Equip = new Dictionary<eEquipType, BaseItem[]>();
+    public List<BaseItem> Items;
+
+    public static bool ActiveChangeEquip = false;
     public int itemCount;
     public float MaxItemWeights;
-        
-    public float InvenWeight { get { return invenUI.GetItemWeights(); } }
-    public List<BaseItem> Items { get { return _items; } }
+
+    Coroutine EquipCoroutine = null;
+
+    public float InvenWeight { get { return invenUI.GetItemWeights(); } }    
     public UI_Slot[] InventoryItems { get { return invenUI.GetInvenSlots; } }
 
     private void Awake()
@@ -29,17 +38,21 @@ public class InventoryManager : MonoBehaviour
     {
         //Test
         Init();
+        OnChangeEvent -= ChangeEquipment;
+        OnChangeEvent += ChangeEquipment;
     }
 
     public void Init()
-    {
-        invenUI.Init();
-        _items = new List<BaseItem>();
+    {        
+        Items = new List<BaseItem>();       
         AddItems(LowDataType.MaterialTable);
         AddItems(LowDataType.WeaponTable);
-        itemCount = _items.Count;
-    }    
+        itemCount = Items.Count;
+        invenUI.Init();
+        equipUI.Init();
+    }
 
+    #region [ Item Data Load ]
     public void AddItems(LowDataType type)
     {
         LowBase table = Managers._table.Get(type);
@@ -98,12 +111,12 @@ public class InventoryManager : MonoBehaviour
 
                     float damage = Table.ToFloat(index, "Damage");
                     WeaponItemInfo weapon = new WeaponItemInfo(index, nameEn, desc, spriteName, nameKr, weight, materialsIndexArray, materialsCostArray, damage);
-                    _items.Add(weapon);
+                    Items.Add(weapon);
                 }                
                 break;
             case eItemType.Material:
                 MaterialItemInfo material = new MaterialItemInfo(index, nameEn, desc, spriteName, nameKr, weight);
-                _items.Add(material);
+                Items.Add(material);
                 break;
         }
         
@@ -111,13 +124,98 @@ public class InventoryManager : MonoBehaviour
 
     public BaseItem GetItemData(int index)
     {
-        for(int i = 0; i < _items.Count; i++)
+        for(int i = 0; i < Items.Count; i++)
         {
-            if (index == _items[i].Index)
-                return _items[i];
+            if (index == Items[i].Index)
+                return Items[i];
         }
 
         return null;
+    }
+
+    #endregion [ Item Data Load ]
+
+    void ChangeEquipment(eEquipType type, BaseItem item,int slotIndex = 0 ,bool isWear = true)
+    {
+        if (item == null || ActiveChangeEquip)
+            return;
+
+        if (EquipCoroutine != null)
+            StopCoroutine(EquipCoroutine);
+        EquipCoroutine = StartCoroutine(ChangeCoroutine(type, item, slotIndex, isWear));
+
+    }
+
+    IEnumerator ChangeCoroutine(eEquipType type, BaseItem item,int slotIndex = 0, bool isWear = true)
+    {
+        ActiveChangeEquip = true;
+        Dictionary<eEquipType, UI_EquipSlot[]> equipSlots = equipUI.Dict_EquipSlot;
+        int i;
+        if (isWear == false)
+        {
+            //장비 해제
+            if (equipSlots.ContainsKey(type))
+            {
+                for(i = 0; i < equipSlots[type].Length; i++)
+                {
+                    if(equipSlots[type][i].item == item && equipSlots[type][i].SlotIndex == slotIndex)
+                    {
+                        AddInvenItem(item);
+                        AddEquipItem(type, null, slotIndex);
+                        break;
+                    }
+                }
+            }
+        }
+        else
+        {
+            int index = 0;
+            //장비 자리 있는지 확인
+            if (item != null && equipSlots.ContainsKey(type))
+            {
+                bool isEmpty = false;
+                
+                for(i = 0; i < equipSlots[type].Length; i++)
+                {
+                    if(equipSlots[type][i].item == null)
+                    {
+                        isEmpty = true;
+                        index = equipSlots[type][i].SlotIndex;
+                        break;
+                    }
+                }
+
+                
+                if (isEmpty)
+                {
+                    //장비 자리가 있을 경우
+                    // 그냥 추가
+                    AddEquipItem(type, item, index);                    
+                }
+                else
+                {
+                    //장비 자리가 없을 경우
+                    //장비 해제 , 장착
+                    BaseItem tempItem = null;
+                    int minSlotIndex = 0;
+                    // 슬롯 인덱스 값이 낮은 곳을 우선적으로 변경
+                    for (i = 0; i < equipSlots[type].Length; i++)
+                    {                                                
+                        if(equipSlots[type][i].SlotIndex < minSlotIndex)
+                        {
+                            index = i;
+                            minSlotIndex = equipSlots[type][i].SlotIndex;
+                        }
+                    }
+
+                    tempItem = equipSlots[type][index].item;
+                    AddInvenItem(tempItem);
+                    AddEquipItem(type, item, minSlotIndex);
+                }
+            }
+        }
+        yield return new WaitForSeconds(1.0f);
+        ActiveChangeEquip = false;
     }
 
     public bool CheckSlot(BaseItem newItem, int cnt = 1)
@@ -136,6 +234,11 @@ public class InventoryManager : MonoBehaviour
     public void AddInvenItem(BaseItem newItem, int cnt = 1)
     {
         invenUI.AcquireItem(newItem,cnt);
+    }
+
+    public void AddEquipItem(eEquipType type ,BaseItem newItem, int slotIndex = 0)
+    {
+        equipUI.AcquireItem(type, newItem, slotIndex);
     }
 
     public ItemSlotAndCount CheckEnoughItem(int[] indexs,int[] costs)

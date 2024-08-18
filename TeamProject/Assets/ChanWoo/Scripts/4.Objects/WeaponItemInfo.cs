@@ -31,6 +31,6 @@ public class WeaponItemInfo : BaseItem
         Init(index, nameEn, desc, spriteName, nameKr, weight);
         AddInit(Indexs, Costs, damage);
               
-        _type = eItemType.Weapon;
+        _type = eItemType.Equipment;
     }
 }
