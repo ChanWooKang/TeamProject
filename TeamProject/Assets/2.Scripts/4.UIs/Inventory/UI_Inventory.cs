@@ -72,18 +72,18 @@ public class UI_Inventory : MonoBehaviour
         slots[slotNumber].SetSlotCount(-count);
     }
 
-    public void AcquireItem(SOItem newItem, int count = 1)
+    public void AcquireItem(BaseItem newItem, int count = 1)
     {
-        if (newItem.itemType == eItemType.Gold)
+        if (newItem.Type == eItemType.Gold)
             return;
 
-        if(newItem.itemType != eItemType.Equipment)
+        if(newItem.Type != eItemType.Equipment)
         {
             for (int i = 0; i < slots.Length; i++)
             {
-                if(slots[i].item != null)
+                if(slots[i].itemData != null)
                 {
-                    if (slots[i].item.itemID == newItem.itemID)
+                    if (slots[i].itemData.Index == newItem.Index)
                     {
                         if (slots[i].CheckRestSlot(newItem, count))
                         {
@@ -92,7 +92,7 @@ public class UI_Inventory : MonoBehaviour
                         }
                         else
                         {
-                            int value = newItem.maxStack - slots[i].itemCount;
+                            int value = newItem.MaxStack - slots[i].itemCount;
                             slots[i].SetSlotCount(value);
                             count -= value;
                             continue;
@@ -104,7 +104,7 @@ public class UI_Inventory : MonoBehaviour
 
         for(int i = 0; i < slots.Length; i++)
         {
-            if (slots[i].item == null)
+            if (slots[i].itemData == null)
             {
                 slots[i].AddItem(newItem, count);
                 return;
@@ -112,17 +112,17 @@ public class UI_Inventory : MonoBehaviour
         }
     }
 
-    public bool CheckSlotFull(SOItem newItem, int count = 1)
+    public bool CheckSlotFull(BaseItem newItem, int count = 1)
     {
-        if (eItemType.Equipment != newItem.itemType)
+        if (eItemType.Equipment != newItem.Type)
         {
             for (int i = 0; i < slots.Length; i++)
             {
-                if (slots[i].item != null)
+                if (slots[i].itemData != null)
                 {
-                    if (slots[i].item.itemID == newItem.itemID)
+                    if (slots[i].itemData.Index == newItem.Index)
                     {
-                        if (slots[i].itemCount + count <= slots[i].item.maxStack)
+                        if (slots[i].itemCount + count <= slots[i].itemData.MaxStack)
                         {
                             return false;
                         }
@@ -137,7 +137,7 @@ public class UI_Inventory : MonoBehaviour
         }
         for (int i = 0; i < slots.Length; i++)
         {
-            if (slots[i].item == null)
+            if (slots[i].itemData == null)
             {
                 return false;
             }

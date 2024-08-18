@@ -10,94 +10,175 @@ public class InventoryManager : MonoBehaviour
     public static InventoryManager _inst { get { return _uniqueInstance; } }
     #endregion [ Singleton ]
 
-    //전체 아이템
-    public SOItem[] items;    
-    public float MaxItemWeights;
-
+    [Header("Components")]
     public UI_Inventory invenUI;
+    List<BaseItem> _items;
+    public int itemCount;
+    public float MaxItemWeights;
+        
     public float InvenWeight { get { return invenUI.GetItemWeights(); } }
-
+    public List<BaseItem> Items { get { return _items; } }
     public UI_Slot[] InventoryItems { get { return invenUI.GetInvenSlots; } }
 
-    void Awake()
+    private void Awake()
     {
         _uniqueInstance = this;
     }
 
-    void Start()
+    private void Start()
     {
+        //Test
         Init();
     }
 
-    void Init()
+    public void Init()
     {
         invenUI.Init();
+        _items = new List<BaseItem>();
+        AddItems(LowDataType.MaterialTable);
+        AddItems(LowDataType.WeaponTable);
+        itemCount = _items.Count;
+    }    
+
+    public void AddItems(LowDataType type)
+    {
+        LowBase table = Managers._table.Get(type);
+        eItemType itemType = eItemType.Unknown;
+        int maxCount = table.MaxCount();
+        int offSetNum = 0;
+        switch (type)
+        {
+            case LowDataType.MaterialTable:
+                offSetNum = 100;
+                itemType = eItemType.Material;
+                break;
+            case LowDataType.WeaponTable:
+                offSetNum = 200;
+                itemType = eItemType.Weapon;
+                break;
+        }
+        for(int i = 0; i < maxCount; i++)
+        {
+            MakeItemClass(table, itemType, i, offSetNum);
+        }
     }
 
-    public bool CheckSlot(SOItem newItem, int cnt = 1)
+    public void MakeItemClass(LowBase Table,eItemType type, int num, int offsetNumber)
+    {
+        int index = offsetNumber + num;
+        string nameEn = Table.ToStr(index, "NameEn");
+        string nameKr = Table.ToStr(index, "NameKr");
+        string desc = Table.ToStr(index, "Desc");
+        string spriteName = Table.ToStr(index, "SpriteName");
+        float weight = Table.ToFloat(index, "Weight");
+
+        switch (type)
+        {
+            case eItemType.Weapon:
+                {
+                    string materialsIndexStr = Table.ToStr(index, "Materials");
+                    string[] materialsIndexStrArray = materialsIndexStr.Split('/');
+                    int[] materialsIndexArray = new int[materialsIndexStrArray.Length];
+                    for (int i = 0; i < materialsIndexStrArray.Length; i++)
+                    {
+                        if (int.TryParse(materialsIndexStrArray[i], out int number))
+                            materialsIndexArray[i] = number;
+                    }
+
+                    string materialsCost = Table.ToStr(index, "MaterialsCost");
+                    string[] materialsCostStrArray = materialsCost.Split('/');
+                    int[] materialsCostArray = new int[materialsCostStrArray.Length];
+                    for (int i = 0; i < materialsCostArray.Length; i++)
+                    {
+                        if (int.TryParse(materialsCostStrArray[i], out int number))
+                        {
+                            materialsCostArray[i] = number;
+                        }
+                    }
+
+                    float damage = Table.ToFloat(index, "Damage");
+                    WeaponItemInfo weapon = new WeaponItemInfo(index, nameEn, desc, spriteName, nameKr, weight, materialsIndexArray, materialsCostArray, damage);
+                    _items.Add(weapon);
+                }                
+                break;
+            case eItemType.Material:
+                MaterialItemInfo material = new MaterialItemInfo(index, nameEn, desc, spriteName, nameKr, weight);
+                _items.Add(material);
+                break;
+        }
+        
+    }
+
+    public BaseItem GetItemData(int index)
+    {
+        for(int i = 0; i < _items.Count; i++)
+        {
+            if (index == _items[i].Index)
+                return _items[i];
+        }
+
+        return null;
+    }
+
+    public bool CheckSlot(BaseItem newItem, int cnt = 1)
     {
         if (invenUI.CheckSlotFull(newItem, cnt))
-        {            
-            Debug.Log(InvenWeight + (newItem.itemWeight) * cnt);
-            if (MaxItemWeights < InvenWeight + (newItem.itemWeight) * cnt)
-                return true;
-            else
-                return false;
-        }
-        else
         {
-            if (MaxItemWeights < InvenWeight + (newItem.itemWeight) * cnt)
+            if (MaxItemWeights < InvenWeight + (newItem.Weight * cnt))
                 return true;
             else
                 return false;
         }
-            
+
+        return false;
     }
 
-    public void AddInvenItem(SOItem newItem, int cnt = 1)
+    public void AddInvenItem(BaseItem newItem, int cnt = 1)
     {
-        invenUI.AcquireItem(newItem, cnt);
+        invenUI.AcquireItem(newItem,cnt);
     }
 
-    public ItemSlotAndCount CheckEnoughItem(List<RequiredItem> items)
+    public ItemSlotAndCount CheckEnoughItem(int[] indexs,int[] costs)
     {
         UI_Slot[] slots = InventoryItems;
-        int slotNum = 0;
-        //아이템 슬롯 위치 값        
+        int slotNum;
+        int costValue;
+        bool isEnough;
         List<int> slotNumbers = new List<int>();
-        //필요 아이템 값
-        List<int> itemCounts = new List<int>();
-        
-        for(int i = 0; i < items.Count; i++)
-        {
-            bool isEnoughItem = false;
-            for (int j = 0; j < slots.Length; j++)
-            {
+        List<int> itemCosts = new List<int>();
 
-                if (slots[j].item == items[i].items && slots[j].itemCount >= items[i].cnt)
+        for(int i = 0; i < indexs.Length; i++)
+        {
+            slotNum = 0;
+            costValue = 0;
+            isEnough = false;
+            for(int j = 0; j < slots.Length; j++)
+            {
+                if (slots[j].itemData != null)
                 {
-                    //아이템이 동일하고 아이템 개수가 맞을 때 
-                    slotNum = j;
-                    isEnoughItem = true;
-                    break;
+                    if(slots[j].itemData.Index == slotNumbers[i] 
+                        && slots[j].itemCount >= itemCosts[i])
+                    {
+                        slotNum = j;
+                        costValue = itemCosts[i];
+                        isEnough = true;
+                        break;
+                    }
+                }
+                if (isEnough == false)
+                    return null;
+                else
+                {
+                    slotNumbers.Add(slotNum);
+                    itemCosts.Add(costValue);
                 }
             }
-            if (isEnoughItem == false)
-                return null;
-            else
-            {
-                slotNumbers.Add(slotNum);
-                itemCounts.Add(items[i].cnt);
-            }                
         }
-
-        ItemSlotAndCount itemSlots = new ItemSlotAndCount(slotNumbers, itemCounts);
-        return itemSlots;
+        return new ItemSlotAndCount(slotNumbers, itemCosts);        
     }
 
-    public void UseItemForBuild(int slotNumber, int itemCount)
+    public void UseItemForBuild(int slotNumber, int itemCost)
     {
-        invenUI.UseItemAtSlot(slotNumber, itemCount);
+        invenUI.UseItemAtSlot(slotNumber, itemCost);
     }
-
 }

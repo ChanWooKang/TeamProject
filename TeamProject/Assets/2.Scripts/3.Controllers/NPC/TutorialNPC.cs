@@ -6,7 +6,8 @@ using DefineDatas;
 public class TutorialNPC : BaseNPC
 {
     //튜토리얼 아이템 주기 전 주고 나서
-    public SOItem testItem;
+    public int testItemIndex;
+    public BaseItem testItem = null;
     enum State
     {
         Before  = 0,
@@ -19,10 +20,13 @@ public class TutorialNPC : BaseNPC
     //NPC 행동 메소드
     public override void ActiveAction()
     {
+        if (testItem == null)
+            testItem = InventoryManager._inst.GetItemData(testItemIndex);
+
         switch (NPCState)
         {
             case State.Before:
-                if(InventoryManager._inst.CheckSlot(testItem) == false)
+                if (InventoryManager._inst.CheckSlot(testItem) == false)
                 {
                     //가능 
                     Debug.Log("아이템 보상 지급 했습니다.");
@@ -49,7 +53,7 @@ public class TutorialNPC : BaseNPC
                 break;
         }
 
-        
-        
+
+
     }
 }

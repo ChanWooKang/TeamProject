@@ -695,10 +695,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4bf4a29f702ac042a552579b6d0b5f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 11400000, guid: 4d14be5ddd78a2d458ce2609be9f8ef0, type: 2}
-  MaxItemWeights: 999999
   invenUI: {fileID: 5207993216609386573}
+  itemCount: 0
+  MaxItemWeights: 999999
 --- !u!4 &363132060
 Transform:
   m_ObjectHideFlags: 0
@@ -1439,6 +1438,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TutorialNPC
       objectReference: {fileID: 0}
+    - target: {fileID: 531192907563290710, guid: 098adfea82b4c5c4f85b67cfc4299323, type: 3}
+      propertyPath: testItemIndex
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 531192907563290714, guid: 098adfea82b4c5c4f85b67cfc4299323, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -1683,6 +1686,14 @@ PrefabInstance:
     - target: {fileID: 951839494575788052, guid: e9282036c608ca246af767a9c9cc2fd0, type: 3}
       propertyPath: m_Name
       value: TestItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 951839494575788523, guid: e9282036c608ca246af767a9c9cc2fd0, type: 3}
+      propertyPath: itemIndex
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 951839494575788524, guid: e9282036c608ca246af767a9c9cc2fd0, type: 3}
+      propertyPath: objID
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 951839494575788525, guid: e9282036c608ca246af767a9c9cc2fd0, type: 3}
       propertyPath: m_RootOrder
@@ -6302,7 +6313,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993217603015999}
   Count_Parent: {fileID: 5207993215840781746}
   Weight_Parent: {fileID: 5207993217201714283}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993215719209391
@@ -6596,7 +6606,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993217422903855}
   Count_Parent: {fileID: 5207993216635551546}
   Weight_Parent: {fileID: 5207993217549371632}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993215766505915
@@ -6846,7 +6855,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993216775700466}
   Count_Parent: {fileID: 5207993217455440093}
   Weight_Parent: {fileID: 5207993216965560512}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993215789130379
@@ -7175,7 +7183,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993216543022056}
   Count_Parent: {fileID: 5207993216395758079}
   Weight_Parent: {fileID: 5207993216274752177}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993215828896282
@@ -7644,7 +7651,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993217007202672}
   Count_Parent: {fileID: 5207993217033678082}
   Weight_Parent: {fileID: 5207993217473745259}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993215888499100
@@ -8171,7 +8177,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993216775506795}
   Count_Parent: {fileID: 5207993216686154465}
   Weight_Parent: {fileID: 5207993217184458938}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993215925896685
@@ -8647,7 +8652,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993216945229921}
   Count_Parent: {fileID: 5207993216919105183}
   Weight_Parent: {fileID: 5207993217044350439}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993215991162161
@@ -9204,7 +9208,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993217275738841}
   Count_Parent: {fileID: 5207993216705728130}
   Weight_Parent: {fileID: 5207993216933898154}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!222 &5207993216059926505
@@ -10057,7 +10060,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993216465558758}
   Count_Parent: {fileID: 5207993216498382170}
   Weight_Parent: {fileID: 5207993217405264523}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993216161383446
@@ -10498,7 +10500,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993217587290722}
   Count_Parent: {fileID: 5207993216175961365}
   Weight_Parent: {fileID: 5207993216499224057}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993216239455982
@@ -10634,7 +10635,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993216269345756}
   Count_Parent: {fileID: 5207993217558213983}
   Weight_Parent: {fileID: 5207993216975848687}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993216252682413
@@ -10926,7 +10926,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993215889503110}
   Count_Parent: {fileID: 5207993216201414232}
   Weight_Parent: {fileID: 5207993217318546158}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993216278405936
@@ -11026,7 +11025,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993215754506877}
   Count_Parent: {fileID: 5207993216172247974}
   Weight_Parent: {fileID: 5207993216325502319}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993216279997346
@@ -11693,7 +11691,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993215586502872}
   Count_Parent: {fileID: 5207993215525452227}
   Weight_Parent: {fileID: 5207993216828940967}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993216374290471
@@ -11829,7 +11826,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993216567263111}
   Count_Parent: {fileID: 5207993216589442397}
   Weight_Parent: {fileID: 5207993216331847336}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993216374498592
@@ -12166,7 +12162,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993216124500745}
   Count_Parent: {fileID: 5207993216014868057}
   Weight_Parent: {fileID: 5207993216062309946}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993216384001162
@@ -12413,7 +12408,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993215766480649}
   Count_Parent: {fileID: 5207993216407128797}
   Weight_Parent: {fileID: 5207993217174948713}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993216414622725
@@ -12671,7 +12665,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993216493967008}
   Count_Parent: {fileID: 5207993217544571449}
   Weight_Parent: {fileID: 5207993216316294890}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993216450170247
@@ -13337,7 +13330,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993216858681093}
   Count_Parent: {fileID: 5207993215886477256}
   Weight_Parent: {fileID: 5207993217344707773}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993216525400578
@@ -13445,7 +13437,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993217142900486}
   Count_Parent: {fileID: 5207993216572121704}
   Weight_Parent: {fileID: 5207993216374365579}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993216541810038
@@ -13739,7 +13730,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993216715732038}
   Count_Parent: {fileID: 5207993216119144801}
   Weight_Parent: {fileID: 5207993217025542038}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993216551543356
@@ -14692,7 +14682,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993217530968706}
   Count_Parent: {fileID: 5207993217386883834}
   Weight_Parent: {fileID: 5207993217441926295}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993216644798635
@@ -14792,7 +14781,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993217561267409}
   Count_Parent: {fileID: 5207993217514967982}
   Weight_Parent: {fileID: 5207993216889270321}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993216679122119
@@ -14980,7 +14968,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993217318042902}
   Count_Parent: {fileID: 5207993215932903609}
   Weight_Parent: {fileID: 5207993215842470173}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993216687124632
@@ -16501,7 +16488,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993216315863865}
   Count_Parent: {fileID: 5207993217179108535}
   Weight_Parent: {fileID: 5207993216837902224}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993216859497612
@@ -17115,7 +17101,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993215654964380}
   Count_Parent: {fileID: 5207993217016242388}
   Weight_Parent: {fileID: 5207993215746991127}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993216909938818
@@ -17259,7 +17244,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993217584947230}
   Count_Parent: {fileID: 5207993217412925269}
   Weight_Parent: {fileID: 5207993217024300666}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993216924917336
@@ -17470,7 +17454,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993216849625995}
   Count_Parent: {fileID: 5207993216769250053}
   Weight_Parent: {fileID: 5207993216777384917}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993216941352564
@@ -18029,7 +18012,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993216380736952}
   Count_Parent: {fileID: 5207993215881802574}
   Weight_Parent: {fileID: 5207993216250789111}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993217015396286
@@ -18741,7 +18723,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993215924953779}
   Count_Parent: {fileID: 5207993216287623643}
   Weight_Parent: {fileID: 5207993216756736827}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993217089252685
@@ -19149,7 +19130,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993217197688165}
   Count_Parent: {fileID: 5207993216120626342}
   Weight_Parent: {fileID: 5207993216546385400}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993217159857099
@@ -19393,7 +19373,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993216888893055}
   Count_Parent: {fileID: 5207993216574306391}
   Weight_Parent: {fileID: 5207993217190163828}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993217195215387
@@ -20481,7 +20460,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993216432158060}
   Count_Parent: {fileID: 5207993216481865849}
   Weight_Parent: {fileID: 5207993215906576219}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993217319628868
@@ -20581,7 +20559,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993216077843604}
   Count_Parent: {fileID: 5207993217025557807}
   Weight_Parent: {fileID: 5207993216713041019}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993217323303176
@@ -21178,7 +21155,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993216379496812}
   Count_Parent: {fileID: 5207993216563717765}
   Weight_Parent: {fileID: 5207993215547541983}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993217389722378
@@ -21991,7 +21967,6 @@ MonoBehaviour:
   Weight_Text: {fileID: 5207993216215087795}
   Count_Parent: {fileID: 5207993215978081483}
   Weight_Parent: {fileID: 5207993216372653239}
-  item: {fileID: 0}
   itemCount: 0
   itemWeight: 0
 --- !u!224 &5207993217475323041

@@ -28,9 +28,10 @@ namespace DefineDatas
     public enum eItemType
     {
         Unknown = 0,
+        Weapon,
         Equipment,
         Potion,
-        ETC,
+        Material,
         Gold
     }
 
@@ -116,7 +117,7 @@ namespace DefineDatas
     [System.Serializable]
     public class RequiredItem
     {
-        public SOItem items;
+        public SOItems items;
         public int cnt;
     }
 
