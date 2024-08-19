@@ -3,18 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using DefineDatas;
 
-public class BaseItem : MonoBehaviour
+public class BaseItems : MonoBehaviour
 {
-    public SOItem item;
-    
+    public int itemIndex;
+    BaseItem item = null;
+
+    private void Start()
+    {
+
+        
+    }
+
     public bool Root()
     {
+        if (item == null)
+            item = InventoryManager._inst.GetItemData(itemIndex);
+
         if (InventoryManager._inst.CheckSlot(item) == false)
         {
             InventoryManager._inst.AddInvenItem(item, 1);
             Despawn();
             return true;
-        }        
+        }
         return false;
     }
 

@@ -28,10 +28,20 @@ namespace DefineDatas
     public enum eItemType
     {
         Unknown = 0,
+        Weapon,
         Equipment,
         Potion,
-        ETC,
+        Material,
         Gold
+    }
+
+    public enum eEquipType
+    {
+        Unknown = 0,
+        Weapon,
+        Head,
+        Armor,
+        Max_Count
     }
 
     public enum eMonsterType
@@ -46,6 +56,15 @@ namespace DefineDatas
         PATROL,
         TRACE,
         ATTACK,
+    }
+
+    public enum ePlayerAnimParams
+    {
+        Speed,
+        Ground,
+        Jump,
+        FreeFall,
+        MotionSpeed
     }
 
 
@@ -107,7 +126,7 @@ namespace DefineDatas
     [System.Serializable]
     public class RequiredItem
     {
-        public SOItem items;
+        public SOItems items;
         public int cnt;
     }
 

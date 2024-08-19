@@ -64,8 +64,9 @@ public class PlayerController : MonoBehaviour
     [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
     [Header("Components")]
-    public GameObject MainCamera;
+    public GameObject MainCamera;    
     public PlayerStat Stat;
+
 
     //Cinemachine
     float _cinemachineTargetYaw;
@@ -125,8 +126,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        InitComponent();
-        
+        InitComponent();        
     }
 
     private void Update()
@@ -369,7 +369,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
-                    if (_nearObject.TryGetComponent(out BaseItem item))
+                    if (_nearObject.TryGetComponent(out BaseItems item))
                     {
                         if (item.Root())
                         {

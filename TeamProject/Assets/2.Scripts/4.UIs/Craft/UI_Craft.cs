@@ -27,6 +27,7 @@ public class UI_Craft : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1") && m_previewObj != null)
             Build();
+                    
 
         if (m_isPreviewActivated)
             PreviewPositionUpdate();
@@ -52,6 +53,8 @@ public class UI_Craft : MonoBehaviour
         m_craftingObj = m_prefabObj;
         m_isPreviewActivated = true;
         m_CraftSlotButton.SetActive(false);
+        //UI클릭시 커서 잠금
+        GameManagerEx._inst.ChangeCursorLockForUI(false);
     }
     
     void PreviewPositionUpdate()

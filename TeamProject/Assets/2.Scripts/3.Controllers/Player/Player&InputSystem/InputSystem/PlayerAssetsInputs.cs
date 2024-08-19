@@ -13,6 +13,8 @@ public class PlayerAssetsInputs : MonoBehaviour
     public bool fire;
     public bool interact;
     public bool inventory;
+    public bool aim;
+    public bool craft;
 
     [Header("Movement Settings")]
     public bool analogMovement;
@@ -55,6 +57,16 @@ public class PlayerAssetsInputs : MonoBehaviour
         InventoryInput(value.isPressed);
     }
 
+    public void OnAim(InputValue value)
+    {
+        AimInput(value.isPressed);
+    }
+
+    public void OnCraft(InputValue value)
+    {
+        CraftInput(value.isPressed);
+    }
+
 #endif
     public void MoveInput(Vector2 newMoveDirection)
     {        
@@ -85,10 +97,19 @@ public class PlayerAssetsInputs : MonoBehaviour
     {
         inventory = newInventoryState;
     }
+    public void AimInput(bool newAimState)
+    {
+        aim = newAimState;
+    }
+
+    public void CraftInput(bool newCraftState)
+    {
+        craft = newCraftState;
+    }
 
     private void OnApplicationFocus(bool hasFocus)
     {
-       // SetCursorState(cursorLocked);
+        SetCursorState(cursorLocked);
     }
 
     private void SetCursorState(bool newState)

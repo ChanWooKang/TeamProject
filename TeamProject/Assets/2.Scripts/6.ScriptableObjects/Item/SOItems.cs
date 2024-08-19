@@ -4,7 +4,7 @@ using UnityEngine;
 using DefineDatas;
 
 [CreateAssetMenu(fileName = "Item", menuName = "Scriptable/Item")]
-public class SOItem : ScriptableObject
+public class SOItems : ScriptableObject
 {
     //아이템 아이디
     public int itemID;
