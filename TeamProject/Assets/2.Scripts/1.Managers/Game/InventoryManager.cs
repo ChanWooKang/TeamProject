@@ -19,6 +19,7 @@ public class InventoryManager : MonoBehaviour
     public Action<eEquipType, BaseItem,int,bool> OnChangeEvent;
     //public Dictionary<eEquipType, BaseItem[]> Dict_Equip = new Dictionary<eEquipType, BaseItem[]>();
     public List<BaseItem> Items;
+    public Dictionary<int, BaseItem> Dict_Item;
 
     public static bool ActiveChangeEquip = false;
     public int itemCount;
@@ -50,6 +51,7 @@ public class InventoryManager : MonoBehaviour
         itemCount = Items.Count;
         invenUI.Init();
         equipUI.Init();
+        SetDictionary();
     }
 
     #region [ Item Data Load ]
@@ -134,6 +136,15 @@ public class InventoryManager : MonoBehaviour
     }
 
     #endregion [ Item Data Load ]
+
+    void SetDictionary()
+    {
+        Dict_Item = new Dictionary<int, BaseItem>();
+        for(int i = 0; i < Items.Count; i++)
+        {
+            Dict_Item.Add(Items[i].Index,Items[i]);
+        }
+    }
 
     void ChangeEquipment(eEquipType type, BaseItem item,int slotIndex = 0 ,bool isWear = true)
     {
