@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UI_Craft : MonoBehaviour
 {
-    [SerializeField] GameObject m_CraftSlotButton;
+    [SerializeField] GameObject m_craftBoxObj;
 
     [SerializeField] GameObject m_prefabObj;
     Button m_slotBtn;    
@@ -40,7 +40,7 @@ public class UI_Craft : MonoBehaviour
         if (m_isPreviewActivated)
             return;
         gameObject.SetActive(true);
-        m_CraftSlotButton.SetActive(true);
+        m_craftBoxObj.SetActive(true);
     }
     public void CloseUI()
     {
@@ -52,7 +52,7 @@ public class UI_Craft : MonoBehaviour
         m_previewObj = Instantiate(m_prefabObj, m_player.position + m_player.forward, Quaternion.identity);
         m_craftingObj = m_prefabObj;
         m_isPreviewActivated = true;
-        m_CraftSlotButton.SetActive(false);
+        m_craftBoxObj.SetActive(false);
         //UI클릭시 커서 잠금
         GameManagerEx._inst.ChangeCursorLockForUI(false);
     }
