@@ -21,7 +21,7 @@ public class UI_Interaction : MonoBehaviour
     GameObject m_uiMenuSlotObj;
     [SerializeField] TextMeshProUGUI m_txtPressOrHold;
     [SerializeField] TextMeshProUGUI m_txtMenuName;
-    [SerializeField] TextMeshProUGUI m_txtMenuOfCraft;
+    [SerializeField] TextMeshProUGUI m_txtMenuOrCraft;
     [SerializeField] TextMeshProUGUI m_txtWeaponName;
    
     ObjectPreview m_objPreview;
@@ -90,7 +90,7 @@ public class UI_Interaction : MonoBehaviour
         if (m_weaponInfo == null)
         {
             m_txtPressOrHold.text = "Press";
-            m_txtMenuOfCraft.text = "Craft Menu";
+            m_txtMenuOrCraft.text = "Craft Menu";
             m_weaponInfoBoxObj.SetActive(false);
             m_CancelObj.SetActive(false);
             m_isCraftDone = false;
@@ -98,14 +98,15 @@ public class UI_Interaction : MonoBehaviour
         else if(m_weaponInfo != null & !m_isCraftDone)
         {
             m_txtPressOrHold.text = "Press and Hold";
-            m_txtMenuOfCraft.text = "Craft";
+            m_txtMenuOrCraft.text = "Craft";
             m_txtWeaponName.text = m_weaponInfo.NameKr;
             m_weaponInfoBoxObj.SetActive(true);
             m_CancelObj.SetActive(true);
         }
         else if(m_weaponInfo != null & m_isCraftDone)
         {
-            m_txtPressOrHold.text = "Get Weapon";
+            m_txtPressOrHold.text = "Press";
+            m_txtMenuOrCraft.text = "Get Weapon";
             m_CancelObj.SetActive(false);
         }
         gameObject.SetActive(true);

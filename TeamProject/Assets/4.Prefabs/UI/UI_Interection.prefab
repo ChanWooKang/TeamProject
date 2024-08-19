@@ -636,7 +636,7 @@ MonoBehaviour:
   m_progressCancel: {fileID: 6272107997718643681}
   m_txtPressOrHold: {fileID: 9198714549886566588}
   m_txtMenuName: {fileID: 8731474789674016856}
-  m_txtMenuOfCraft: {fileID: 3213045786707237764}
+  m_txtMenuOrCraft: {fileID: 3213045786707237764}
   m_txtWeaponName: {fileID: 7050501421541549165}
 --- !u!1 &2735885035641394006
 GameObject:
