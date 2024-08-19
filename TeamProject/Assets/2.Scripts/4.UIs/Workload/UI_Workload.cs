@@ -39,7 +39,7 @@ public class UI_Workload : MonoBehaviour
     }
     public bool PressFkey()
     {
-        float pel = 106f;
+        float pel = 106f;   
         m_fSlider.value += Time.deltaTime;
         if(m_fSlider.value >= 1)
         {

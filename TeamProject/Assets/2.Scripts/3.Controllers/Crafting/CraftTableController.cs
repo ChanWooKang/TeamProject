@@ -6,11 +6,11 @@ public class CraftTableController : MonoBehaviour
 {
     [SerializeField] GameObject m_uiInteractionObj;
     UI_Interaction m_interaction;
-    ObjectPreview m_objPreview;
+    [SerializeField] ObjectPreview m_objPreview;
     private void Awake()
     {
         //юс╫ц
-        m_objPreview = GetComponent<ObjectPreview>();
+        //m_objPreview = <ObjectPreview>();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -41,14 +41,18 @@ public class CraftTableController : MonoBehaviour
                 canvas.worldCamera = GameObject.FindGameObjectWithTag("UICamera").GetComponent<Camera>();
                 m_interaction = ui.GetComponent<UI_Interaction>();
                 m_interaction.OpenInteraction();
-            }           
+            }
         }
     }
     private void OnTriggerExit(Collider other)
     {
+
+       
+
         if (m_objPreview.IsDone && other.CompareTag("Player") && m_interaction != null)
         {
             m_interaction.CloseInteraction();
         }
+
     }
 }

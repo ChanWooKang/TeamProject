@@ -7,39 +7,107 @@ using DefineDatas;
 
 public class UI_Interaction : MonoBehaviour
 {
+    #region [참조]
     [SerializeField] GameObject m_uiCraftObj;
     [SerializeField] GameObject m_uiMenuObj;
     [SerializeField] GameObject m_uiMenuSlotPrefab;
+    [SerializeField] GameObject m_uiWorkloadPrefab;
+    [SerializeField] GameObject m_CancelObj;
+    [SerializeField] GameObject m_weaponInfoBoxObj;
     [SerializeField] RectTransform m_startSlot;
+    [SerializeField] Slider m_progressCraft;
+    [SerializeField] Slider m_progressCancel;
+    
     GameObject m_uiMenuSlotObj;
+    [SerializeField] TextMeshProUGUI m_txtPressOrHold;
     [SerializeField] TextMeshProUGUI m_txtMenuName;
+    [SerializeField] TextMeshProUGUI m_txtMenuOfCraft;
+    [SerializeField] TextMeshProUGUI m_txtWeaponName;
+   
     ObjectPreview m_objPreview;
+    WeaponInfo m_weaponInfo;
+    #endregion[참조]
 
     List<UI_MenuSlot> m_listUIMenuSlot;
     Vector2Int m_maxMenuVolAmount;
 
     bool m_isNew = true;
+    bool m_isCraftDone;
+   
    
     private void Update()
     {
-        if (m_uiCraftObj.activeSelf)
+        if (m_weaponInfo == null)
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (m_uiCraftObj.activeSelf)
             {
-                OpenMenu();
-            }            
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    OpenMenu();
+                }
+            }
+            if (m_uiMenuObj.activeSelf)
+            {
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    CloseMenu();
+                }
+            }
         }
-        if(m_uiMenuObj.activeSelf)
+        else if(m_weaponInfo != null & !m_isCraftDone)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if(Input.GetKey(KeyCode.F))
             {
-                CloseMenu();
+                PressFkey();
+            }
+            if (Input.GetKeyUp(KeyCode.F))
+            {
+                UpFKey();
+            }
+            if (Input.GetKey(KeyCode.C))
+            {
+                PressCKey();
+            }
+            if (Input.GetKeyUp(KeyCode.C))
+            {
+                UpCKey();
+            }
+        }
+        else if(m_weaponInfo != null & m_isCraftDone)
+        {
+            if(Input.GetKeyDown(KeyCode.F))
+            {
+                m_weaponInfo = null;
+                m_isCraftDone = false;
+                OpenInteraction();
+                // 무기 획득
             }
         }
     }
 
     public void OpenInteraction()
     {
+        if (m_weaponInfo == null)
+        {
+            m_txtPressOrHold.text = "Press";
+            m_txtMenuOfCraft.text = "Craft Menu";
+            m_weaponInfoBoxObj.SetActive(false);
+            m_CancelObj.SetActive(false);
+            m_isCraftDone = false;
+        }
+        else if(m_weaponInfo != null & !m_isCraftDone)
+        {
+            m_txtPressOrHold.text = "Press and Hold";
+            m_txtMenuOfCraft.text = "Craft";
+            m_txtWeaponName.text = m_weaponInfo.NameKr;
+            m_weaponInfoBoxObj.SetActive(true);
+            m_CancelObj.SetActive(true);
+        }
+        else if(m_weaponInfo != null & m_isCraftDone)
+        {
+            m_txtPressOrHold.text = "Get Weapon";
+            m_CancelObj.SetActive(false);
+        }
         gameObject.SetActive(true);
         m_uiCraftObj.SetActive(true);
         CloseMenu();
@@ -48,6 +116,10 @@ public class UI_Interaction : MonoBehaviour
     {
         CloseMenu();
         gameObject.SetActive(false);
+    }
+    public void ReadyToCraftSometing(WeaponInfo weaponInfo)
+    {        
+        m_weaponInfo = weaponInfo;
     }
 
     void OpenMenu()
@@ -69,7 +141,7 @@ public class UI_Interaction : MonoBehaviour
                     float x = (m_startSlot.sizeDelta.x + 10) * j;
                     float y = -(m_startSlot.sizeDelta.y + 10) * i;
                     rect.anchoredPosition = new Vector2(x, y);
-                    slot.InitSlot(num, j, i);
+                    slot.InitSlot(num, j, i, this);
                     num++;
                     m_listUIMenuSlot.Add(slot);
                     m_isNew = false;
@@ -101,5 +173,34 @@ public class UI_Interaction : MonoBehaviour
             y = count % 10;
         }
         m_maxMenuVolAmount = new Vector2Int(x, y);
+    }
+     void PressFkey()
+    {        
+        m_progressCraft.value += Time.deltaTime;
+        if (m_progressCraft.value >= 1)
+        {
+            //데스크 위에 무기 생성
+            m_progressCraft.value = 0;
+            m_isCraftDone = true;            
+            OpenInteraction();
+        }        
+    }
+     void UpFKey()
+    {
+        m_progressCraft.value = 0;
+    }
+     void PressCKey()
+    {
+        m_progressCancel.value += Time.deltaTime;
+        if (m_progressCancel.value >= 1)
+        {
+            m_progressCancel.value = 0;
+            m_weaponInfo = null;
+            OpenInteraction();
+        }        
+    }
+     void UpCKey()
+    {
+        m_progressCancel.value = 0;
     }
 }

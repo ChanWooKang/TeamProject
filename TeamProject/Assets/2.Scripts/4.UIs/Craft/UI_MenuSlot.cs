@@ -11,11 +11,13 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] RectTransform[] m_infoBoxPoses;
     [SerializeField] GameObject m_infoBoxPrefab;
     UI_InfoBox m_uiInfoBox;
+    UI_Interaction m_uiInteraction;
     WeaponInfo m_wpInfo;
     int m_x;
     int m_y;
-    public void InitSlot(int num, int x, int y)
+    public void InitSlot(int num, int x, int y, UI_Interaction interation)
     {
+        m_uiInteraction = interation;
         LowBase weaponTable = Managers._table.Get(LowDataType.WeaponTable);
         int index = 200 + num;
         string nameEn = weaponTable.ToStr(index, "NameEn");
@@ -92,6 +94,9 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-
+        m_uiInteraction.ReadyToCraftSometing(m_wpInfo);
+        m_uiInteraction.OpenInteraction();
+        m_uiInfoBox.CloseBox();
+        
     }
 }

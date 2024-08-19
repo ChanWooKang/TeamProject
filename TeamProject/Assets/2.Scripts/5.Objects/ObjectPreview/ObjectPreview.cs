@@ -4,6 +4,8 @@ using UnityEngine;
 public class ObjectPreview : MonoBehaviour
 {
     [SerializeField]
+    GameObject m_detectiveAreaObj;
+    [SerializeField]
     List<Collider> colliderList = new List<Collider>(); // 충돌한 오브젝트들 저장할 리스트
     UI_Workload m_uiWorkload;
     [SerializeField]
@@ -38,9 +40,10 @@ public class ObjectPreview : MonoBehaviour
                 {
                     SetColor(m_originalMaterial);
                     BoxCollider collider = GetComponent<BoxCollider>();
-                    //collider.isTrigger = false;                    
+                    collider.isTrigger = false;                    
                     m_isDone = true;
                     gameObject.transform.parent.gameObject.isStatic = true;
+                    m_detectiveAreaObj.layer = LayerMask.NameToLayer("Default");
                 }
             if (Input.GetKeyUp(KeyCode.F))
                 m_uiWorkload.UpFKey();
