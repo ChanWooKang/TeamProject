@@ -14,7 +14,7 @@ public class PlayerAssetsInputs : MonoBehaviour
     public bool interact;
     public bool inventory;
     public bool aim;
-    public bool craft;
+    public bool craft;    
 
     [Header("Movement Settings")]
     public bool analogMovement;
@@ -67,6 +67,11 @@ public class PlayerAssetsInputs : MonoBehaviour
         CraftInput(value.isPressed);
     }
 
+    public void OnFire(InputValue value)
+    {
+        FireInput(value.isPressed);
+    }
+
 #endif
     public void MoveInput(Vector2 newMoveDirection)
     {        
@@ -105,6 +110,11 @@ public class PlayerAssetsInputs : MonoBehaviour
     public void CraftInput(bool newCraftState)
     {
         craft = newCraftState;
+    }
+
+    public void FireInput(bool newFireState)
+    {
+        fire = newFireState;
     }
 
     private void OnApplicationFocus(bool hasFocus)

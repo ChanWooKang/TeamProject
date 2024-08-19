@@ -30,7 +30,8 @@ public class PlayerManager : MonoBehaviour
     Renderer[] _renders;
     GameObject _recognizeObject;
 
-    public bool _hasAnimator;    
+    public bool _hasAnimator;
+    
 
     public bool IsCurrentDeviceMouse
     {

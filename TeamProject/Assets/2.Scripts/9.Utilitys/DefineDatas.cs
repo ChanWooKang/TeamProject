@@ -28,10 +28,10 @@ namespace DefineDatas
     public enum eItemType
     {
         Unknown = 0,
+        Material,
         Weapon,
         Equipment,
-        Potion,
-        Material,
+        Potion,        
         Gold
     }
 
@@ -64,7 +64,9 @@ namespace DefineDatas
         Ground,
         Jump,
         FreeFall,
-        MotionSpeed
+        MotionSpeed,
+        Attack,
+        
     }
 
 
