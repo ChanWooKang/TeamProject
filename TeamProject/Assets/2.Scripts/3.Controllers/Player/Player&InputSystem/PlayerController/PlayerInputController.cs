@@ -57,7 +57,8 @@ public class PlayerInputController : MonoBehaviour
         SetAimCamera();
         InventoryAction();
         CraftAction();
-        InteractAction();                
+        InteractAction();
+        FireAction();
     }
 
     static float ClampAngle(float lfAngle, float lfMin, float lfMax)
@@ -97,7 +98,7 @@ public class PlayerInputController : MonoBehaviour
     }
 
     public void CameraRotate()
-    {
+    {       
         if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
         {
             float deltaTimeMultipler = manager.IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
@@ -113,7 +114,19 @@ public class PlayerInputController : MonoBehaviour
             _cinemachineTargetYaw, 0.0f);
     }
 
-    public void SetAimCamera()
+    void FireAction()
+    {
+        if (_input.fire)
+        {
+            manager.AnimCtrl.SetAnimations(DefineDatas.ePlayerAnimParams.Attack, true);
+        }
+        else
+        {
+            manager.AnimCtrl.SetAnimations(DefineDatas.ePlayerAnimParams.Attack, false);
+        }
+    }
+
+    void SetAimCamera()
     {
         if (_input.aim && manager.Movement.Grounded) 
         {
