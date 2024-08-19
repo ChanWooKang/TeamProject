@@ -125,8 +125,7 @@ public class TalkManager : MonoBehaviour
             {
                 //UI Off
                 talkUI.SetOnOff(false);
-
-                isEndTalk = false;
+                isEndTalk = false;                
                 return;
             }
 

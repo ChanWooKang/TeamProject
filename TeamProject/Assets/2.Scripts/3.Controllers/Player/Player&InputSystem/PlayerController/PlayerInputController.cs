@@ -88,7 +88,12 @@ public class PlayerInputController : MonoBehaviour
 
     void CrossHairCheck()
     {        
-        if (Physics.Raycast(CinemachineCameraTarget.transform.position, CinemachineCameraTarget.transform.forward, out RaycastHit rhit,
+        Transform target;
+        //카메라 Root 로 확인 밑을 바라보면 인식이 안됨
+        //target = CinemachineCameraTarget.transform;
+        //플레이어 자체로 밑을 바라봐도 인식이 되지만 플레이어가 뒤돌아 있으면 인식 안됨
+        target = transform;
+        if (Physics.Raycast(target.position, target.forward, out RaycastHit rhit,
                             _recognizeMaskDistance, _layerMask))
         {            
             if(manager.RecognizeObject != rhit.transform.gameObject)
