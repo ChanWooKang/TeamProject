@@ -48,8 +48,8 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-        InitComponent();
-    }
+        InitComponent();       
+    }    
 
     void Update()
     {

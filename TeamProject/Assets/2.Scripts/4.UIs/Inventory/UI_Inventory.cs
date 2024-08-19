@@ -5,13 +5,14 @@ using UnityEngine.UI;
 using DefineDatas;
 
 public class UI_Inventory : MonoBehaviour
-{
-    public static bool ActiveInventory = false;
+{    
 
     public GameObject main;
     public GameObject Slot_Parent;
     public Text InvenWeightText;
-    UI_Slot[] slots;    
+    UI_Slot[] slots;
+
+    bool isOnUI;
 
     public UI_Slot[] GetInvenSlots { get { return slots; } }
 
@@ -27,23 +28,25 @@ public class UI_Inventory : MonoBehaviour
 
     public void TryOpenInventory()
     {
-        if (ActiveInventory)
+        if (isOnUI)
             CloseUI();
         else
-            OpenUI();            
+            OpenUI();
+
+        GameManagerEx._inst.ControlUI(isOnUI, true);
     }
 
     void OpenUI()
     {
-        ActiveInventory = true;
+        isOnUI = true;
         SettingInvenWeight();
-        main.SetActive(ActiveInventory);
+        main.SetActive(isOnUI);
     }
 
     void CloseUI()
     {
-        ActiveInventory = false;
-        main.SetActive(ActiveInventory);
+        isOnUI = false;
+        main.SetActive(isOnUI);
     }
 
     void SettingInvenWeight()

@@ -41,6 +41,8 @@ public class UI_Craft : MonoBehaviour
             return;
         gameObject.SetActive(true);
         m_CraftSlotButton.SetActive(true);
+
+        GameManagerEx._inst.ControlUI(true, true);
     }
     public void CloseUI()
     {
@@ -53,8 +55,11 @@ public class UI_Craft : MonoBehaviour
         m_craftingObj = m_prefabObj;
         m_isPreviewActivated = true;
         m_CraftSlotButton.SetActive(false);
+
         //UI클릭시 커서 잠금
-        GameManagerEx._inst.ChangeCursorLockForUI(false);
+        GameManagerEx._inst.ControlUI(false, true);
+        // 얘 켜져있으면 이동 과 카메라 회전만 가능
+        GameManagerEx._inst.isOnBuild = true;
     }
     
     void PreviewPositionUpdate()
@@ -80,6 +85,7 @@ public class UI_Craft : MonoBehaviour
             m_isPreviewActivated = false;
             m_previewObj = null;
             gameObject.SetActive(false);
+            OffBuildAction();
         }
     }
     void CancleCraft()
@@ -92,5 +98,11 @@ public class UI_Craft : MonoBehaviour
             m_previewObj = null;
         }
         gameObject.SetActive(false);
+        OffBuildAction();
+    }
+
+    void OffBuildAction()
+    {
+        GameManagerEx._inst.OffBuildAction();
     }
 }

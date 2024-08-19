@@ -57,10 +57,15 @@ public class PlayerMovementController : MonoBehaviour
 
     public void OnUpdate()
     {
-        JumpAndGravity();
-        GroundedCheck();
-        Move();
-        LookAtCrossHair();
+        if (GameManagerEx._inst.CheckIsMoveAble())
+        {
+            JumpAndGravity();
+            GroundedCheck();
+            Move();
+            LookAtCrossHair();
+        }
+        else
+            Stop();
     }
 
     void GroundedCheck()
@@ -121,6 +126,16 @@ public class PlayerMovementController : MonoBehaviour
 
         if (_verticalVelocity < _terminalVelocity)
             _verticalVelocity += Gravity * Time.deltaTime;
+    }
+
+    void Stop()
+    {
+        if (manager._hasAnimator && _speed != 0)
+        {
+            _speed = 0;
+            manager.AnimCtrl.SetAnimations(ePlayerAnimParams.Speed, 0);
+            manager.AnimCtrl.SetAnimations(ePlayerAnimParams.MotionSpeed, 0);
+        }
     }
 
     void Move()

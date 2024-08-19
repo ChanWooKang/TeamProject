@@ -83,6 +83,6 @@ public class PlayerAnimController : MonoBehaviour
 
     public void OnAttackEnd()
     {
-       
+        _animator.SetLayerWeight(1, 0);
     }
 }
