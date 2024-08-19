@@ -91,13 +91,19 @@ public class PlayerInputController : MonoBehaviour
         Transform target;
         //카메라 Root 로 확인 밑을 바라보면 인식이 안됨
         //target = CinemachineCameraTarget.transform;
+        target = Camera.main.transform;
         //플레이어 자체로 밑을 바라봐도 인식이 되지만 플레이어가 뒤돌아 있으면 인식 안됨
-        target = transform;
+        //target = transform;
         if (Physics.Raycast(target.position, target.forward, out RaycastHit rhit,
-                            _recognizeMaskDistance, _layerMask))
-        {            
-            if(manager.RecognizeObject != rhit.transform.gameObject)
-                manager.SetRecognizeObject(rhit.transform.gameObject);
+                            Mathf.Infinity, _layerMask))
+        {
+            Vector3 distance = (rhit.point - transform.position);
+            float dist = distance.sqrMagnitude;
+            if (dist * dist <= Mathf.Pow(_recognizeMaskDistance, 2))
+            {
+                if (manager.RecognizeObject != rhit.transform.gameObject)
+                    manager.SetRecognizeObject(rhit.transform.gameObject);
+            }            
         }
         else
         {
