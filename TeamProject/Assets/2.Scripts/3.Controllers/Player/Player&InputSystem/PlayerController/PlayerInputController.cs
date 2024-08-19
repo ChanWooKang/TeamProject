@@ -53,12 +53,24 @@ public class PlayerInputController : MonoBehaviour
 
     public void OnUpdate()
     {
+        //화면 중앙에 레이 쏘아 타겟 인식
         CrossHairCheck();
-        SetAimCamera();
+
+        //True 값 : 움직임 제어할 UI 켜져있지 않음
+        if (GameManagerEx._inst.CheckIsMoveAble() && GameManagerEx._inst.isOnBuild == false)
+        {
+            //에임 조준 ( UI On일때에는 정지)
+            SetAimCamera();
+            //제작 UI UI온일때 작동 X
+            CraftAction();
+            //상호작용 UI on일때 작동 X
+            InteractAction();
+            //공격 UI on일때 작동 X
+            FireAction();
+        }     
+        
+        //인벤토리 열고 닫기 (UI on일때도 작동 )
         InventoryAction();
-        CraftAction();
-        InteractAction();
-        FireAction();
     }
 
     static float ClampAngle(float lfAngle, float lfMin, float lfMax)
@@ -117,7 +129,7 @@ public class PlayerInputController : MonoBehaviour
     void FireAction()
     {
         if (_input.fire)
-        {
+        {            
             manager.AnimCtrl.SetAnimations(DefineDatas.ePlayerAnimParams.Attack, true);
         }
         else
@@ -181,9 +193,7 @@ public class PlayerInputController : MonoBehaviour
     void InventoryAction()
     {
         if (_input.inventory)
-        {
-            
-            GameManagerEx._inst.ChangeCursorLockForUI(!UI_Inventory.ActiveInventory);
+        {                        
             InventoryManager._inst.invenUI.TryOpenInventory();
             _input.inventory = false;
         }
@@ -192,8 +202,7 @@ public class PlayerInputController : MonoBehaviour
     void CraftAction()
     {
         if (_input.craft)
-        {
-            GameManagerEx._inst.ChangeCursorLockForUI(true);
+        {            
             if (m_UICrafting == null)
             {
                 GameObject ui = Instantiate(m_UICraftingPrefab);
