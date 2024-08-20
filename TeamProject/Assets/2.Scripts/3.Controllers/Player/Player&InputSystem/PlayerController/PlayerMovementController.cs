@@ -140,10 +140,13 @@ public class PlayerMovementController : MonoBehaviour
 
     void Move()
     {
-        float targetSpeed = _input.sprint ? manager.Stat.RunSpeed : manager.Stat.MoveSpeed;
+        float targetSpeed = 0;
 
-        targetSpeed = _input.aim ? manager.Stat.MoveSpeed : manager.Stat.RunSpeed;
-
+        if (_input.aim)        
+            targetSpeed = manager.Stat.MoveSpeed;        
+        else        
+            targetSpeed = _input.sprint ? manager.Stat.RunSpeed : manager.Stat.MoveSpeed;
+                
         if (_input.move == Vector2.zero) targetSpeed = 0.0f;
 
         float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
@@ -158,15 +161,17 @@ public class PlayerMovementController : MonoBehaviour
                 Time.deltaTime * SpeedChangeRate);
 
             _speed = Mathf.Round(_speed * 1000f) / 1000f;
-
+            Debug.Log(_speed);
         }
         else
         {
             _speed = targetSpeed;
 
+            Debug.Log(_speed + "!!");
         }
 
         _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
+        Debug.Log(_animationBlend + "!!!");
         if (_animationBlend < 0.01f) _animationBlend = 0.0f;
 
         Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
@@ -188,6 +193,8 @@ public class PlayerMovementController : MonoBehaviour
 
         if (manager._hasAnimator)
         {
+            manager.AnimCtrl.SetAnimations(ePlayerAnimParams.xDir, _input.move.x);
+            manager.AnimCtrl.SetAnimations(ePlayerAnimParams.yDir, _input.move.y);
             manager.AnimCtrl.SetAnimations(ePlayerAnimParams.Speed, _animationBlend);
             manager.AnimCtrl.SetAnimations(ePlayerAnimParams.MotionSpeed, inputMagnitude);
         }

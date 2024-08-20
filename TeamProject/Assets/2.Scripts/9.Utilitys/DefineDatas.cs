@@ -60,12 +60,14 @@ namespace DefineDatas
 
     public enum ePlayerAnimParams
     {
+        xDir,
+        yDir,
         Speed,
         Ground,
         Jump,
         FreeFall,
-        MotionSpeed,
-        Attack,
+        MotionSpeed,        
+        Aim,
         
     }
 
