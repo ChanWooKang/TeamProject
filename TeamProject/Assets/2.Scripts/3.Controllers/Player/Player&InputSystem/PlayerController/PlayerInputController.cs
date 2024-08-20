@@ -139,14 +139,14 @@ public class PlayerInputController : MonoBehaviour
 
     void FireAction()
     {
-        if (_input.fire)
-        {            
-            manager.AnimCtrl.SetAnimations(DefineDatas.ePlayerAnimParams.Attack, true);
-        }
-        else
-        {
-            manager.AnimCtrl.SetAnimations(DefineDatas.ePlayerAnimParams.Attack, false);
-        }
+        //if (_input.fire)
+        //{            
+        //    manager.AnimCtrl.SetAnimations(DefineDatas.ePlayerAnimParams.Attack, true);
+        //}
+        //else
+        //{
+        //    manager.AnimCtrl.SetAnimations(DefineDatas.ePlayerAnimParams.Attack, false);
+        //}
     }
 
     void SetAimCamera()
@@ -157,9 +157,7 @@ public class PlayerInputController : MonoBehaviour
             {
                 _aimCam.gameObject.SetActive(true);
                 CrossHairAlphaCtrl(1.0f);
-            }
-                
-            
+            }                            
         }
         else
         {
@@ -169,8 +167,8 @@ public class PlayerInputController : MonoBehaviour
                 CrossHairAlphaCtrl(0.3f);
             }
         }
-        
-            
+
+        manager.AnimCtrl.SetAnimations(DefineDatas.ePlayerAnimParams.Aim, _input.aim);
     }    
 
     void InteractAction()

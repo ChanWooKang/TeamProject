@@ -6,13 +6,16 @@ using DefineDatas;
 public class PlayerAnimController : MonoBehaviour
 {
     Animator _animator;
-   
+
     //Animation IDs
+    int _animIDxDir;
+    int _animIDyDir;
     int _animIDSpeed;
     int _animIDGrounded;
     int _animIDJump;
     int _animIDFreeFall;
     int _animIDMotionSpeed;
+    int _animIDAim;
     int _animIDAttack;
         
 
@@ -26,12 +29,15 @@ public class PlayerAnimController : MonoBehaviour
 
     void AssignAnimationIDs()
     {
+        _animIDxDir = Animator.StringToHash("xDir");
+        _animIDyDir = Animator.StringToHash("yDir");
         _animIDSpeed = Animator.StringToHash("Speed");
         _animIDGrounded = Animator.StringToHash("Grounded");
         _animIDJump = Animator.StringToHash("Jump");
         _animIDFreeFall = Animator.StringToHash("FreeFall");
         _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
-        _animIDAttack = Animator.StringToHash("Attack");
+        //_animIDAttack = Animator.StringToHash("Attack");
+        _animIDAim = Animator.StringToHash("Aim");
     }
 
 
@@ -40,23 +46,16 @@ public class PlayerAnimController : MonoBehaviour
         switch (parameter)
         {
             case ePlayerAnimParams.Ground:
-                if (_animator.GetBool(_animIDGrounded) != isOn)
                     _animator.SetBool(_animIDGrounded, isOn);
                 break;
-            case ePlayerAnimParams.Jump:
-                if (_animator.GetBool(_animIDJump) != isOn)
+            case ePlayerAnimParams.Jump:                
                     _animator.SetBool(_animIDJump, isOn);
                 break;
             case ePlayerAnimParams.FreeFall:
-                if (_animator.GetBool(_animIDFreeFall) != isOn)
                     _animator.SetBool(_animIDFreeFall, isOn);
                 break;
-            case ePlayerAnimParams.Attack:
-                if (isOn)
-                    _animator.SetLayerWeight(1, 1);
-
-                if (_animator.GetBool(_animIDAttack) != isOn)
-                    _animator.SetBool(_animIDAttack, isOn);
+            case ePlayerAnimParams.Aim:
+                    _animator.SetBool(_animIDAim, isOn);
                 break;
         }
     }
@@ -65,14 +64,18 @@ public class PlayerAnimController : MonoBehaviour
     {
         switch (parameter)
         {
-            case ePlayerAnimParams.Speed:
-                if(_animator.GetFloat(_animIDSpeed) != value)
+            case ePlayerAnimParams.Speed:                
                     _animator.SetFloat(_animIDSpeed, value);
                 break;
-            case ePlayerAnimParams.MotionSpeed:
-                if (_animator.GetFloat(_animIDMotionSpeed) != value)
+            case ePlayerAnimParams.MotionSpeed:                
                     _animator.SetFloat(_animIDMotionSpeed, value);
-                break;            
+                break;
+            case ePlayerAnimParams.xDir:
+                _animator.SetFloat(_animIDxDir, value);
+                break;
+            case ePlayerAnimParams.yDir:
+                _animator.SetFloat(_animIDyDir, value);
+                break;
         }
     }
 
