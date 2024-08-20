@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using DefineDatas;
 
 public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
@@ -18,35 +17,8 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void InitSlot(int num, int x, int y, UI_Interaction interation)
     {
         m_uiInteraction = interation;
-        LowBase weaponTable = Managers._table.Get(LowDataType.WeaponTable);
-        int index = 200 + num;
-        string nameEn = weaponTable.ToStr(index, "NameEn");
-        string nameKr = weaponTable.ToStr(index, "NameKr");
-        string desc = weaponTable.ToStr(index, "Desc");
-        string spriteName = weaponTable.ToStr(index, "SpriteName");
-        string materialsIndexStr = weaponTable.ToStr(index, "Materials");
-        string[] materialsIndexStrArray = materialsIndexStr.Split('/');
-        int[] materialsIndexArray = new int[materialsIndexStrArray.Length];
-        for (int i = 0; i < materialsIndexStrArray.Length; i++)
-        {
-            if (int.TryParse(materialsIndexStrArray[i], out int number))
-            {
-                materialsIndexArray[i] = number;
-            }
-        }
-        string materialsCost = weaponTable.ToStr(index, "MaterialsCost");
-        string[] materialsCostStrArray = materialsCost.Split('/');
-        int[] materialsCostArray = new int[materialsCostStrArray.Length];
-        for (int i = 0; i < materialsCostArray.Length; i++)
-        {
-            if (int.TryParse(materialsCostStrArray[i], out int number))
-            {
-                materialsCostArray[i] = number;
-            }
-        }
-        float damage = weaponTable.ToFloat(index, "Damage");
-        float weight = weaponTable.ToFloat(index, "Weight");
-        m_wpInfo = new WeaponInfo(index, nameEn, nameKr, desc, spriteName, materialsIndexArray, materialsCostArray, damage, weight);
+       
+        m_wpInfo = new WeaponInfo(num);
         m_x = x;
         m_y = y;
     }

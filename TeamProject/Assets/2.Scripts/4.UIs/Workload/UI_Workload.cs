@@ -30,6 +30,7 @@ public class UI_Workload : MonoBehaviour
     public void OpenUI()
     {
         gameObject.SetActive(true);
+        
     }
     public void CloseUI()
     {
@@ -38,10 +39,10 @@ public class UI_Workload : MonoBehaviour
         m_cSlider.value = 0;
     }
     public bool PressFkey()
-    {
-        float pel = 106f;   
-        m_fSlider.value += Time.deltaTime;
-        if(m_fSlider.value >= 1)
+    {        
+        m_fSlider.value += Time.deltaTime * 100;
+        m_leftTimetxt.text = Mathf.FloorToInt((m_fSlider.maxValue - m_fSlider.value) / 100f).ToString();
+        if (m_fSlider.value >= m_fSlider.maxValue)
         {
             Destroy(gameObject);
             return true;
@@ -51,6 +52,7 @@ public class UI_Workload : MonoBehaviour
     public void UpFKey()
     {
         m_fSlider.value = 0;
+        m_leftTimetxt.text = (m_fSlider.maxValue / 100f).ToString();
     }
     public bool PressCKey()
     {
@@ -66,9 +68,19 @@ public class UI_Workload : MonoBehaviour
     {
         m_cSlider.value = 0;
     }
+    public void SetProgressValue(float progress)
+    {
+        m_fSlider.maxValue = progress;
+        m_leftTimetxt.text = (progress / 100f).ToString();
+    }
     void SetUILookAtCamera()
     {
         transform.LookAt(m_mainCam.transform);
+    }
+
+    IEnumerator PressFKey()
+    {
+        return null;
     }
    
     

@@ -8,6 +8,8 @@ public class ObjectPreview : MonoBehaviour
     [SerializeField]
     List<Collider> colliderList = new List<Collider>(); // 충돌한 오브젝트들 저장할 리스트
     UI_Workload m_uiWorkload;
+    Architecture m_architectureInfo;
+
     [SerializeField]
     int layerGround; // 지형 레이어 (무시하게 할 것)
     const int IGNORE_RAYCAST_LAYER = 2;  // ignore_raycast (무시하게 할 것)
@@ -43,7 +45,7 @@ public class ObjectPreview : MonoBehaviour
                     collider.isTrigger = false;                    
                     m_isDone = true;
                     gameObject.transform.parent.gameObject.isStatic = true;
-                    m_detectiveAreaObj.layer = LayerMask.NameToLayer("Default");
+                   
                 }
             if (Input.GetKeyUp(KeyCode.F))
                 m_uiWorkload.UpFKey();
@@ -67,16 +69,17 @@ public class ObjectPreview : MonoBehaviour
 
     public void SetColor(Material mat)
     {
-
         Material[] newMaterials = new Material[GetComponent<Renderer>().materials.Length];
 
         for (int i = 0; i < newMaterials.Length; i++)
         {
             newMaterials[i] = mat;
         }
-
         GetComponent<Renderer>().materials = newMaterials;
-
+    }
+    public void SetArchitectureInfo(Architecture arc)
+    {
+        m_architectureInfo = arc;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -94,6 +97,7 @@ public class ObjectPreview : MonoBehaviour
                 ui.transform.position = gameObject.transform.position + gameObject.transform.up * 1.5f + gameObject.transform.right * 1.5f;
                 m_uiWorkload = ui.GetComponentInChildren<UI_Workload>();
                 m_uiWorkload.OpenUI();
+                m_uiWorkload.SetProgressValue(m_architectureInfo.Progress);
             }
             else
                 m_uiWorkload.OpenUI();
@@ -121,6 +125,7 @@ public class ObjectPreview : MonoBehaviour
     public void FixedObject()
     {
         m_isFixed = true;
+        m_detectiveAreaObj.layer = LayerMask.NameToLayer("Default");    
         SetColor(blue);
     }
 

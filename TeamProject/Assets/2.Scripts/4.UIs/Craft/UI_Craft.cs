@@ -11,17 +11,21 @@ public class UI_Craft : MonoBehaviour
     Button m_slotBtn;    
     GameObject m_previewObj;
     GameObject m_craftingObj;
-
-    Transform m_player;
+    Architecture m_architectureInfo;
+    [SerializeField] List<UI_CraftSlot> m_listCraftSlot;
+    
     RaycastHit m_hitInfo;
     [SerializeField] LayerMask m_layerMask;
     [SerializeField] float m_range;
 
-    bool m_isPreviewActivated;
-    bool m_isActivated;
+    bool m_isPreviewActivated;    
     private void Start()
     {
-        m_player = GameObject.FindGameObjectWithTag("Player").transform;
+        //임시
+        for(int i = 0; i< m_listCraftSlot.Count; i++)
+        {
+            m_listCraftSlot[i].InitSlot(1, this);
+        }
     }
     private void Update()
     {
@@ -40,34 +44,25 @@ public class UI_Craft : MonoBehaviour
         if (m_isPreviewActivated)
             return;
         gameObject.SetActive(true);
-//<<<<<<< HEAD
+
         m_craftBoxObj.SetActive(true);
-        //=======
+        
         m_craftBoxObj.SetActive(true);
 
         GameManagerEx._inst.ControlUI(true, true);
-//>>>>>>> 39e2a51c65562215d136a7c9b2dd9bdcca1aa499
     }
     public void CloseUI()
     {
+      
         gameObject.SetActive(false);
     }
 
-    public void ClickButton()
+    public void IsPreviewActivated(bool isPreviwActivated, GameObject previewObj, GameObject craftignObj, Architecture arc)
     {
-        m_previewObj = Instantiate(m_prefabObj, m_player.position + m_player.forward, Quaternion.identity);
-        m_craftingObj = m_prefabObj;
-        m_isPreviewActivated = true;
-
-        m_craftBoxObj.SetActive(false);
-
-        m_craftBoxObj.SetActive(false);
-
-
-        //UI클릭시 커서 잠금
-        GameManagerEx._inst.ControlUI(false, true);
-        // 얘 켜져있으면 이동 과 카메라 회전만 가능
-        GameManagerEx._inst.isOnBuild = true;
+        m_isPreviewActivated = isPreviwActivated;
+        m_previewObj = previewObj;
+        m_craftingObj = craftignObj;
+        m_architectureInfo = arc;
     }
     
     void PreviewPositionUpdate()
@@ -85,13 +80,15 @@ public class UI_Craft : MonoBehaviour
     {
         if (m_isPreviewActivated && m_previewObj.GetComponentInChildren<ObjectPreview>().isBuildable())
         {
-            GameObject go = Instantiate(m_craftingObj, m_hitInfo.point, Quaternion.identity);
+            GameObject go = Instantiate(m_craftingObj, m_hitInfo.point, Quaternion.identity);            
             Destroy(m_previewObj);  
             ObjectPreview op = go.GetComponentInChildren<ObjectPreview>();
+            op.SetArchitectureInfo(m_architectureInfo);
             op.FixedObject();
-            m_isActivated = false;
+            
             m_isPreviewActivated = false;
             m_previewObj = null;
+            m_architectureInfo = null;
             gameObject.SetActive(false);
             OffBuildAction();
         }
@@ -101,12 +98,13 @@ public class UI_Craft : MonoBehaviour
         if (m_isPreviewActivated)
         {
             Destroy(m_previewObj);
-            m_isActivated = false;
+            
             m_isPreviewActivated = false;
             m_previewObj = null;
         }
         gameObject.SetActive(false);
         OffBuildAction();
+        GameManagerEx._inst.ControlUI(false, true);
     }
 
     void OffBuildAction()

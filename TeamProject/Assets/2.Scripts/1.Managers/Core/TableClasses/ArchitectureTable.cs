@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using LitJson;
-public class CraftTable : LowBase
+public class ArchitectureTable : LowBase
 {
     public override void Load(string jsonName)
     {

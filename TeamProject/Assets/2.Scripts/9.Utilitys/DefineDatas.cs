@@ -84,12 +84,11 @@ namespace DefineDatas
 
     public enum LowDataType
     {
-        CraftTable,
+        ArchitectureTable,
         MaterialTable,
         PetLevelTable,
         PetTable,
         WeaponTable,
-
     }
 
 }

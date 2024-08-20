@@ -149,6 +149,9 @@ public class UI_Interaction : MonoBehaviour
                 }
             }
         }
+        //UI클릭시 커서 잠금
+        GameManagerEx._inst.ControlUI(false, false);
+        GameManagerEx._inst.ChangeCursorLockForUI(true);
     }
 
     void CloseMenu()
