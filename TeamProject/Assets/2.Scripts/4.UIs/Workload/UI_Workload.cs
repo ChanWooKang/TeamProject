@@ -8,7 +8,7 @@ using DefineDatas;
 public class UI_Workload : MonoBehaviour
 {
     Canvas m_canvas;
-    Camera m_mainCam;
+    Camera m_mainCam;    
     [SerializeField]
     TextMeshProUGUI m_leftTimetxt;
     [SerializeField]
@@ -41,7 +41,7 @@ public class UI_Workload : MonoBehaviour
     public bool PressFkey()
     {        
         m_fSlider.value += Time.deltaTime * 100;
-        m_leftTimetxt.text = Mathf.FloorToInt((m_fSlider.maxValue - m_fSlider.value) / 100f).ToString();
+        m_leftTimetxt.text = Mathf.CeilToInt((m_fSlider.maxValue - m_fSlider.value) / 100f).ToString();
         if (m_fSlider.value >= m_fSlider.maxValue)
         {
             Destroy(gameObject);
@@ -78,7 +78,7 @@ public class UI_Workload : MonoBehaviour
         transform.LookAt(m_mainCam.transform);
     }
 
-    IEnumerator PressFKey()
+    IEnumerator SetPr()
     {
         return null;
     }

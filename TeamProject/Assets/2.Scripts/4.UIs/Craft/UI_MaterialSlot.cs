@@ -11,12 +11,14 @@ public class UI_MaterialSlot : MonoBehaviour
     [SerializeField] TextMeshProUGUI m_txtMaterialCost;
     [SerializeField] Image m_icon;
 
-    public void OpenSlot(Sprite icon, string name, int cost, int own)
+    public void InitSlot(Sprite icon, string name, int cost, int own)
     {
         m_icon.sprite = icon;
         m_txtMaterialName.text = name;
-        StringBuilder sb = new StringBuilder(own);
-        sb.Append('/', cost);
+        StringBuilder sb = new StringBuilder();
+        sb.Append(own);
+        sb.Append('/');
+        sb.Append(cost);
         m_txtMaterialCost.text = sb.ToString();
     }
 }

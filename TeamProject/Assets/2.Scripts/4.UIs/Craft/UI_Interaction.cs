@@ -80,7 +80,7 @@ public class UI_Interaction : MonoBehaviour
                 m_weaponInfo = null;
                 m_isCraftDone = false;
                 OpenInteraction();
-                // ¹«±â È¹µæ
+                InventoryManager._inst.AddEquipItem(eEquipType.Weapon, new BaseItem());
             }
         }
     }

@@ -56,6 +56,7 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             }
         }
         m_uiInfoBox.OpenBox(m_wpInfo.NameKr, m_wpInfo.Desc);
+        m_uiInfoBox.OpenMaterialsSlots(m_wpInfo.MaterialsIndex, m_wpInfo.MaterialsCost);
         m_uiInfoBox.transform.SetParent(transform.parent);
         m_uiInfoBox.transform.SetAsLastSibling();
     }

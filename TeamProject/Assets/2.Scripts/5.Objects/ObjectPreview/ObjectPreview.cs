@@ -9,6 +9,7 @@ public class ObjectPreview : MonoBehaviour
     List<Collider> colliderList = new List<Collider>(); // 충돌한 오브젝트들 저장할 리스트
     UI_Workload m_uiWorkload;
     Architecture m_architectureInfo;
+    BoxCollider m_collider;
 
     [SerializeField]
     int layerGround; // 지형 레이어 (무시하게 할 것)
@@ -31,7 +32,9 @@ public class ObjectPreview : MonoBehaviour
     {
         m_isFixed = false;
         m_isDone = false;
+        m_collider = GetComponent<BoxCollider>();
     }
+   
     void Update()
     {
         ChangeColor();
@@ -125,7 +128,8 @@ public class ObjectPreview : MonoBehaviour
     public void FixedObject()
     {
         m_isFixed = true;
-        m_detectiveAreaObj.layer = LayerMask.NameToLayer("Default");    
+        m_detectiveAreaObj.layer = LayerMask.NameToLayer("Default");
+        m_collider.size = new Vector3(1.5f, 1f, 1.5f);
         SetColor(blue);
     }
 
