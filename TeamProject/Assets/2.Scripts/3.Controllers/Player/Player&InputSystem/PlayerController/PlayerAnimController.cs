@@ -17,7 +17,7 @@ public class PlayerAnimController : MonoBehaviour
     int _animIDFreeFall;
     int _animIDMotionSpeed;
     int _animIDAim;
-    int _animIDAttack;
+    int _animIDAttackEnd;
     int _animIDEquip;
     int _animIDDisarm;
     int _animIDWeaponType;
@@ -43,7 +43,7 @@ public class PlayerAnimController : MonoBehaviour
         _animIDJump = Animator.StringToHash("Jump");
         _animIDFreeFall = Animator.StringToHash("FreeFall");
         _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
-        //_animIDAttack = Animator.StringToHash("Attack");
+        _animIDAttackEnd = Animator.StringToHash("AttackEnd");
         _animIDAim = Animator.StringToHash("Aim");
         _animIDEquip = Animator.StringToHash("Equip");
         _animIDDisarm = Animator.StringToHash("Disarm");
@@ -67,6 +67,9 @@ public class PlayerAnimController : MonoBehaviour
                 break;
             case ePlayerAnimParams.Aim:
                     _animator.SetBool(_animIDAim, isOn);
+                break;
+            case ePlayerAnimParams.AttackEnd:
+                _animator.SetBool(_animIDAttackEnd, isOn);
                 break;
         }
     }
@@ -133,8 +136,14 @@ public class PlayerAnimController : MonoBehaviour
         manager.EquipCtrl.EquipWeapon();
     }
 
+    public void OnChargeEnd()
+    {
+        SetAnimations(ePlayerAnimParams.AttackEnd, false);
+    }
+
     public void OnAttackEnd()
     {
-        _animator.SetLayerWeight(1, 0);
+        SetAnimations(ePlayerAnimParams.AttackEnd, true);
+        //_animator.SetLayerWeight(1, 0);
     }
 }

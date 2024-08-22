@@ -200,7 +200,8 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (_input.aim)
         {
-            Transform target = manager.InputCtrl.CinemachineCameraTarget.transform;
+            //Transform target = manager.InputCtrl.CinemachineCameraTarget.transform;
+            Transform target = Camera.main.transform;
 
             //transform.rotation = Quaternion.Euler(0, target.eulerAngles.y, 0);
             transform.rotation = Quaternion.Lerp(transform.rotation,

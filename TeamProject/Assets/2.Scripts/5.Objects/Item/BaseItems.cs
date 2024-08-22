@@ -19,6 +19,7 @@ public class BaseItems : MonoBehaviour
         if (item == null)
             item = InventoryManager._inst.GetItemData(itemIndex);
 
+
         if (InventoryManager._inst.CheckSlot(item) == false)
         {
             InventoryManager._inst.AddInvenItem(item, 1);
