@@ -14,6 +14,7 @@ public class PlayerManager : MonoBehaviour
     public PlayerMovementController Movement;
     public PlayerInputController InputCtrl;
     public PlayerAnimController AnimCtrl;
+    public PlayerEquipController EquipCtrl;
 
     [Header("Audios")]
     public AudioClip LandingAudioClip;
@@ -80,7 +81,8 @@ public class PlayerManager : MonoBehaviour
         LoadStat();
         InputCtrl.Init(this, _input);
         Movement.Init(this, _controller, _input, _mainCamera);
-        AnimCtrl.Init(_animator);
+        AnimCtrl.Init(this, _animator);
+        EquipCtrl.Init(this);
     }
     
 

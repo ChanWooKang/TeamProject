@@ -5,6 +5,7 @@ using DefineDatas;
 
 public class PlayerAnimController : MonoBehaviour
 {
+    PlayerManager manager;
     Animator _animator;
 
     //Animation IDs
@@ -17,14 +18,20 @@ public class PlayerAnimController : MonoBehaviour
     int _animIDMotionSpeed;
     int _animIDAim;
     int _animIDAttack;
-        
+    int _animIDEquip;
+    int _animIDDisarm;
+    int _animIDWeaponType;
 
-    public void Init(Animator animator)
+    int nowActiveLayer;
+    
+
+    public void Init(PlayerManager _manager ,Animator animator)
     {
+        manager = _manager;
         _animator = animator;
         AssignAnimationIDs();
-        
 
+        nowActiveLayer = 0;
     }
 
     void AssignAnimationIDs()
@@ -38,9 +45,13 @@ public class PlayerAnimController : MonoBehaviour
         _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
         //_animIDAttack = Animator.StringToHash("Attack");
         _animIDAim = Animator.StringToHash("Aim");
+        _animIDEquip = Animator.StringToHash("Equip");
+        _animIDDisarm = Animator.StringToHash("Disarm");
+        _animIDWeaponType = Animator.StringToHash("WeaponType");
     }
 
-
+    #region [ Animation Parameter Setting ]
+    // Bool
     public void SetAnimations(ePlayerAnimParams parameter, bool isOn)
     {
         switch (parameter)
@@ -60,6 +71,7 @@ public class PlayerAnimController : MonoBehaviour
         }
     }
 
+    // Float
     public void SetAnimations(ePlayerAnimParams parameter, float value)
     {
         switch (parameter)
@@ -79,9 +91,46 @@ public class PlayerAnimController : MonoBehaviour
         }
     }
 
+    // Trigger
     public void SetAnimations(ePlayerAnimParams parameter)
     {
-        
+        switch (parameter)
+        {
+            case ePlayerAnimParams.Equip:
+                _animator.SetTrigger(_animIDEquip);
+                break;
+            case ePlayerAnimParams.Disarm:
+                _animator.SetTrigger(_animIDDisarm);
+                break;
+        }
+    }
+
+    public void SetAnimations(ePlayerAnimParams parameter,int value)
+    {
+        switch (parameter)
+        {
+            case ePlayerAnimParams.WeaponType:
+                _animator.SetInteger(_animIDWeaponType, value);
+                break;
+        }
+    }
+
+    #endregion [ Animation Parameter Setting ]
+
+    public void SetAnimationLayerWeight(WeaponType type, float weight)
+    {
+        int layer = (int)type;                    
+        _animator.SetLayerWeight(layer, weight);                        
+    }
+
+    public void DisarmEvent()
+    {        
+        manager.EquipCtrl.DisarmWeapon();
+    }
+
+    public void EquipEvent()
+    {
+        manager.EquipCtrl.EquipWeapon();
     }
 
     public void OnAttackEnd()
