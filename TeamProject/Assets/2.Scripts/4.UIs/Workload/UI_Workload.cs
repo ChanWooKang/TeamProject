@@ -7,8 +7,8 @@ using DefineDatas;
 
 public class UI_Workload : MonoBehaviour
 {
-    Canvas m_canvas;
-    Camera m_mainCam;    
+    [SerializeField]
+    GameObject m_workloadBox;
     [SerializeField]
     TextMeshProUGUI m_leftTimetxt;
     [SerializeField]
@@ -17,42 +17,43 @@ public class UI_Workload : MonoBehaviour
     Slider m_cSlider;
 
     List<RequiredItem> m_listRequiredItem;
-    void Start()
-    {
-        m_mainCam = Camera.main;
-        m_canvas = GetComponent<Canvas>();
-        
-    }
-    void Update()
-    {
-        SetUILookAtCamera();
-    }
+    float m_playerAbility;
+    float m_playerAbilityWeight;
+    float m_petAbilityWeight;
+   
+
     public void OpenUI()
     {
-        gameObject.SetActive(true);
         
+        m_workloadBox.SetActive(true);
+        if (m_playerAbilityWeight > 0)
+            StartCoroutine(SetProgress());
+        StartCoroutine(Test());
     }
     public void CloseUI()
     {
-        gameObject.SetActive(false);
-        m_fSlider.value = 0;
+        m_workloadBox.SetActive(false);
         m_cSlider.value = 0;
     }
     public bool PressFkey()
-    {        
-        m_fSlider.value += Time.deltaTime * 100;
-        m_leftTimetxt.text = Mathf.CeilToInt((m_fSlider.maxValue - m_fSlider.value) / 100f).ToString();
+    {
+        if (Input.GetKey(KeyCode.F))
+            m_playerAbilityWeight = 100f;
+
+        //m_fSlider.value += Time.deltaTime * 100;
+        //m_leftTimetxt.text = Mathf.CeilToInt((m_fSlider.maxValue - m_fSlider.value) / 100f).ToString();
         if (m_fSlider.value >= m_fSlider.maxValue)
         {
+            StopCoroutine(SetProgress());
             Destroy(gameObject);
             return true;
         }
         return false;
     }
+   
     public void UpFKey()
     {
-        m_fSlider.value = 0;
-        m_leftTimetxt.text = (m_fSlider.maxValue / 100f).ToString();
+        m_playerAbilityWeight = 0f;
     }
     public bool PressCKey()
     {
@@ -70,18 +71,35 @@ public class UI_Workload : MonoBehaviour
     }
     public void SetProgressValue(float progress)
     {
+        m_playerAbility = 100f;
         m_fSlider.maxValue = progress;
-        m_leftTimetxt.text = (progress / 100f).ToString();
+        m_leftTimetxt.text = (progress / m_playerAbility).ToString();
+
+        StartCoroutine(SetProgress());
     }
-    void SetUILookAtCamera()
+    public void SetPetWorkAbility(float ability)
     {
-        transform.LookAt(m_mainCam.transform);
+        m_petAbilityWeight += ability;
     }
 
-    IEnumerator SetPr()
+
+    IEnumerator SetProgress()
     {
-        return null;
+        while (m_fSlider.value < m_fSlider.maxValue)
+        {
+            m_fSlider.value += (m_playerAbilityWeight + m_petAbilityWeight) * Time.deltaTime;
+            if (m_petAbilityWeight > 0)
+                m_leftTimetxt.text = Mathf.CeilToInt((m_fSlider.maxValue - m_fSlider.value) / (m_playerAbilityWeight + m_petAbilityWeight)).ToString();
+            else
+                m_leftTimetxt.text = Mathf.CeilToInt((m_fSlider.maxValue - m_fSlider.value) / (m_playerAbility)).ToString();
+            yield return null;
+        }
     }
-   
-    
+
+    IEnumerator Test()
+    {
+        yield return new WaitForSeconds(2f);
+
+        SetPetWorkAbility(50f);
+    }
 }

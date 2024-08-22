@@ -28,7 +28,9 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         if (m_uiInfoBox == null)
         {
             GameObject ui = Instantiate(m_infoBoxPrefab, m_infoBoxPoses[0]);
+           
             m_uiInfoBox = ui.GetComponent<UI_InfoBox>();
+            
         }
 
 
@@ -55,10 +57,13 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 m_uiInfoBox.gameObject.transform.SetParent(m_infoBoxPoses[3]);
             }
         }
-        m_uiInfoBox.OpenBox(m_wpInfo.NameKr, m_wpInfo.Desc);
-        m_uiInfoBox.OpenMaterialsSlots(m_wpInfo.MaterialsIndex, m_wpInfo.MaterialsCost);
+       
         m_uiInfoBox.transform.SetParent(transform.parent);
         m_uiInfoBox.transform.SetAsLastSibling();
+        RectTransform rect = m_uiInfoBox.GetComponent<RectTransform>();
+        rect.sizeDelta = new Vector2(650, 300);
+        m_uiInfoBox.OpenBox(m_wpInfo.NameKr, m_wpInfo.Desc);
+        m_uiInfoBox.OpenMaterialsSlots(m_wpInfo.MaterialsIndex, m_wpInfo.MaterialsCost);
     }
     public void OnPointerExit(PointerEventData eventData)
     {

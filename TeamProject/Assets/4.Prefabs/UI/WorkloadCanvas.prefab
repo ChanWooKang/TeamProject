@@ -247,6 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cef593ccb90dcb4bbe69f6d4949d35a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_workloadBox: {fileID: 1740737191876802164}
   m_leftTimetxt: {fileID: 1740737192379794214}
   m_fSlider: {fileID: 1740737191056298562}
   m_cSlider: {fileID: 1740737191794273461}

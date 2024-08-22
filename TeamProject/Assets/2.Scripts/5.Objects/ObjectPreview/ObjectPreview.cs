@@ -14,7 +14,7 @@ public class ObjectPreview : MonoBehaviour
     [SerializeField]
     int layerGround; // 지형 레이어 (무시하게 할 것)
     const int IGNORE_RAYCAST_LAYER = 2;  // ignore_raycast (무시하게 할 것)
-    
+
     bool m_isFixed;
     bool m_isDone;
     public bool IsDone { get { return m_isDone; } }
@@ -34,27 +34,25 @@ public class ObjectPreview : MonoBehaviour
         m_isDone = false;
         m_collider = GetComponent<BoxCollider>();
     }
-   
+
     void Update()
     {
         ChangeColor();
         if (m_uiWorkload != null && m_uiWorkload.isActiveAndEnabled)
         {
-            if (Input.GetKey(KeyCode.F))
-                if (m_uiWorkload.PressFkey())
-                {
-                    SetColor(m_originalMaterial);
-                    BoxCollider collider = GetComponent<BoxCollider>();
-                    collider.isTrigger = false;                    
-                    m_isDone = true;
-                    gameObject.transform.parent.gameObject.isStatic = true;
-                   
-                }
+            if (m_uiWorkload.PressFkey())
+            {
+                SetColor(m_originalMaterial);
+                BoxCollider collider = GetComponent<BoxCollider>();
+                collider.isTrigger = false;
+                m_isDone = true;
+                gameObject.transform.parent.gameObject.isStatic = true;
+            }
             if (Input.GetKeyUp(KeyCode.F))
                 m_uiWorkload.UpFKey();
             if (Input.GetKey(KeyCode.C))
                 if (m_uiWorkload.PressCKey())
-                    Destroy(gameObject);
+                    Destroy(gameObject.transform.parent.gameObject);
             if (Input.GetKeyUp(KeyCode.C))
                 m_uiWorkload.UpCKey();
         }
