@@ -26,6 +26,7 @@ public class UI_Craft : MonoBehaviour
         {
             m_listCraftSlot[i].InitSlot(1, this);
         }
+        //
     }
     private void Update()
     {

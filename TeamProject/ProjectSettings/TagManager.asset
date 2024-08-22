@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - CinemachineTarget
   - UICamera
+  - Pet
   layers:
   - Default
   - TransparentFX

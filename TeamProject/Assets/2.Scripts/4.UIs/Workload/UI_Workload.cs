@@ -39,9 +39,7 @@ public class UI_Workload : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.F))
             m_playerAbilityWeight = 100f;
-
-        //m_fSlider.value += Time.deltaTime * 100;
-        //m_leftTimetxt.text = Mathf.CeilToInt((m_fSlider.maxValue - m_fSlider.value) / 100f).ToString();
+       
         if (m_fSlider.value >= m_fSlider.maxValue)
         {
             StopCoroutine(SetProgress());

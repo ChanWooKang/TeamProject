@@ -43,12 +43,13 @@ public class CraftTableController : MonoBehaviour
                 m_interaction.OpenInteraction();
             }
         }
+        if(!m_objPreview.IsDone && other.CompareTag("Pet"))
+        {
+            //콜라이더 안에 펫을 집어 던지면 자동으로 펫에게 건축을 시킴
+        }
     }
     private void OnTriggerExit(Collider other)
-    {
-
-       
-
+    {       
         if (m_objPreview.IsDone && other.CompareTag("Player") && m_interaction != null)
         {
             m_interaction.CloseInteraction();

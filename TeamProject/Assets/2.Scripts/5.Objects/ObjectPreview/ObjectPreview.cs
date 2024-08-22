@@ -88,7 +88,7 @@ public class ObjectPreview : MonoBehaviour
         if (other.gameObject.layer != layerGround && other.gameObject.layer != IGNORE_RAYCAST_LAYER)
             colliderList.Add(other);
 
-        if (m_isFixed && other.gameObject.tag == "Player" && !m_isDone)
+        if (m_isFixed && other.CompareTag("Player") && !m_isDone)
         {
             if (m_uiWorkload == null)
             {
@@ -102,7 +102,7 @@ public class ObjectPreview : MonoBehaviour
             }
             else
                 m_uiWorkload.OpenUI();
-        }
+        }        
     }
 
     private void OnTriggerExit(Collider other)
