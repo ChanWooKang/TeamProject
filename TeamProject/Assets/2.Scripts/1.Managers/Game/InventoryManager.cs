@@ -20,6 +20,7 @@ public class InventoryManager : MonoBehaviour
     //public Dictionary<eEquipType, BaseItem[]> Dict_Equip = new Dictionary<eEquipType, BaseItem[]>();
     public List<BaseItem> Items;
     public Dictionary<int, BaseItem> Dict_Item;
+    public Dictionary<int, WeaponItemInfo> Dict_Weapon;
 
     public static bool ActiveChangeEquip = false;
     public int itemCount;
@@ -45,7 +46,8 @@ public class InventoryManager : MonoBehaviour
 
     public void Init()
     {        
-        Items = new List<BaseItem>();       
+        Items = new List<BaseItem>();
+        Dict_Weapon = new Dictionary<int, WeaponItemInfo>();
         AddItems(LowDataType.MaterialTable);
         AddItems(LowDataType.WeaponTable);
         itemCount = Items.Count;
@@ -114,6 +116,7 @@ public class InventoryManager : MonoBehaviour
                     float damage = Table.ToFloat(index, "Damage");
                     WeaponItemInfo weapon = new WeaponItemInfo(index, nameEn, desc, spriteName, nameKr, weight, materialsIndexArray, materialsCostArray, damage);
                     Items.Add(weapon);
+                    Dict_Weapon.Add(index, weapon);
                 }                
                 break;
             case eItemType.Material:
@@ -123,6 +126,9 @@ public class InventoryManager : MonoBehaviour
         }
         
     }
+
+
+
 
     public BaseItem GetItemData(int index)
     {
@@ -143,7 +149,7 @@ public class InventoryManager : MonoBehaviour
         for(int i = 0; i < Items.Count; i++)
         {
             Dict_Item.Add(Items[i].Index,Items[i]);
-        }
+        }             
     }
 
     void ChangeEquipment(eEquipType type, BaseItem item,int slotIndex = 0 ,bool isWear = true)

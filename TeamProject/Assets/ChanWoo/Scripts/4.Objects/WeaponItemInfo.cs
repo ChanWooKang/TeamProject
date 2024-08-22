@@ -8,7 +8,7 @@ public class WeaponItemInfo : BaseItem
     int[] _materialsIndex;
     int[] _materialsCost;
     float _damage;
-
+    
     public int[] MaterialsIndex { get { return _materialsIndex; } }
     public int[] MaterialsCost { get { return _materialsCost; } }
    

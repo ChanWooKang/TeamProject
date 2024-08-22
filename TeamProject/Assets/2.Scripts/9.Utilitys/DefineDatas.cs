@@ -78,7 +78,8 @@ namespace DefineDatas
         Aim,
         Equip,
         Disarm,
-        WeaponType
+        WeaponType,
+        AttackEnd
 
     }
 
