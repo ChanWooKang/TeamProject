@@ -44,6 +44,14 @@ namespace DefineDatas
         Max_Count
     }
 
+    public enum WeaponType
+    {
+        None = 0,
+        OneHand,
+        Bow,
+        Rifle,
+    }
+
     public enum eMonsterType
     {
 
@@ -68,7 +76,10 @@ namespace DefineDatas
         FreeFall,
         MotionSpeed,        
         Aim,
-        
+        Equip,
+        Disarm,
+        WeaponType
+
     }
 
 

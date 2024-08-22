@@ -161,17 +161,13 @@ public class PlayerMovementController : MonoBehaviour
                 Time.deltaTime * SpeedChangeRate);
 
             _speed = Mathf.Round(_speed * 1000f) / 1000f;
-            Debug.Log(_speed);
         }
         else
         {
-            _speed = targetSpeed;
-
-            Debug.Log(_speed + "!!");
+            _speed = targetSpeed;            
         }
 
         _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
-        Debug.Log(_animationBlend + "!!!");
         if (_animationBlend < 0.01f) _animationBlend = 0.0f;
 
         Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
@@ -205,8 +201,10 @@ public class PlayerMovementController : MonoBehaviour
         if (_input.aim)
         {
             Transform target = manager.InputCtrl.CinemachineCameraTarget.transform;
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0,target.eulerAngles.y,0)
-                , Time.deltaTime * 50f);
+
+            //transform.rotation = Quaternion.Euler(0, target.eulerAngles.y, 0);
+            transform.rotation = Quaternion.Lerp(transform.rotation,
+            Quaternion.Euler(0,target.eulerAngles.y,0), Time.deltaTime * 100f);
         }
     }
     
