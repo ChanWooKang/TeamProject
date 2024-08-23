@@ -67,6 +67,11 @@ public class PlayerManager : MonoBehaviour
     {
         //마우스 delta값으로 카메라 회전
         InputCtrl.CameraRotate();
+
+        if (AnimCtrl.isCharging)
+        {
+            InputCtrl.playerSpan.localRotation = Quaternion.Euler(10, 6.827f, 6.206f);
+        }
     }
 
     void InitComponent()

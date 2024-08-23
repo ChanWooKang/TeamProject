@@ -32,6 +32,11 @@ public class PlayerInputController : MonoBehaviour
     [Tooltip("For locking the camera position on all axis")]
     public bool LockCameraPosition = false;
 
+    public float SpanMinY = -10f;
+    public float SpanMaxY = 10f;
+    public Transform playerSpan;
+    public Animator _animator;
+
     PlayerManager manager;
     PlayerAssetsInputs _input;
 
@@ -48,6 +53,7 @@ public class PlayerInputController : MonoBehaviour
         _input = input;
 
         _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
+        playerSpan = _animator.GetBoneTransform(HumanBodyBones.Spine);
     }
 
 
@@ -132,6 +138,8 @@ public class PlayerInputController : MonoBehaviour
 
         _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
         _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+        
+
 
         CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
             _cinemachineTargetYaw, 0.0f);

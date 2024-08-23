@@ -23,8 +23,8 @@ public class PlayerAnimController : MonoBehaviour
     int _animIDDisarm;
     int _animIDWeaponType;
 
-    
-    
+
+    public bool isCharging = false;    
 
     public void Init(PlayerManager _manager ,Animator animator)
     {
@@ -157,16 +157,18 @@ public class PlayerAnimController : MonoBehaviour
     public void FireEvent()
     {
         Debug.Log("½¹");
+        isCharging = false;
     }
 
     public void OnChargeEvent()
     {
         SetAnimations(ePlayerAnimParams.AttackEnd, false);
         manager.EquipCtrl.bow.AimStart();
+        isCharging = true;
     }
 
     public void OnChargeEnd()
-    {
+    {        
         SetAnimations(ePlayerAnimParams.AttackEnd, false);
     }
 
