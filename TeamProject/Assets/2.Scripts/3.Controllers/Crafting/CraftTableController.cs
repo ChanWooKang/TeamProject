@@ -7,11 +7,7 @@ public class CraftTableController : MonoBehaviour
     [SerializeField] GameObject m_uiInteractionObj;
     UI_Interaction m_interaction;
     [SerializeField] ObjectPreview m_objPreview;
-    private void Awake()
-    {
-        //임시
-        //m_objPreview = <ObjectPreview>();
-    }
+   
     private void OnTriggerEnter(Collider other)
     {
         if (m_objPreview.IsDone && other.CompareTag("Player"))
@@ -28,7 +24,7 @@ public class CraftTableController : MonoBehaviour
             {
                 m_interaction.OpenInteraction();
             }
-        }
+        }        
     }
     private void OnTriggerStay(Collider other)
     {
@@ -42,10 +38,12 @@ public class CraftTableController : MonoBehaviour
                 m_interaction = ui.GetComponent<UI_Interaction>();
                 m_interaction.OpenInteraction();
             }
-        }
-        if(!m_objPreview.IsDone && other.CompareTag("Pet"))
+        }    
+        
+        if(m_objPreview.IsDone && other.CompareTag("Pet"))
         {
-            //콜라이더 안에 펫을 집어 던지면 자동으로 펫에게 건축을 시킴
+            // 제작중인 오브젝트가 있을 때 팻을 던지면 작업에 착수
+            // m_interaction.PetWork();
         }
     }
     private void OnTriggerExit(Collider other)
@@ -55,5 +53,6 @@ public class CraftTableController : MonoBehaviour
             m_interaction.CloseInteraction();
         }
 
+        
     }
 }

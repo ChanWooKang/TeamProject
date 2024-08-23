@@ -11,14 +11,15 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] GameObject m_infoBoxPrefab;
     UI_InfoBox m_uiInfoBox;
     UI_Interaction m_uiInteraction;
-    WeaponInfo m_wpInfo;
+    
     int m_x;
     int m_y;
+    int m_weaponIndex;
     public void InitSlot(int num, int x, int y, UI_Interaction interation)
     {
         m_uiInteraction = interation;
-       
-        m_wpInfo = new WeaponInfo(num);
+
+        m_weaponIndex = 200 + num;
         m_x = x;
         m_y = y;
     }
@@ -28,9 +29,9 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         if (m_uiInfoBox == null)
         {
             GameObject ui = Instantiate(m_infoBoxPrefab, m_infoBoxPoses[0]);
-           
+
             m_uiInfoBox = ui.GetComponent<UI_InfoBox>();
-            
+
         }
 
 
@@ -57,13 +58,17 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 m_uiInfoBox.gameObject.transform.SetParent(m_infoBoxPoses[3]);
             }
         }
-       
+
         m_uiInfoBox.transform.SetParent(transform.parent);
         m_uiInfoBox.transform.SetAsLastSibling();
         RectTransform rect = m_uiInfoBox.GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(650, 300);
-        m_uiInfoBox.OpenBox(m_wpInfo.NameKr, m_wpInfo.Desc);
-        m_uiInfoBox.OpenMaterialsSlots(m_wpInfo.MaterialsIndex, m_wpInfo.MaterialsCost);
+        string wNameKr = InventoryManager._inst.Dict_Weapon[m_weaponIndex].NameKr;
+        string wDesc = InventoryManager._inst.Dict_Weapon[m_weaponIndex].Desc;
+        int[] wMaterialsIndex = InventoryManager._inst.Dict_Weapon[m_weaponIndex].MaterialsIndex;
+        int[] wMaterialsCost = InventoryManager._inst.Dict_Weapon[m_weaponIndex].MaterialsCost;
+        m_uiInfoBox.OpenBox(wNameKr, wDesc);
+        m_uiInfoBox.OpenMaterialsSlots(wMaterialsIndex, wMaterialsCost);
     }
     public void OnPointerExit(PointerEventData eventData)
     {
@@ -72,9 +77,9 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        m_uiInteraction.ReadyToCraftSometing(m_wpInfo);
+        m_uiInteraction.ReadyToCraftSometing(m_weaponIndex);
         m_uiInteraction.OpenInteraction();
         m_uiInfoBox.CloseBox();
-        
+
     }
 }

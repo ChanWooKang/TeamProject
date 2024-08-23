@@ -15,20 +15,25 @@ public class UI_Workload : MonoBehaviour
     Slider m_fSlider;
     [SerializeField]
     Slider m_cSlider;
-
-    List<RequiredItem> m_listRequiredItem;
+    
     float m_playerAbility;
-    float m_playerAbilityWeight;
+    float m_playerAbilityWeight = 0;
     float m_petAbilityWeight;
-   
 
+    private void Update()
+    {
+        if (m_fSlider.value < m_fSlider.maxValue)
+            StartCoroutine(SetProgress());
+    }
+    public bool IsOpen()
+    {
+        if (m_workloadBox.activeSelf)
+            return true;
+        return false;
+    }
     public void OpenUI()
     {
-        
-        m_workloadBox.SetActive(true);
-        if (m_playerAbilityWeight > 0)
-            StartCoroutine(SetProgress());
-        StartCoroutine(Test());
+        m_workloadBox.SetActive(true);      
     }
     public void CloseUI()
     {
@@ -38,8 +43,8 @@ public class UI_Workload : MonoBehaviour
     public bool PressFkey()
     {
         if (Input.GetKey(KeyCode.F))
-            m_playerAbilityWeight = 100f;
-       
+            m_playerAbilityWeight = m_playerAbility;
+
         if (m_fSlider.value >= m_fSlider.maxValue)
         {
             StopCoroutine(SetProgress());
@@ -48,7 +53,7 @@ public class UI_Workload : MonoBehaviour
         }
         return false;
     }
-   
+
     public void UpFKey()
     {
         m_playerAbilityWeight = 0f;
@@ -72,32 +77,27 @@ public class UI_Workload : MonoBehaviour
         m_playerAbility = 100f;
         m_fSlider.maxValue = progress;
         m_leftTimetxt.text = (progress / m_playerAbility).ToString();
-
         StartCoroutine(SetProgress());
     }
     public void SetPetWorkAbility(float ability)
     {
+        StartCoroutine(SetProgress());
+        m_workloadBox.SetActive(true);
+        m_workloadBox.SetActive(false);
         m_petAbilityWeight += ability;
     }
 
 
     IEnumerator SetProgress()
     {
-        while (m_fSlider.value < m_fSlider.maxValue)
-        {
-            m_fSlider.value += (m_playerAbilityWeight + m_petAbilityWeight) * Time.deltaTime;
-            if (m_petAbilityWeight > 0)
-                m_leftTimetxt.text = Mathf.CeilToInt((m_fSlider.maxValue - m_fSlider.value) / (m_playerAbilityWeight + m_petAbilityWeight)).ToString();
-            else
-                m_leftTimetxt.text = Mathf.CeilToInt((m_fSlider.maxValue - m_fSlider.value) / (m_playerAbility)).ToString();
-            yield return null;
-        }
-    }
+        float weight = m_playerAbilityWeight + m_petAbilityWeight;
+        m_fSlider.value += weight * Time.deltaTime;
 
-    IEnumerator Test()
-    {
-        yield return new WaitForSeconds(2f);
-
-        SetPetWorkAbility(50f);
+        if (m_petAbilityWeight > 0)
+            m_leftTimetxt.text = Mathf.CeilToInt((m_fSlider.maxValue - m_fSlider.value) / (m_playerAbilityWeight + m_petAbilityWeight)).ToString();
+        else
+            m_leftTimetxt.text = Mathf.CeilToInt((m_fSlider.maxValue - m_fSlider.value) / (m_playerAbility)).ToString();
+        yield return null;
     }
+    
 }

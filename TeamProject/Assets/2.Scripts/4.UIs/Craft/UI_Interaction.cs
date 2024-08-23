@@ -24,8 +24,8 @@ public class UI_Interaction : MonoBehaviour
     [SerializeField] TextMeshProUGUI m_txtMenuOrCraft;
     [SerializeField] TextMeshProUGUI m_txtWeaponName;
    
-    ObjectPreview m_objPreview;
-    WeaponInfo m_weaponInfo;
+    
+    
     #endregion[曼炼]
 
     List<UI_MenuSlot> m_listUIMenuSlot;
@@ -33,11 +33,12 @@ public class UI_Interaction : MonoBehaviour
 
     bool m_isNew = true;
     bool m_isCraftDone;
+    int m_weaponIndex = 0;
    
    
     private void Update()
     {
-        if (m_weaponInfo == null)
+        if (m_weaponIndex == 0)
         {
             if (m_uiCraftObj.activeSelf)
             {
@@ -54,7 +55,7 @@ public class UI_Interaction : MonoBehaviour
                 }
             }
         }
-        else if(m_weaponInfo != null & !m_isCraftDone)
+        else if(m_weaponIndex != 0 & !m_isCraftDone)
         {
             if(Input.GetKey(KeyCode.F))
             {
@@ -73,11 +74,11 @@ public class UI_Interaction : MonoBehaviour
                 UpCKey();
             }
         }
-        else if(m_weaponInfo != null & m_isCraftDone)
+        else if(m_weaponIndex != 0 & m_isCraftDone)
         {
             if(Input.GetKeyDown(KeyCode.F))
             {
-                m_weaponInfo = null;
+                m_weaponIndex = 0;
                 m_isCraftDone = false;
                 OpenInteraction();
                 InventoryManager._inst.AddEquipItem(eEquipType.Weapon, new BaseItem());
@@ -87,7 +88,7 @@ public class UI_Interaction : MonoBehaviour
 
     public void OpenInteraction()
     {
-        if (m_weaponInfo == null)
+        if (m_weaponIndex == 0)
         {
             m_txtPressOrHold.text = "Press";
             m_txtMenuOrCraft.text = "Craft Menu";
@@ -95,15 +96,15 @@ public class UI_Interaction : MonoBehaviour
             m_CancelObj.SetActive(false);
             m_isCraftDone = false;
         }
-        else if(m_weaponInfo != null & !m_isCraftDone)
+        else if(m_weaponIndex != 0 & !m_isCraftDone)
         {
             m_txtPressOrHold.text = "Press and Hold";
             m_txtMenuOrCraft.text = "Craft";
-            m_txtWeaponName.text = m_weaponInfo.NameKr;
+            m_txtWeaponName.text = InventoryManager._inst.Dict_Weapon[m_weaponIndex].NameKr;
             m_weaponInfoBoxObj.SetActive(true);
             m_CancelObj.SetActive(true);
         }
-        else if(m_weaponInfo != null & m_isCraftDone)
+        else if(m_weaponIndex != 0 & m_isCraftDone)
         {
             m_txtPressOrHold.text = "Press";
             m_txtMenuOrCraft.text = "Get Weapon";
@@ -118,9 +119,9 @@ public class UI_Interaction : MonoBehaviour
         CloseMenu();
         gameObject.SetActive(false);
     }
-    public void ReadyToCraftSometing(WeaponInfo weaponInfo)
-    {        
-        m_weaponInfo = weaponInfo;
+    public void ReadyToCraftSometing(int weaponindex)
+    {
+        m_weaponIndex = weaponindex;
     }
 
     void OpenMenu()
@@ -179,15 +180,8 @@ public class UI_Interaction : MonoBehaviour
         m_maxMenuVolAmount = new Vector2Int(x, y);
     }
      void PressFkey()
-    {        
-        m_progressCraft.value += Time.deltaTime;
-        if (m_progressCraft.value >= 1)
-        {
-            //单胶农 困俊 公扁 积己
-            m_progressCraft.value = 0;
-            m_isCraftDone = true;            
-            OpenInteraction();
-        }        
+    {
+        StartCoroutine(SetProgress());
     }
      void UpFKey()
     {
@@ -199,12 +193,28 @@ public class UI_Interaction : MonoBehaviour
         if (m_progressCancel.value >= 1)
         {
             m_progressCancel.value = 0;
-            m_weaponInfo = null;
+            m_weaponIndex = 0;
             OpenInteraction();
         }        
     }
      void UpCKey()
     {
         m_progressCancel.value = 0;
+    }
+    public void PetWork()
+    {
+        StartCoroutine(SetProgress());
+    }
+    IEnumerator SetProgress()
+    {
+        m_progressCraft.value += Time.deltaTime;
+        if (m_progressCraft.value >= 1)
+        {
+            //单胶农 困俊 公扁 积己
+            m_progressCraft.value = 0;
+            m_isCraftDone = true;
+            OpenInteraction();            
+        }
+        yield return null;
     }
 }

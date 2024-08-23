@@ -46,6 +46,7 @@ public class ObjectPreview : MonoBehaviour
                 BoxCollider collider = GetComponent<BoxCollider>();
                 collider.isTrigger = false;
                 m_isDone = true;
+                m_collider.size = new Vector3(1.5f, 1f, 1.5f);
                 gameObject.transform.parent.gameObject.isStatic = true;
             }
             if (Input.GetKeyUp(KeyCode.F))
@@ -88,7 +89,7 @@ public class ObjectPreview : MonoBehaviour
         if (other.gameObject.layer != layerGround && other.gameObject.layer != IGNORE_RAYCAST_LAYER)
             colliderList.Add(other);
 
-        if (m_isFixed && other.CompareTag("Player") && !m_isDone)
+        if (m_isFixed && !m_isDone && (other.CompareTag("Player") || other.CompareTag("Pet")))
         {
             if (m_uiWorkload == null)
             {
@@ -102,9 +103,26 @@ public class ObjectPreview : MonoBehaviour
             }
             else
                 m_uiWorkload.OpenUI();
-        }        
+            switch (other.tag)
+            {
+                case "Player":
+                    break;
+                case "Pet":
+                    m_uiWorkload.SetPetWorkAbility(100f);
+                    break;
+            }
+        }
     }
-
+    private void OnTriggerStay(Collider other)
+    {
+        if (m_isFixed && !m_isDone && other.CompareTag("Player"))
+        {
+            if (m_uiWorkload != null && !m_uiWorkload.IsOpen())
+            {
+                m_uiWorkload.OpenUI();
+            }
+        }
+    }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.layer != layerGround && other.gameObject.layer != IGNORE_RAYCAST_LAYER)
@@ -127,7 +145,7 @@ public class ObjectPreview : MonoBehaviour
     {
         m_isFixed = true;
         m_detectiveAreaObj.layer = LayerMask.NameToLayer("Default");
-        m_collider.size = new Vector3(1.5f, 1f, 1.5f);
+        m_collider.size = new Vector3(5f, 1f, 5f);
         SetColor(blue);
     }
 
