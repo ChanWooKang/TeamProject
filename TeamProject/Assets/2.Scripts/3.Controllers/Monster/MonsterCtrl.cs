@@ -78,10 +78,10 @@ public class MonsterCtrl : FSM<MonsterCtrl>
 
     public void SetTarget()
     {
-        if (playerController.isDead == false)
-            target = playerController.transform;
-        else
-            target = null;            
+        //if (playerController.isDead == false)
+        //    target = playerController.transform;
+        //else
+        //    target = null;            
     }
 
     void ChangeColor(Color color)
@@ -132,13 +132,13 @@ public class MonsterCtrl : FSM<MonsterCtrl>
 
     public void AttackEvent()
     {
-        if (target == null || playerController.isDead)
-            return;
-        _agent.avoidancePriority = 51;
-        State = eMonsterState.ATTACK;
-        isAttack = true;
-        StopCoroutine(AttackCoroutine(Stat.Damage));
-        StartCoroutine(AttackCoroutine(Stat.Damage));
+        //if (target == null || playerController.isDead)
+        //    return;
+        //_agent.avoidancePriority = 51;
+        //State = eMonsterState.ATTACK;
+        //isAttack = true;
+        //StopCoroutine(AttackCoroutine(Stat.Damage));
+        //StartCoroutine(AttackCoroutine(Stat.Damage));
     }
 
     public void OffAttackEvent()
@@ -152,11 +152,11 @@ public class MonsterCtrl : FSM<MonsterCtrl>
     IEnumerator AttackCoroutine(float damage)
     {
         yield return new WaitForSeconds(0.25f);
-        if (target == null || playerController.isDead)
-            yield break;
+        //if (target == null || playerController.isDead)
+        //    yield break;
 
-        if (IsCloseTarget(target.position, Stat.AttackRange))
-            playerController.OnDamage(damage);
+        //if (IsCloseTarget(target.position, Stat.AttackRange))
+        //    playerController.OnDamage(damage);
 
         yield return new WaitForSeconds(0.25f);
         OffAttackEvent();
@@ -195,11 +195,11 @@ public class MonsterCtrl : FSM<MonsterCtrl>
     {
         if (other.CompareTag("Weapon"))
         {
-            if(other.TryGetComponent(out WeaponCtrl wc))
-            {
-                OnDamage(wc.weaponDamage);
-                wc.OnAttack();
-            }
+            //if(other.TryGetComponent(out WeaponCtrl wc))
+            //{
+            //    OnDamage(wc.weaponDamage);
+            //    wc.OnAttack();
+            //}
         }
     }
    

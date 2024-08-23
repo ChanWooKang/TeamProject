@@ -11,16 +11,18 @@ public class InventoryManager : MonoBehaviour
     public static InventoryManager _inst { get { return _uniqueInstance; } }
     #endregion [ Singleton ]
 
-    [Header("Components")]
+    [Header("Components")]    
     public UI_Inventory invenUI;
     public UI_Equipment equipUI;
 
     //Action
     public Action<eEquipType, BaseItem,int,bool> OnChangeEvent;
-    //public Dictionary<eEquipType, BaseItem[]> Dict_Equip = new Dictionary<eEquipType, BaseItem[]>();
+    
     public List<BaseItem> Items;
     public Dictionary<int, BaseItem> Dict_Item;
     public Dictionary<int, WeaponItemInfo> Dict_Weapon;
+
+    PlayerManager playerManager;
 
     public static bool ActiveChangeEquip = false;
     public int itemCount;
@@ -300,5 +302,28 @@ public class InventoryManager : MonoBehaviour
     public void UseItemForBuild(int slotNumber, int itemCost)
     {
         invenUI.UseItemAtSlot(slotNumber, itemCost);
+    }
+
+
+
+    //SlotIndex 로 무기 핫키 출력 1 2 3 4
+    public int GetActiveWeaponIndex(int slotIndex, PlayerManager manager = null)
+    {
+        if (playerManager == null)
+            playerManager = manager;
+
+        UI_EquipSlot data = equipUI.GetEquipData(slotIndex);
+        if (data == null)
+        {
+            // 비 무장으로 전환
+            return 0;
+        }
+        else
+        {
+            // data.item.Index 로 출력
+            return data.item.Index;
+        }
+
+        
     }
 }
