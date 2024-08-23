@@ -110,7 +110,7 @@ public class ObjectPreview : MonoBehaviour
                 case "Pet":
                     m_uiWorkload.SetPetWorkAbility(100f);
                     PetTestController ptc = other.gameObject.GetComponent<PetTestController>();
-                    StartCoroutine(ptc.MoveToObject(gameObject.transform.position));
+                    ptc.MoveToObject(gameObject.transform.position);
                     break;
             }
         }

@@ -4,18 +4,24 @@ using UnityEngine;
 
 public class PetTestController : MonoBehaviour
 {
-    
-
-
-
-    public IEnumerator MoveToObject(Vector3 targetPos)
+    Vector3? m_targetPos = null;
+    private void Update()
     {
-        while (Vector3.Distance(transform.position, targetPos) > 0.5)
+        if (m_targetPos != null)
         {
-            Vector3.MoveTowards(transform.position, targetPos, 5f * Time.deltaTime);
-            yield return null;
+            if (Vector3.Distance(transform.position, m_targetPos.Value) < 2 )
+            {
+                m_targetPos = null;
+                return;
+            }
+
+            transform.position = Vector3.MoveTowards(transform.position, m_targetPos.Value, 10f * Time.deltaTime);
         }
-        if (Vector3.Distance(transform.position, targetPos) <= 0.5)
-            StopCoroutine(MoveToObject(targetPos));
+    }
+
+
+    public void MoveToObject(Vector3 targetPos)
+    {
+        m_targetPos = targetPos;
     }
 }
