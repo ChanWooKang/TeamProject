@@ -12,6 +12,8 @@ public class UI_Equipment : UI_Base
 
     public List<UI_EquipSlot> Equip_Slots;
     public Dictionary<eEquipType, UI_EquipSlot[]> Dict_EquipSlot;
+    public Dictionary<int, UI_EquipSlot> EquipBySlotIndex;
+    
     GameObject _slotParent;
 
     public override void Init()
@@ -20,6 +22,7 @@ public class UI_Equipment : UI_Base
         _slotParent = GetObject((int)GameObjects.Slot_Parent);
         Equip_Slots = new List<UI_EquipSlot>();
         Dict_EquipSlot = new Dictionary<eEquipType, UI_EquipSlot[]>();
+        
         SettingSlot();        
     }
 
@@ -43,7 +46,25 @@ public class UI_Equipment : UI_Base
                 }
             }
             Dict_EquipSlot.Add((eEquipType)i, slotList.ToArray());
+        }        
+    }
+
+    public UI_EquipSlot GetEquipData(int slotIndex)
+    {
+        EquipBySlotIndex = new Dictionary<int, UI_EquipSlot>();
+        for(int i = 0; i < Equip_Slots.Count; i++)
+        {            
+            if (EquipBySlotIndex.ContainsKey(Equip_Slots[i].SlotIndex) == false)
+            {
+                EquipBySlotIndex.Add(Equip_Slots[i].SlotIndex, Equip_Slots[i]);
+            }
         }
+
+        if (EquipBySlotIndex.ContainsKey(slotIndex))        
+            return EquipBySlotIndex[slotIndex];
+        
+
+        return null;
     }
 
     public Dictionary<eEquipType,BaseItem[]> GetEquipSlot()

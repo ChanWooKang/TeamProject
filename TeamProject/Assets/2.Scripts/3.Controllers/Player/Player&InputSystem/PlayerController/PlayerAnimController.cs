@@ -17,12 +17,13 @@ public class PlayerAnimController : MonoBehaviour
     int _animIDFreeFall;
     int _animIDMotionSpeed;
     int _animIDAim;
+    int _animIDFire;
     int _animIDAttackEnd;
     int _animIDEquip;
     int _animIDDisarm;
     int _animIDWeaponType;
 
-    int nowActiveLayer;
+    
     
 
     public void Init(PlayerManager _manager ,Animator animator)
@@ -30,8 +31,7 @@ public class PlayerAnimController : MonoBehaviour
         manager = _manager;
         _animator = animator;
         AssignAnimationIDs();
-
-        nowActiveLayer = 0;
+        
     }
 
     void AssignAnimationIDs()
@@ -43,6 +43,7 @@ public class PlayerAnimController : MonoBehaviour
         _animIDJump = Animator.StringToHash("Jump");
         _animIDFreeFall = Animator.StringToHash("FreeFall");
         _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+        _animIDFire = Animator.StringToHash("Fire");
         _animIDAttackEnd = Animator.StringToHash("AttackEnd");
         _animIDAim = Animator.StringToHash("Aim");
         _animIDEquip = Animator.StringToHash("Equip");
@@ -105,6 +106,9 @@ public class PlayerAnimController : MonoBehaviour
             case ePlayerAnimParams.Disarm:
                 _animator.SetTrigger(_animIDDisarm);
                 break;
+            case ePlayerAnimParams.Fire:
+                _animator.SetTrigger(_animIDFire);
+                break;
         }
     }
 
@@ -126,14 +130,39 @@ public class PlayerAnimController : MonoBehaviour
         _animator.SetLayerWeight(layer, weight);                        
     }
 
+    public void EquipEvent() 
+    {
+        manager.EquipCtrl.SetEquipItemLayer();
+    }
+
     public void DisarmEvent()
     {        
         manager.EquipCtrl.DisarmWeapon();
     }
 
-    public void EquipEvent()
+    public void OnAttackEnd()
     {
-        manager.EquipCtrl.EquipWeapon();
+        SetAnimations(ePlayerAnimParams.AttackEnd, true);
+    }
+
+
+
+    #region [ Bow Animation ]
+
+    public void DrawArrow()
+    {
+        manager.EquipCtrl.bow.DrawArrow();
+    }
+
+    public void FireEvent()
+    {
+        Debug.Log("½¹");
+    }
+
+    public void OnChargeEvent()
+    {
+        SetAnimations(ePlayerAnimParams.AttackEnd, false);
+        manager.EquipCtrl.bow.AimStart();
     }
 
     public void OnChargeEnd()
@@ -141,9 +170,5 @@ public class PlayerAnimController : MonoBehaviour
         SetAnimations(ePlayerAnimParams.AttackEnd, false);
     }
 
-    public void OnAttackEnd()
-    {
-        SetAnimations(ePlayerAnimParams.AttackEnd, true);
-        //_animator.SetLayerWeight(1, 0);
-    }
+    #endregion [ Bow Animation ]
 }

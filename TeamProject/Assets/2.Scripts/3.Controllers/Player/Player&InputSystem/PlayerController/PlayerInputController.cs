@@ -83,7 +83,7 @@ public class PlayerInputController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(CinemachineCameraTarget.transform.position, CinemachineCameraTarget.transform.forward * _recognizeMaskDistance);
+        Gizmos.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * _recognizeMaskDistance);
     }
 
     void CrossHairCheck()
@@ -147,6 +147,12 @@ public class PlayerInputController : MonoBehaviour
         //{
         //    manager.AnimCtrl.SetAnimations(DefineDatas.ePlayerAnimParams.Attack, false);
         //}
+
+        if (_input.fire)
+        {
+
+            manager.AnimCtrl.SetAnimations(DefineDatas.ePlayerAnimParams.Fire);
+        }
     }
 
     void SetAimCamera()

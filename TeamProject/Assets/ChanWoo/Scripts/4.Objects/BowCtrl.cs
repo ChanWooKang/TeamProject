@@ -3,31 +3,53 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class BowCtrl : MonoBehaviour
+public class BowCtrl : WeaponCtrl
 {
-    Animator _animator;
-    public PlayerAssetsInputs _input;
+    //Test
+    //È­»ì ÇÁ¸®ÆÕ »ðÀÔ
+    public Transform ArrowParent;
+    public GameObject arrowPrefab;
+    
 
     private void Start()
     {
-        _animator = GetComponent<Animator>();
+        Init();
+        Debug.Log(weaponData.NameKr);
     }
 
     private void Update()
     {
-        Fire();
+        Aim();
     }
 
-    void Fire()
+    public override void Init()
     {
-        if (_input.fire)
+        base.Init();
+    }
+
+    public override void Fire()
+    {
+        
+    }
+
+    void Aim()
+    {
+        if (_hasAnimator)
         {
-            _animator.SetBool(Animator.StringToHash("Fire"), true);
-        }
-        else
-        {
-            _animator.SetBool(Animator.StringToHash("Fire"), false);
+            _animator.SetBool(Animator.StringToHash("Aim"), _input.aim);
         }
     }
 
+    public void AimStart()
+    {
+        if (_hasAnimator)
+        {
+            _animator.SetTrigger(Animator.StringToHash("AimStart"));
+        }
+    }
+
+    public void DrawArrow()
+    {
+        //¼£¶ù¤©¶ó
+    }
 }
