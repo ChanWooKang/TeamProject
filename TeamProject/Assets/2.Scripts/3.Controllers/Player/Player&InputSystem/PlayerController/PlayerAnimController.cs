@@ -132,7 +132,7 @@ public class PlayerAnimController : MonoBehaviour
 
     public void EquipEvent() 
     {
-        manager.EquipCtrl.SetEquipItemLayer();
+        manager.EquipCtrl.EquipWeapon();
     }
 
     public void DisarmEvent()

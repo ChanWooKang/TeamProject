@@ -14944,7 +14944,7 @@ MonoBehaviour:
   playerManager: {fileID: 877424681}
   _input: {fileID: 877424682}
   WeaponIndex: 202
-  WeaponType: 0
+  WeaponType: 2
   ArrowParent: {fileID: 1459872571}
   arrowPrefab: {fileID: 0}
 --- !u!1 &1229673914

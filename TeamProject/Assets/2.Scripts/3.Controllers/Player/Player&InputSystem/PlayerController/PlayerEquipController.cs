@@ -21,6 +21,7 @@ public class PlayerEquipController : MonoBehaviour
     public WeaponType nowWeaponType;
     WeaponType beforeWeaponType;
 
+    int activeIndex = -1;
     public bool isAttackEnd = true;
    
     public void Update()
@@ -28,13 +29,12 @@ public class PlayerEquipController : MonoBehaviour
         // Test 나중에 옮길 예정
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            OnNowWeapon(1);
-            ChangeWeapon(WeaponType.Bow);
+            OnNowWeapon(1);            
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            ChangeWeapon(WeaponType.None);
+            OnNowWeapon(2);
         }
     }
 
@@ -76,35 +76,59 @@ public class PlayerEquipController : MonoBehaviour
     {        
         int weaponIndex = InventoryManager._inst.GetActiveWeaponIndex(index, manager);
         if(weaponIndex > 0)
-        {
-            bool isNowWeapon;
+        {            
+            //핫슬롯에 무기 정보가 저장 되어있을때 
+            // 무기 정보 불러와서 대조 후 해당 무기 소환
             for (int i = 0; i < Weapons.Count; i++)
-            {
-                isNowWeapon = false;
+            {                
                 if (Weapons[i].WeaponIndex == weaponIndex)
                 {
-                    isNowWeapon = true;
-                    ChangeWeapon(Weapons[i].WeaponType, i);
-                }
-                Weapons[i].gameObject.SetActive(isNowWeapon);
+                    bool isWear = (activeIndex != i);
+                    if (isWear)
+                        activeIndex = i;
+                    else
+                        activeIndex = -1;
+                    ChangeWeapon(Weapons[i].WeaponType ,isWear);                                        
+                }                
             }
         }
         else
         {
-            for(int i = 0; i < Weapons.Count; i++)
+            //핫슬롯에 무기정보가 없을 때
+            //비무장 상태로 전환
+            //비무장 상태일때는 건너 뛰기
+            if(nowWeaponType != WeaponType.None)
             {
-                Weapons[i].gameObject.SetActive(false);
-                ChangeWeapon(WeaponType.None, 0);
-            }
+                ChangeWeapon(WeaponType.None, false);
+                activeIndex = -1;
+            }                            
         }        
     }
 
-    void DisableWeapons()
-    {
-
+    void DisableWeapons(int index = 0, bool isAll = true)
+    {               
+        for (int i = 0; i < Weapons.Count; i++)
+        {
+            if (isAll)
+            {
+                Weapons[i].gameObject.SetActive(false);
+            }
+            else
+            {
+                if(i == index)
+                {
+                    Weapons[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    Weapons[i].gameObject.SetActive(false);
+                }
+            }
+            
+        }
     }
 
-    public void ChangeWeapon(WeaponType newWeaponType , int listIndex = 0)
+    public void ChangeWeapon(WeaponType newWeaponType , bool isEquip = true)
     {
         //순서 
         // 비무장 -> 1번 클릭시 1번 무기 장착 -> 장착 시 장착 애니메이션 실행
@@ -112,17 +136,9 @@ public class PlayerEquipController : MonoBehaviour
         // 장착 해제 혹은 변경 시 장착 해제 애니메이션 재생
         // 레이어 동일 해제 후 해당 레이어 가중치 0 주고 
         // 장착할 레이어 가중치 1 주고 애니메이션 실행
-        
-        if (nowWeaponType == newWeaponType)
+
+        if (isEquip)
         {
-            // 해제
-            beforeWeaponType = nowWeaponType;
-            nowWeaponType = WeaponType.None;
-            manager.AnimCtrl.SetAnimations(ePlayerAnimParams.Disarm);
-        }
-        else
-        {
-            //장착
             if (nowWeaponType == WeaponType.None)
             {
                 //해제를 할게 없으니 바로 장착 진행
@@ -139,26 +155,33 @@ public class PlayerEquipController : MonoBehaviour
                 manager.AnimCtrl.SetAnimations(ePlayerAnimParams.Disarm);
             }
         }
+        else
+        {
+            beforeWeaponType = nowWeaponType;
+            nowWeaponType = WeaponType.None;
+            manager.AnimCtrl.SetAnimations(ePlayerAnimParams.Disarm);
+        }
+        
         manager.AnimCtrl.SetAnimations(ePlayerAnimParams.WeaponType,(int)nowWeaponType);
     }
 
+    //집어넣는 애니메이션 끝나기전 1프레임
     public void DisarmWeapon()
-    {
-        if(beforeWeaponType != WeaponType.None)
-            manager.AnimCtrl.SetAnimationLayerWeight(beforeWeaponType, 0);
-
+    {        
+        DisableWeapons();                   
         if (beforeWeaponType != nowWeaponType)
         {
-            manager.AnimCtrl.SetAnimationLayerWeight(beforeWeaponType, 0);
+            if (beforeWeaponType != WeaponType.None)
+                manager.AnimCtrl.SetAnimationLayerWeight(beforeWeaponType, 0);
             manager.AnimCtrl.SetAnimationLayerWeight(nowWeaponType, 1);
             manager.AnimCtrl.SetAnimations(ePlayerAnimParams.Equip);
         }        
     }
 
-    
-    public void SetEquipItemLayer()
+    //꺼내는 애니메이션 시작 후 1프레임
+    public void EquipWeapon()
     {
-        
+        DisableWeapons(activeIndex, false);
     }
     
 

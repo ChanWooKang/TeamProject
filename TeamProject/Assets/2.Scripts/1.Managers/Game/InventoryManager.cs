@@ -56,6 +56,7 @@ public class InventoryManager : MonoBehaviour
         invenUI.Init();
         equipUI.Init();
         SetDictionary();
+
     }
 
     #region [ Item Data Load ]
