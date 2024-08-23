@@ -212,7 +212,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 4d4d493c792c4df4892dd1db9a62ff9d, type: 3}
+  m_Motion: {fileID: 7400000, guid: 72e4193c47c7a1b4fba38b94215b7a45, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1159,9 +1159,9 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: Bow Layer
-    m_StateMachine: {fileID: -4590447993215645849}
-    m_Mask: {fileID: 31900000, guid: 9f2de70e7a58e584d87efec60d385402, type: 2}
+    m_Name: One Hand Layer
+    m_StateMachine: {fileID: -8486454046206861588}
+    m_Mask: {fileID: 31900000, guid: 26e9ccbcee789804dbea9ff13f52ecd6, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
@@ -1171,9 +1171,9 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: One Hand Layer
-    m_StateMachine: {fileID: -8486454046206861588}
-    m_Mask: {fileID: 31900000, guid: 26e9ccbcee789804dbea9ff13f52ecd6, type: 2}
+    m_Name: Bow Layer
+    m_StateMachine: {fileID: -4590447993215645849}
+    m_Mask: {fileID: 31900000, guid: 9f2de70e7a58e584d87efec60d385402, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
