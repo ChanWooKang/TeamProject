@@ -32,8 +32,7 @@ public class UI_Craft : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1") && m_previewObj != null)
             Build();
-                    
-
+        
         if (m_isPreviewActivated)
             PreviewPositionUpdate();
 
@@ -53,8 +52,7 @@ public class UI_Craft : MonoBehaviour
         GameManagerEx._inst.ControlUI(true, true);
     }
     public void CloseUI()
-    {
-      
+    {      
         gameObject.SetActive(false);
     }
 

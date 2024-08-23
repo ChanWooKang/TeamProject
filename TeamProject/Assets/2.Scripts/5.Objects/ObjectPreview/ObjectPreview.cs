@@ -109,6 +109,8 @@ public class ObjectPreview : MonoBehaviour
                     break;
                 case "Pet":
                     m_uiWorkload.SetPetWorkAbility(100f);
+                    PetTestController ptc = other.gameObject.GetComponent<PetTestController>();
+                    StartCoroutine(ptc.MoveToObject(gameObject.transform.position));
                     break;
             }
         }
@@ -121,7 +123,7 @@ public class ObjectPreview : MonoBehaviour
             {
                 m_uiWorkload.OpenUI();
             }
-        }
+        }       
     }
     private void OnTriggerExit(Collider other)
     {

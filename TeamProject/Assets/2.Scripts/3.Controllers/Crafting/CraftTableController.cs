@@ -51,8 +51,6 @@ public class CraftTableController : MonoBehaviour
         if (m_objPreview.IsDone && other.CompareTag("Player") && m_interaction != null)
         {
             m_interaction.CloseInteraction();
-        }
-
-        
+        }           
     }
 }
