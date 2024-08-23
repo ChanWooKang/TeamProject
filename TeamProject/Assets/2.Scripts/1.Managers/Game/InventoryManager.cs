@@ -56,6 +56,7 @@ public class InventoryManager : MonoBehaviour
         invenUI.Init();
         equipUI.Init();
         SetDictionary();
+        AddInvenItem(Dict_Item[202]);
 
     }
 
@@ -317,12 +318,21 @@ public class InventoryManager : MonoBehaviour
         if (data == null)
         {
             // 비 무장으로 전환
-            return 0;
+            Debug.Log("인벤토리매니저 : 비무장");
+            return -1;
         }
         else
-        {
-            // data.item.Index 로 출력
-            return data.item.Index;
+        {            
+            if(data.item == null)
+            {
+                Debug.Log("인벤토리매니저 : 아이템 정보 없음");
+                return -1;
+            }
+            else
+            {
+                return data.item.Index;
+            }
+            
         }
 
         

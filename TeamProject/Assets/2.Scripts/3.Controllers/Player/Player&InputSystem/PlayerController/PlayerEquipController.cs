@@ -23,7 +23,7 @@ public class PlayerEquipController : MonoBehaviour
 
     int activeIndex = -1;
     public bool isAttackEnd = true;
-   
+      
     public void Update()
     {
         // Test 나중에 옮길 예정
@@ -45,6 +45,7 @@ public class PlayerEquipController : MonoBehaviour
         beforeWeaponType = WeaponType.None;
 
         SettingWeaponList();
+        DisableWeapons();
     }
 
     void SettingWeaponList()
@@ -75,6 +76,8 @@ public class PlayerEquipController : MonoBehaviour
     void OnNowWeapon(int index)
     {        
         int weaponIndex = InventoryManager._inst.GetActiveWeaponIndex(index, manager);
+        Debug.Log(weaponIndex);
+        Debug.Log(activeIndex);
         if(weaponIndex > 0)
         {            
             //핫슬롯에 무기 정보가 저장 되어있을때 
@@ -85,7 +88,10 @@ public class PlayerEquipController : MonoBehaviour
                 {
                     bool isWear = (activeIndex != i);
                     if (isWear)
+                    {
                         activeIndex = i;
+                        Debug.Log(activeIndex +"장착 진행");
+                    }                        
                     else
                         activeIndex = -1;
                     ChangeWeapon(Weapons[i].WeaponType ,isWear);                                        
