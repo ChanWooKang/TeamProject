@@ -7,6 +7,10 @@ using DefineDatas;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(PlayerMovementController))]
+[RequireComponent(typeof(PlayerInputController))]
+[RequireComponent(typeof(PlayerAnimController))]
+[RequireComponent(typeof(PlayerEquipController))]
 public class PlayerManager : MonoBehaviour
 {       
     [Header("Components")]
@@ -78,6 +82,10 @@ public class PlayerManager : MonoBehaviour
         _playerInput = GetComponent<PlayerInput>();
         _mainCamera = Camera.main.gameObject;
 
+        Movement = GetComponent<PlayerMovementController>();
+        InputCtrl = GetComponent<PlayerInputController>();
+        AnimCtrl = GetComponent<PlayerAnimController>();
+        EquipCtrl = GetComponent<PlayerEquipController>();
         
         LoadStat();
         InputCtrl.Init(this, _input);
