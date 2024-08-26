@@ -25,7 +25,16 @@ public class CraftingCtrl : MonoBehaviour
                 m_UICrafting.OpenUI();
             }
             else
+            {
+                if (m_UICrafting.isActiveAndEnabled)
+                    return;
                 m_UICrafting.OpenUI();
-        }      
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (m_UICrafting != null)
+                m_UICrafting.CloseUI();
+        }
     }
 }

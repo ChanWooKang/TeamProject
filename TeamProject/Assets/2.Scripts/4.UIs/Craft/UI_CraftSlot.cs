@@ -32,9 +32,20 @@ public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     public void InitSlot(int index, UI_Craft uiCraft)
     {
-        m_architectureInfo = new Architecture(index);
-        m_uiCraft = uiCraft;
-        m_highlightBG.enabled = false;
+        if (index == 0)
+        {
+            m_architectureInfo = null;
+            m_uiCraft = null;
+            m_highlightBG.enabled = false;
+            m_icon.enabled = false;
+        }
+        else
+        {
+            m_architectureInfo = new Architecture(index);
+            m_uiCraft = uiCraft;
+            m_highlightBG.enabled = false;
+            m_icon.enabled = true;
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)

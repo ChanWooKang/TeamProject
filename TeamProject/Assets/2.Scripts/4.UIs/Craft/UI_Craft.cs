@@ -18,13 +18,17 @@ public class UI_Craft : MonoBehaviour
     [SerializeField] LayerMask m_layerMask;
     [SerializeField] float m_range;
 
-    bool m_isPreviewActivated;    
+    bool m_isPreviewActivated;
+    int m_tech;
     private void Start()
     {
         //юс╫ц
         for(int i = 0; i< m_listCraftSlot.Count; i++)
         {
+            if(i == 0)
             m_listCraftSlot[i].InitSlot(1, this);
+            else
+                m_listCraftSlot[i].InitSlot(0, this);
         }
         //
     }
