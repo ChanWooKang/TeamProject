@@ -7,6 +7,7 @@ using DefineDatas;
 
 public class UI_Workload : MonoBehaviour
 {
+    #region [참조]
     [SerializeField]
     GameObject m_workloadBox;
     [SerializeField]
@@ -15,7 +16,14 @@ public class UI_Workload : MonoBehaviour
     Slider m_fSlider;
     [SerializeField]
     Slider m_cSlider;
-    
+    [SerializeField]
+    TextMeshProUGUI m_textName;
+    [SerializeField]
+    TextMeshProUGUI m_textWorkAbility;
+    [SerializeField]
+    Image m_icon;
+    #endregion [참조]
+
     float m_playerAbility;
     float m_playerAbilityWeight = 0;
     float m_petAbilityWeight;

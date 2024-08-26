@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ObjectPreview : MonoBehaviour
 {
+    #region [참조]
     [SerializeField]
     GameObject m_detectiveAreaObj;
     [SerializeField]
@@ -10,6 +11,7 @@ public class ObjectPreview : MonoBehaviour
     UI_Workload m_uiWorkload;
     Architecture m_architectureInfo;
     BoxCollider m_collider;
+    #endregion [참조]
 
     [SerializeField]
     int layerGround; // 지형 레이어 (무시하게 할 것)
@@ -18,6 +20,8 @@ public class ObjectPreview : MonoBehaviour
     bool m_isFixed;
     bool m_isDone;
     public bool IsDone { get { return m_isDone; } }
+
+    #region[Prefab & Material]
     [SerializeField]
     GameObject m_uiWorkloadPrefab;
     [SerializeField]
@@ -28,6 +32,11 @@ public class ObjectPreview : MonoBehaviour
     Material red;
     [SerializeField]
     Material blue;
+    #endregion[Prefab & Material]
+
+    #region [임시 펫]
+    PetTestController m_testPetCtrl;
+    #endregion [임시 펫]
     private void Awake()
     {
         m_isFixed = false;
@@ -108,9 +117,12 @@ public class ObjectPreview : MonoBehaviour
                 case "Player":
                     break;
                 case "Pet":
-                    m_uiWorkload.SetPetWorkAbility(100f);
-                    PetTestController ptc = other.gameObject.GetComponent<PetTestController>();
-                    ptc.MoveToObject(gameObject.transform.position);
+                    if (m_testPetCtrl == null)
+                    {
+                        m_uiWorkload.SetPetWorkAbility(100f);
+                        m_testPetCtrl = other.gameObject.GetComponent<PetTestController>();
+                        m_testPetCtrl.MoveToObject(gameObject.transform.position);
+                    }
                     break;
             }
         }
@@ -137,6 +149,7 @@ public class ObjectPreview : MonoBehaviour
                 m_uiWorkload.CloseUI();
             }
         }
+        
     }
 
     public bool isBuildable()

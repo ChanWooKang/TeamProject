@@ -5,8 +5,7 @@ using UnityEngine.UI;
 using DefineDatas;
 
 public class UI_Inventory : MonoBehaviour
-{    
-
+{        
     public GameObject main;
     public GameObject Slot_Parent;
     public Text InvenWeightText;

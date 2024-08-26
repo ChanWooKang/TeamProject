@@ -18,11 +18,11 @@ public class CraftTableController : MonoBehaviour
                 Canvas canvas = ui.GetComponent<Canvas>();
                 canvas.worldCamera = GameObject.FindGameObjectWithTag("UICamera").GetComponent<Camera>();
                 m_interaction = ui.GetComponent<UI_Interaction>();
-                m_interaction.OpenInteraction();
+                m_interaction.OpenInteraction(this);
             }
             else
             {
-                m_interaction.OpenInteraction();
+                m_interaction.OpenInteraction(this);
             }
         }        
     }
@@ -36,7 +36,7 @@ public class CraftTableController : MonoBehaviour
                 Canvas canvas = ui.GetComponent<Canvas>();
                 canvas.worldCamera = GameObject.FindGameObjectWithTag("UICamera").GetComponent<Camera>();
                 m_interaction = ui.GetComponent<UI_Interaction>();
-                m_interaction.OpenInteraction();
+                m_interaction.OpenInteraction(this);
             }
         }    
         
