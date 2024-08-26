@@ -10781,10 +10781,6 @@ MonoBehaviour:
   BottomClamp: -10
   CameraAngleOverride: 0
   LockCameraPosition: 0
-  SpanMinY: -10
-  SpanMaxY: 10
-  playerSpan: {fileID: 0}
-  _animator: {fileID: 0}
 --- !u!114 &877424679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10906,7 +10902,7 @@ MonoBehaviour:
   m_DefaultControlScheme: KeyBoardMouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 914716549}
+  m_Camera: {fileID: 0}
 --- !u!143 &877424684
 CharacterController:
   m_ObjectHideFlags: 0
@@ -10974,7 +10970,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5e2e60110129bf47b5caf68d6071515, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCharging: 0
 --- !u!114 &877424688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11139,11 +11134,6 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 5}
   m_SizeDelta: {x: 40, y: 25}
   m_Pivot: {x: 1, y: 0}
---- !u!20 &914716549 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 8944336655422409496, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
-  m_PrefabInstance: {fileID: 1367222003}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &927618692
 GameObject:
   m_ObjectHideFlags: 0
