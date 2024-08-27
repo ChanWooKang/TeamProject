@@ -7,7 +7,12 @@ public class MonsterStateIdle : TSingleton<MonsterStateIdle>, IFSMState<MonsterC
 {
     public void Enter(MonsterController m)
     {
-
+        m.State = eMonsterState.IDLE;
+        if(m.Stat.CharacterType > 0)
+        {
+            //공격적일때 
+            m.SetTarget();
+        }
     }
 
     public void Execute(MonsterController m)

@@ -4,6 +4,17 @@ using UnityEngine;
 
 namespace DefineDatas
 {
+    public enum eLayer
+    {
+        UI = 5,
+        Ground = 6,
+        Player = 7,
+        Obstacle = 8,
+        DisableObject = 9,
+        Monster = 10,
+        Item = 11
+    }
+
     public enum MouseEvent
     {
         Click,
@@ -52,18 +63,24 @@ namespace DefineDatas
         Rifle,
     }
 
-    public enum eMonsterType
+    public enum eMonsterCharacterType
     {
-
+        PASSIVE = 0,
+        AGGRESSIVE,
     }
 
     public enum eMonsterState
-    {
-        DEAD    = 0,
+    {        
+        INIT,
         IDLE,
         PATROL,
-        TRACE,
+        SENSE,
+        CHASE,
+        RETURN,
         ATTACK,
+        KNOCKBACK,
+        DIE,
+        DISABLE
     }
 
     public enum ePlayerAnimParams

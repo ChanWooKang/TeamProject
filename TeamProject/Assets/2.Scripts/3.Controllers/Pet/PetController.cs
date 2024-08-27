@@ -13,7 +13,7 @@ public class PetController : MonoBehaviour
     {
         // юс╫ц
         m_petStat = new MonsterStat();
-        m_petStat.Init();
+        //m_petStat.Init();
     }
     private void Update()
     {

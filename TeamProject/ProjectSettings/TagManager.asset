@@ -19,10 +19,10 @@ TagManager:
   - UI
   - Ground
   - Player
-  - 
-  - 
-  - 
-  - 
+  - Obstacle
+  - DisableObject
+  - Monster
+  - Item
   - 
   - 
   - 
