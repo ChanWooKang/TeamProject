@@ -13,8 +13,6 @@ public class MonsterMovement : MonoBehaviour
     public float _rotateSpeed = 15.0f;
 
     //Test
-    //이동 속도
-    public float _moveSpeed = 8.0f;
 
     MonsterController _manager;
     NavMeshAgent _agent;

@@ -13,8 +13,12 @@ public class MonsterStat : BaseStat
     protected int _captureRate;
     protected float _sight;
     protected int _characterType;
-    
-    
+
+    MonsterInfo _monster;
+    float baseHp;
+    float baseDamage;
+    float baseDropExp;
+
     #region [ Property ]    
     public int Index { get { return _index; }}
     public float ChaseRange { get { return _chaseRange; } }
@@ -25,6 +29,30 @@ public class MonsterStat : BaseStat
     public float DropExp { get { return _dropExp; } }
     public int CaptureRate { get { return _captureRate; } }
     public int CharacterType { get { return _characterType; } }
+
+    public float EXP 
+    {
+        get { return _exp; }
+        set
+        {
+            _exp = value;
+            int level = 1;
+            while (true)
+            {
+                if (Managers._data.Dict_MonsterLevel.TryGetValue(level + 1, out MonsterLevelInfo info) == false)
+                    break;
+                if (_exp < info.RequiredExp)
+                    break;
+                level++;
+            }
+
+            if(level != _level)
+            {
+                _level = level;
+                SetStat(Managers._data.Dict_MonsterLevel[_level].RewardAbility, Managers._data.Dict_MonsterLevel[_level].DropExp);
+            }
+        }
+    }
     #endregion [ Property ]
 
     public void Init(int index)
@@ -32,7 +60,9 @@ public class MonsterStat : BaseStat
         if (Managers._data.Dict_Monster.ContainsKey(index))
         {
             _index = index;
-            LoadAndSetData(Managers._data.Dict_Monster[index]);
+            _monster = Managers._data.Dict_Monster[index];
+            LoadAndSetData();
+            SetBaseStat();
         }
         else
         {
@@ -76,17 +106,17 @@ public class MonsterStat : BaseStat
     }    
 
     //최초 데이터 설정 ( 변하지 않는 값 )
-    public void LoadAndSetData(MonsterInfo info)
-    {
+    public void LoadAndSetData()
+    {        
         //레벨과 관계없이 저장될 변수        
-        _moveSpeed = info.Speed;
-        _chaseRange = info.ChaseRange;
-        _runSpeed = info.RunSpeed;
-        _attackrange = info.Range;
-        _captureRate = info.CaptureRate;
-        _attackDelay = info.AttackDelay;
-        _sight = info.Sight;
-        _characterType = info.CharacterType;
+        _moveSpeed = _monster.Speed;
+        _chaseRange = _monster.ChaseRange;
+        _runSpeed = _monster.RunSpeed;
+        _attackrange = _monster.Range;
+        _captureRate = _monster.CaptureRate;
+        _attackDelay = _monster.AttackDelay;
+        _sight = _monster.Sight;
+        _characterType = _monster.CharacterType;
 
         //SetConvertibleStat(info.Index,level);
     }
@@ -101,45 +131,41 @@ public class MonsterStat : BaseStat
         if (_level > 1)
         {
             MonsterLevelInfo beforeLevelInfo = Managers._data.Dict_MonsterLevel[_level - 1];
-            _exp = beforeLevelInfo.DropExp;
-            SetStat(monster.HP, monster.Damage, Managers._data.Dict_MonsterLevel[1].DropExp);
-            int lev = 1;
-            while (true)
-            {
-                if (Managers._data.Dict_MonsterLevel.TryGetValue(lev + 1, out MonsterLevelInfo nextLevelInfo) == false)
-                    break;
-
-                if (_exp < nextLevelInfo.RequiredExp)
-                    break;
-
-
-                SetStat(Managers._data.Dict_MonsterLevel[lev].RewardAbility, Managers._data.Dict_MonsterLevel[lev].DropExp);
-                lev++;
-            }
+            _exp = beforeLevelInfo.DropExp;                        
+            SetStat(Managers._data.Dict_MonsterLevel[_level].RewardAbility, Managers._data.Dict_MonsterLevel[_level].DropExp);
         }
         else
         {
             MonsterLevelInfo info = Managers._data.Dict_MonsterLevel[_level];
             // 레벨이 1일때
-            _hp = monster.HP;
-            _maxHp = _hp;
-            _exp = info.RequiredExp;
+            _maxHp = _hp = monster.HP;             
+            _exp = 0;
             _dropExp = info.DropExp;
         }
     }
 
-    void SetStat(float hp, float damage,float exp)
+    void SetStat(float value , float exp)
     {
-        _maxHp = _hp = hp;
-        _damage = damage;
+        _hp = baseHp * value;
+        _damage = baseDamage * value;
+        _maxHp = _hp;
         _dropExp = exp;
     }
 
-    void SetStat(float value , float exp)
+    void SetBaseStat()
     {
-        _hp *= value;
-        _damage *= value;
-        _maxHp = _hp;
-        _dropExp = exp;
+        int level = 1;
+        
+        if(Managers._data.Dict_MonsterLevel.TryGetValue(level, out MonsterLevelInfo info))
+        {
+            baseHp = _monster.HP;
+            baseDamage = _monster.Damage;
+            baseDropExp = info.DropExp;
+        }
+        else
+        {
+            //버그 발생 고치삼
+        }
+            
     }
 }

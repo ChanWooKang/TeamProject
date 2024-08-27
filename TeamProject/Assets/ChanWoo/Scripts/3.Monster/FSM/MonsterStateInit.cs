@@ -9,7 +9,7 @@ public class MonsterStateInit : TSingleton<MonsterStateInit>, IFSMState<MonsterC
     {
         m._movement._offsetPos = m.transform.position;
         //레벨은 자동 생성 할 때 저장
-        m.Stat.SetByLevel();
+        m.SettingMonsterStatByLevel();
         m.InitData();
         m.BaseNavSetting();
         m.ChangeState(MonsterStateIdle._inst);

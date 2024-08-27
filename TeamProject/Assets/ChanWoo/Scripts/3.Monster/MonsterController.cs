@@ -12,12 +12,12 @@ using DefineDatas;
 [RequireComponent(typeof(MonsterAnimCtrl))]
 public class MonsterController : FSM<MonsterController>
 {
-    [Header("Monster Index")]
-    public int Index;    
+    [Header("Monster Data")]
+    public int Index;
+    public int MonsterLevel = 1;
 
     [Header("Component")]    
-    public MonsterStat Stat;
-    
+    public MonsterStat Stat;    
     public MonsterMovement _movement;
     public MonsterAnimCtrl _animCtrl;
 
@@ -36,7 +36,12 @@ public class MonsterController : FSM<MonsterController>
     public Transform target;
     public Vector3 targetPos;
 
+    //floats
+    public float delayTime = 2.0f;
+
     //Bools
+    //몬스터가 최초로 생성됬을때 갖고있는다 초식만 갖고있는다
+    public bool isStatic = true;
     public bool isDead;
     public bool isAttack;
     public bool isReturnHome;
@@ -67,7 +72,8 @@ public class MonsterController : FSM<MonsterController>
 
     private void FixedUpdate()
     {
-        FreezeRotation();
+        //if(_rigid != null)
+        //    FreezeRotation();
     }
 
     public void InitComponent()
@@ -135,26 +141,31 @@ public class MonsterController : FSM<MonsterController>
 
     public void SetTarget()
     {
-        if(GameManagerEx._inst.Player != null)
-        {
-            if(GameManagerEx._inst.Player.TryGetComponent(out PlayerManager player))
-            {
-                //나중에 수정 플레이어 죽었는지 확인하는 bool값 생성시 , 몬스터 성격이 공격적이면 설정
-                if (player.isActiveAndEnabled && Stat.CharacterType > 0)
-                {
-                    target = GameManagerEx._inst.Player;
-                    return;
-                }
-            }
-        }
-
-        target = null;
-    }
-
-    public void SetTarget(PlayerStat stat)
-    {
-        //직적적으로 공격을 했을때 
         if(target == null)
-            target = stat.transform;
+        {
+            if (GameManagerEx._inst.Player != null)
+            {
+                if (GameManagerEx._inst.Player.TryGetComponent(out PlayerManager player))
+                {
+                    //나중에 수정 플레이어 죽었는지 확인하는 bool값 생성시
+                    if (player.isActiveAndEnabled)
+                    {
+                        target = GameManagerEx._inst.Player;                        
+                    }
+                }
+                else
+                    target = null;
+            }
+            else
+            {
+                target = null;
+            }
+        }                
+    }    
+
+    public void SettingMonsterStatByLevel()
+    {
+        Stat.Level = MonsterLevel;
+        Stat.SetByLevel();
     }
 }

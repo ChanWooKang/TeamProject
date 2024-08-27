@@ -7,12 +7,39 @@ public class MonsterStateChase : TSingleton<MonsterStateChase>, IFSMState<Monste
 {
     public void Enter(MonsterController m)
     {
-
+        m.Agent.speed = m.Stat.RunSpeed;
+        m.Agent.avoidancePriority = 50;
+        m.State = eMonsterState.CHASE;
+        m.BaseNavSetting();
     }
 
     public void Execute(MonsterController m)
     {
+        if (m._movement.CheckFarOffset())
+        {
+            m.ChangeState(MonsterStateReturn._inst);
+            return;
+        }
 
+        if(m.target != null)
+        {
+            if (m._movement.CheckCloseTarget(m.target.position, m.Stat.ChaseRange))
+            {
+                m._movement.MoveFunc(m.target.position);
+                if(m._movement.CheckCloseTarget(m.target.position,m.Stat.AttackRange))
+                {
+                    m.ChangeState(MonsterStateAttack._inst);
+                }
+            }
+            else
+            {
+                m.ChangeState(MonsterStateReturn._inst);
+            }
+        }
+        else
+        {
+            m.ChangeState(MonsterStateReturn._inst);
+        }
     }
 
     public void Exit(MonsterController m)
