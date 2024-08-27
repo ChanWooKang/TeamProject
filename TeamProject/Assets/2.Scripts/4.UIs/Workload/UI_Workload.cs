@@ -91,14 +91,14 @@ public class UI_Workload : MonoBehaviour
         m_leftTimetxt.text = (progress / m_playerAbility).ToString();
         StartCoroutine(SetProgress());
     }
-    public void SetPetWorkEntry(float ability, string name, int workAbility)
+    public void SetPetWorkEntry(float ability, string name)
     {
         StartCoroutine(SetProgress());
         m_workloadBox.SetActive(true);
         m_workloadBox.SetActive(false);
         m_noEntryBox.SetActive(false);
         m_textName.text = name;
-        m_textWorkAbility.text = workAbility.ToString();
+        m_textWorkAbility.text = ability.ToString();
         m_EntryPetBox.SetActive(true);
         m_petAbilityWeight += ability;
     }

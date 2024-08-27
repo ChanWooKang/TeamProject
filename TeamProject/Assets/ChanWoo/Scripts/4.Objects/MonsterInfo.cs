@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DefineDatas;
 
 public class MonsterInfo
 {
@@ -48,7 +49,7 @@ public class MonsterInfo
         float runSpeed, float range, float damage, float attackDelay, float sight,
         float workAbility, int type, int rate, int[] reward, float chaseRange, int[] rewardCounts
         )
-    {
+    {        
         _index = index;
         _nameEn = nameEn;
         _nameKr = nameKr;
@@ -65,8 +66,7 @@ public class MonsterInfo
         _rate = rate;
         _reward = reward;
         _chaseRange = chaseRange;
-        _rewardCount = rewardCounts;
-        
+        _rewardCount = rewardCounts;        
     }
 
 

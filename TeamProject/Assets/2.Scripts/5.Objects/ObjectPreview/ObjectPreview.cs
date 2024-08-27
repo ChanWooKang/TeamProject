@@ -118,11 +118,10 @@ public class ObjectPreview : MonoBehaviour
                     break;
                 case "Pet":
                     if (m_PetCtrl == null)
-                    {
-                       
+                    {                       
                         m_PetCtrl = other.gameObject.GetComponent<PetController>();
                         m_PetCtrl.MoveToObject(gameObject.transform.position);
-                        m_uiWorkload.SetPetWorkEntry(100f, "¹ö¼¸µ¹ÀÌ", 50);
+                        m_uiWorkload.SetPetWorkEntry(m_PetCtrl.PetInfo.WorkAbility, m_PetCtrl.PetInfo.NameKr);
                     }
                     break;
             }

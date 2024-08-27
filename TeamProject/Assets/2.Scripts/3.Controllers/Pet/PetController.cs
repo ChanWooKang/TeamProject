@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PetController : MonoBehaviour
-{
-    MonsterStat m_petStat;
+{ 
+   
+    MonsterInfo m_petInfo;
     
-    public MonsterStat PetStat { get { return m_petStat; } }
+    public MonsterInfo PetInfo { get { return m_petInfo; } }
     Vector3? m_targetPos = null;
 
     private void Awake()
     {
-        // 임시
-        m_petStat = new MonsterStat();
-        //m_petStat.Init();
+        //임시
+        InitPet(1000);
+        //
     }
     private void Update()
     {
@@ -25,7 +26,7 @@ public class PetController : MonoBehaviour
                 return;
             }
 
-            transform.position = Vector3.MoveTowards(transform.position, m_targetPos.Value, 10f * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, m_targetPos.Value, m_petInfo.Speed * Time.deltaTime);
         }
     }
 
@@ -35,5 +36,8 @@ public class PetController : MonoBehaviour
         m_targetPos = targetPos;
     }
    
-
+    public void InitPet(int index)
+    {
+        m_petInfo = Managers._data.Dict_Monster[index];
+    }
 }

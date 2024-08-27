@@ -37,11 +37,13 @@ public class UI_Interaction : MonoBehaviour
     bool m_isNew = true;
     bool m_isCraftDone;
     int m_weaponIndex = 0;
+    float m_petWorkWeight;
+    float m_playerWorkWeight;
 
 
     private void Update()
     {
-        if (m_weaponIndex == 0)
+        if (m_weaponIndex == 0) // 제작중인 무기가 없음
         {
             if (m_uiCraftObj.activeSelf)
             {
@@ -66,8 +68,18 @@ public class UI_Interaction : MonoBehaviour
                 }
             }
         }
-        else if (m_weaponIndex != 0 & !m_isCraftDone)
+        else if (m_weaponIndex != 0 & !m_isCraftDone) // 무기를 제작 중
         {
+            if(m_progressCraft.value < m_progressCraft.maxValue)
+            {
+                StartCoroutine(SetProgress());
+            }
+            else
+            {
+                //데스크 위에 무기 생성
+                m_weaponIndex = 0;
+                OpenInteraction(m_tableCtrl);
+            }
             if (Input.GetKey(KeyCode.F))
             {
                 PressFkey();
@@ -85,7 +97,7 @@ public class UI_Interaction : MonoBehaviour
                 UpCKey();
             }
         }
-        else if (m_weaponIndex != 0 & m_isCraftDone)
+        else if (m_weaponIndex != 0 & m_isCraftDone) // 무기가 다 제작 됨
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
@@ -122,7 +134,7 @@ public class UI_Interaction : MonoBehaviour
             m_weaponInfoBoxObj.SetActive(true);
             m_CancelObj.SetActive(true);
         }
-        else if (m_weaponIndex != 0 & m_isCraftDone)
+        else if (m_weaponIndex == 0 & m_isCraftDone)
         {
             m_txtPressOrHold.text = "Press";
             m_txtMenuOrCraft.text = "Get Weapon";
@@ -146,12 +158,14 @@ public class UI_Interaction : MonoBehaviour
     {
         m_noEntrytextBox.SetActive(false);
         m_petIcon.enabled = true;
+        m_petWorkWeight = 1f;
         //이미지 
     }
     public void SetNoEntry()
     {
         m_noEntrytextBox.SetActive(true);
         m_petIcon.enabled = false;
+        m_petWorkWeight = 0;
     }
 
 
@@ -214,11 +228,11 @@ public class UI_Interaction : MonoBehaviour
     }
     void PressFkey()
     {
-        StartCoroutine(SetProgress());
+        m_playerWorkWeight = 1f;
     }
     void UpFKey()
-    {
-        m_progressCraft.value = 0;
+    {        
+        m_playerWorkWeight = 0;
     }
     void PressCKey(bool isWeapon)
     {
@@ -250,12 +264,8 @@ public class UI_Interaction : MonoBehaviour
     }
     IEnumerator SetProgress()
     {
-        m_progressCraft.value += Time.deltaTime;
-        if (m_progressCraft.value >= 1)
-        {
-            //데스크 위에 무기 생성
-            OpenInteraction(m_tableCtrl);
-        }
+        m_progressCraft.value += ((m_playerWorkWeight + m_petWorkWeight) * Time.deltaTime);
+        
         yield return null;
     }
 }
