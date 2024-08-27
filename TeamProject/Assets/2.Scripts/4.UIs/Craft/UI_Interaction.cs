@@ -14,9 +14,11 @@ public class UI_Interaction : MonoBehaviour
     [SerializeField] GameObject m_uiWorkloadPrefab;
     [SerializeField] GameObject m_CancelObj;
     [SerializeField] GameObject m_weaponInfoBoxObj;
+    [SerializeField] GameObject m_noEntrytextBox;
     [SerializeField] RectTransform m_startSlot;
     [SerializeField] Slider m_progressCraft;
     [SerializeField] Slider m_progressCancel;
+    [SerializeField] Image m_petIcon;
 
     CraftTableController m_tableCtrl;
     GameObject m_uiMenuSlotObj;
@@ -128,6 +130,7 @@ public class UI_Interaction : MonoBehaviour
         }
         gameObject.SetActive(true);
         m_uiCraftObj.SetActive(true);
+
         CloseMenu();
     }
     public void CloseInteraction()
@@ -139,6 +142,18 @@ public class UI_Interaction : MonoBehaviour
     {
         m_weaponIndex = weaponindex;
     }
+    public void SetPetEntry()
+    {
+        m_noEntrytextBox.SetActive(false);
+        m_petIcon.enabled = true;
+        //¿ÃπÃ¡ˆ 
+    }
+    public void SetNoEntry()
+    {
+        m_noEntrytextBox.SetActive(true);
+        m_petIcon.enabled = false;
+    }
+
 
     void OpenMenu()
     {

@@ -11,6 +11,10 @@ public class UI_Workload : MonoBehaviour
     [SerializeField]
     GameObject m_workloadBox;
     [SerializeField]
+    GameObject m_EntryPetBox;
+    [SerializeField]
+    GameObject m_noEntryBox;
+    [SerializeField]
     TextMeshProUGUI m_leftTimetxt;
     [SerializeField]
     Slider m_fSlider;
@@ -41,7 +45,7 @@ public class UI_Workload : MonoBehaviour
     }
     public void OpenUI()
     {
-        m_workloadBox.SetActive(true);      
+        m_workloadBox.SetActive(true);       
     }
     public void CloseUI()
     {
@@ -87,14 +91,23 @@ public class UI_Workload : MonoBehaviour
         m_leftTimetxt.text = (progress / m_playerAbility).ToString();
         StartCoroutine(SetProgress());
     }
-    public void SetPetWorkAbility(float ability)
+    public void SetPetWorkEntry(float ability, string name, int workAbility)
     {
         StartCoroutine(SetProgress());
         m_workloadBox.SetActive(true);
         m_workloadBox.SetActive(false);
+        m_noEntryBox.SetActive(false);
+        m_textName.text = name;
+        m_textWorkAbility.text = workAbility.ToString();
+        m_EntryPetBox.SetActive(true);
         m_petAbilityWeight += ability;
     }
-
+    public void SetNoWorkEntry()
+    {
+        m_petAbilityWeight = 0;
+        m_noEntryBox.SetActive(true);
+        m_EntryPetBox.SetActive(false);
+    }
 
     IEnumerator SetProgress()
     {

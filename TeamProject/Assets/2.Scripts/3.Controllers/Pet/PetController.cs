@@ -4,7 +4,17 @@ using UnityEngine;
 
 public class PetController : MonoBehaviour
 {
+    MonsterStat m_petStat;
+    
+    public MonsterStat PetStat { get { return m_petStat; } }
     Vector3? m_targetPos = null;
+
+    private void Awake()
+    {
+        // юс╫ц
+        m_petStat = new MonsterStat();
+        m_petStat.Init();
+    }
     private void Update()
     {
         if (m_targetPos != null)
@@ -24,11 +34,6 @@ public class PetController : MonoBehaviour
     {
         m_targetPos = targetPos;
     }
-
-    public void PatrolInOwnArea()
-    {
-
-    }
-
+   
 
 }

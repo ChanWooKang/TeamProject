@@ -35,7 +35,7 @@ public class ObjectPreview : MonoBehaviour
     #endregion[Prefab & Material]
 
     #region [¿”Ω√ ∆Í]
-    PetTestController m_testPetCtrl;
+    PetController m_PetCtrl;
     #endregion [¿”Ω√ ∆Í]
     private void Awake()
     {
@@ -117,11 +117,12 @@ public class ObjectPreview : MonoBehaviour
                 case "Player":
                     break;
                 case "Pet":
-                    if (m_testPetCtrl == null)
+                    if (m_PetCtrl == null)
                     {
-                        m_uiWorkload.SetPetWorkAbility(100f);
-                        m_testPetCtrl = other.gameObject.GetComponent<PetTestController>();
-                        m_testPetCtrl.MoveToObject(gameObject.transform.position);
+                       
+                        m_PetCtrl = other.gameObject.GetComponent<PetController>();
+                        m_PetCtrl.MoveToObject(gameObject.transform.position);
+                        m_uiWorkload.SetPetWorkEntry(100f, "πˆº∏µπ¿Ã", 50);
                     }
                     break;
             }
@@ -147,6 +148,14 @@ public class ObjectPreview : MonoBehaviour
             if (m_uiWorkload != null)
             {
                 m_uiWorkload.CloseUI();
+            }
+        }
+        if(m_isFixed && other.CompareTag("Pet"))
+        {
+            if (m_uiWorkload != null)
+            {
+                m_uiWorkload.SetNoWorkEntry();
+                m_PetCtrl = null;
             }
         }
         

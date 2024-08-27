@@ -7,7 +7,7 @@ public class CraftTableController : MonoBehaviour
     [SerializeField] GameObject m_uiInteractionObj;
     UI_Interaction m_interaction;
     [SerializeField] ObjectPreview m_objPreview;
-   
+    PetController m_petCtrl;
     private void OnTriggerEnter(Collider other)
     {
         if (m_objPreview.IsDone && other.CompareTag("Player"))
@@ -23,6 +23,17 @@ public class CraftTableController : MonoBehaviour
             else
             {
                 m_interaction.OpenInteraction(this);
+            }
+            if (m_objPreview.IsDone && other.CompareTag("Pet"))
+            {
+                if (m_petCtrl == null && m_interaction != null)
+                {
+                    m_petCtrl = other.gameObject.GetComponent<PetController>();
+                    m_petCtrl.MoveToObject(gameObject.transform.position);
+                    m_interaction.SetPetEntry();
+                }
+                else
+                    return;               
             }
         }        
     }
@@ -42,8 +53,14 @@ public class CraftTableController : MonoBehaviour
         
         if(m_objPreview.IsDone && other.CompareTag("Pet"))
         {
-            // 제작중인 오브젝트가 있을 때 팻을 던지면 작업에 착수
-            // m_interaction.PetWork();
+            if (m_petCtrl == null && m_interaction != null)
+            {
+                m_petCtrl = other.gameObject.GetComponent<PetController>();
+                m_petCtrl.MoveToObject(gameObject.transform.position);
+                m_interaction.SetPetEntry();
+            }
+            else
+                return;
         }
     }
     private void OnTriggerExit(Collider other)
@@ -51,6 +68,11 @@ public class CraftTableController : MonoBehaviour
         if (m_objPreview.IsDone && other.CompareTag("Player") && m_interaction != null)
         {
             m_interaction.CloseInteraction();
-        }           
+        }
+        if (m_objPreview.IsDone && other.CompareTag("Pet"))
+        {            
+            m_interaction.SetNoEntry();
+            m_petCtrl = null;   
+        }
     }
 }

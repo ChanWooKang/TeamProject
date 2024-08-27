@@ -248,6 +248,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_workloadBox: {fileID: 1740737191876802164}
+  m_EntryPetBox: {fileID: 2415237166895578957}
+  m_noEntryBox: {fileID: 1740737192439812156}
   m_leftTimetxt: {fileID: 1740737192379794214}
   m_fSlider: {fileID: 1740737191056298562}
   m_cSlider: {fileID: 1740737191794273461}
@@ -2286,7 +2288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3973317991355006406
 RectTransform:
   m_ObjectHideFlags: 0
