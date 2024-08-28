@@ -5,8 +5,7 @@ using UnityEngine.AI;
 using DefineDatas;
 
 public class AutoRespawnManager : MonoBehaviour
-{
-    PoolingManager pool;
+{    
     SpawnManager spawn;
     Queue<int> _monsterQ;
 
@@ -33,8 +32,7 @@ public class AutoRespawnManager : MonoBehaviour
     }
 
     void Init()
-    {
-        pool = PoolingManager._inst;
+    {        
         spawn = SpawnManager._inst;
         _monsterQ = new Queue<int>();        
         if(spawn.spawnPoints.Count > 0)

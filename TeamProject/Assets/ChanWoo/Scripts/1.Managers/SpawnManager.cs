@@ -11,8 +11,7 @@ public class SpawnManager : MonoBehaviour
 
     public Action<int, int> OnSpawnEvent;
     public List<SpawnPoint> spawnPoints;
-
-    public int monsterOffsetNumber = 1000;
+    
     PoolingManager pool;
 
     private void Awake()

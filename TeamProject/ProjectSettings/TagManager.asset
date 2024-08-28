@@ -11,6 +11,8 @@ TagManager:
   - UICamera
   - Pet
   - Monster
+  - Slash
+  - Bomb
   layers:
   - Default
   - TransparentFX

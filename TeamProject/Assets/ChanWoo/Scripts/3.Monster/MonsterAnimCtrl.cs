@@ -70,4 +70,15 @@ public abstract class MonsterAnimCtrl : MonoBehaviour
             Destroy(go);
         }
     }
+
+    public void MushBombAction()
+    {
+        GameObject go = PoolingManager._inst.InstantiateAPS("MushBomb", transform.position, Quaternion.identity, Vector3.one);
+        if (go.TryGetComponent(out MushBomb bomb))
+        {
+            bomb.BombEvent(transform.position, _manager.target.position, _manager.Stat.Damage * 2);            
+        }
+        else
+            Destroy(go);
+    }
 }
