@@ -43,7 +43,7 @@ public class UI_Interaction : MonoBehaviour
 
     private void Update()
     {
-        if (m_weaponIndex == 0) // 제작중인 무기가 없음
+        if (m_weaponIndex == 0 && !m_isCraftDone) // 제작중인 무기가 없음
         {
             if (m_uiCraftObj.activeSelf)
             {
@@ -77,6 +77,7 @@ public class UI_Interaction : MonoBehaviour
             else
             {
                 //데스크 위에 무기 생성
+                m_isCraftDone = true;
                 m_weaponIndex = 0;
                 OpenInteraction(m_tableCtrl);
             }
@@ -97,17 +98,14 @@ public class UI_Interaction : MonoBehaviour
                 UpCKey();
             }
         }
-        else if (m_weaponIndex != 0 & m_isCraftDone) // 무기가 다 제작 됨
+        else if (m_weaponIndex == 0 & m_isCraftDone) // 무기가 다 제작 됨
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
                 m_weaponIndex = 0;
                 m_isCraftDone = false;
-                m_txtPressOrHold.text = "Press";
-                m_txtMenuOrCraft.text = "Get Weapon";
-                m_CancelObj.SetActive(false);
-                gameObject.SetActive(true);
-                m_uiCraftObj.SetActive(true);
+                m_progressCraft.value = 0;
+                OpenInteraction(m_tableCtrl);
                 CloseMenu();
                 InventoryManager._inst.AddEquipItem(eEquipType.Weapon, new BaseItem());
             }
@@ -118,7 +116,7 @@ public class UI_Interaction : MonoBehaviour
     {
         if (tableCtrl != null)
             m_tableCtrl = tableCtrl;
-        if (m_weaponIndex == 0)
+        if (m_weaponIndex == 0 && !m_isCraftDone)
         {
             m_txtPressOrHold.text = "Press";
             m_txtMenuOrCraft.text = "Craft Menu";
@@ -126,7 +124,7 @@ public class UI_Interaction : MonoBehaviour
             m_CancelObj.SetActive(true);
             m_isCraftDone = false;
         }
-        else if (m_weaponIndex != 0 & !m_isCraftDone)
+        else if (m_weaponIndex != 0 && !m_isCraftDone)
         {
             m_txtPressOrHold.text = "Press and Hold";
             m_txtMenuOrCraft.text = "Craft";
@@ -134,7 +132,7 @@ public class UI_Interaction : MonoBehaviour
             m_weaponInfoBoxObj.SetActive(true);
             m_CancelObj.SetActive(true);
         }
-        else if (m_weaponIndex == 0 & m_isCraftDone)
+        else if (m_weaponIndex == 0 && m_isCraftDone)
         {
             m_txtPressOrHold.text = "Press";
             m_txtMenuOrCraft.text = "Get Weapon";

@@ -43,7 +43,8 @@ namespace DefineDatas
         Weapon,
         Equipment,
         Potion,        
-        Gold
+        Gold,
+        PetBall
     }
 
     public enum eEquipType
@@ -121,6 +122,7 @@ namespace DefineDatas
         PetLevelTable,
         PetTable,
         WeaponTable,
+        PetBallTable,
     }
 
     [System.Serializable]
