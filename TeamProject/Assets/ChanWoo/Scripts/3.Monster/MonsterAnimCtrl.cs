@@ -53,7 +53,7 @@ public abstract class MonsterAnimCtrl : MonoBehaviour
             _manager.Agent.avoidancePriority = 50;
             _manager.isAttack = false;
         }
-            
+                
         if (_manager.isDead == false)
             _manager.ChangeState(MonsterStateChase._inst);
     }

@@ -61,4 +61,10 @@ public static class Utilitys
 
         return tr.gameObject;
     }
+
+    public static void DestroyAPS(this GameObject go)
+    {
+        PoolingManager.DestroyAPS(go);
+    }
+
 }

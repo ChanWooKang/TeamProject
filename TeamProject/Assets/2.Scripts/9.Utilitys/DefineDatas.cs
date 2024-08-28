@@ -4,6 +4,13 @@ using UnityEngine;
 
 namespace DefineDatas
 {
+    public enum eScene
+    {
+        Unknown,
+        SampleScene = 1,
+        ChanWooScene = 2,
+    }
+    
     public enum eLayer
     {
         UI = 5,
@@ -22,7 +29,15 @@ namespace DefineDatas
         PointerDown,
         PointerUp
     }
-    
+
+    public enum PoolType
+    {
+        Monster,
+        DropItem,
+        Effect,
+        UI
+    }
+
     public enum eInteractType
     {
         Unknown = 0,
@@ -192,4 +207,24 @@ namespace DefineDatas
             itemCounts = items;
         }
     }
+}
+
+
+namespace DefineDatas
+{
+    //Pooling
+    [System.Serializable]
+    public class PoolUnit
+    {
+        public int index;
+        public string name;
+        public PoolType type;
+        public GameObject prefab;
+        public int amount;
+        int curAmount;
+        public int CurAmount { get { return curAmount; } set { curAmount = value; } }
+    }
+
+
+   
 }
