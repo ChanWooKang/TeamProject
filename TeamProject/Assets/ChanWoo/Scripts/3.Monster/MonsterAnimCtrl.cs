@@ -10,6 +10,10 @@ public abstract class MonsterAnimCtrl : MonoBehaviour
 
     //공격 방식간 가중치
     public float[] AttackTypeWeight;
+    //근접 공격 개수 및 버프
+    public float[] _meleeWeightProbs;
+    //원거리 공격 개수 및 버프
+    public float[] _rangeWeightProbs;
     public virtual void Init(MonsterController manager, Animator animator)
     {
         _manager = manager;
@@ -38,7 +42,9 @@ public abstract class MonsterAnimCtrl : MonoBehaviour
     public void AttackEnd()
     {
         _manager.Agent.avoidancePriority = 50;
-        _manager.isAttack = false;
         _manager.GetRangeByAttackType();
+        _manager.isAttack = false;
+        Debug.Log("AniEnd");
+        
     }
 }

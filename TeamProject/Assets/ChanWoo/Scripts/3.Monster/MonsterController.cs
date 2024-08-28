@@ -76,6 +76,10 @@ public class MonsterController : FSM<MonsterController>
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            ChangeState(MonsterStateDizzy._inst);
+        }
         FSMUpdate();
     }
 

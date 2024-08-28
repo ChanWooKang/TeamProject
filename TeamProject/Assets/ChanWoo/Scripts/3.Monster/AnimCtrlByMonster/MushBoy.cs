@@ -5,16 +5,43 @@ using DefineDatas;
 
 public class MushBoy : MonsterAnimCtrl
 {
+    enum AnimationIndex
+    {
+        GetHit = 0,
+        HeadAttack = 1,
+        KickAttack = 2,
+        LeafAttack = 3,
+        BombAttack = 4,
+        Buff = 5
+    }    
+
+    enum MeleeAttack
+    {
+        HeadAttack = 0,
+        KickAttack,
+        Buff
+    }
+
+    enum RangeAttack
+    {
+        LeafAttack = 0,
+        BombAttack,
+        Buff
+    }
+
+
+
     //피격 애니메이션 후 돌아갈 스테이트 저장
     protected eMonsterState _beforeState = eMonsterState.IDLE;
     int _animIDGetHit;
-    int _animIDAttack;
+    int _animIDDizzy;
 
     public override void Init(MonsterController manager, Animator animator)
     {
         base.Init(manager, animator);
         _animIDGetHit = Animator.StringToHash("GetHit");
-        _animIDAttack = Animator.StringToHash("BaseAttack");
+        _animIDDizzy = Animator.StringToHash("Dizzy");
+        
     }
 
     public override void ChangeAnimation(eMonsterState type)
@@ -38,11 +65,14 @@ public class MushBoy : MonsterAnimCtrl
                 _animator.CrossFade("Run", 0.1f);
                 _beforeState = eMonsterState.CHASE;
                 break;
-            case eMonsterState.ATTACK:
-                _animator.SetTrigger(_animIDAttack);
+            case eMonsterState.ATTACK:                
+                AttackAction();
                 break;
             case eMonsterState.GETHIT:
                 _animator.SetTrigger(_animIDGetHit);
+                break;
+            case eMonsterState.DIZZY:
+                _animator.SetTrigger(_animIDDizzy);
                 break;
             case eMonsterState.DIE:
                 _animator.CrossFade("Die", 0.1f);
@@ -50,5 +80,46 @@ public class MushBoy : MonsterAnimCtrl
         }
     }
 
-    
+
+    public void AttackAction()
+    {
+        Debug.Log(_manager._attackType);
+        string trigger = "";
+        switch (_manager._attackType)
+        {
+            case eAttackType.MeleeAttack:
+                trigger = Utilitys.ConvertEnum(
+                    (MeleeAttack)PickPattern(_manager._attackType));
+                Debug.Log(trigger);
+                _animator.SetTrigger(trigger);
+                
+                break;
+            case eAttackType.RangeAttack:
+                trigger = Utilitys.ConvertEnum(
+                    (RangeAttack)PickPattern(_manager._attackType));
+                Debug.Log(trigger);
+                _animator.SetTrigger(trigger);
+                break;
+        }        
+    }
+
+    public int PickPattern(eAttackType type)
+    {
+        int index = 0;
+        float[] probs = _meleeWeightProbs;
+        if(type == eAttackType.RangeAttack)
+            probs = _rangeWeightProbs;        
+
+        float randValue = Random.Range(0.0f, 1.0f);
+        for(int i = 0; i < probs.Length; i++)
+        {
+            if(randValue <= probs[i])
+            {
+                index = i;
+                break;
+            }
+        }                
+
+        return index;
+    }
 }

@@ -7,7 +7,7 @@ public class MonsterStateReturn : TSingleton<MonsterStateReturn>, IFSMState<Mons
 {
     public void Enter(MonsterController m)
     {
-        m.Agent.speed = m.Stat.MoveSpeed;
+        m.Agent.speed = m.Stat.MoveSpeed * 5;
         m.State = eMonsterState.RETURN;
         m.BaseNavSetting();
     }
