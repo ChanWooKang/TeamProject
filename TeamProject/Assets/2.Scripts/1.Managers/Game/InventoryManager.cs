@@ -84,7 +84,7 @@ public class InventoryManager : MonoBehaviour
                 offSetNum = 200;
                 itemType = eItemType.Weapon;
                 break;
-            case LowDataType.PetLevelTable:
+            case LowDataType.PetBallTable:
                 offSetNum = 500;
                 itemType = eItemType.PetBall;
                 break;
