@@ -62,6 +62,7 @@ public class PlayerManager : MonoBehaviour
         //_hasAnimator = TryGetComponent(out _animator);
 
         
+        
         //이동 및 점프
         Movement.OnUpdate();
         //마우스 회전, 줌 인, 키보드 액션

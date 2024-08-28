@@ -17896,9 +17896,11 @@ MonoBehaviour:
   Stat: {fileID: 1903803456}
   _movement: {fileID: 0}
   _animCtrl: {fileID: 1903803449}
+  _attackType: 0
   target: {fileID: 0}
   targetPos: {x: 0, y: 0, z: 0}
   delayTime: 2
+  attackRange: 0
   isStatic: 1
   isDead: 0
   isAttack: 0
@@ -17915,6 +17917,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c8992d62b67aff4f9535da001f37b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackTypeWeight:
+  - 0.5
+  - 1
+  _meleeWeightProbs:
+  - 0.45
+  - 0.9
+  - 1
+  _rangeWeightProbs:
+  - 0.4
+  - 0.8
+  - 1
 --- !u!114 &1903803450
 MonoBehaviour:
   m_ObjectHideFlags: 0

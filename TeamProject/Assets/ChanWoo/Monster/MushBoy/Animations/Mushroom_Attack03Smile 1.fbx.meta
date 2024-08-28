@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8ccfc638f8ef4ae7bcee122c40db1184
+guid: 902196497c35184468a7889eead1c04f
 ModelImporter:
   serializedVersion: 20300
   internalIDToNameTable: []
@@ -32,11 +32,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Mushroom_VictorySmile
+      name: LeafAttack
       takeName: Take 001
       internalID: 1827226128182048838
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 25
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -56,7 +56,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.8315057
+      - time: 0.83221406
         functionName: AttackEnd
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -126,7 +126,7 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 9b52d9eb1ef276b468d728abf03a5f60, type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: c0a0375e97cb4250b0cc67ccda1cd64b, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1

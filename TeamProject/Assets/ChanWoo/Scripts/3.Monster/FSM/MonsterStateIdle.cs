@@ -29,7 +29,7 @@ public class MonsterStateIdle : TSingleton<MonsterStateIdle>, IFSMState<MonsterC
             {                
                 if (m.State != eMonsterState.SENSE)
                 {
-                    Debug.Log("Sense");
+                    m.State = eMonsterState.SENSE;
                 }                    
             }
         }        
