@@ -12,10 +12,12 @@ public class Managers : MonoBehaviour
     FileManager File = new FileManager();
     DataManager Data = new DataManager();
     TableManager Table = new TableManager();
+    SceneManagerEx Scene = new SceneManagerEx();
     public static InputManager _input { get { return _inst.Input; } }
     public static FileManager _file { get { return _inst.File; } }
     public static DataManager _data { get { return _inst.Data; } }
     public static TableManager _table { get { return _inst.Table; } }
+    public static SceneManagerEx _scene { get { return _inst.Scene; } }
     #endregion [ Core ]
 
     #region [ Data ] 
@@ -37,13 +39,14 @@ public class Managers : MonoBehaviour
             _uniqueInstance.File.Init();
             _uniqueInstance.Table.Init();
             _uniqueInstance.Data.Init();
+            _uniqueInstance.Scene.Init();
         }
     }
 
     public static void Clear()
     {
         _input.Clear();
-        
+        _scene.Clear();        
     }
 
     void Update()

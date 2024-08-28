@@ -15,7 +15,7 @@ public class MonsterStat : BaseStat
     protected int _characterType;
 
     MonsterInfo _monster;
-    float baseHp;
+    [SerializeField] float baseHp;
     float baseDamage;
     float baseDropExp;
 
@@ -146,7 +146,7 @@ public class MonsterStat : BaseStat
 
     void SetStat(float value , float exp)
     {
-        _hp = baseHp * value;
+        _hp = baseHp * value;        
         _damage = baseDamage * value;
         _maxHp = _hp;
         _dropExp = exp;

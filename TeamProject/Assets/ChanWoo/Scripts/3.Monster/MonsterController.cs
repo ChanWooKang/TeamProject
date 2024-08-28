@@ -50,6 +50,8 @@ public class MonsterController : FSM<MonsterController>
     public bool isAttack;
     public bool isReturnHome;
 
+    Coroutine DamageCoroutine = null;
+
     public NavMeshAgent Agent { get { return _agent; } }
 
 
@@ -77,6 +79,11 @@ public class MonsterController : FSM<MonsterController>
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.G))
+        {
+            OnDamage(5);            
+        }
+
+        if (Input.GetKeyDown(KeyCode.H))
         {
             ChangeState(MonsterStateDizzy._inst);
         }
@@ -193,7 +200,6 @@ public class MonsterController : FSM<MonsterController>
         isAttack = true;
     }
 
-
     public void GetRangeByAttackType()
     {
         _attackType = _animCtrl.GetAttackTypeByWeight();
@@ -208,5 +214,58 @@ public class MonsterController : FSM<MonsterController>
         }
 
             
+    }
+
+
+    public void OnDamage()
+    {
+        if (DamageCoroutine != null)
+            StopCoroutine(DamageCoroutine);
+        DamageCoroutine = StartCoroutine(OnDamageEvent());
+    }
+    
+
+    public void OnDamage(float damage)
+    {
+        if (isDead)
+            return;
+
+        isStatic = false;
+        State = eMonsterState.GETHIT;        
+        isDead = Stat.CalculateDamage(damage);        
+        OnDamage();
+    }
+
+    IEnumerator OnDamageEvent()
+    {
+        if (isDead)
+        {
+            yield return new WaitForSeconds(0.20f);
+            //Á×À» ¶§ ÀÛ¾÷
+            _collider.enabled = false;
+            Stat.DeadFunc(_player.Stat);
+            ChangeColor(Color.gray);
+            ChangeState(MonsterStateDie._inst);
+            yield break;
+        }
+        ChangeColor(Color.red);
+        yield return new WaitForSeconds(0.3f);
+        ChangeColor(Color.white);
+    }
+
+    public void OnDeadEvent()
+    {
+        gameObject.SetActive(false);
+        ChangeColor(Color.white);
+        ChangeState(MonsterStateDisable._inst);
+    }
+
+    public void OnResurrectEvent()
+    {
+        if (_collider.enabled == false)
+            _collider.enabled = true;
+
+        ChangeLayer(eLayer.Monster);
+        ChangeState(MonsterStateInit._inst);
     }
 }

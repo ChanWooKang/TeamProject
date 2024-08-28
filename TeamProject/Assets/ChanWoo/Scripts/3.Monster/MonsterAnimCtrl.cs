@@ -43,8 +43,18 @@ public abstract class MonsterAnimCtrl : MonoBehaviour
     {
         _manager.Agent.avoidancePriority = 50;
         _manager.GetRangeByAttackType();
-        _manager.isAttack = false;
-        Debug.Log("AniEnd");
-        
+        _manager.isAttack = false;              
+    }
+
+    public void GetHitEnd()
+    {
+        if (_manager.isAttack == true)
+        {
+            _manager.Agent.avoidancePriority = 50;
+            _manager.isAttack = false;
+        }
+                
+        if (_manager.isDead == false)
+            _manager.ChangeState(MonsterStateChase._inst);
     }
 }
