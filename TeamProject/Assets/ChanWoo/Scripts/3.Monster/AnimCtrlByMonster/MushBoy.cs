@@ -29,8 +29,6 @@ public class MushBoy : MonsterAnimCtrl
         Buff
     }
 
-
-
     //피격 애니메이션 후 돌아갈 스테이트 저장
     protected eMonsterState _beforeState = eMonsterState.IDLE;
     int _animIDGetHit;
@@ -69,6 +67,7 @@ public class MushBoy : MonsterAnimCtrl
                 AttackAction();
                 break;
             case eMonsterState.GETHIT:
+                _manager.AttackNavSetting();
                 _animator.SetTrigger(_animIDGetHit);
                 break;
             case eMonsterState.DIZZY:
@@ -89,15 +88,13 @@ public class MushBoy : MonsterAnimCtrl
         {
             case eAttackType.MeleeAttack:
                 trigger = Utilitys.ConvertEnum(
-                    (MeleeAttack)PickPattern(_manager._attackType));
-                Debug.Log(trigger);
+                    (MeleeAttack)PickPattern(_manager._attackType));                
                 _animator.SetTrigger(trigger);
                 
                 break;
             case eAttackType.RangeAttack:
                 trigger = Utilitys.ConvertEnum(
-                    (RangeAttack)PickPattern(_manager._attackType));
-                Debug.Log(trigger);
+                    (RangeAttack)PickPattern(_manager._attackType));                
                 _animator.SetTrigger(trigger);
                 break;
         }        
@@ -121,5 +118,5 @@ public class MushBoy : MonsterAnimCtrl
         }                
 
         return index;
-    }
+    }    
 }

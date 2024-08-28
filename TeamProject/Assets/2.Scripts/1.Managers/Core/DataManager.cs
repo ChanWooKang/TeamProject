@@ -57,7 +57,7 @@ public class DataManager
         string nameEn = table.ToStr(index,"NameEn");
         string nameKr = table.ToStr(index, "NameKr");
         string desc = table.ToStr(index, "Desc");
-        float hp = table.ToFloat(index, "Damage"); 
+        float hp = table.ToFloat(index, "Hp"); 
         float speed = table.ToFloat(index, "Speed"); 
         float runSpeed = table.ToFloat(index, "RunSpeed"); 
         float range = table.ToFloat(index, "Range"); 

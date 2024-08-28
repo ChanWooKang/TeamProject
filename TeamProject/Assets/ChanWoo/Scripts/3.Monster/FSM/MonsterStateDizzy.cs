@@ -20,7 +20,7 @@ public class MonsterStateDizzy : TSingleton<MonsterStateDizzy>, IFSMState<Monste
         cntTime += Time.deltaTime;
         if(cntTime > TestDizzyTime)
         {
-            m.ReverseState();
+            m.ChangeState(MonsterStateChase._inst);
         }
     }
 
