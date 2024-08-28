@@ -5,6 +5,7 @@ using UnityEngine;
 public class PetBallController : MonoBehaviour
 {    
     MonsterController m_targetMonsterCtrl;
+    PetBallInfo m_petBallInfo;
 
     float m_bonusCaptureRate;
 
@@ -24,9 +25,9 @@ public class PetBallController : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void Init()
+    public void Init(int index)
     {
-        
+        m_petBallInfo = InventoryManager._inst.Dict_Petball[index];
     }
     IEnumerator CapturePet()
     {

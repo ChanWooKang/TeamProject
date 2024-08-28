@@ -9,7 +9,7 @@ public class MonsterStateAttack : TSingleton<MonsterStateAttack>, IFSMState<Mons
     public void Enter(MonsterController m)
     {
         m.AttackNavSetting();
-        cntTime = 0;
+        cntTime = m.Stat.AttackDelay;
     }
 
     public void Execute(MonsterController m)
@@ -20,15 +20,16 @@ public class MonsterStateAttack : TSingleton<MonsterStateAttack>, IFSMState<Mons
         }
         else
         {
-            if(m._movement.CheckCloseTarget(m.target.position,m.Stat.AttackRange))
+            if(m._movement.CheckCloseTarget(m.target.position,m.attackRange))
             {
-                cntTime += Time.deltaTime;
+                if(m.isAttack == false)
+                    cntTime += Time.deltaTime;
+
                 if(cntTime > m.Stat.AttackDelay && m.isAttack == false)
                 {
                     //°í¿Ë°Ý
                     cntTime = 0;
-                    Debug.Log(m.Stat.AttackDelay);
-                    Debug.Log("ATTACK");
+                    m.AttackFunc();
                 }
             }
             else

@@ -71,8 +71,7 @@ namespace DefineDatas
     }
 
     public enum eMonsterState
-    {        
-        INIT,
+    {                
         IDLE,
         PATROL,
         SENSE,
@@ -80,8 +79,18 @@ namespace DefineDatas
         RETURN,
         ATTACK,
         KNOCKBACK,
+        DIZZY,
+        GETHIT,
         DIE,
         DISABLE
+    }
+
+    public enum eAttackType
+    {
+        None    =0,
+        MeleeAttack,
+        RangeAttack,
+        MaxCount
     }
 
     public enum ePlayerAnimParams

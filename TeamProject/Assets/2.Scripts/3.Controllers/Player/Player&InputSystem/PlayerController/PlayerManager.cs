@@ -36,6 +36,7 @@ public class PlayerManager : MonoBehaviour
     GameObject _recognizeObject;
 
     public bool _hasAnimator;
+    public bool isDead = false;
     
 
     public bool IsCurrentDeviceMouse
