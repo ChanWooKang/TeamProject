@@ -20,6 +20,7 @@ public class MonsterStateAttack : TSingleton<MonsterStateAttack>, IFSMState<Mons
         }
         else
         {
+            m.transform.LookAt(m.target);
             if(m._movement.CheckCloseTarget(m.target.position,m.attackRange))
             {
                 if(m.isAttack == false)

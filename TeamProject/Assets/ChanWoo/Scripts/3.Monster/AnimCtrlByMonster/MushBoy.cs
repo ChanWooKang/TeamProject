@@ -81,8 +81,7 @@ public class MushBoy : MonsterAnimCtrl
 
 
     public void AttackAction()
-    {
-        Debug.Log(_manager._attackType);
+    {        
         string trigger = "";
         switch (_manager._attackType)
         {
@@ -119,4 +118,8 @@ public class MushBoy : MonsterAnimCtrl
 
         return index;
     }    
+
+    
+
+    
 }

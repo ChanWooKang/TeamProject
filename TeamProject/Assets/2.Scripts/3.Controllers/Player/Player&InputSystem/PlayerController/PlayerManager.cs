@@ -59,14 +59,7 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
-        //_hasAnimator = TryGetComponent(out _animator);
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            Vector3 pos = new Vector3(50, 0, 50);
-            PoolingManager._inst.InstantiateAPS(1000, pos, transform.rotation, Vector3.one);
-        }
-        
+        //_hasAnimator = TryGetComponent(out _animator);                
         
         //이동 및 점프
         Movement.OnUpdate();

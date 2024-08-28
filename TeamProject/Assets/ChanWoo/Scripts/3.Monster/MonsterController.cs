@@ -206,10 +206,10 @@ public class MonsterController : FSM<MonsterController>
         switch (_attackType)
         {
             case eAttackType.MeleeAttack:
-                attackRange = Stat.AttackRange * 0.5f;
+                attackRange = Stat.AttackRange;
                 break;
             case eAttackType.RangeAttack:
-                attackRange = Stat.AttackRange;
+                attackRange = Stat.AttackRange * 2;
                 break;
         }
 
@@ -255,7 +255,7 @@ public class MonsterController : FSM<MonsterController>
 
     public void OnDeadEvent()
     {
-        gameObject.SetActive(false);
+        SpawnManager._inst.MonsterDespawn(gameObject);
         ChangeColor(Color.white);
         ChangeState(MonsterStateDisable._inst);
     }
