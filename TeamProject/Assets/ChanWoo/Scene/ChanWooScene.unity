@@ -17864,17 +17864,17 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1903803455}
+  - component: {fileID: 1903803451}
   - component: {fileID: 1903803454}
   - component: {fileID: 1903803453}
   - component: {fileID: 1903803452}
-  - component: {fileID: 1903803451}
-  - component: {fileID: 1903803450}
-  - component: {fileID: 1903803449}
   - component: {fileID: 1903803448}
   - component: {fileID: 1903803456}
+  - component: {fileID: 1903803449}
+  - component: {fileID: 1903803450}
   m_Layer: 10
-  m_Name: GameObject
-  m_TagString: Untagged
+  m_Name: MushBoy
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17895,7 +17895,7 @@ MonoBehaviour:
   MonsterLevel: 1
   Stat: {fileID: 1903803456}
   _movement: {fileID: 0}
-  _animCtrl: {fileID: 0}
+  _animCtrl: {fileID: 1903803449}
   target: {fileID: 0}
   targetPos: {x: 0, y: 0, z: 0}
   delayTime: 2
@@ -17912,7 +17912,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1903803447}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4913e3677fd04314c8b607a8f387039e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c8992d62b67aff4f9535da001f37b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1903803450
@@ -17939,8 +17939,8 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1903803447}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: a736566565a0467eb2ba23a7007ba560, type: 3}
+  m_Controller: {fileID: 9100000, guid: 00c959c2d88f12d44a645de77f1ca684, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -17965,7 +17965,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!195 &1903803453
 NavMeshAgent:
@@ -18011,7 +18011,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1903803447}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.04, y: 0, z: -0.5348024}
+  m_LocalPosition: {x: 10, y: 0, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 137295890245537306}
@@ -24900,6 +24900,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   FootstepAudioVolume: 0.5
   _hasAnimator: 0
+  isDead: 0
 --- !u!114 &4373042621143168002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30635,7 +30636,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.5
+  near clip plane: 0.2
   far clip plane: 500
   field of view: 40
   orthographic: 0
@@ -30663,7 +30664,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8944336656887555457}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4000001, y: 1.5, z: -4}
+  m_LocalPosition: {x: 0.20000005, y: 0.68, z: -4.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

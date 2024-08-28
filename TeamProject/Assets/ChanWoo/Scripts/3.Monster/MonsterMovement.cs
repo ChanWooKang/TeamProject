@@ -13,7 +13,6 @@ public class MonsterMovement : MonoBehaviour
     public float _rotateSpeed = 15.0f;
 
     //Test
-
     MonsterController _manager;
     NavMeshAgent _agent;
 
@@ -21,13 +20,14 @@ public class MonsterMovement : MonoBehaviour
     {
         _manager = manager;
         _agent = agent;
+        _defPos = transform.position;
     }
 
     //Patrol 상태에서 다음 이동 위치 계산
-    public Vector3 GetRandomPos(float range = 5.0f)
+    public Vector3 GetRandomPos(float range = 10.0f)
     {
         Vector3 randPos = Random.onUnitSphere;
-        randPos.y = transform.position.y;
+        randPos.y = 0;
         float r = Random.Range(1, range);
         randPos = _defPos + (randPos * r);
 
@@ -38,7 +38,7 @@ public class MonsterMovement : MonoBehaviour
             return GetRandomPos();
     }
 
-    public bool CheckFarOffset(float range = 20.0f)
+    public bool CheckFarOffset(float range = 100.0f)
     {
         Vector3 goalPos = new Vector3(_offsetPos.x, transform.position.y, _offsetPos.z);
         float dist = Vector3.SqrMagnitude(goalPos - transform.position);
@@ -50,7 +50,7 @@ public class MonsterMovement : MonoBehaviour
     public bool CheckCloseTarget(Vector3 pos, float range)
     {        
         Vector3 goalPos = new Vector3(pos.x, transform.position.y, pos.z);        
-        float dist = Vector3.SqrMagnitude(goalPos - transform.position);
+        float dist = Vector3.SqrMagnitude(goalPos - transform.position);        
         if (dist < range * range)
             return true;
         return false;
@@ -63,7 +63,6 @@ public class MonsterMovement : MonoBehaviour
         Vector3 dir = pos - transform.position;
         transform.rotation = Quaternion.Lerp(transform.rotation,
             Quaternion.LookRotation(dir), _rotateSpeed * Time.deltaTime);
-    }
-
+    }    
 
 }

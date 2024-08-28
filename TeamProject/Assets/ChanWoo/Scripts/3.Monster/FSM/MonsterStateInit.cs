@@ -11,6 +11,7 @@ public class MonsterStateInit : TSingleton<MonsterStateInit>, IFSMState<MonsterC
         //레벨은 자동 생성 할 때 저장
         m.SettingMonsterStatByLevel();
         m.InitData();
+        m.SetTarget();
         m.BaseNavSetting();
         m.ChangeState(MonsterStateIdle._inst);
     }

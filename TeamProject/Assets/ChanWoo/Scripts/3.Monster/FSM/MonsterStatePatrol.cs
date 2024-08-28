@@ -7,8 +7,7 @@ public class MonsterStatePatrol : TSingleton<MonsterStatePatrol>, IFSMState<Mons
 {
 
     public void Enter(MonsterController m)
-    {
-        m.BaseNavSetting();        
+    {        
         m.Agent.speed = m.Stat.MoveSpeed;
         m.Agent.avoidancePriority = 47;       
         m.State = eMonsterState.PATROL;       
@@ -26,14 +25,17 @@ public class MonsterStatePatrol : TSingleton<MonsterStatePatrol>, IFSMState<Mons
         if(m.target != null)
         {
             if(m._movement.CheckCloseTarget(m.target.position, m.Stat.Sight))
+            //if (m._movement.CheckCloseTarget(m.target.position, 10))
             {
                 m.ChangeState(MonsterStateChase._inst);
+                return;
             }
             else
-            {
+            {                
                 if(m._movement.CheckCloseTarget(m.targetPos, 0.5f))
                 {                    
-                    m.ChangeState(MonsterStateIdle._inst);                    
+                    m.ChangeState(MonsterStateIdle._inst);
+                    return;
                 }
                 else
                 {

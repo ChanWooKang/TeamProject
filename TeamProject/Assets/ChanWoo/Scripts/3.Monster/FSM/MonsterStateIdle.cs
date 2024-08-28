@@ -9,33 +9,30 @@ public class MonsterStateIdle : TSingleton<MonsterStateIdle>, IFSMState<MonsterC
     public void Enter(MonsterController m)
     {
         m.State = eMonsterState.IDLE;
-        cntTime = 1.5f;
-
-        if (m.Stat.CharacterType > 0)
-        {
-            //공격적일때 플레이어를 타겟으로 설정하고 순찰 시작
-            m.SetTarget();
-        }
+        cntTime = 0;               
     }
 
     public void Execute(MonsterController m)
     {
-        if (m.Stat.CharacterType > 0 || m.isStatic == false)
+        if (m.isStatic == false)
         {
             cntTime += Time.deltaTime;
             if (cntTime > m.delayTime)
             {
                 cntTime = 0;
-                m.targetPos = m._movement.GetRandomPos();
-                m.ChangeState(MonsterStatePatrol._inst);
                 m.SetTarget();
+                m.targetPos = m._movement.GetRandomPos();                
+                m.ChangeState(MonsterStatePatrol._inst);
+                
             }
             else
-            {
-                //IDLE상태일때 행동할만한거 진행 가능
+            {                
+                if (m.State != eMonsterState.SENSE)
+                {
+                    Debug.Log("Sense");
+                }                    
             }
-        }
-        
+        }        
     }
 
     public void Exit(MonsterController m)
