@@ -156,6 +156,13 @@ namespace DefineDatas
         public Sprite icon;
     }
 
+    [System.Serializable]
+    public class SpawnPoint
+    {
+        public Transform parent;
+        public int Index;
+        public int maxSpawnCount;
+    }
 }
 
 // 데이터 관련 클래스 정리

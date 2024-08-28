@@ -12,6 +12,7 @@ public class MonsterStateDizzy : TSingleton<MonsterStateDizzy>, IFSMState<Monste
         m.AttackNavSetting();
         cntTime = 0;
         TestDizzyTime = 3.0f;
+        m.isAttack = false;
         m.State = eMonsterState.DIZZY;
     }
 

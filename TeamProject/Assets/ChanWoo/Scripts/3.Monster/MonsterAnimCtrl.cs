@@ -57,4 +57,17 @@ public abstract class MonsterAnimCtrl : MonoBehaviour
         if (_manager.isDead == false)
             _manager.ChangeState(MonsterStateChase._inst);
     }
+
+    public void LeafSlashAction()
+    {
+        GameObject go = PoolingManager._inst.InstantiateAPS("LeafSlash");
+        if (go.TryGetComponent(out LeafSlash leaf))
+        {
+            leaf.SlashEvent(transform, _manager.Stat.Damage, transform.forward);
+        }
+        else
+        {
+            Destroy(go);
+        }
+    }
 }
