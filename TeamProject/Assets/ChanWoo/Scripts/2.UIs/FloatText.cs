@@ -12,7 +12,10 @@ public sealed class FloatText : MonoBehaviour
     public float FloatSpeed = 8.0f;
     Text _text;
 
-    public static GameObject Create(string objName, bool byPlayer, Vector3 pos, object value, float lifeTime = 0, Transform parent = null)
+    public static GameObject Create
+        (string objName,
+         bool byPlayer, 
+         Vector3 pos, object value, float lifeTime = 0, Transform parent = null)
     {
         return null;
     }

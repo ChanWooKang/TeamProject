@@ -20,6 +20,9 @@ public class MonsterController : FSM<MonsterController>
     public MonsterStat Stat;
     public MonsterMovement _movement;
     public MonsterAnimCtrl _animCtrl;
+    public Transform _model;
+    public Transform _captureModel;
+    [Header("Materials")]
 
     //Componsnent
     NavMeshAgent _agent;
@@ -30,6 +33,7 @@ public class MonsterController : FSM<MonsterController>
 
     //OtherComponent
     public PlayerManager _player;
+    public PetBallController Ball;
 
     //몬스터 상태 체크 및 애니메이션 적용 
     eMonsterState _nowState;
@@ -139,6 +143,21 @@ public class MonsterController : FSM<MonsterController>
         _agent.velocity = Vector3.zero;
     }
 
+    public void JumpNavSetting()
+    {
+        _agent.SetDestination(transform.position);
+        _agent.updatePosition = false;
+        _agent.updateRotation = false;
+        _agent.isStopped = true;
+    }
+
+    public void MakeJump()
+    {
+        _rigid.isKinematic = false;
+        _rigid.useGravity = true;
+        _rigid.AddForce(new Vector3(0, 150, 0), ForceMode.Impulse);
+    }
+
     void FreezeRotation()
     {
         _rigid.velocity = Vector3.zero;
@@ -158,6 +177,14 @@ public class MonsterController : FSM<MonsterController>
     {
         gameObject.layer = (int)layer;
     }
+
+    public void ChangeModelByCapture(bool isCapture)
+    {
+        _model.gameObject.SetActive(!isCapture);
+        _captureModel.gameObject.SetActive(isCapture);
+    }
+
+    
 
     public void SetTarget()
     {

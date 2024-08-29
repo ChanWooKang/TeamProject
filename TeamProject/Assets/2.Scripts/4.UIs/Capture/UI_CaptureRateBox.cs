@@ -43,7 +43,7 @@ public class UI_CaptureRateBox : MonoBehaviour
         m_targetPos = pos;
     }
     public void CaptureSuccess()
-    {
+    {        
         //ÀÌÆåÆ® »ý¼º½ÃÅ°°í ¿¢Æ¼ºê ²û
         gameObject.SetActive(false);
     }

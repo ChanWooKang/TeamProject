@@ -39,7 +39,9 @@ public class PetBallController : MonoBehaviour
             m_capturePos = gameObject.transform.position;                   
                    
             m_targetMonsterCtrl = other.GetComponent<MonsterController>();
-            m_targetMonsterCtrl.gameObject.SetActive(false);
+            // 잡히는 이펙트 .... (모델 껏다 켯다 , 살짝위로 이동 )
+            //m_targetMonsterCtrl.gameObject.SetActive(false);
+            m_targetMonsterCtrl.ChangeState(MonsterStateCapture._inst);
             StartCoroutine(CaptureStart());
         }
         else
@@ -87,7 +89,7 @@ public class PetBallController : MonoBehaviour
                 Debug.Log("앗 펫이 볼에서 빠져나왔다!");
                 m_isSuccess = false;
                 m_uiRateBox.CaptureFailed();
-                m_targetMonsterCtrl.gameObject.SetActive(true);
+                //m_targetMonsterCtrl.gameObject.SetActive(true);
                 break;
             }
             else if (RN < b)
@@ -115,7 +117,18 @@ public class PetBallController : MonoBehaviour
             yield return new WaitForSeconds(m_shakeDelayTime);
         }
         if (m_isSuccess)
+        {
+            //UI 적용
             m_uiRateBox.CaptureSuccess();
+            //몬스터 잡혔으면 setactive false
+            
+        }
+        else
+        {
+            //실패시 몬스터 튀어나옴 스테이트, 모델 변경해야함
+            m_targetMonsterCtrl.ChangeState(MonsterStateChase._inst);
+        }    
+
         Destroy(gameObject);
     }
     IEnumerator CaptureImmediately()
@@ -130,9 +143,9 @@ public class PetBallController : MonoBehaviour
 
     void CaculateCaputreRate()
     {
-        float a = (1f - ((2f / 3f) * (m_targetMonsterCtrl.Stat.HP / m_targetMonsterCtrl.Stat.MaxHP))) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;
+        //float a = (1f - ((2f / 3f) * (m_targetMonsterCtrl.Stat.HP / m_targetMonsterCtrl.Stat.MaxHP))) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;
         //float a = (1f - ((2f / 3f)) * 1 / 3) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;  //테스트 (1/3남은 피)
-        //float a = (1f - ((2f / 3f) * (m_targetMonsterCtrl.Stat.HP / m_targetMonsterCtrl.Stat.MaxHP))) * m_petBallInfo.BonusRate * 200; //테스트 (낮은 포획률의 펫)
+        float a = (1f - ((2f / 3f) * (m_targetMonsterCtrl.Stat.HP / m_targetMonsterCtrl.Stat.MaxHP))) * m_petBallInfo.BonusRate * 50; //테스트 (낮은 포획률의 펫)
         if (a >= 255)
         {
             //포획 성공 //확률 100으로 바로 잡힘
@@ -141,6 +154,7 @@ public class PetBallController : MonoBehaviour
         else
         {
             StartCoroutine(ShakeBall(a));
+            //몬스터 가 위로 가는거 
         }
     }
 }
