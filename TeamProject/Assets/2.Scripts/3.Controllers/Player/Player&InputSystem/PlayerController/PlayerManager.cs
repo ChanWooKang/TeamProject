@@ -37,8 +37,8 @@ public class PlayerManager : MonoBehaviour
 
     public bool _hasAnimator;
     public bool isDead = false;
-    
 
+    Coroutine DamageCoroutne = null;
     public bool IsCurrentDeviceMouse
     {
         get
@@ -81,7 +81,7 @@ public class PlayerManager : MonoBehaviour
         _input = GetComponent<PlayerAssetsInputs>();
         _playerInput = GetComponent<PlayerInput>();
         _mainCamera = Camera.main.gameObject;
-
+        _renders = GetComponentsInChildren<Renderer>();
         Movement = GetComponent<PlayerMovementController>();
         InputCtrl = GetComponent<PlayerInputController>();
         AnimCtrl = GetComponent<PlayerAnimController>();
@@ -105,7 +105,18 @@ public class PlayerManager : MonoBehaviour
     {
         foreach (Renderer render in _renders)
         {
-            render.material.color = color;
+            if(render.materials.Length > 1)
+            {
+                for (int i = 0; i < render.materials.Length; i++)
+                {
+                    render.materials[i].color = color;
+                }
+            }
+            else
+            {
+                render.material.color = color;
+            }
+            
         }
     }
 
@@ -114,10 +125,36 @@ public class PlayerManager : MonoBehaviour
         _recognizeObject = go;
     }
 
-    #region [ Animation Parameter Setting ]
-    
-    #endregion [ Animation Parameter Setting ]
+    public void OnDamage()
+    {
+        if (DamageCoroutne != null)
+            StopCoroutine(DamageCoroutne);
+        DamageCoroutne = StartCoroutine(OnDamageEvent());
+    }
 
+    public void OnDamage(float damage)
+    {
+        if (isDead)
+            return;
+        isDead = Stat.GetHit(damage);        
+
+        OnDamage();
+    }
+
+    IEnumerator OnDamageEvent()
+    {
+        if (isDead)
+        {
+            ChangeColor(Color.gray);
+            yield break;
+        }
+
+        ChangeColor(Color.red);
+        yield return new WaitForSeconds(0.3f);
+        ChangeColor(Color.white);
+    }
+
+    #region [ Animation Parameter Setting ]
     private void OnFootstep(AnimationEvent animationEvent)
     {
         if (animationEvent.animatorClipInfo.weight > 0.5f)
@@ -137,10 +174,19 @@ public class PlayerManager : MonoBehaviour
             AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
         }
     }
+    #endregion [ Animation Parameter Setting ]
 
     #region [ Trigger Evenet ] 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Slash"))
+        {
+            if(other.TryGetComponent(out LeafSlash slash))
+            {
+                OnDamage(slash.Damage);
+                slash.gameObject.DestroyAPS();
+            }
+        }
 
     }
 

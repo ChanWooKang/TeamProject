@@ -1465,11 +1465,6 @@ MonoBehaviour:
     type: 2
     prefab: {fileID: 1098059996598783514, guid: 6a3a7c546834ee3429ef9b8a4c28dc6c, type: 3}
     amount: 3
-  - index: 0
-    name: ExplosionEffect
-    type: 2
-    prefab: {fileID: 92519085855880686, guid: c44a4e246dc7f5d46b50707b506bfef9, type: 3}
-    amount: 3
   _defPoolAmount: 0
   _canPoolExpand: 1
 --- !u!4 &198866764
@@ -3428,7 +3423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f0b6282d6c2d0a48b757cabdedfa202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 4373042621143168006}
+  playeManager: {fileID: 4373042621143168001}
   UIStateValue: 0
   isOnBuild: 0
 --- !u!4 &430903610

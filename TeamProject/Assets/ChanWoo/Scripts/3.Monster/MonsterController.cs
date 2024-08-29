@@ -29,7 +29,7 @@ public class MonsterController : FSM<MonsterController>
     Rigidbody _rigid;
 
     //OtherComponent
-    PlayerManager _player;
+    public PlayerManager _player;
 
     //몬스터 상태 체크 및 애니메이션 적용 
     eMonsterState _nowState;
@@ -42,6 +42,7 @@ public class MonsterController : FSM<MonsterController>
     //floats
     public float delayTime = 2.0f;
     public float attackRange;
+    public float dizzyRate = 0.05f;
 
     //Bools
     //몬스터가 최초로 생성됬을때 갖고있는다 초식만 갖고있는다
@@ -162,19 +163,17 @@ public class MonsterController : FSM<MonsterController>
     {
         if (target == null)
         {
-            if (GameManagerEx._inst.Player != null)
+            if (GameManagerEx._inst.playeManager != null)
             {
-                if (GameManagerEx._inst.Player.TryGetComponent(out PlayerManager player))
+                if (GameManagerEx._inst.playeManager.isDead == false)
                 {
-                    //나중에 수정 플레이어 죽었는지 확인하는 bool값 생성시
-                    if (player.isDead == false)
-                    {
-                        target = GameManagerEx._inst.Player;
-                        _player = player;
-                    }
+                    target = GameManagerEx._inst.playeManager.transform;
+                    _player = GameManagerEx._inst.playeManager;
                 }
                 else
+                {
                     target = null;
+                }
             }
             else
             {
@@ -237,7 +236,9 @@ public class MonsterController : FSM<MonsterController>
     }
 
     IEnumerator OnDamageEvent()
-    {
+    {           
+        float randValue = Random.Range(0.0f, 1.0f);
+        bool isDizzy = randValue <= dizzyRate;        
         if (isDead)
         {
             yield return new WaitForSeconds(0.20f);
@@ -248,6 +249,9 @@ public class MonsterController : FSM<MonsterController>
             ChangeState(MonsterStateDie._inst);
             yield break;
         }
+        if (isDizzy)
+            ChangeState(MonsterStateDizzy._inst);
+
         ChangeColor(Color.red);
         yield return new WaitForSeconds(0.3f);
         ChangeColor(Color.white);
