@@ -10,52 +10,78 @@ public class UI_CaptureRateBox : MonoBehaviour
     Image m_captureProgress;
     [SerializeField]
     TextMeshProUGUI m_textRate;
-    GameObject m_player;
-    MonsterController m_targetMonsterCtrl;
+    [SerializeField]
+    GameObject m_RateBox;
+
+    Vector3? m_targetPos;
 
 
-    private void Start()
+    private void Awake()
     {
         m_captureProgress.fillAmount = 0;
+        m_captureProgress.color = Color.white;
     }
     private void Update()
     {
-        if (isActiveAndEnabled)
-            StartCoroutine(SetCapturePetUIPosition());
-    }
-    public IEnumerator SetRateProgress(float rate)
-    {
-        m_textRate.text = Mathf.RoundToInt(rate * 100f).ToString();        
-        while (m_captureProgress.fillAmount < rate)
+        if (m_targetPos != null)
         {
-            m_captureProgress.fillAmount = Mathf.Lerp(m_captureProgress.fillAmount, rate, 3 * Time.deltaTime);
-            if (rate - m_captureProgress.fillAmount < 0.01f)
-                m_captureProgress.fillAmount = rate;
-            yield return null;
-        }
-    }
-    IEnumerator SetCapturePetUIPosition()
-    {
-        if (m_targetMonsterCtrl != null)
-        {
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(m_targetMonsterCtrl.transform.position);
-            transform.position = screenPos;
-            if (IsObjectFront(m_targetMonsterCtrl.transform))
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(m_targetPos.Value);
+            m_RateBox.transform.position = screenPos;
+            if (IsObjectFront(m_targetPos))
             {
-                gameObject.SetActive(true);
+                m_RateBox.SetActive(true);
             }
             else
             {
-                gameObject.SetActive(false);
+                m_RateBox.SetActive(false);
             }
         }
-        yield return null;
     }
-
-    bool IsObjectFront(Transform obj)
+    public void OpenUI(Vector3 pos)
     {
-        Vector3 relativePos = obj.position - m_player.transform.position;
-        if (Vector3.Dot(relativePos, m_player.transform.forward) > 0)
+
+        m_targetPos = pos;
+    }
+    public void CaptureSuccess()
+    {
+        //ÀÌÆåÆ® »ý¼º½ÃÅ°°í ¿¢Æ¼ºê ²û
+        gameObject.SetActive(false);
+    }
+    public void CaptureFailed()
+    {
+        //ÀÌÆåÆ® »ý¼º Æê Æ¢¾î³ª¿È ¿¢Æ¼ºê ²û
+        gameObject.SetActive(false);
+    }
+    public IEnumerator SetRateProgress(float rate)
+    {
+        m_textRate.text = Mathf.RoundToInt(rate * 100f).ToString();
+        SetProgressImageColor(rate);
+        float roundRate = Mathf.Floor(rate * 100f) / 100f;
+        while (m_captureProgress.fillAmount < roundRate)
+        {
+            m_captureProgress.fillAmount = Mathf.Lerp(m_captureProgress.fillAmount, roundRate, 4 * Time.deltaTime);
+            if (rate - m_captureProgress.fillAmount < 0.01f)
+                m_captureProgress.fillAmount = roundRate;
+            yield return null;
+        }
+    }
+    void SetProgressImageColor(float rate)
+    {
+        Color color;
+        if (rate <= 0.25f)
+            color = Color.red;
+        else if (rate > 0.25f && rate <= 0.5f)
+            color = new Color(255f, 177f, 0f);
+        else if (rate > 0.5f && rate <= 0.75f)
+            color = Color.green;
+        else
+            color = new Color(0, 255f, 255f);
+        m_captureProgress.color = color;
+    }
+    bool IsObjectFront(Vector3? obj)
+    {
+        Vector3 relativePos = obj.Value - Camera.main.transform.position;
+        if (Vector3.Dot(relativePos, Camera.main.transform.forward) > 0)
             return true;
         else
             return false;

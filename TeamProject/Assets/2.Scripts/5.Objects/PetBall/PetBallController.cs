@@ -6,90 +6,137 @@ using TMPro;
 
 public class PetBallController : MonoBehaviour
 {
+    #region [°íÁ¤°ª]
+    const float m_shakeDelayTime = 2f;
+    const int m_shakeMaxCount = 3;
+    #endregion [°íÁ¤°ª]
+
     #region [ÂüÁ¶]
     MonsterController m_targetMonsterCtrl;
-    PetBallInfo m_petBallInfo;    
+    PetBallInfo m_petBallInfo;
     [SerializeField]
     GameObject m_uiRateBoxPrefab;
     UI_CaptureRateBox m_uiRateBox;
+    Rigidbody m_rigidbdy;
     #endregion [ÂüÁ¶]      
 
-    bool m_isCapturing;
-    const float m_shakeDelayTime = 3f;
+    Vector3 m_capturePos;
+
+    
+    bool m_isSuccess;
     private void Start()
     {
         //ÀÓ½Ã
-
-        OpenBox(500);
-        m_isCapturing = false;
-    }
+        InitBall(501);        
+        m_rigidbdy = GetComponent<Rigidbody>();
+    }  
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Monster") && !m_isCapturing)
+        if (other.CompareTag("Monster") && m_targetMonsterCtrl == null)
         {
-            //Æ÷È¹
-            // m_player = GameObject.FindGameObjectWithTag("Player");
-            GameObject ui = Instantiate(m_uiRateBoxPrefab);
-            m_uiRateBox = ui.GetComponent<UI_CaptureRateBox>();
-            
-            m_isCapturing = true;
+            //Æ÷È¹            
+            m_rigidbdy.isKinematic = true;
+            m_capturePos = gameObject.transform.position;                   
+                   
             m_targetMonsterCtrl = other.GetComponent<MonsterController>();
-            CaculateCaputreRate();
+            m_targetMonsterCtrl.gameObject.SetActive(false);
+            StartCoroutine(CaptureStart());
         }
         else
         {
             Destroy(gameObject);
         }
     }
-    public void OpenBox(int index)
+    public void InitBall(int index)
     {
         m_petBallInfo = InventoryManager._inst.Dict_Petball[index];
     }
 
-
+    IEnumerator CaptureStart()
+    {
+        Vector3 targetPos = m_capturePos + Vector3.up * 2;
+        while (transform.position != targetPos)
+        {
+            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, targetPos, 4f * Time.deltaTime);           
+            if (Vector3.Distance(transform.position, targetPos) < 0.05f)
+            {
+                gameObject.transform.position = targetPos;
+                break;
+            }
+            yield return null;
+        }
+        GameObject ui = Instantiate(m_uiRateBoxPrefab);             
+        m_uiRateBox = ui.GetComponent<UI_CaptureRateBox>();        
+        m_uiRateBox.OpenUI(gameObject.transform.position);
+        CaculateCaputreRate();        
+    }
 
     IEnumerator ShakeBall(float a)
     {
-        int count = 1;
+        int count = 0;
         float b = 65536 / Mathf.Pow((255 / a), 0.1875f);
-        while (count <= 4)
+        while (count <= m_shakeMaxCount)
         {
             float RN = Random.Range(0, 65535);
-            float rate = Mathf.Pow(b / 65535, 4 - count);
-            StartCoroutine(m_uiRateBox.SetRateProgress(rate));
-            if (RN > b)
+            float rate = Mathf.Pow(b / 65535, m_shakeMaxCount - count);
+            if (count == 0)
+                Debug.Log("º¼¿¡ µé¾î¿Ô´Ù!");
+            if (count > 0 && RN > b)
             {
                 //Æ÷È¹ ½ÇÆÐ (º¼¿¡¼­ ÆêÀÌ Å»Ãâ)
                 Debug.Log("¾Ñ ÆêÀÌ º¼¿¡¼­ ºüÁ®³ª¿Ô´Ù!");
+                m_isSuccess = false;
+                m_uiRateBox.CaptureFailed();
+                m_targetMonsterCtrl.gameObject.SetActive(true);
                 break;
             }
-            else
-            {
-                if(count == 1)
-                    Debug.Log("º¼¿¡ µé¾î¿Ô´Ù!");
-                if (count > 1 && count < 4)
-                    Debug.LogFormat("º¼ÀÌ Èçµé·È´Ù!" + count);
-                if(count == 4)
+            else if (RN < b)
+            {              
+                if (count >= 1 && count < m_shakeMaxCount)
                 {
+                    Debug.LogFormat("º¼ÀÌ Èçµé·È´Ù!" + (count));
+                    //º¼ Èçµé¸² or ÀÌÆåÆ®
+                }
+                if (count == m_shakeMaxCount)
+                {
+                    Debug.Log("Àâ¾Ò³ª?");
+                    StartCoroutine(m_uiRateBox.SetRateProgress(rate));
+                    //º¼ Èçµé¸² or ÀÌÆåÆ®
+                    yield return new WaitForSeconds(m_shakeDelayTime);
                     Debug.Log("Àâ¾Ò´Ù!");
-                    Destroy(gameObject);
+                    
+                    m_isSuccess = true;
                     break;
                 }
                 count++;
-                //º¼ Èçµé¸² or ÀÌÆåÆ® count == 4 ¸é ¾È Èçµé¸²
+
             }
+            StartCoroutine(m_uiRateBox.SetRateProgress(rate));
             yield return new WaitForSeconds(m_shakeDelayTime);
         }
-        //Æ÷È¹ ¼º°ø
-        
+        if (m_isSuccess)
+            m_uiRateBox.CaptureSuccess();
+        Destroy(gameObject);
+    }
+    IEnumerator CaptureImmediately()
+    {
+        StartCoroutine(m_uiRateBox.SetRateProgress(1f));
+        //ÇÑ¹ø Èçµé±â or ÀÌÆåÆ®
+        yield return new WaitForSeconds(m_shakeDelayTime);
+        Debug.Log("¹Ù·Î ÀâÇû´Ù");
+        m_uiRateBox.CaptureSuccess();
+        Destroy(gameObject);
     }
 
     void CaculateCaputreRate()
     {
         float a = (1f - ((2f / 3f) * (m_targetMonsterCtrl.Stat.HP / m_targetMonsterCtrl.Stat.MaxHP))) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;
+        //float a = (1f - ((2f / 3f)) * 1 / 3) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;  //Å×½ºÆ® (1/3³²Àº ÇÇ)
+        //float a = (1f - ((2f / 3f) * (m_targetMonsterCtrl.Stat.HP / m_targetMonsterCtrl.Stat.MaxHP))) * m_petBallInfo.BonusRate * 200; //Å×½ºÆ® (³·Àº Æ÷È¹·üÀÇ Æê)
         if (a >= 255)
         {
-            //Æ÷È¹ ¼º°ø //È®·ü 100À¸·Î ¹Ù·Î ÀâÈû            
+            //Æ÷È¹ ¼º°ø //È®·ü 100À¸·Î ¹Ù·Î ÀâÈû
+            StartCoroutine(CaptureImmediately());
         }
         else
         {
