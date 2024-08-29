@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManagerEx : TSingleton<GameManagerEx>
-{
-    public Transform Player;
+{    
+    public PlayerManager playeManager;
+    
 
     // 움직임을 제한할 UI가 켜질 때 마다 값이 증가
     public int UIStateValue = 0;

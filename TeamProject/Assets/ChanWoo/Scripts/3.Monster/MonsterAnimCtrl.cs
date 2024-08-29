@@ -7,6 +7,7 @@ public abstract class MonsterAnimCtrl : MonoBehaviour
 {
     protected MonsterController _manager;
     protected Animator _animator;
+    
 
     //공격 방식간 가중치
     public float[] AttackTypeWeight;
@@ -37,6 +38,15 @@ public abstract class MonsterAnimCtrl : MonoBehaviour
         }
         
         return attackType;
+    }
+
+    public void AttackEvent()
+    {
+        if (_manager._movement.CheckCloseTarget(_manager.target.position, _manager.attackRange))
+        {
+            _manager._player.OnDamage(_manager.Stat.Damage);
+        }
+        
     }
 
     public void AttackEnd()

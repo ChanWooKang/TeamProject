@@ -52,7 +52,7 @@ public class PlayerStat : BaseStat
     public void Init()
     {
         _level = 1;
-        _hp = _maxHp = 100;
+        _hp = _maxHp = 200;
         _stamina = _maxStamina = 100;
         _damage = 20;
         _defense = 5;

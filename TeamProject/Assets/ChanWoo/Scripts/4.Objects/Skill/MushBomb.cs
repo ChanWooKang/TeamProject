@@ -5,12 +5,18 @@ using UnityEngine;
 public class MushBomb : MonoBehaviour
 {
     Animator _animator;
-    Rigidbody _rigid;    
+    Rigidbody _rigid;
+
+    [SerializeField] GameObject _model;
+    [SerializeField] ParticleSystem _particle;
+
 
     int _animIDBomb;
     
     float gravity = 9.81f;
     float firingAngle = 45.0f;
+    [SerializeField] float castRange = 15.0f;
+    [SerializeField] LayerMask castMask;
     public float Damage;
 
     Coroutine ShootCoroutine = null;
@@ -20,13 +26,21 @@ public class MushBomb : MonoBehaviour
         _animator = GetComponent<Animator>();
         _rigid = GetComponent<Rigidbody>();
         _animIDBomb = Animator.StringToHash("Bomb");
-        
+        SetEnable(false);
     }
 
+    void SetEnable(bool enable)
+    {
+        if(_model != null)
+        {
+            _model.SetActive(enable);
+        }
+    }
 
     public void BombEvent(Vector3 start, Vector3 target, float damage)
     {
         Init();
+        SetEnable(true);
         Damage = damage;
         if (ShootCoroutine != null)
             StopCoroutine(ShootCoroutine);
@@ -34,13 +48,10 @@ public class MushBomb : MonoBehaviour
     }
 
     IEnumerator OnShootEvent(Vector3 start, Vector3 target)
-    {
+    {        
+        float dist = Vector3.SqrMagnitude(target - start);        
         
-        float dist = Vector3.SqrMagnitude(target - start);
-        //float dist = Vector3.Distance(start,target);
-        
-        dist = Mathf.Sqrt(dist);
-        Debug.Log(dist);
+        dist = Mathf.Sqrt(dist);        
 
         float velocity = dist / (Mathf.Sin(2 * firingAngle * Mathf.Deg2Rad) / gravity);
 
@@ -64,12 +75,27 @@ public class MushBomb : MonoBehaviour
 
     public void BombEffect()
     {
-        Debug.Log("BombEffect");
-        GameObject go =PoolingManager._inst.InstantiateAPS("ExplosionEffect",transform.position,Quaternion.identity,Vector3.one * 0.5f);
-        if(go.TryGetComponent(out ExplosionEffect effect))
-        {
-            effect.Play();
-        }
-        gameObject.DestroyAPS();
+        ShootRay();
+        _particle.Play(true);
+        SetEnable(false);        
     }
+
+    public void ShootRay()
+    {        
+        RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, castRange, Vector3.up, castMask);
+
+        if(rayHits.Length > 0)
+        {
+            foreach (RaycastHit rhit in rayHits)
+            {
+                if (rhit.transform.CompareTag("Player"))
+                {
+                    if(rhit.transform.TryGetComponent(out PlayerManager player))
+                    {
+                        player.OnDamage(Damage);
+                    }                    
+                }                
+            }
+        }               
+    }    
 }
