@@ -68,3 +68,11 @@ public static class Utilitys
     }
 
 }
+
+public static class Extension
+{
+    public static T GetOrAddComponent<T>(this GameObject go) where T : UnityEngine.Component
+    {
+        return Utilitys.GetOrAddComponent<T>(go);
+    }
+}

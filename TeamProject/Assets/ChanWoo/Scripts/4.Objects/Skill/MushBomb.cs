@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MushBomb : MonoBehaviour
+public class MushBomb : ObjectInParticle
 {
     Animator _animator;
     Rigidbody _rigid;
 
     [SerializeField] GameObject _model;
-    [SerializeField] ParticleSystem _particle;
-
+    [SerializeField] ParticleCallBack _particle;
+    MonsterController _targetMonster;
 
     int _animIDBomb;
     
@@ -21,8 +21,9 @@ public class MushBomb : MonoBehaviour
 
     Coroutine ShootCoroutine = null;
 
-    void Init()
+    void Init(MonsterController target)
     {
+        _targetMonster = target;
         _animator = GetComponent<Animator>();
         _rigid = GetComponent<Rigidbody>();
         _animIDBomb = Animator.StringToHash("Bomb");
@@ -37,9 +38,9 @@ public class MushBomb : MonoBehaviour
         }
     }
 
-    public void BombEvent(Vector3 start, Vector3 target, float damage)
+    public void BombEvent(MonsterController monster,Vector3 start, Vector3 target, float damage)
     {
-        Init();
+        Init(monster);
         SetEnable(true);
         Damage = damage;
         if (ShootCoroutine != null)
@@ -76,7 +77,9 @@ public class MushBomb : MonoBehaviour
     public void BombEffect()
     {
         ShootRay();
-        _particle.Play(true);
+
+        _particle.Play(gameObject);
+
         SetEnable(false);        
     }
 
@@ -94,8 +97,24 @@ public class MushBomb : MonoBehaviour
                     {
                         player.OnDamage(Damage);
                     }                    
-                }                
+                }
+
+                if (rhit.transform.CompareTag("Monster"))
+                {
+                    if(rhit.transform.TryGetComponent(out MonsterController mc))
+                    {
+                        if(mc != _targetMonster)
+                        {
+                            mc.OnDamage(Damage, _targetMonster.transform);
+                        }
+                    }
+                }
             }
         }               
-    }    
+    }
+
+    public override void DestoryObject()
+    {
+        gameObject.DestroyAPS();
+    }
 }

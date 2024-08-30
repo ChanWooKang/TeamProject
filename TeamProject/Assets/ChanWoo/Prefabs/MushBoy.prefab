@@ -263,7 +263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6101652029062262753
 Transform:
   m_ObjectHideFlags: 0
@@ -413,16 +413,18 @@ MonoBehaviour:
   _model: {fileID: 3673940601172135384}
   _captureModel: {fileID: 6101652029062262753}
   _player: {fileID: 0}
+  Ball: {fileID: 0}
   _attackType: 0
   target: {fileID: 0}
   targetPos: {x: 0, y: 0, z: 0}
   delayTime: 2
   attackRange: 0
   dizzyRate: 0.05
-  isStatic: 1
+  isStatic: 0
   isDead: 0
   isAttack: 0
   isReturnHome: 0
+  isBuffed: 0
 --- !u!114 &3682731050503339906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,15 +451,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackTypeWeight:
-  - 0.7
+  - 0.1
+  - 0.8
   - 1
   _meleeWeightProbs:
   - 0.45
-  - 0.9
   - 1
   _rangeWeightProbs:
-  - 0.45
-  - 0.9
+  - 0.5
   - 1
 --- !u!114 &3682731050503340024
 MonoBehaviour:

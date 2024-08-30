@@ -116,7 +116,8 @@ public class MonsterStat : BaseStat
         _captureRate = _monster.CaptureRate;
         _attackDelay = _monster.AttackDelay;
         _sight = _monster.Sight;
-        _characterType = _monster.CharacterType;
+        //_characterType = _monster.CharacterType;
+        _characterType = 1;
 
         //SetConvertibleStat(info.Index,level);
     }

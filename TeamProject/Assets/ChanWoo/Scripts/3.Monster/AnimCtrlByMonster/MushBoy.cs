@@ -18,28 +18,27 @@ public class MushBoy : MonsterAnimCtrl
     enum MeleeAttack
     {
         HeadAttack = 0,
-        KickAttack,
-        Buff
+        KickAttack,        
     }
 
     enum RangeAttack
     {
         LeafAttack = 0,
-        BombAttack,
-        Buff
+        BombAttack,        
     }
 
     //피격 애니메이션 후 돌아갈 스테이트 저장
     protected eMonsterState _beforeState = eMonsterState.IDLE;
     int _animIDGetHit;
     int _animIDDizzy;
+    int _animIDBuff;
 
     public override void Init(MonsterController manager, Animator animator)
     {
         base.Init(manager, animator);
         _animIDGetHit = Animator.StringToHash("GetHit");
         _animIDDizzy = Animator.StringToHash("Dizzy");
-        
+        _animIDBuff = Animator.StringToHash("Buff");
     }
 
     public override void ChangeAnimation(eMonsterState type)
@@ -95,6 +94,9 @@ public class MushBoy : MonsterAnimCtrl
                 trigger = Utilitys.ConvertEnum(
                     (RangeAttack)PickPattern(_manager._attackType));                
                 _animator.SetTrigger(trigger);
+                break;
+            case eAttackType.Buff:
+                _animator.SetTrigger(_animIDBuff);
                 break;
         }        
     }

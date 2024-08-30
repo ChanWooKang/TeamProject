@@ -39,7 +39,7 @@ public class MonsterStateChase : TSingleton<MonsterStateChase>, IFSMState<Monste
             }
         }
         else
-        {
+        {            
             m.ChangeState(MonsterStateReturn._inst);
         }
     }

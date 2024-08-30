@@ -2,7 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ObjectInParticle : MonoBehaviour
+public class ObjectInParticle : MonoBehaviour
 {
-    public abstract void ShootRay();
+    public virtual void PlayNextParticle()
+    {
+
+    }
+
+    public virtual void BuffEffectEnd()
+    {
+
+    }
+
+    public virtual void DestoryObject()
+    {
+        gameObject.DestroyAPS();
+    }
 }

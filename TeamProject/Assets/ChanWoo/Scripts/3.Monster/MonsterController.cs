@@ -34,6 +34,7 @@ public class MonsterController : FSM<MonsterController>
     //OtherComponent
     public PlayerManager _player;
     public PetBallController Ball;
+    DuringBuff buffEffect;
 
     //몬스터 상태 체크 및 애니메이션 적용 
     eMonsterState _nowState;
@@ -54,6 +55,7 @@ public class MonsterController : FSM<MonsterController>
     public bool isDead;
     public bool isAttack;
     public bool isReturnHome;
+    public bool isBuffed = false;
 
     Coroutine DamageCoroutine = null;
 
@@ -85,7 +87,9 @@ public class MonsterController : FSM<MonsterController>
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-            OnDamage(5);            
+            Vector3 hitPoint = transform.position;
+            hitPoint.y += 1.0f;
+            OnDamage(5, GameManagerEx._inst.playeManager.transform, true);            
         }
 
         if (Input.GetKeyDown(KeyCode.H))
@@ -125,6 +129,17 @@ public class MonsterController : FSM<MonsterController>
         isDead = false;
         isAttack = false;
         isReturnHome = false;
+
+        switch (Stat.CharacterType)
+        {
+            case (int)eMonsterCharacterType.PASSIVE:
+                isStatic = true;
+                break;
+            case (int)eMonsterCharacterType.AGGRESSIVE:
+                isStatic = false;
+                break;
+        }
+        
     }
 
     public void BaseNavSetting()
@@ -182,30 +197,19 @@ public class MonsterController : FSM<MonsterController>
     {
         _model.gameObject.SetActive(!isCapture);
         _captureModel.gameObject.SetActive(isCapture);
-    }
+    }       
 
-    
-
-    public void SetTarget()
+    public void SetTarget(Transform attacker, bool isPlayer = true)
     {
-        if (target == null)
-        {
-            if (GameManagerEx._inst.playeManager != null)
+        target = attacker;
+
+        if (isPlayer)
+        {            
+            if (!GameManagerEx._inst.playeManager.isDead)
             {
-                if (GameManagerEx._inst.playeManager.isDead == false)
-                {
-                    target = GameManagerEx._inst.playeManager.transform;
-                    _player = GameManagerEx._inst.playeManager;
-                }
-                else
-                {
-                    target = null;
-                }
-            }
-            else
-            {
-                target = null;
-            }
+                if(_player == null)
+                    _player = GameManagerEx._inst.playeManager;                
+            }                
         }
     }
 
@@ -220,7 +224,7 @@ public class MonsterController : FSM<MonsterController>
         //플레이어 상태 확인 
         if (_player.isDead)
             return;
-
+        
         _agent.avoidancePriority = 51;
         State = eMonsterState.ATTACK;
         isAttack = true;
@@ -232,14 +236,34 @@ public class MonsterController : FSM<MonsterController>
         switch (_attackType)
         {
             case eAttackType.MeleeAttack:
-                attackRange = Stat.AttackRange;
+                attackRange = Stat.AttackRange * 0.5f;
                 break;
             case eAttackType.RangeAttack:
                 attackRange = Stat.AttackRange * 2;
                 break;
-        }
+            default:
+                attackRange = Stat.AttackRange;
+                break;
+        }            
+    }
 
-            
+    
+    public Vector3 GetRunAwayPos()
+    {
+        //Debug.Log(target.position);
+        //Vector3 reverseNormalVect = transform.position - target.position;
+        //Vector3 NormalVect = target.position - transform.position;
+        ////타겟에서 몬스터까지 거리 값 (제곱근)
+        //float distFromTarget = reverseNormalVect.sqrMagnitude;
+        //distFromTarget = Mathf.Sqrt(distFromTarget);
+        ////타겟에서 몬스터의 방향 벡터
+        //reverseNormalVect = reverseNormalVect.normalized;
+        ////이동 거리 구하기
+        ////예시로 추격 거리 밖으로 이동
+        Vector3 normalVec = Camera.main.transform.forward;
+        normalVec.y = 0;        
+        transform.LookAt(normalVec);        
+        return transform.position + (normalVec * Stat.ChaseRange); 
     }
 
 
@@ -251,14 +275,18 @@ public class MonsterController : FSM<MonsterController>
     }
     
 
-    public void OnDamage(float damage)
+    public void OnDamage(float damage, Transform attacker, bool isPlayer = false)
     {
         if (isDead)
             return;
-
+        
         isStatic = false;
+        if (target != attacker)
+            SetTarget(attacker, isPlayer);
+        
         State = eMonsterState.GETHIT;        
-        isDead = Stat.CalculateDamage(damage);        
+        isDead = Stat.CalculateDamage(damage);
+        FloatText.Create("FloatText", transform.position, (int)Stat.AttackDamage);
         OnDamage();
     }
 
@@ -298,5 +326,55 @@ public class MonsterController : FSM<MonsterController>
 
         ChangeLayer(eLayer.Monster);
         ChangeState(MonsterStateInit._inst);
+    }
+
+    public void GetBuffEffect()
+    {
+        if (isBuffed == false)
+        {
+            GameObject go = PoolingManager._inst.InstantiateAPS("DuringBuff", transform.position, Quaternion.identity, Vector3.one, transform);
+            if(go.TryGetComponent(out DuringBuff buff))
+            {
+                buffEffect = buff;
+                isBuffed = true;
+            }
+        }
+        else
+        {
+            if(buffEffect != null)
+            {
+                buffEffect.gameObject.DestroyAPS();
+                buffEffect = null;
+                isBuffed = false;
+                //스탯 정상화
+
+                //버프 다시 설정
+                GetBuffEffect();
+            }            
+        }
+    }
+
+    public void OnBuffed(bool isOn)
+    {
+        if (isOn)
+        {
+            //버프 설정
+            //스탯 설정 
+            if (buffEffect != null)
+            {
+                buffEffect.BuffOn(this);
+                isBuffed = true;
+            }
+        }
+        else
+        {
+            //버프 해제
+            //스탯 정상화 
+            if (buffEffect != null)
+            {
+                buffEffect = null;
+                isBuffed = false;
+            }
+        }        
     }
 }

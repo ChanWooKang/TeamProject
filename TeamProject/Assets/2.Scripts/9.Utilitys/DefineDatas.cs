@@ -105,6 +105,7 @@ namespace DefineDatas
         None    =0,
         MeleeAttack,
         RangeAttack,
+        Buff,
         MaxCount
     }
 

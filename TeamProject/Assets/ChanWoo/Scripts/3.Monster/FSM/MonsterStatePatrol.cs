@@ -5,12 +5,14 @@ using DefineDatas;
 
 public class MonsterStatePatrol : TSingleton<MonsterStatePatrol>, IFSMState<MonsterController>
 {
-
+    Transform target;
     public void Enter(MonsterController m)
     {        
         m.Agent.speed = m.Stat.MoveSpeed;
         m.Agent.avoidancePriority = 47;       
-        m.State = eMonsterState.PATROL;       
+        m.State = eMonsterState.PATROL;
+        target = GameManagerEx._inst.playeManager.transform;
+
     }
 
     public void Execute(MonsterController m)
@@ -24,9 +26,11 @@ public class MonsterStatePatrol : TSingleton<MonsterStatePatrol>, IFSMState<Mons
 
         if(m.target != null)
         {
-            if(m._movement.CheckCloseTarget(m.target.position, m.Stat.Sight))
-            //if (m._movement.CheckCloseTarget(m.target.position, 10))
+            //플레이어 타겟 설정을 나중에 체크 
+            //if(m._movement.CheckCloseTarget(m.target.position, m.Stat.Sight))
+            if (m._movement.CheckCloseTarget(m.target.position, m.Stat.ChaseRange))
             {
+                m.transform.LookAt(m.target);
                 m.ChangeState(MonsterStateChase._inst);
                 return;
             }
@@ -45,6 +49,17 @@ public class MonsterStatePatrol : TSingleton<MonsterStatePatrol>, IFSMState<Mons
         }
         else
         {
+            if(GameManagerEx._inst.playeManager.isDead == false)
+            {
+                //m.Stat.Sight
+                //if (m._movement.CheckCloseTarget(target.position, m.Stat.Sight))
+                if (m._movement.CheckCloseTarget(target.position, 20))
+                {                    
+                    m.SetTarget(target,true);
+                    m.transform.LookAt(target);
+                    m.ChangeState(MonsterStateSense._inst);
+                }                
+            }            
             if (m._movement.CheckCloseTarget(m.targetPos, 0.5f))
             {
                 //쿨타임 돌리고

@@ -63,9 +63,11 @@ public abstract class MonsterAnimCtrl : MonoBehaviour
             _manager.Agent.avoidancePriority = 50;
             _manager.isAttack = false;
         }
-                
-        if (_manager.isDead == false)
-            _manager.ChangeState(MonsterStateChase._inst);
+        _manager.BaseNavSetting();
+        
+
+        if (_manager.isDead == false)            
+            _manager.ChangeState(MonsterStateIdle._inst);
     }
 
     public void LeafSlashAction()
@@ -86,8 +88,17 @@ public abstract class MonsterAnimCtrl : MonoBehaviour
         GameObject go = PoolingManager._inst.InstantiateAPS("MushBomb", transform.position, Quaternion.identity, Vector3.one);
         if (go.TryGetComponent(out MushBomb bomb))
         {
-            bomb.BombEvent(transform.position, _manager.target.position, _manager.Stat.Damage * 2);            
+            bomb.BombEvent(_manager,transform.position, _manager.target.position, _manager.Stat.Damage * 2);            
         }
+        else
+            Destroy(go);
+    }
+
+    public void BuffAction()
+    {        
+        GameObject go = PoolingManager._inst.InstantiateAPS("AuraBuff", transform.position, Quaternion.identity, Vector3.one, transform);
+        if (go.TryGetComponent(out AuraBuff aura))
+            aura.BuffEvent();
         else
             Destroy(go);
     }

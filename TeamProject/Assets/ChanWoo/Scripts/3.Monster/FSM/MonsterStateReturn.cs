@@ -16,6 +16,7 @@ public class MonsterStateReturn : TSingleton<MonsterStateReturn>, IFSMState<Mons
     {
         if (m._movement.CheckCloseTarget(m._movement._offsetPos, 0.5f))
         {
+            m.SetTarget(null, false);
             m.ChangeState(MonsterStateIdle._inst);
         }
         else

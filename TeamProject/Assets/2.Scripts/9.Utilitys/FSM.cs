@@ -33,6 +33,8 @@ public class FSM<T> : MonoBehaviour
     {
         if (prevState != null)
             ChangeState(prevState);
+        else
+            Debug.Log("No PreveSate");
     }
     
 }
