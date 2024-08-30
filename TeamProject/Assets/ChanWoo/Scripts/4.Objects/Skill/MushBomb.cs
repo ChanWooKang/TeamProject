@@ -105,6 +105,7 @@ public class MushBomb : ObjectInParticle
                     {
                         if(mc != _targetMonster)
                         {
+                            mc.SetTarget(_targetMonster.transform);
                             mc.OnDamage(Damage, _targetMonster.transform);
                         }
                     }

@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.AI;
 using DefineDatas;
 
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(CapsuleCollider))]
-[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(MonsterStat))]
 [RequireComponent(typeof(MonsterMovement))]
-[RequireComponent(typeof(MonsterAnimCtrl))]
 public class MonsterController : FSM<MonsterController>
 {
     [Header("Monster Data")]
@@ -22,7 +22,7 @@ public class MonsterController : FSM<MonsterController>
     public MonsterAnimCtrl _animCtrl;
     public Transform _model;
     public Transform _captureModel;
-    [Header("Materials")]
+    
 
     //Componsnent
     NavMeshAgent _agent;
@@ -32,18 +32,20 @@ public class MonsterController : FSM<MonsterController>
     Rigidbody _rigid;
 
     //OtherComponent
-    public PlayerManager _player;
-    public PetBallController Ball;
+    [HideInInspector] public PlayerManager _player;
+    [HideInInspector] public PetBallController Ball;
     DuringBuff buffEffect;
 
-    //몬스터 상태 체크 및 애니메이션 적용 
+
+    //몬스터 상태 체크 및 애니메이션 적용     
+    [HideInInspector] public eAttackType _attackType;
     eMonsterState _nowState;
-    public eAttackType _attackType;
 
     //타겟 관련
-    public Transform target;
-    public Vector3 targetPos;
+    [HideInInspector] public Transform target;
+    [HideInInspector] public Vector3 targetPos;
 
+    [Header("Datas")]
     //floats
     public float delayTime = 2.0f;
     public float attackRange;
@@ -51,11 +53,12 @@ public class MonsterController : FSM<MonsterController>
 
     //Bools
     //몬스터가 최초로 생성됬을때 갖고있는다 초식만 갖고있는다
-    public bool isStatic = true;
+    public bool isStatic;
     public bool isDead;
     public bool isAttack;
     public bool isReturnHome;
-    public bool isBuffed = false;
+    public bool isBuffed;
+    public bool isPlayerTarget;
 
     Coroutine DamageCoroutine = null;
 
@@ -106,13 +109,14 @@ public class MonsterController : FSM<MonsterController>
 
     public void InitComponent()
     {
+        Stat = GetComponent<MonsterStat>();
         Stat.Init(Index);
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
         _meshs = GetComponentsInChildren<Renderer>();
         _collider = GetComponent<CapsuleCollider>();
         _rigid = GetComponent<Rigidbody>();
-
+        
         _movement = GetComponent<MonsterMovement>();
         _animCtrl = GetComponent<MonsterAnimCtrl>();
 
@@ -190,7 +194,7 @@ public class MonsterController : FSM<MonsterController>
 
     public void ChangeLayer(eLayer layer)
     {
-        gameObject.layer = (int)layer;
+        gameObject.layer = (int)layer;        
     }
 
     public void ChangeModelByCapture(bool isCapture)
@@ -209,8 +213,10 @@ public class MonsterController : FSM<MonsterController>
             {
                 if(_player == null)
                     _player = GameManagerEx._inst.playeManager;                
-            }                
+            }            
         }
+
+        isPlayerTarget = isPlayer;
     }
 
     public void SettingMonsterStatByLevel()

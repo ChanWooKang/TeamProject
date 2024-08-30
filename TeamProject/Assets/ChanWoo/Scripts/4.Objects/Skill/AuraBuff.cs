@@ -6,7 +6,7 @@ public class AuraBuff : ObjectInParticle
 {
     [SerializeField] ParticleCallBack startParticle;    
     List<MonsterController> targetMonsters;
-    float _range = 5.0f;
+    float _range = 15.0f;
     [SerializeField] LayerMask _targetLayer;
 
     public void BuffEvent()

@@ -9864,7 +9864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _model: {fileID: 7259168236683062474}
-  _particle: {fileID: 8889964246740742557}
+  _particle: {fileID: 8791519403062829464}
   castRange: 5
   castMask:
     serializedVersion: 2
@@ -19913,6 +19913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9c2b64590906b445b8002c5aa2c38e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  psType: 0
 --- !u!1 &5089516457648093062
 GameObject:
   m_ObjectHideFlags: 0

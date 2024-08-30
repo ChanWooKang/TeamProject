@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using DefineDatas;
 
-public class MushBoy : MonsterAnimCtrl
+public class Cactus : MonsterAnimCtrl
 {
     enum MeleeAttack
     {
-        HeadAttack = 0,
-        KickAttack,        
+        PunchAttack = 0,
+        HeadAttack,
+
     }
 
     enum RangeAttack
     {
-        LeafAttack = 0,
-        BombAttack,        
+        LeafAttack,
     }
 
     int _animIDGetHit;
@@ -35,25 +35,25 @@ public class MushBoy : MonsterAnimCtrl
         {
             case eMonsterState.IDLE:
                 if (_manager.isStatic)
-                    _animator.CrossFade("Idle_Plant",0.1f);
+                    _animator.CrossFade("Idle_Plant", 0.1f);
                 else
-                    _animator.CrossFade("Idle_Normal", 0.1f);                
+                    _animator.CrossFade("Idle_Normal", 0.1f);
                 break;
             case eMonsterState.SENSE:
                 _animator.CrossFade("Sense", 0.1f, -1, 0);
                 break;
             case eMonsterState.PATROL:
             case eMonsterState.RETURN:
-                _animator.CrossFade("Walk", 0.1f);                
+                _animator.CrossFade("Walk", 0.1f);
                 break;
             case eMonsterState.CHASE:
-                _animator.CrossFade("Run", 0.1f);                
+                _animator.CrossFade("Run", 0.1f);
                 break;
-            case eMonsterState.ATTACK:                
+            case eMonsterState.ATTACK:
                 AttackAction();
                 break;
             case eMonsterState.GETHIT:
-                _manager.AttackNavSetting();                
+                _manager.AttackNavSetting();
                 _animator.SetTrigger(_animIDGetHit);
                 break;
             case eMonsterState.DIZZY:
@@ -61,31 +61,30 @@ public class MushBoy : MonsterAnimCtrl
                 break;
             case eMonsterState.DIE:
                 _animator.CrossFade("Die", 0.1f);
-                break;                        
+                break;
         }
     }
 
-
     public void AttackAction()
-    {        
+    {
         string trigger = "";
         switch (_manager._attackType)
         {
             case eAttackType.MeleeAttack:
                 trigger = Utilitys.ConvertEnum(
-                    (MeleeAttack)PickPattern(_manager._attackType));                
+                    (MeleeAttack)PickPattern(_manager._attackType));
                 _animator.SetTrigger(trigger);
-                
+
                 break;
             case eAttackType.RangeAttack:
                 trigger = Utilitys.ConvertEnum(
-                    (RangeAttack)PickPattern(_manager._attackType));                
+                    (RangeAttack)PickPattern(_manager._attackType));
                 _animator.SetTrigger(trigger);
                 break;
             case eAttackType.Buff:
                 _animator.SetTrigger(_animIDBuff);
                 break;
-        }        
+        }
     }
-
+    
 }

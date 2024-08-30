@@ -10,6 +10,7 @@ public class MonsterStateAttack : TSingleton<MonsterStateAttack>, IFSMState<Mons
     {
         m.AttackNavSetting();
         cntTime = m.Stat.AttackDelay;
+        m.State = eMonsterState.IDLE;
         
     }
 

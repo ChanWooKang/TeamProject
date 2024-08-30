@@ -61,6 +61,7 @@ public class MonsterMovement : MonoBehaviour
         _agent.SetDestination(pos);
 
         Vector3 dir = pos - transform.position;
+        if (dir != Vector3.zero) 
         transform.rotation = Quaternion.Lerp(transform.rotation,
             Quaternion.LookRotation(dir), _rotateSpeed * Time.deltaTime);
     }    

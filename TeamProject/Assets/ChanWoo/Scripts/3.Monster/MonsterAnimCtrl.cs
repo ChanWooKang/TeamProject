@@ -15,10 +15,13 @@ public abstract class MonsterAnimCtrl : MonoBehaviour
     public float[] _meleeWeightProbs;
     //원거리 공격 개수 및 버프
     public float[] _rangeWeightProbs;
+    
     public virtual void Init(MonsterController manager, Animator animator)
     {
         _manager = manager;
         _animator = animator;
+
+        
     }
 
     public abstract void ChangeAnimation(eMonsterState type);
@@ -40,22 +43,55 @@ public abstract class MonsterAnimCtrl : MonoBehaviour
         return attackType;
     }
 
+    public int PickPattern(eAttackType type)
+    {
+        int index = 0;
+        float[] probs = _meleeWeightProbs;
+        if (type == eAttackType.RangeAttack)
+            probs = _rangeWeightProbs;
+
+        float randValue = Random.Range(0.0f, 1.0f);
+        for (int i = 0; i < probs.Length; i++)
+        {
+            if (randValue <= probs[i])
+            {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
+
+    #region [ Animation CallEvent ]
+    
+    //근접 기본 공격
     public void AttackEvent()
     {
         if (_manager._movement.CheckCloseTarget(_manager.target.position, _manager.attackRange))
         {
-            _manager._player.OnDamage(_manager.Stat.Damage);
+            if (_manager.target.CompareTag("Player"))
+            {
+                _manager._player.OnDamage(_manager.Stat.Damage);
+            }
+            else if (_manager.target.CompareTag("Monster"))
+            {
+                _manager.target.GetComponent<MonsterController>().OnDamage(_manager.Stat.Damage,_manager.target);
+            }
+            
         }
         
     }
 
+    //공격 애니메이션 종료 시 호출
     public void AttackEnd()
     {
         _manager.Agent.avoidancePriority = 50;
-        _manager.GetRangeByAttackType();
+        _manager.GetRangeByAttackType();        
         _manager.isAttack = false;              
     }
 
+    //피격 애니메이션 종료 시 호출
     public void GetHitEnd()
     {
         if (_manager.isAttack == true)
@@ -69,7 +105,7 @@ public abstract class MonsterAnimCtrl : MonoBehaviour
         if (_manager.isDead == false)            
             _manager.ChangeState(MonsterStateIdle._inst);
     }
-
+    
     public void LeafSlashAction()
     {
         GameObject go = PoolingManager._inst.InstantiateAPS("LeafSlash");
@@ -102,4 +138,5 @@ public abstract class MonsterAnimCtrl : MonoBehaviour
         else
             Destroy(go);
     }
+    #endregion [ Animation CallEvent ]
 }

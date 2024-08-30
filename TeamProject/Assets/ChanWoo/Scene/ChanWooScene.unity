@@ -157,7 +157,12 @@ MonoBehaviour:
     name: MushBoy
     type: 0
     prefab: {fileID: 3682731050503340021, guid: 2733c62e82ac0e24db83a7a70c83e0e0, type: 3}
-    amount: 5
+    amount: 3
+  - index: 1001
+    name: Cactus
+    type: 0
+    prefab: {fileID: 557949092437620620, guid: 7aaa7759085beb44aaf1c1b31c1f8fc7, type: 3}
+    amount: 1
   - index: 0
     name: LeafSlash
     type: 2
@@ -198,6 +203,41 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &262329143 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5826414736882153162, guid: 00ba6a5a23534a148b45d9e4dfe2434a, type: 3}
+  m_PrefabInstance: {fileID: 5826414737115053556}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &810676222
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 810676223}
+  m_Layer: 0
+  m_Name: CactusZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &810676223
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810676222}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.92, y: 0, z: 25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 262329143}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &819440210
 GameObject:
@@ -1924,7 +1964,23 @@ PrefabInstance:
       value: '@Spawn'
       objectReference: {fileID: 0}
     - target: {fileID: 5826414736882153161, guid: 00ba6a5a23534a148b45d9e4dfe2434a, type: 3}
+      propertyPath: spawnPoints.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826414736882153161, guid: 00ba6a5a23534a148b45d9e4dfe2434a, type: 3}
+      propertyPath: spawnPoints.Array.data[1].Index
+      value: 1001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826414736882153161, guid: 00ba6a5a23534a148b45d9e4dfe2434a, type: 3}
+      propertyPath: spawnPoints.Array.data[1].parent
+      value: 
+      objectReference: {fileID: 810676223}
+    - target: {fileID: 5826414736882153161, guid: 00ba6a5a23534a148b45d9e4dfe2434a, type: 3}
       propertyPath: spawnPoints.Array.data[0].maxSpawnCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826414736882153161, guid: 00ba6a5a23534a148b45d9e4dfe2434a, type: 3}
+      propertyPath: spawnPoints.Array.data[1].maxSpawnCount
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5826414736882153162, guid: 00ba6a5a23534a148b45d9e4dfe2434a, type: 3}
@@ -2175,6 +2231,10 @@ PrefabInstance:
     - target: {fileID: 5836530113190641276, guid: 3140d7e45e50ec647ad23f07667482da, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836530113190641276, guid: 3140d7e45e50ec647ad23f07667482da, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5836530113190641279, guid: 3140d7e45e50ec647ad23f07667482da, type: 3}
       propertyPath: _aimCam

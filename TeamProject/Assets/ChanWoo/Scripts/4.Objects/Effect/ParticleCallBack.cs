@@ -36,21 +36,19 @@ public class ParticleCallBack : MonoBehaviour
     public void OnParticleSystemStopped()
     {
         if(parentObject != null)
-        {
-            Debug.Log(1);
+        {            
             if (parentObject.TryGetComponent(out ObjectInParticle parent))
             {
                 switch (psType)
                 {
-                    case ParticleType.Destroy:
-                        Debug.Log(2);
+                    case ParticleType.Destroy:                        
                         parent.DestoryObject();
                         break;
                     case ParticleType.NextParticle:
-
+                        parent.PlayNextParticle();
                         break;
                     case ParticleType.BuffEnd:
-
+                        parent.BuffEffectEnd();
                         break;
                 }
             }
