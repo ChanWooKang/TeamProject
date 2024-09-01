@@ -163,27 +163,27 @@ MonoBehaviour:
     type: 0
     prefab: {fileID: 557949092437620620, guid: 7aaa7759085beb44aaf1c1b31c1f8fc7, type: 3}
     amount: 1
-  - index: 0
+  - index: 1
     name: LeafSlash
     type: 2
     prefab: {fileID: 3434068320904704015, guid: 8c1e6840987db3e4195c3e3772388e6f, type: 3}
     amount: 3
-  - index: 0
+  - index: 2
     name: MushBomb
     type: 2
     prefab: {fileID: 1098059996598783514, guid: 6a3a7c546834ee3429ef9b8a4c28dc6c, type: 3}
     amount: 3
-  - index: 0
+  - index: 5
     name: FloatText
     type: 3
     prefab: {fileID: 7782484737688278767, guid: 8bd3666af22ad80488cc1a09139474fe, type: 3}
     amount: 3
-  - index: 0
+  - index: 3
     name: AuraBuff
     type: 2
     prefab: {fileID: 6403343203915336968, guid: ddcb7e5c3915f784a981edfe25b06c39, type: 3}
     amount: 3
-  - index: 0
+  - index: 4
     name: DuringBuff
     type: 2
     prefab: {fileID: 3637309620053123747, guid: 6ced8b328db98b645abd4496aa047aeb, type: 3}
