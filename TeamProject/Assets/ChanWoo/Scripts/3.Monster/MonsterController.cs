@@ -22,6 +22,7 @@ public class MonsterController : FSM<MonsterController>
     public MonsterAnimCtrl _animCtrl;
     public Transform _model;
     public Transform _captureModel;
+    public Transform _hudTransform;
     
 
     //Componsnent
@@ -82,6 +83,8 @@ public class MonsterController : FSM<MonsterController>
 
     private void Start()
     {
+        //√÷√ 
+        //PoolingManager._inst.InstantiateAPS("HP");
         InitComponent();
         InitState(this, MonsterStateInit._inst);
     }
