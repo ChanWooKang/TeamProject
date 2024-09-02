@@ -4,9 +4,8 @@ using UnityEngine;
 using DefineDatas;
 
 [AddComponentMenu("Custom/PoolingManager")]
-public class PoolingManager : MonoBehaviour
+public class PoolingManager : TSingleton<PoolingManager>
 {
-    static PoolingManager _uniqueInstance;
     public PoolUnit[] _poolingUnits;
     //public List<GameObject>[] _pooledUnitList;
     public int _defPoolAmount;
@@ -17,28 +16,8 @@ public class PoolingManager : MonoBehaviour
     public Dictionary<string, Dictionary<int, GameObject>> _pooledUnitsByName;
     public Dictionary<int, Dictionary<int, GameObject>> _pooledUnitsByIndex;
 
-    const string objName = "@Pool";
-    public static PoolingManager _inst { get { Init(); return _uniqueInstance; } }
 
-    static void Init()
-    {
-        if (_uniqueInstance == null)
-        {
-            GameObject go = GameObject.Find(objName);
-            if (go == null)
-            {
-                go = new GameObject { name = objName };
-                go.AddComponent<PoolingManager>();
-            }
 
-            _uniqueInstance = go.GetComponent<PoolingManager>();
-        }
-    }
-
-    public void Clear()
-    {
-        _uniqueInstance = null;
-    }
 
 
     public void LoadObjectPool()
@@ -213,8 +192,8 @@ public class PoolingManager : MonoBehaviour
     public static void DestroyAPS(GameObject go)
     {
         go.SetActive(false);
-        if (go.transform.parent != _uniqueInstance.transform)
-            go.transform.SetParent(_uniqueInstance.transform);
+        if (go.transform.parent != _inst.transform)
+            go.transform.SetParent(_inst.transform);
     }
 }
 

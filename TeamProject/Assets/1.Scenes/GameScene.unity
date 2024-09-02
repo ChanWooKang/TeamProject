@@ -779,12 +779,12 @@ MonoBehaviour:
     type: 0
     prefab: {fileID: 3682731050503340021, guid: 2733c62e82ac0e24db83a7a70c83e0e0, type: 3}
     amount: 3
-  - index: 0
+  - index: 1
     name: MushBomb
     type: 2
     prefab: {fileID: 1098059996598783514, guid: 6a3a7c546834ee3429ef9b8a4c28dc6c, type: 3}
     amount: 3
-  - index: 0
+  - index: 2
     name: LeafSlash
     type: 2
     prefab: {fileID: 3434068320904704015, guid: 8c1e6840987db3e4195c3e3772388e6f, type: 3}

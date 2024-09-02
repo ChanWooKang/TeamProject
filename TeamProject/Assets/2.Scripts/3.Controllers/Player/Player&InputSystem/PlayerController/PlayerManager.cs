@@ -60,7 +60,10 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         //_hasAnimator = TryGetComponent(out _animator);                
-        
+        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            Managers._scene.CurrentScene.SceneLoad(eScene.GameScene);
+        }
         //이동 및 점프
         Movement.OnUpdate();
         //마우스 회전, 줌 인, 키보드 액션

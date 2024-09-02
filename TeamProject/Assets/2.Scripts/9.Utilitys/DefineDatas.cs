@@ -6,9 +6,10 @@ namespace DefineDatas
 {
     public enum eScene
     {
-        Unknown,
-        SampleScene = 1,
-        ChanWooScene = 2,
+        Unknown,        
+        ChanWooScene = 0,
+        GameScene = 1,
+        SampleScene = 2,
     }
     
     public enum eLayer

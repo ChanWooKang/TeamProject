@@ -38,7 +38,7 @@ public class MonsterStateSense : TSingleton<MonsterStateSense>, IFSMState<Monste
             Vector3 interVec = m.target.position - m.transform.position;
 
             //m.Stat.ChaseRange
-            if (interVec.sqrMagnitude <= Mathf.Pow(10, 2))
+            if (interVec.sqrMagnitude <= Mathf.Pow(m.Stat.ChaseRange, 2))
             {
                 //인식거리 내 타겟 존재 ( 플레이어 )
                 float dot = Vector3.Dot(interVec.normalized, m.transform.forward);

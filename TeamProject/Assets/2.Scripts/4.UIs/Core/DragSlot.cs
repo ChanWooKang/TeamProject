@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DragSlot : UI_Base
-{
-    static DragSlot _uniqueInstance;
-    public static DragSlot _inst { get { return _uniqueInstance; } }
+{    
+    public static DragSlot _inst { get { return TSingleton<DragSlot>._inst; } }
 
     public bool isFromInven = true;
     public UI_Slot SlotInven;
@@ -22,8 +21,7 @@ public class DragSlot : UI_Base
     }
 
     public override void Init()
-    {
-        _uniqueInstance = this;
+    {        
         _rect = GetComponent<RectTransform>();
         _imageItem = GetComponent<Image>();
         _groupCanvas = GetComponent<CanvasGroup>();

@@ -194,7 +194,7 @@ public class PlayerInputController : MonoBehaviour
                 {
                     if (data.isNPC)
                     {
-                        TalkManager._talk.ShowText(obj, data.objID, data.name);
+                        TalkManager._inst.ShowText(obj, data.objID, data.name);
                     }
 
                     else

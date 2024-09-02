@@ -4,13 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DefineDatas;
 
-public class InventoryManager : MonoBehaviour
-{
-    #region [ Singleton ]
-    static InventoryManager _uniqueInstance;
-    public static InventoryManager _inst { get { return _uniqueInstance; } }
-    #endregion [ Singleton ]
-
+public class InventoryManager : TSingleton<InventoryManager>
+{    
     [Header("Components")]
     public UI_Inventory invenUI;
     public UI_Equipment equipUI;
@@ -38,7 +33,6 @@ public class InventoryManager : MonoBehaviour
 
     private void Awake()
     {
-        _uniqueInstance = this;
         Items = new List<BaseItem>();
         Dict_Weapon = new Dictionary<int, WeaponItemInfo>();
         Dict_Petball = new Dictionary<int, PetBallInfo>();
@@ -51,12 +45,12 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         //Test
-        Init();
+        InitData();
         OnChangeEvent -= ChangeEquipment;
         OnChangeEvent += ChangeEquipment;
     }
 
-    public void Init()
+    public void InitData()
     {
 
         itemCount = Items.Count;

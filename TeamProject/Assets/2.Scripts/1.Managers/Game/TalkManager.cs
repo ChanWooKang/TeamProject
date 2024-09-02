@@ -9,12 +9,8 @@ public class Dialogue
     public string[] contexts;
 }
 
-public class TalkManager : MonoBehaviour
-{
-    #region [ Singleton ]
-    static TalkManager _uniqueInstance;
-    public static TalkManager _talk { get { return _uniqueInstance; } }
-    #endregion [ Singleton ]
+public class TalkManager : TSingleton<TalkManager>
+{   
 
     #region [ Component ]
     public UI_Talk talkUI;
@@ -27,10 +23,6 @@ public class TalkManager : MonoBehaviour
     int talkCounter;
     #endregion [ 전역변수 ]
 
-    void Awake()
-    {
-        _uniqueInstance = this;        
-    }
 
     void Start()
     {

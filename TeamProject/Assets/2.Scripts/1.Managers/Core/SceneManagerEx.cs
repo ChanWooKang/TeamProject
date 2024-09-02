@@ -17,11 +17,11 @@ public class SceneManagerEx
     {
         Managers.Clear();
         string sceneName = Utilitys.ConvertEnum(scene);
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);        
         while (!operation.isDone)
         {
             yield return null;
-        }
+        }        
     }
 
     public void Clear()
