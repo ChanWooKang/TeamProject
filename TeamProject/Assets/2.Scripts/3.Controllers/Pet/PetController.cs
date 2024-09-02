@@ -1,9 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class PetController : MonoBehaviour
-{
+public class PetController : FSM<PetController>
+{      
+    NavMeshAgent m_agent;
+    Animator m_animator;
+    
+    CapsuleCollider m_collider;
+    Rigidbody m_rigid;
 
     MonsterInfo m_petInfo;
     
@@ -26,7 +32,18 @@ public class PetController : MonoBehaviour
     public void InitPet(int index)
     {
         m_petInfo = Managers._data.Dict_Monster[index];
+        m_agent = GetComponent<NavMeshAgent>();
+        m_animator = GetComponent<Animator>();
+        m_collider = GetComponent<CapsuleCollider>();
+        m_rigid = GetComponent<Rigidbody>();
     }
+   
+
+
+
+
+
+
 
     IEnumerator MovePetToTarget()
     {
