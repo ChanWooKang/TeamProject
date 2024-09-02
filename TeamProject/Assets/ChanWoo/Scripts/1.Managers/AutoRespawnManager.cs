@@ -85,8 +85,15 @@ public class AutoRespawnManager : MonoBehaviour
                     break;
             }
 
+            //죽은애 부활 
             if (monster.isDead)
                 monster.OnResurrectEvent();
+            else
+            {
+                //최초 생성 시 
+
+
+            }
 
             go.transform.position = randPos;
         }

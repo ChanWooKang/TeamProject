@@ -108,6 +108,7 @@ public abstract class MonsterAnimCtrl : MonoBehaviour
     
     public void LeafSlashAction()
     {
+
         GameObject go = PoolingManager._inst.InstantiateAPS("LeafSlash");
         if (go.TryGetComponent(out LeafSlash leaf))
         {

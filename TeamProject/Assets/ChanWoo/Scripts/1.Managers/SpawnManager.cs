@@ -59,7 +59,9 @@ public class SpawnManager : MonoBehaviour
             Debug.Log($"해당하는 Index({index})값에 MonsterController Script가 존재하지 않습니다.");
             return null;
         }
+        //최초 생성
         monster._movement._defPos = spawnTransform.position;
+
 
         OnSpawnEvent?.Invoke(index, 1);
         return go;

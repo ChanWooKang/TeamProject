@@ -95,7 +95,7 @@ public class MushBomb : ObjectInParticle
                 {
                     if(rhit.transform.TryGetComponent(out PlayerManager player))
                     {
-                        player.OnDamage(Damage);
+                        player.OnDamage(Damage);                        
                     }                    
                 }
 
