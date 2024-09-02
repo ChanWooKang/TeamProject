@@ -23,7 +23,7 @@ public class MonsterController : FSM<MonsterController>
     public Transform _model;
     public Transform _captureModel;
     public Transform _hudTransform;
-    
+
 
     //Componsnent
     NavMeshAgent _agent;
@@ -36,6 +36,7 @@ public class MonsterController : FSM<MonsterController>
     [HideInInspector] public PlayerManager _player;
     [HideInInspector] public PetBallController Ball;
     DuringBuff buffEffect;
+    HudController _hudCtrl;
 
 
     //몬스터 상태 체크 및 애니메이션 적용     
@@ -95,7 +96,7 @@ public class MonsterController : FSM<MonsterController>
         {
             Vector3 hitPoint = transform.position;
             hitPoint.y += 1.0f;
-            OnDamage(5, GameManagerEx._inst.playeManager.transform, true);            
+            OnDamage(5, GameManagerEx._inst.playeManager.transform, true);
         }
 
         if (Input.GetKeyDown(KeyCode.H))
@@ -119,14 +120,23 @@ public class MonsterController : FSM<MonsterController>
         _meshs = GetComponentsInChildren<Renderer>();
         _collider = GetComponent<CapsuleCollider>();
         _rigid = GetComponent<Rigidbody>();
-        
+
         _movement = GetComponent<MonsterMovement>();
         _animCtrl = GetComponent<MonsterAnimCtrl>();
 
         _movement.Init(this, _agent);
         _animCtrl.Init(this, _animator);
     }
-
+    public void SetHud(HudController hud)
+    {
+        _hudCtrl = hud;
+        _hudCtrl.InitHud("버섯돌이", Stat.Level, _hudTransform, Color.red);
+    }
+    public void ShowHud()
+    {
+        if (_hudCtrl != null)
+            _hudCtrl.DisPlay(Stat.HP / Stat.MaxHP);
+    }
     //State = Init 최초 데이터 설정
     public void InitData()
     {
@@ -146,7 +156,7 @@ public class MonsterController : FSM<MonsterController>
                 isStatic = false;
                 break;
         }
-        
+
     }
 
     public void BaseNavSetting()
@@ -197,26 +207,26 @@ public class MonsterController : FSM<MonsterController>
 
     public void ChangeLayer(eLayer layer)
     {
-        gameObject.layer = (int)layer;        
+        gameObject.layer = (int)layer;
     }
 
     public void ChangeModelByCapture(bool isCapture)
     {
         _model.gameObject.SetActive(!isCapture);
         _captureModel.gameObject.SetActive(isCapture);
-    }       
+    }
 
     public void SetTarget(Transform attacker, bool isPlayer = true)
     {
         target = attacker;
 
         if (isPlayer)
-        {            
+        {
             if (!GameManagerEx._inst.playeManager.isDead)
             {
-                if(_player == null)
-                    _player = GameManagerEx._inst.playeManager;                
-            }            
+                if (_player == null)
+                    _player = GameManagerEx._inst.playeManager;
+            }
         }
 
         isPlayerTarget = isPlayer;
@@ -233,7 +243,7 @@ public class MonsterController : FSM<MonsterController>
         //플레이어 상태 확인 
         if (_player.isDead)
             return;
-        
+
         _agent.avoidancePriority = 51;
         State = eMonsterState.ATTACK;
         isAttack = true;
@@ -253,10 +263,10 @@ public class MonsterController : FSM<MonsterController>
             default:
                 attackRange = Stat.AttackRange;
                 break;
-        }            
+        }
     }
 
-    
+
     public Vector3 GetRunAwayPos()
     {
         //Debug.Log(target.position);
@@ -270,9 +280,9 @@ public class MonsterController : FSM<MonsterController>
         ////이동 거리 구하기
         ////예시로 추격 거리 밖으로 이동
         Vector3 normalVec = Camera.main.transform.forward;
-        normalVec.y = 0;        
-        transform.LookAt(normalVec);        
-        return transform.position + (normalVec * Stat.ChaseRange); 
+        normalVec.y = 0;
+        transform.LookAt(normalVec);
+        return transform.position + (normalVec * Stat.ChaseRange);
     }
 
 
@@ -282,27 +292,28 @@ public class MonsterController : FSM<MonsterController>
             StopCoroutine(DamageCoroutine);
         DamageCoroutine = StartCoroutine(OnDamageEvent());
     }
-    
+
 
     public void OnDamage(float damage, Transform attacker, bool isPlayer = false)
     {
         if (isDead)
             return;
-        
+
         isStatic = false;
         if (target != attacker)
             SetTarget(attacker, isPlayer);
-        
-        State = eMonsterState.GETHIT;        
+        if (_hudCtrl != null)
+            _hudCtrl.DisPlay(Stat.HP / Stat.MaxHP);
+        State = eMonsterState.GETHIT;
         isDead = Stat.CalculateDamage(damage);
         FloatText.Create("FloatText", transform.position, (int)Stat.AttackDamage);
         OnDamage();
     }
 
     IEnumerator OnDamageEvent()
-    {           
+    {
         float randValue = Random.Range(0.0f, 1.0f);
-        bool isDizzy = randValue <= dizzyRate;        
+        bool isDizzy = randValue <= dizzyRate;
         if (isDead)
         {
             yield return new WaitForSeconds(0.20f);
@@ -342,7 +353,7 @@ public class MonsterController : FSM<MonsterController>
         if (isBuffed == false)
         {
             GameObject go = PoolingManager._inst.InstantiateAPS("DuringBuff", transform.position, Quaternion.identity, Vector3.one, transform);
-            if(go.TryGetComponent(out DuringBuff buff))
+            if (go.TryGetComponent(out DuringBuff buff))
             {
                 buffEffect = buff;
                 isBuffed = true;
@@ -350,7 +361,7 @@ public class MonsterController : FSM<MonsterController>
         }
         else
         {
-            if(buffEffect != null)
+            if (buffEffect != null)
             {
                 buffEffect.gameObject.DestroyAPS();
                 buffEffect = null;
@@ -359,7 +370,7 @@ public class MonsterController : FSM<MonsterController>
 
                 //버프 다시 설정
                 GetBuffEffect();
-            }            
+            }
         }
     }
 
@@ -384,6 +395,6 @@ public class MonsterController : FSM<MonsterController>
                 buffEffect = null;
                 isBuffed = false;
             }
-        }        
+        }
     }
 }

@@ -11,7 +11,7 @@ public class PoolingManager : MonoBehaviour
     //public List<GameObject>[] _pooledUnitList;
     public int _defPoolAmount;
     public bool _canPoolExpand = true;
-    
+
     public Dictionary<string, PoolUnit> _poolingUnitByName;
     public Dictionary<int, PoolUnit> _poolingUnitByIndex;
     public Dictionary<string, Dictionary<int, GameObject>> _pooledUnitsByName;
@@ -22,7 +22,7 @@ public class PoolingManager : MonoBehaviour
 
     static void Init()
     {
-        if(_uniqueInstance == null)
+        if (_uniqueInstance == null)
         {
             GameObject go = GameObject.Find(objName);
             if (go == null)
@@ -40,7 +40,7 @@ public class PoolingManager : MonoBehaviour
         _uniqueInstance = null;
     }
 
-   
+
     public void LoadObjectPool()
     {
         _pooledUnitsByIndex = new Dictionary<int, Dictionary<int, GameObject>>();
@@ -68,9 +68,9 @@ public class PoolingManager : MonoBehaviour
         else
             _poolingUnits[index].CurAmount = _defPoolAmount;
 
-        if (_poolingUnitByName.ContainsKey(_poolingUnits[index].name) == false)        
+        if (_poolingUnitByName.ContainsKey(_poolingUnits[index].name) == false)
             _poolingUnitByName.Add(_poolingUnits[index].name, _poolingUnits[index]);
-        
+
 
         if (_poolingUnitByIndex.ContainsKey(_poolingUnits[index].index) == false)
             _poolingUnitByIndex.Add(_poolingUnits[index].index, _poolingUnits[index]);
@@ -82,7 +82,7 @@ public class PoolingManager : MonoBehaviour
         SetActiveAndParent(newItem, parent);
         return newItem;
     }
-    
+
     void SetActiveAndParent(GameObject newItem, Transform parent = null)
     {
         newItem.SetActive(false);
@@ -96,7 +96,7 @@ public class PoolingManager : MonoBehaviour
     {
         if (_pooledUnitsByIndex.ContainsKey(index))
         {
-            foreach(var obj in _pooledUnitsByIndex[index])
+            foreach (var obj in _pooledUnitsByIndex[index])
             {
                 if (obj.Value.activeInHierarchy == false)
                     return obj.Value;
@@ -110,7 +110,7 @@ public class PoolingManager : MonoBehaviour
                     GameObject tmpObj = MakeObject(_poolingUnitByIndex[index].prefab, parent);
                     int unitIndex = _pooledUnitsByIndex[index].Count;
                     string unitName = _poolingUnitByIndex[index].name;
-                    _pooledUnitsByIndex[index].Add(unitIndex,tmpObj);
+                    _pooledUnitsByIndex[index].Add(unitIndex, tmpObj);
                     if (_pooledUnitsByName.ContainsKey(unitName))
                     {
                         unitIndex = _pooledUnitsByName[unitName].Count;
@@ -139,7 +139,7 @@ public class PoolingManager : MonoBehaviour
                 if (_poolingUnitByName.ContainsKey(index))
                 {
                     GameObject tmpObj = MakeObject(_poolingUnitByName[index].prefab, parent);
-                    int unitIndex = _pooledUnitsByName[index].Count;                    
+                    int unitIndex = _pooledUnitsByName[index].Count;
                     int listIndex = _poolingUnitByName[index].index;
                     _pooledUnitsByName[index].Add(unitIndex, tmpObj);
                     if (_pooledUnitsByIndex.ContainsKey(listIndex))
@@ -158,7 +158,7 @@ public class PoolingManager : MonoBehaviour
     public GameObject InstantiateAPS(int index, Transform parent = null)
     {
         GameObject go = GetPooledItem(index);
-        if(parent != null)
+        if (parent != null)
         {
             go.transform.SetParent(parent);
         }

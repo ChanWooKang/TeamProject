@@ -413,6 +413,7 @@ MonoBehaviour:
   _animCtrl: {fileID: 3682731050503340027}
   _model: {fileID: 3673940601172135384}
   _captureModel: {fileID: 6101652029062262753}
+  _hudTransform: {fileID: 1607588568546063355}
   _player: {fileID: 0}
   Ball: {fileID: 0}
   _attackType: 0

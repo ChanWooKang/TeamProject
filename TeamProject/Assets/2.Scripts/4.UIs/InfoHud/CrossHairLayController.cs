@@ -18,12 +18,11 @@ public class CrossHairLayController : MonoBehaviour
         Vector3 rayOrigin = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
         Vector3 rayDir = Camera.main.transform.forward;
 
-        //if(Physics.Raycast(rayOrigin, rayDir, out m_hit, Mathf.Infinity, m_monsterTarget))
-        //{
-        //    GameObject infoBox = Instantiate(m_prefabInfoBox, m_infoBoxRoot);
-        //    Vector3 targetPos = Camera.main.WorldToScreenPoint(m_hit.transform.position);
-        //    infoBox.transform.position = targetPos;
-        //}
+        if (Physics.Raycast(rayOrigin, rayDir, out m_hit, Mathf.Infinity, m_monsterTarget))
+        {
+            MonsterController mon = m_hit.transform.gameObject.GetComponent<MonsterController>();
+            mon.ShowHud();
+        }
     }
 
     

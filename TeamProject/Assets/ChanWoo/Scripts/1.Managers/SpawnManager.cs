@@ -53,7 +53,6 @@ public class SpawnManager : MonoBehaviour
         }
 
         GameObject go = pool.InstantiateAPS(index, spawnTransform.position, spawnTransform.rotation, Vector3.one);
-
         if(go.TryGetComponent(out MonsterController monster) == false)
         {
             Debug.Log($"해당하는 Index({index})값에 MonsterController Script가 존재하지 않습니다.");
@@ -61,6 +60,8 @@ public class SpawnManager : MonoBehaviour
         }
         //최초 생성
         monster._movement._defPos = spawnTransform.position;
+        
+
 
 
         OnSpawnEvent?.Invoke(index, 1);

@@ -5,7 +5,8 @@ using UnityEngine.AI;
 using DefineDatas;
 
 public class AutoRespawnManager : MonoBehaviour
-{    
+{
+    public RectTransform uiHudRoot;
     SpawnManager spawn;
     Queue<int> _monsterQ;
 
@@ -90,11 +91,12 @@ public class AutoRespawnManager : MonoBehaviour
                 monster.OnResurrectEvent();
             else
             {
-                //置段 持失 獣 
-
-
+                //置段 持失 獣                  
+                GameObject hud = PoolingManager._inst.InstantiateAPS(1000000, uiHudRoot);
+                HudController hudctrl = hud.GetComponent<HudController>();
+                monster.SetHud(hudctrl);
             }
-
+           
             go.transform.position = randPos;
         }
         _reserveAmount--;
