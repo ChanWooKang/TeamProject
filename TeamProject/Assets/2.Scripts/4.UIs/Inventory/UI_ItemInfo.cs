@@ -6,9 +6,8 @@ using UnityEngine.EventSystems;
 using DefineDatas;
 
 public class UI_ItemInfo : UI_Base
-{
-    static UI_ItemInfo _uniqueInstance;
-    public static UI_ItemInfo _info { get { return _uniqueInstance; } }
+{    
+    public static UI_ItemInfo _info { get { return TSingleton<UI_ItemInfo>._inst; } }
     enum GameObjects
     {
         MainFrame,
@@ -40,12 +39,6 @@ public class UI_ItemInfo : UI_Base
     RectTransform _rect;
     public Camera UICamera;
     const string _format = "{0:#,###}";
-
-
-    private void Awake()
-    {
-        _uniqueInstance = this;
-    }
 
     public override void Init()
     {        

@@ -33,23 +33,23 @@ public class TutorialNPC : BaseNPC
                     InventoryManager._inst.AddInvenItem(testItem);
                     NPCState = State.Finish;
                     objData.objID += (int)NPCState;
-                    TalkManager._talk.talkUI.SetOnOff(false);
+                    TalkManager._inst.talkUI.SetOnOff(false);
                 }
                 else
                 {
                     //ºÒ°¡
                     NPCState = State.Heavy;
                     objData.objID += (int)NPCState;
-                    TalkManager._talk.ShowText(this.gameObject, objData.objID, objData.name);
+                    TalkManager._inst.ShowText(this.gameObject, objData.objID, objData.name);
                 }
                 break;
             case State.Heavy:
                 NPCState = State.Before;
                 objData.objID += (int)NPCState;
-                TalkManager._talk.talkUI.SetOnOff(false);
+                TalkManager._inst.talkUI.SetOnOff(false);
                 break;
             case State.Finish:
-                TalkManager._talk.talkUI.SetOnOff(false);
+                TalkManager._inst.talkUI.SetOnOff(false);
                 break;
         }
 

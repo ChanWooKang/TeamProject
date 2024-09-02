@@ -91,7 +91,7 @@ public class AutoRespawnManager : MonoBehaviour
             else
             {
                 //최초 생성 시 
-
+                // 미니맵 마크 , HUD 생성 
 
             }
 

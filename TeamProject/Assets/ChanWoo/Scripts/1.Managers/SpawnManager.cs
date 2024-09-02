@@ -4,20 +4,12 @@ using UnityEngine;
 using System;
 using DefineDatas;
 
-public class SpawnManager : MonoBehaviour
-{
-    static SpawnManager _uniqueInstance;
-    public static SpawnManager _inst { get { return _uniqueInstance; } }
-
+public class SpawnManager : TSingleton<SpawnManager>
+{    
     public Action<int, int> OnSpawnEvent;
     public List<SpawnPoint> spawnPoints;
     
     PoolingManager pool;
-
-    private void Awake()
-    {
-        _uniqueInstance = this;
-    }
 
     private void Start()
     {

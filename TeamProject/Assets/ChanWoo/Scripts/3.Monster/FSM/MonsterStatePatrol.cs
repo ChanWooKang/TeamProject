@@ -53,7 +53,7 @@ public class MonsterStatePatrol : TSingleton<MonsterStatePatrol>, IFSMState<Mons
             {
                 //m.Stat.Sight
                 //if (m._movement.CheckCloseTarget(target.position, m.Stat.Sight))
-                if (m._movement.CheckCloseTarget(target.position, 20))
+                if (m._movement.CheckCloseTarget(target.position, m.Stat.Sight))
                 {                    
                     m.SetTarget(target,true);
                     m.transform.LookAt(target);

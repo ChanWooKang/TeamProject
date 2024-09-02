@@ -15,20 +15,19 @@ public class MonsterStateIdle : TSingleton<MonsterStateIdle>, IFSMState<MonsterC
 
     public void Execute(MonsterController m)
     {
-        if (m.isStatic == false) 
+        if (!m.isStatic)
         {
-            cntTime += Time.deltaTime;            
+            cntTime += Time.deltaTime;
             if (cntTime > m.delayTime)
             {
-                cntTime = 0;                
                 m.targetPos = m._movement.GetRandomPos();
-                m.ChangeState(MonsterStatePatrol._inst);                
+                m.ChangeState(MonsterStatePatrol._inst);
             }
             else
-            {                
-                if(m.target != null)
+            {
+                if (m.target != null)
                 {
-                    if(m._movement.CheckCloseTarget(m.target.position, m.Stat.ChaseRange))
+                    if (m._movement.CheckCloseTarget(m.target.position, m.Stat.ChaseRange))
                     {
                         m.ChangeState(MonsterStateChase._inst);
                         return;
@@ -38,13 +37,13 @@ public class MonsterStateIdle : TSingleton<MonsterStateIdle>, IFSMState<MonsterC
                 if (m.State != eMonsterState.SENSE)
                 {
                     m.State = eMonsterState.SENSE;
-                }                    
+                }
             }
         }        
     }
 
     public void Exit(MonsterController m)
     {
-
+        cntTime = 0;
     }
 }

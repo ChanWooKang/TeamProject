@@ -24,8 +24,7 @@ public class BaseScene : MonoBehaviour
     }
 
     public virtual void Clear()
-    {
-        PoolingManager._inst.Clear();
+    {        
         PrevScene = CurrScene;
     }
 }
