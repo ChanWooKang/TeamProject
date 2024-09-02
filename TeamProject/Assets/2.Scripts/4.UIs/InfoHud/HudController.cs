@@ -32,7 +32,7 @@ public class HudController : MonoBehaviour
         m_bgColor.color = color;
         m_targetPos = tartgetPos;
     }
-    public void DisPlayDamage(float normalizedHp) // 데미지
+    public void DisPlay(float normalizedHp) // 데미지를 입거나 카메라 ray에 닿았을 때 
     {
         ShowHud();
         if (IsInvoking("HideHud"))
@@ -41,7 +41,7 @@ public class HudController : MonoBehaviour
 
         m_hpBar.value = normalizedHp;
     }
-    public void ShowHud() // 데미지를 입거나 카메라 ray에 닿았을 때 
+    void ShowHud() 
     {
         gameObject.SetActive(true);
     }

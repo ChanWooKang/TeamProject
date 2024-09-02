@@ -789,6 +789,11 @@ MonoBehaviour:
     type: 2
     prefab: {fileID: 3434068320904704015, guid: 8c1e6840987db3e4195c3e3772388e6f, type: 3}
     amount: 1
+  - index: 1000000
+    name: HudInfoBox
+    type: 3
+    prefab: {fileID: 4746197707204577379, guid: a0c11ace034710e4ea9a99126ce9b80c, type: 3}
+    amount: 1
   _defPoolAmount: 0
   _canPoolExpand: 1
 --- !u!4 &1646067151
