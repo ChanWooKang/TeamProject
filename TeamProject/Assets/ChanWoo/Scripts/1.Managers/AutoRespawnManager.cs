@@ -94,7 +94,7 @@ public class AutoRespawnManager : MonoBehaviour
                 //최초 생성 시                  
                 GameObject hud = PoolingManager._inst.InstantiateAPS(1000000, uiHudRoot);
                 HudController hudctrl = hud.GetComponent<HudController>();
-                monster.SetHud(hudctrl);
+                monster.SetHud(hudctrl);    
                 //최초 생성 시 
                 // 미니맵 마크 , HUD 생성 
             }
