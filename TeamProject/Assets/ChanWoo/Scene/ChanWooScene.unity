@@ -17000,6 +17000,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1751264681}
   m_CullTransparentMesh: 1
+--- !u!1 &1756245721
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1756245722}
+  m_Layer: 7
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1756245722
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756245721}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.074, y: 1.37, z: 0.743}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2222612047114777866}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1806834705
 GameObject:
   m_ObjectHideFlags: 0
@@ -20536,7 +20566,7 @@ MonoBehaviour:
   RightWeaponParent: {fileID: 5182835786217399440}
   Weapons: []
   bow: {fileID: 0}
-  nowWeaponType: 0
+  nowWeaponType: 1
   isAttackEnd: 0
 --- !u!1 &1803078761763976904
 GameObject:
@@ -20647,6 +20677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCharging: 0
+  isAttackEnd: 1
 --- !u!4 &2222612047020005236
 Transform:
   m_ObjectHideFlags: 0
@@ -20986,6 +21017,7 @@ GameObject:
   - component: {fileID: 6993865271150173755}
   - component: {fileID: 2190050433300953166}
   - component: {fileID: 1203696431080404145}
+  - component: {fileID: 2222612047114777865}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -20993,6 +21025,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &2222612047114777865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2222612047114777864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51e3a5780e3a71944a993f3abcd8d900, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!4 &2222612047114777866
 Transform:
   m_ObjectHideFlags: 0
@@ -21009,6 +21056,7 @@ Transform:
   - {fileID: 2222612047157733439}
   - {fileID: 2222612047762541365}
   - {fileID: 5182835786085419401}
+  - {fileID: 1756245722}
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -26990,6 +27038,7 @@ MonoBehaviour:
   InputCtrl: {fileID: 0}
   AnimCtrl: {fileID: 0}
   EquipCtrl: {fileID: 0}
+  AttackCtrl: {fileID: 0}
   LandingAudioClip: {fileID: 8300000, guid: ff697d3070687ce4583faa0561a145a2, type: 3}
   FootstepAudioClips:
   - {fileID: 8300000, guid: 72f526a6a9890f643a88e85a61c86c8a, type: 3}

@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using DefineDatas;
 
 public class PlayerInputController : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class PlayerInputController : MonoBehaviour
     public float SpanMaxY = 10f;    
     //Animator _animator;
 
-    PlayerManager manager;
+    PlayerManager _manager;
     PlayerAssetsInputs _input;
 
     //Cinemachine
@@ -48,7 +49,7 @@ public class PlayerInputController : MonoBehaviour
 
     public void Init(PlayerManager main,PlayerAssetsInputs input)
     {
-        manager = main;
+        _manager = main;
         _input = input;
 
         _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;        
@@ -99,14 +100,14 @@ public class PlayerInputController : MonoBehaviour
             float dist = distance.sqrMagnitude;
             if (dist * dist <= Mathf.Pow(_recognizeMaskDistance, 2))
             {
-                if (manager.RecognizeObject != rhit.transform.gameObject)
-                    manager.SetRecognizeObject(rhit.transform.gameObject);
+                if (_manager.RecognizeObject != rhit.transform.gameObject)
+                    _manager.SetRecognizeObject(rhit.transform.gameObject);
             }            
         }
         else
         {
-            if(manager.RecognizeObject != null)
-                manager.SetRecognizeObject();
+            if(_manager.RecognizeObject != null)
+                _manager.SetRecognizeObject();
         }
             
     }
@@ -122,7 +123,7 @@ public class PlayerInputController : MonoBehaviour
     {       
         if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
         {
-            float deltaTimeMultipler = manager.IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+            float deltaTimeMultipler = _manager.IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
             _cinemachineTargetYaw += _input.look.x * deltaTimeMultipler;
             _cinemachineTargetPitch += _input.look.y * deltaTimeMultipler;
@@ -138,17 +139,27 @@ public class PlayerInputController : MonoBehaviour
     }
 
     void FireAction()
-    {        
+    {
         if (_input.fire)
         {
-
-            manager.AnimCtrl.SetAnimations(DefineDatas.ePlayerAnimParams.Fire);
+            //마우스 다운
+            if (_manager.AnimCtrl.GetAnimations(ePlayerAnimParams.AttackEnd) == true)
+            {
+                //공격
+                _manager.AnimCtrl.SetAnimations(ePlayerAnimParams.Fire);                                
+            }
+            _manager.AnimCtrl.SetAnimations(ePlayerAnimParams.AttackEnd, false);
+        }
+        else
+        {
+            //마우스 업
+            _manager.AnimCtrl.SetAnimations(ePlayerAnimParams.AttackEnd, true);            
         }
     }
 
     void SetAimCamera()
     {
-        if (_input.aim && manager.Movement.Grounded) 
+        if (_input.aim && _manager.Movement.Grounded) 
         {
             if(!_aimCam.gameObject.activeSelf)
             {
@@ -165,16 +176,16 @@ public class PlayerInputController : MonoBehaviour
             }
         }
 
-        manager.AnimCtrl.SetAnimations(DefineDatas.ePlayerAnimParams.Aim, _input.aim);
+        _manager.AnimCtrl.SetAnimations(DefineDatas.ePlayerAnimParams.Aim, _input.aim);
     }    
 
     void InteractAction()
     {
         if (_input.interact)
         {
-            if (manager.RecognizeObject != null)
+            if (_manager.RecognizeObject != null)
             {
-                GameObject obj = manager.RecognizeObject;
+                GameObject obj = _manager.RecognizeObject;
                 if (obj.TryGetComponent(out ObjectData data))
                 {
                     if (data.isNPC)
@@ -187,7 +198,7 @@ public class PlayerInputController : MonoBehaviour
                         if (obj.TryGetComponent(out ItemCtrl item))
                         {
                             if (item.Root())
-                                manager.SetRecognizeObject();
+                                _manager.SetRecognizeObject();
                         }
                     }
                 }

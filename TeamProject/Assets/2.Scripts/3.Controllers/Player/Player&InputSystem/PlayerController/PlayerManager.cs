@@ -19,6 +19,7 @@ public class PlayerManager : MonoBehaviour
     public PlayerInputController InputCtrl;
     public PlayerAnimController AnimCtrl;
     public PlayerEquipController EquipCtrl;
+    public PlayerAttackController AttackCtrl;
 
     [Header("Audios")]
     public AudioClip LandingAudioClip;
@@ -93,12 +94,15 @@ public class PlayerManager : MonoBehaviour
         InputCtrl = GetComponent<PlayerInputController>();
         AnimCtrl = GetComponent<PlayerAnimController>();
         EquipCtrl = GetComponent<PlayerEquipController>();
-        
+        AttackCtrl = GetComponent<PlayerAttackController>();
+
+
         LoadStat();
         InputCtrl.Init(this, _input);
         Movement.Init(this, _controller, _input, _mainCamera);
         AnimCtrl.Init(this, _animator);
         EquipCtrl.Init(this);
+        AttackCtrl.Init(this);
         
     }
     
@@ -141,10 +145,12 @@ public class PlayerManager : MonoBehaviour
         DamageCoroutne = StartCoroutine(OnDamageEvent());
     }
 
-    public void OnDamage(float damage)
+    public void OnDamage(float damage, MonsterController mc = null)
     {
         if (isDead)
             return;
+        //Æç °ü¸® ³ª (Å¸°Ù)
+
         isDead = Stat.GetHit(damage);        
 
         OnDamage();
@@ -161,6 +167,11 @@ public class PlayerManager : MonoBehaviour
         ChangeColor(Color.red);
         yield return new WaitForSeconds(0.3f);        
         ChangeColor(_baseColor);
+    }
+
+    void Attack()
+    {
+        //ÆçÇÑÅ× Å¸°Ù º¸³»±â
     }
 
     #region [ Animation Parameter Setting ]

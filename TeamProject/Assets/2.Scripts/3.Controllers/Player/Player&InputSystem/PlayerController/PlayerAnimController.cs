@@ -24,7 +24,8 @@ public class PlayerAnimController : MonoBehaviour
     int _animIDWeaponType;
 
 
-    public bool isCharging = false;    
+    public bool isCharging = false;
+    public bool isAttackEnd = true;
 
     public void Init(PlayerManager _manager ,Animator animator)
     {
@@ -122,6 +123,19 @@ public class PlayerAnimController : MonoBehaviour
         }
     }
 
+    public bool GetAnimations(ePlayerAnimParams parmeter)
+    {
+        bool isOn = false;
+
+        switch (parmeter)
+        {
+            case ePlayerAnimParams.AttackEnd:
+                isOn = _animator.GetBool(_animIDAttackEnd);
+                break;
+        }
+        return isOn;
+    }
+
     #endregion [ Animation Parameter Setting ]
 
     public void SetAnimationLayerWeight(WeaponType type, float weight)
@@ -142,10 +156,13 @@ public class PlayerAnimController : MonoBehaviour
 
     public void OnAttackEnd()
     {
-        SetAnimations(ePlayerAnimParams.AttackEnd, true);
+        isAttackEnd = true;
     }
 
-
+    public void OnAttack()
+    {
+        manager.AttackCtrl.PunchAction();
+    }
 
     #region [ Bow Animation ]
 
