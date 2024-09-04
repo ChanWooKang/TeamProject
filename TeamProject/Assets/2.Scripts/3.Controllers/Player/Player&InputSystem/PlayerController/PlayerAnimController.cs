@@ -31,7 +31,7 @@ public class PlayerAnimController : MonoBehaviour
         manager = _manager;
         _animator = animator;
         AssignAnimationIDs();
-        
+
     }
 
     void AssignAnimationIDs()

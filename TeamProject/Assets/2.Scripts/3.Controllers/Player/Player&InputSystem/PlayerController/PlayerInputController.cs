@@ -34,7 +34,7 @@ public class PlayerInputController : MonoBehaviour
 
     public float SpanMinY = -10f;
     public float SpanMaxY = 10f;    
-    public Animator _animator;
+    //Animator _animator;
 
     PlayerManager manager;
     PlayerAssetsInputs _input;
@@ -83,13 +83,7 @@ public class PlayerInputController : MonoBehaviour
         if (lfAngle > 360f) lfAngle -= 360f;
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * _recognizeMaskDistance);
-    }
-
+  
     void CrossHairCheck()
     {        
         Transform target;
@@ -144,16 +138,7 @@ public class PlayerInputController : MonoBehaviour
     }
 
     void FireAction()
-    {
-        //if (_input.fire)
-        //{            
-        //    manager.AnimCtrl.SetAnimations(DefineDatas.ePlayerAnimParams.Attack, true);
-        //}
-        //else
-        //{
-        //    manager.AnimCtrl.SetAnimations(DefineDatas.ePlayerAnimParams.Attack, false);
-        //}
-
+    {        
         if (_input.fire)
         {
 

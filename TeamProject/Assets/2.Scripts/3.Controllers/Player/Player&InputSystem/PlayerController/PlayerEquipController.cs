@@ -43,7 +43,7 @@ public class PlayerEquipController : MonoBehaviour
         manager = _manager;
         nowWeaponType = WeaponType.None;
         beforeWeaponType = WeaponType.None;
-
+        _manager.AnimCtrl.SetAnimationLayerWeight(nowWeaponType, 1);
         SettingWeaponList();
         DisableWeapons();
     }

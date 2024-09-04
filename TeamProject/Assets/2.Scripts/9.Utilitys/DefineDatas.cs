@@ -74,7 +74,7 @@ namespace DefineDatas
 
     public enum WeaponType
     {
-        None = 0,
+        None = 1,        
         OneHand,
         Bow,
         Rifle,

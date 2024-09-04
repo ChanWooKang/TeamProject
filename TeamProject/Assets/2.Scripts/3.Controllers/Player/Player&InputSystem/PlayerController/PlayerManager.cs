@@ -32,8 +32,11 @@ public class PlayerManager : MonoBehaviour
     GameObject _mainCamera;
 
     //Add Component
-    Renderer[] _renders;
-    GameObject _recognizeObject;
+    [SerializeField] Transform _bodyMesh;
+    [SerializeField] Color _baseColor;
+    Renderer[] _renders;    
+    GameObject _recognizeObject;    
+
 
     public bool _hasAnimator;
     public bool isDead = false;
@@ -84,7 +87,8 @@ public class PlayerManager : MonoBehaviour
         _input = GetComponent<PlayerAssetsInputs>();
         _playerInput = GetComponent<PlayerInput>();
         _mainCamera = Camera.main.gameObject;
-        _renders = GetComponentsInChildren<Renderer>();
+        _renders = _bodyMesh.GetComponentsInChildren<Renderer>();
+        Stat = GetComponent<PlayerStat>();
         Movement = GetComponent<PlayerMovementController>();
         InputCtrl = GetComponent<PlayerInputController>();
         AnimCtrl = GetComponent<PlayerAnimController>();
@@ -95,6 +99,7 @@ public class PlayerManager : MonoBehaviour
         Movement.Init(this, _controller, _input, _mainCamera);
         AnimCtrl.Init(this, _animator);
         EquipCtrl.Init(this);
+        
     }
     
 
@@ -111,8 +116,9 @@ public class PlayerManager : MonoBehaviour
             if(render.materials.Length > 1)
             {
                 for (int i = 0; i < render.materials.Length; i++)
-                {
+                {                    
                     render.materials[i].color = color;
+                    
                 }
             }
             else
@@ -153,8 +159,8 @@ public class PlayerManager : MonoBehaviour
         }
 
         ChangeColor(Color.red);
-        yield return new WaitForSeconds(0.3f);
-        ChangeColor(Color.white);
+        yield return new WaitForSeconds(0.3f);        
+        ChangeColor(_baseColor);
     }
 
     #region [ Animation Parameter Setting ]

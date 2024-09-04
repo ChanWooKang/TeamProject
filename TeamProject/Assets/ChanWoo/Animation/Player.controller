@@ -1398,6 +1398,18 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
+    m_Name: UnArmed Layer
+    m_StateMachine: {fileID: 267107892655033}
+    m_Mask: {fileID: 31900000, guid: 9f2de70e7a58e584d87efec60d385402, type: 2}
+    m_Motions: []
+    m_Behaviours: []
+    m_BlendingMode: 0
+    m_SyncedLayerIndex: -1
+    m_DefaultWeight: 0
+    m_IKPass: 0
+    m_SyncedLayerAffectsTiming: 0
+    m_Controller: {fileID: 9100000}
+  - serializedVersion: 5
     m_Name: One Hand Layer
     m_StateMachine: {fileID: -4590447993215645849}
     m_Mask: {fileID: 31900000, guid: 9f2de70e7a58e584d87efec60d385402, type: 2}
@@ -1425,18 +1437,6 @@ AnimatorController:
     m_Name: Rifle Layer
     m_StateMachine: {fileID: 403548083762338397}
     m_Mask: {fileID: 31900000, guid: 26e9ccbcee789804dbea9ff13f52ecd6, type: 2}
-    m_Motions: []
-    m_Behaviours: []
-    m_BlendingMode: 0
-    m_SyncedLayerIndex: -1
-    m_DefaultWeight: 0
-    m_IKPass: 0
-    m_SyncedLayerAffectsTiming: 0
-    m_Controller: {fileID: 9100000}
-  - serializedVersion: 5
-    m_Name: UnArmed Layer
-    m_StateMachine: {fileID: 267107892655033}
-    m_Mask: {fileID: 31900000, guid: 9f2de70e7a58e584d87efec60d385402, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
