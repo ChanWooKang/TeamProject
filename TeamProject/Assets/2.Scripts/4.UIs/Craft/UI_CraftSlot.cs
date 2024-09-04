@@ -8,16 +8,16 @@ public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 {
     #region [임시 참조]
     [SerializeField] GameObject m_craftBoxObj;
-
-    [SerializeField] GameObject m_prefabObj;
+    [SerializeField] GameObject m_enforceAnvil;
+    [SerializeField] GameObject m_craftDesk;
+    GameObject m_prefabObj;
     #endregion [임시 참조]
 
     #region [참조]
     UI_Craft m_uiCraft;
     GameObject m_previewObj;
     GameObject m_craftingObj;
-    Architecture m_architectureInfo;
-    ObjectPreview m_craftingObjOP; 
+    Architecture m_architectureInfo;   
     [SerializeField]
     Image m_icon;
     [SerializeField]
@@ -45,6 +45,11 @@ public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             m_uiCraft = uiCraft;
             m_highlightBG.enabled = false;
             m_icon.enabled = true;
+            //임시
+            if (m_architectureInfo.Index == 1)
+                m_prefabObj = m_craftDesk;
+            else if (m_architectureInfo.Index == 5)
+                m_prefabObj = m_enforceAnvil;
         }
     }
 
@@ -56,9 +61,7 @@ public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         m_uiCraft.IsPreviewActivated(true, m_previewObj, m_craftingObj, m_architectureInfo);
         
 
-        m_craftBoxObj.SetActive(false);
-
-        m_craftBoxObj.SetActive(false);
+        m_craftBoxObj.SetActive(false);        
 
         //UI클릭시 커서 잠금
         GameManagerEx._inst.ControlUI(false, true);

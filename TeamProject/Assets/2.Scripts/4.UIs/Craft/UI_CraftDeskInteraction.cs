@@ -5,40 +5,12 @@ using UnityEngine.UI;
 using TMPro;
 using DefineDatas;
 
-public class UI_Interaction : MonoBehaviour
+public class UI_CraftDeskInteraction : UI_InteractionBase
 {
-    #region [참조]
-    [SerializeField] GameObject m_uiCraftObj;
-    [SerializeField] GameObject m_uiMenuObj;
-    [SerializeField] GameObject m_uiMenuSlotPrefab;
-    [SerializeField] GameObject m_uiWorkloadPrefab;
-    [SerializeField] GameObject m_CancelObj;
-    [SerializeField] GameObject m_weaponInfoBoxObj;
-    [SerializeField] GameObject m_noEntrytextBox;
-    [SerializeField] RectTransform m_startSlot;
-    [SerializeField] Slider m_progressCraft;
-    [SerializeField] Slider m_progressCancel;
-    [SerializeField] Image m_petIcon;
-
+    #region [참조]   
     CraftTableController m_tableCtrl;
-    GameObject m_uiMenuSlotObj;
-    [SerializeField] TextMeshProUGUI m_txtPressOrHold;
-    [SerializeField] TextMeshProUGUI m_txtMenuName;
-    [SerializeField] TextMeshProUGUI m_txtMenuOrCraft;
-    [SerializeField] TextMeshProUGUI m_txtWeaponName;
-
-
-
-    #endregion[참조]
-
-    List<UI_MenuSlot> m_listUIMenuSlot;
-    Vector2Int m_maxMenuVolAmount;
-
-    bool m_isNew = true;
-    bool m_isCraftDone;
-    int m_weaponIndex = 0;
-    float m_petWorkWeight;
-    float m_playerWorkWeight;
+    
+    #endregion[참조]    
 
 
     private void Update()
@@ -79,7 +51,7 @@ public class UI_Interaction : MonoBehaviour
                 //데스크 위에 무기 생성
                 m_isCraftDone = true;
                 m_weaponIndex = 0;
-                OpenInteraction(m_tableCtrl);
+                OpenInteractionCraftTable(m_tableCtrl);
             }
             if (Input.GetKey(KeyCode.F))
             {
@@ -105,69 +77,26 @@ public class UI_Interaction : MonoBehaviour
                 m_weaponIndex = 0;
                 m_isCraftDone = false;
                 m_progressCraft.value = 0;
-                OpenInteraction(m_tableCtrl);
+                OpenInteractionCraftTable(m_tableCtrl);
                 CloseMenu();
                 InventoryManager._inst.AddEquipItem(eEquipType.Weapon, new BaseItem());
             }
         }
     }
 
-    public void OpenInteraction(CraftTableController tableCtrl = null)
+    new public void OpenInteractionCraftTable (CraftTableController ctrl = null)
     {
-        if (tableCtrl != null)
-            m_tableCtrl = tableCtrl;
-        if (m_weaponIndex == 0 && !m_isCraftDone)
-        {
-            m_txtPressOrHold.text = "Press";
-            m_txtMenuOrCraft.text = "Craft Menu";
-            m_weaponInfoBoxObj.SetActive(false);
-            m_CancelObj.SetActive(true);
-            m_isCraftDone = false;
-        }
-        else if (m_weaponIndex != 0 && !m_isCraftDone)
-        {
-            m_txtPressOrHold.text = "Press and Hold";
-            m_txtMenuOrCraft.text = "Craft";
-            m_txtWeaponName.text = InventoryManager._inst.Dict_Weapon[m_weaponIndex].NameKr;
-            m_weaponInfoBoxObj.SetActive(true);
-            m_CancelObj.SetActive(true);
-        }
-        else if (m_weaponIndex == 0 && m_isCraftDone)
-        {
-            m_txtPressOrHold.text = "Press";
-            m_txtMenuOrCraft.text = "Get Weapon";
-            m_CancelObj.SetActive(false);
-        }
-        gameObject.SetActive(true);
-        m_uiCraftObj.SetActive(true);
-
-        CloseMenu();
-    }
-    public void CloseInteraction()
+        if (ctrl == null)
+            m_tableCtrl = ctrl;
+        base.OpenInteractionCraftTable(ctrl);
+    }   
+    public override void CloseInteraction()
     {
         CloseMenu();
         gameObject.SetActive(false);
     }
-    public void ReadyToCraftSometing(int weaponindex)
-    {
-        m_weaponIndex = weaponindex;
-    }
-    public void SetPetEntry()
-    {
-        m_noEntrytextBox.SetActive(false);
-        m_petIcon.enabled = true;
-        m_petWorkWeight = 1f;
-        //이미지 
-    }
-    public void SetNoEntry()
-    {
-        m_noEntrytextBox.SetActive(true);
-        m_petIcon.enabled = false;
-        m_petWorkWeight = 0;
-    }
-
-
-    void OpenMenu()
+        
+   public override void OpenMenu()
     {
         m_uiMenuObj.SetActive(true);
         m_uiCraftObj.SetActive(false);
@@ -199,40 +128,14 @@ public class UI_Interaction : MonoBehaviour
         GameManagerEx._inst.ChangeCursorLockForUI(true);
     }
 
-    void CloseMenu()
+    public override void CloseMenu()
     {
         m_uiMenuObj.SetActive(false);
         m_CancelObj.SetActive(true);
         m_uiCraftObj.SetActive(true);
     }
-
-    void DecideSlotCount()
-    {
-        LowBase weaponTable = Managers._table.Get(LowDataType.WeaponTable);
-        int count = weaponTable.MaxCount();
-        int x = 0;
-        int y = 0;
-        if (count < 10)
-        {
-            x = count;
-            y = 1;
-        }
-        else if (count > 10)
-        {
-            x = 10;
-            y = count % 10;
-        }
-        m_maxMenuVolAmount = new Vector2Int(x, y);
-    }
-    void PressFkey()
-    {
-        m_playerWorkWeight = 1f;
-    }
-    void UpFKey()
-    {        
-        m_playerWorkWeight = 0;
-    }
-    void PressCKey(bool isWeapon)
+      
+    public override void PressCKey(bool isWeapon)
     {
         m_progressCancel.value += Time.deltaTime;
         if (m_progressCancel.value >= 1)
@@ -242,7 +145,7 @@ public class UI_Interaction : MonoBehaviour
 
                 m_weaponIndex = 0;
                 UpCKey();
-                OpenInteraction(m_tableCtrl);
+                OpenInteractionCraftTable(m_tableCtrl);
 
             }
             else
@@ -252,18 +155,6 @@ public class UI_Interaction : MonoBehaviour
             }
         }
     }
-    void UpCKey()
-    {
-        m_progressCancel.value = 0;
-    }
-    public void PetWork()
-    {
-        StartCoroutine(SetProgress());
-    }
-    IEnumerator SetProgress()
-    {
-        m_progressCraft.value += ((m_playerWorkWeight + m_petWorkWeight) * Time.deltaTime);
-        
-        yield return null;
-    }
+   
+   
 }

@@ -25,8 +25,10 @@ public class UI_Craft : MonoBehaviour
         //юс╫ц
         for(int i = 0; i< m_listCraftSlot.Count; i++)
         {
-            if(i == 0)
-            m_listCraftSlot[i].InitSlot(1, this);
+            if (i == 0)
+                m_listCraftSlot[i].InitSlot(1, this);
+            else if (i == 4)
+                m_listCraftSlot[i].InitSlot(5, this);
             else
                 m_listCraftSlot[i].InitSlot(0, this);
         }

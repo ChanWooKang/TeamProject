@@ -10,12 +10,12 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] RectTransform[] m_infoBoxPoses;
     [SerializeField] GameObject m_infoBoxPrefab;
     UI_InfoBox m_uiInfoBox;
-    UI_Interaction m_uiInteraction;
+    UI_CraftDeskInteraction m_uiInteraction;
     
     int m_x;
     int m_y;
     int m_weaponIndex;
-    public void InitSlot(int num, int x, int y, UI_Interaction interation)
+    public void InitSlot(int num, int x, int y, UI_CraftDeskInteraction interation)
     {
         m_uiInteraction = interation;
 
@@ -78,7 +78,7 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnPointerClick(PointerEventData eventData)
     {
         m_uiInteraction.ReadyToCraftSometing(m_weaponIndex);
-        m_uiInteraction.OpenInteraction();
+        m_uiInteraction.OpenInteractionCraftTable();
         m_uiInfoBox.CloseBox();
 
     }

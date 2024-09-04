@@ -7,20 +7,20 @@ using DefineDatas;
 public class PetController : FSM<PetController>
 {
     [Header("Monster Data")]
-    
+
     public int PetLevel = 1;
 
 
     #region [Component]
-    PetStat m_stat;
+    [SerializeField] PetStat m_stat;
+    [SerializeField] PetMovement _movement;
+    [SerializeField] PetAnimController m_animCtrl;
     NavMeshAgent m_agent;
-    Animator m_animator;    
+    Animator m_animator;
     CapsuleCollider m_collider;
     Rigidbody m_rigid;
-    PetMovement _movement;
     MonsterInfo m_petInfo;
     HudController _hudCtrl;
-    PetAnimController m_animCtrl;
     #endregion [Component]
 
     //몬스터 상태 체크 및 애니메이션 적용     
@@ -45,7 +45,7 @@ public class PetController : FSM<PetController>
     public bool isAttack;
     public bool isReturnHome;
     public bool isBuffed;
-    
+
 
     public MonsterInfo PetInfo { get { return m_petInfo; } }
     public PetMovement Movement { get { return _movement; } }
@@ -60,6 +60,14 @@ public class PetController : FSM<PetController>
         InitState(this, PetStateInit._inst);
 
         //
+    }
+    private void Update()
+    {
+        FSMUpdate();
+    }
+    private void LateUpdate()
+    {
+        FreezeRotation();
     }
     public eMonsterState State
     {
@@ -83,13 +91,15 @@ public class PetController : FSM<PetController>
         m_animator = GetComponent<Animator>();
         m_collider = GetComponent<CapsuleCollider>();
         m_rigid = GetComponent<Rigidbody>();
-        Stat.Init(index);        
+        m_animCtrl.Init(this, m_animator);
+        _movement.Init(this, m_agent);
+        Stat.Init(index);
     }
     public void SettingPetStatByLevel()
     {
         Stat.Level = PetLevel;
         Stat.SetByLevel();
-        
+
     }
     public void GetRangeByAttackType()
     {
@@ -135,7 +145,11 @@ public class PetController : FSM<PetController>
         m_agent.velocity = Vector3.zero;
     }
 
-
+    void FreezeRotation()
+    {
+        m_rigid.velocity = Vector3.zero;
+        m_rigid.angularVelocity = Vector3.zero;
+    }
 
 
 

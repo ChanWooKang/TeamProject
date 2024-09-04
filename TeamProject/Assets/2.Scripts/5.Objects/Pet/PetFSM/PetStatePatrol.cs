@@ -11,7 +11,8 @@ public class PetStatePatrol : TSingleton<PetStatePatrol>,IFSMState<PetController
         m.Agent.speed = m.Stat.MoveSpeed;
         m.Agent.avoidancePriority = 47;
         m.State = eMonsterState.PATROL;
-        target = GameManagerEx._inst.playeManager.transform;
+        //임시
+        target = null;
 
     }
 
@@ -53,18 +54,18 @@ public class PetStatePatrol : TSingleton<PetStatePatrol>,IFSMState<PetController
             {
                 //m.Stat.Sight
                 //if (m._movement.CheckCloseTarget(target.position, m.Stat.Sight))
-                if (m.Movement.CheckCloseTarget(target.position, m.Stat.Sight))
-                {
-                    m.SetTarget(target, true);
-                    m.transform.LookAt(target);
-               //     m.ChangeState(MonsterStateSense._inst);
-                }
+               // if (m.Movement.CheckCloseTarget(target.position, m.Stat.Sight))
+               // {
+               //     m.SetTarget(target, true);
+               //     m.transform.LookAt(target);
+               ////     m.ChangeState(MonsterStateSense._inst);
+               // }
             }
             if (m.Movement.CheckCloseTarget(m.targetPos, 0.5f))
             {
                 //쿨타임 돌리고
                 //랜덤위치 받아오기                
-             //   m.ChangeState(MonsterStateIdle._inst);
+                 m.ChangeState(PetStateIdle._inst);
             }
             else
             {

@@ -20,8 +20,6 @@ public abstract class PetAnimController : MonoBehaviour
     {
         _manager = manager;
         _animator = animator;
-
-
     }
 
     public abstract void ChangeAnimation(eMonsterState type);
