@@ -522,8 +522,9 @@ GameObject:
   - component: {fileID: 2254517607846856521}
   - component: {fileID: 955583833336733056}
   - component: {fileID: 6645886210443898067}
+  - component: {fileID: 5149308620063968498}
   m_Layer: 5
-  m_Name: UI_Interection
+  m_Name: UI_CraftTableInterection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -623,6 +624,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 54610dcb94e7b944893eac4bcac57551, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_uiCraftObj: {fileID: 1644486383472971235}
+  m_uiMenuObj: {fileID: 1145639580819596366}
+  m_uiMenuSlotPrefab: {fileID: 7379769816501951859, guid: 12b69a34b6dbc7546a43728d4d0e468c, type: 3}
+  m_uiWorkloadPrefab: {fileID: 1740737190685172048, guid: 5ef4e9795273f9a4d8f35d6a0d60dc7e, type: 3}
+  m_CancelObj: {fileID: 5838599712787938879}
+  m_weaponInfoBoxObj: {fileID: 3407449084622097752}
+  m_noEntrytextBox: {fileID: 5187775713535039480}
+  m_startSlot: {fileID: 8160012941970311042}
+  m_progressCraft: {fileID: 3144204647982197330}
+  m_progressCancel: {fileID: 6272107997718643681}
+  m_petIcon: {fileID: 3939376124003647402}
+  m_txtPressOrHold: {fileID: 9198714549886566588}
+  m_txtMenuName: {fileID: 8731474789674016856}
+  m_txtMenuOrCraft: {fileID: 3213045786707237764}
+  m_txtWeaponName: {fileID: 7050501421541549165}
+--- !u!114 &5149308620063968498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2671872734054659491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d217e4c7894c8c1439fbfa3667ff23ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_uiCraftObj: {fileID: 1644486383472971235}

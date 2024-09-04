@@ -30,7 +30,8 @@ public class PetBallController : MonoBehaviour
         //임시
         InitBall(500);        
         m_rigidbdy = GetComponent<Rigidbody>();
-    }  
+    }
+ 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Monster") && m_targetMonsterCtrl == null)
@@ -58,9 +59,11 @@ public class PetBallController : MonoBehaviour
 
     IEnumerator CaptureStart()
     {
-        Vector3 targetPos = m_capturePos + Vector3.up * 2;
+        Vector3 targetPos = m_capturePos + Vector3.up * 4;
+        
         while (transform.position != targetPos)
         {
+            // 최대한 화려한 이펙트 : 재생하는 동안 볼 위치 따라가도록
             gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, targetPos, 4f * Time.deltaTime);           
             if (Vector3.Distance(transform.position, targetPos) < 0.05f)
             {
@@ -69,6 +72,7 @@ public class PetBallController : MonoBehaviour
             }
             yield return null;
         }
+        m_animator.SetTrigger("SpinBall");
         GameObject ui = Instantiate(m_uiRateBoxPrefab);             
         m_uiRateBox = ui.GetComponent<UI_CaptureRateBox>();        
         m_uiRateBox.OpenUI(gameObject.transform.position);
@@ -90,8 +94,7 @@ public class PetBallController : MonoBehaviour
                 //포획 실패 (볼에서 펫이 탈출)
                 Debug.Log("앗 펫이 볼에서 빠져나왔다!");
                 m_isSuccess = false;
-                m_uiRateBox.CaptureFailed();
-                //m_targetMonsterCtrl.gameObject.SetActive(true);
+                m_uiRateBox.CaptureFailed();                
                 break;
             }
             else if (RN < b)
@@ -130,7 +133,7 @@ public class PetBallController : MonoBehaviour
         else
         {
             //실패시 몬스터 튀어나옴 스테이트, 모델 변경해야함
-            m_targetMonsterCtrl.ChangeState(MonsterStateChase._inst);
+            //m_targetMonsterCtrl.ChangeState(MonsterStateChase._inst);
         }    
 
         Destroy(gameObject);

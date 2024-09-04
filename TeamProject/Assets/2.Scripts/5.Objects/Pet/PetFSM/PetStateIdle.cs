@@ -22,7 +22,7 @@ public class PetStateIdle : TSingleton<PetStateIdle>, IFSMState<PetController>
             if (cntTime > m.delayTime)
             {
                 m.targetPos = m.Movement.GetRandomPos();
-            //    m.ChangeState(MonsterStatePatrol._inst);
+                m.ChangeState(PetStatePatrol._inst);
             }
             else
             {

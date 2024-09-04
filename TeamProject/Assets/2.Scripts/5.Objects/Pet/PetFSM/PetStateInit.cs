@@ -11,7 +11,7 @@ public class PetStateInit : TSingleton<PetStateInit>, IFSMState<PetController>
         //레벨은 자동 생성 할 때 저장
         m.SettingPetStatByLevel();        
         m.BaseNavSetting();
-       // m.ChangeState(MonsterStateIdle._inst);
+        m.ChangeState(PetStateIdle._inst);
     }
 
     public void Execute(PetController m)
