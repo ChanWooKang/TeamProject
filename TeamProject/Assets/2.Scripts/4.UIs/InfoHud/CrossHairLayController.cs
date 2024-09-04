@@ -8,8 +8,8 @@ public class CrossHairLayController : MonoBehaviour
     GameObject m_prefabInfoBox;
     [SerializeField]
     RectTransform m_infoBoxRoot;
-     
-    
+
+
     public LayerMask m_monsterTarget;
     RaycastHit m_hit;
 
@@ -21,9 +21,10 @@ public class CrossHairLayController : MonoBehaviour
         if (Physics.Raycast(rayOrigin, rayDir, out m_hit, Mathf.Infinity, m_monsterTarget))
         {
             MonsterController mon = m_hit.transform.gameObject.GetComponent<MonsterController>();
-            mon.ShowHud();
+            if (mon != null)
+                mon.ShowHud();
         }
     }
 
-    
+
 }

@@ -18,6 +18,7 @@ public class PetBallController : MonoBehaviour
     GameObject m_uiRateBoxPrefab;
     UI_CaptureRateBox m_uiRateBox;
     Rigidbody m_rigidbdy;
+    Animator m_animator;
     #endregion [ÂüÁ¶]      
 
     Vector3 m_capturePos;
@@ -27,7 +28,7 @@ public class PetBallController : MonoBehaviour
     private void Start()
     {
         //ÀÓ½Ã
-        InitBall(501);        
+        InitBall(500);        
         m_rigidbdy = GetComponent<Rigidbody>();
     }  
     private void OnTriggerEnter(Collider other)
@@ -40,8 +41,8 @@ public class PetBallController : MonoBehaviour
                    
             m_targetMonsterCtrl = other.GetComponent<MonsterController>();
             // ÀâÈ÷´Â ÀÌÆåÆ® .... (¸ðµ¨ ²¯´Ù ÄÖ´Ù , »ìÂ¦À§·Î ÀÌµ¿ )
-            //m_targetMonsterCtrl.gameObject.SetActive(false);
-            m_targetMonsterCtrl.ChangeState(MonsterStateCapture._inst);
+            m_targetMonsterCtrl.gameObject.SetActive(false);
+           // m_targetMonsterCtrl.ChangeState(MonsterStateCapture._inst);
             StartCoroutine(CaptureStart());
         }
         else
@@ -52,6 +53,7 @@ public class PetBallController : MonoBehaviour
     public void InitBall(int index)
     {
         m_petBallInfo = InventoryManager._inst.Dict_Petball[index];
+        m_animator = GetComponent<Animator>();
     }
 
     IEnumerator CaptureStart()
@@ -97,11 +99,13 @@ public class PetBallController : MonoBehaviour
                 if (count >= 1 && count < m_shakeMaxCount)
                 {
                     Debug.LogFormat("º¼ÀÌ Èçµé·È´Ù!" + (count));
+                    m_animator.SetTrigger("ShakeBall");
                     //º¼ Èçµé¸² or ÀÌÆåÆ®
                 }
                 if (count == m_shakeMaxCount)
                 {
                     Debug.Log("Àâ¾Ò³ª?");
+                    m_animator.SetTrigger("ShakeBall");
                     StartCoroutine(m_uiRateBox.SetRateProgress(rate));
                     //º¼ Èçµé¸² or ÀÌÆåÆ®
                     yield return new WaitForSeconds(m_shakeDelayTime);
@@ -144,8 +148,8 @@ public class PetBallController : MonoBehaviour
     void CaculateCaputreRate()
     {
         //float a = (1f - ((2f / 3f) * (m_targetMonsterCtrl.Stat.HP / m_targetMonsterCtrl.Stat.MaxHP))) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;
-        //float a = (1f - ((2f / 3f)) * 1 / 3) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;  //Å×½ºÆ® (1/3³²Àº ÇÇ)
-        float a = (1f - ((2f / 3f) * (m_targetMonsterCtrl.Stat.HP / m_targetMonsterCtrl.Stat.MaxHP))) * m_petBallInfo.BonusRate * 50; //Å×½ºÆ® (³·Àº Æ÷È¹·üÀÇ Æê)
+        float a = (1f - ((2f / 3f)) * 1 / 3) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;  //Å×½ºÆ® (1/3³²Àº ÇÇ)
+        //float a = (1f - ((2f / 3f) * (m_targetMonsterCtrl.Stat.HP / m_targetMonsterCtrl.Stat.MaxHP))) * m_petBallInfo.BonusRate * 50; //Å×½ºÆ® (³·Àº Æ÷È¹·üÀÇ Æê)
         if (a >= 255)
         {
             //Æ÷È¹ ¼º°ø //È®·ü 100À¸·Î ¹Ù·Î ÀâÈû

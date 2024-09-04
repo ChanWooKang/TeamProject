@@ -22,6 +22,14 @@ public class HudController : MonoBehaviour
         {
             Vector3 screenPos = Camera.main.WorldToScreenPoint(m_targetPos.position);
             transform.position = screenPos;
+            if (IsObjectFront(m_targetPos.position))
+            {
+                gameObject.SetActive(true);
+            }
+            else
+            {
+                HideHud();
+            }
         }
     }
     public void InitHud(string name, int level, Transform tartgetPos ,Color color) // 몬스터 생성과 동시에 초기화, Color - 몬스터 : 레드, 펫 : 그린
@@ -31,24 +39,19 @@ public class HudController : MonoBehaviour
         m_hpBar.value = 1f;
         m_bgColor.color = color;
         m_targetPos = tartgetPos;
-        HideHud();
+        Invoke("HideHud", 2f);
     }
     public void DisPlay(float normalizedHp) // 데미지를 입거나 카메라 ray에 닿았을 때 
     {
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(m_targetPos.position);
+        transform.position = screenPos;
         ShowHud();
         if (IsInvoking("HideHud"))
-            CancelInvoke("hideHud");
+            CancelInvoke("HideHud");
         Invoke("HideHud", 5f);
 
         m_hpBar.value = normalizedHp;
-    }
-    public void LookAt()
-    {
-        ShowHud();
-        if (IsInvoking("HideHud"))
-            CancelInvoke("hideHud");
-        Invoke("HideHud", 5f);
-    }
+    }   
     void ShowHud() 
     {
         gameObject.SetActive(true);
@@ -56,5 +59,13 @@ public class HudController : MonoBehaviour
     void HideHud()
     {
         gameObject.SetActive(false);
+    }
+    bool IsObjectFront(Vector3? obj)
+    {
+        Vector3 relativePos = obj.Value - Camera.main.transform.position;
+        if (Vector3.Dot(relativePos, Camera.main.transform.forward) > 0)
+            return true;
+        else
+            return false;
     }
 }

@@ -127,13 +127,14 @@ public class MonsterController : FSM<MonsterController>
         _movement.Init(this, _agent);
         _animCtrl.Init(this, _animator);
     }
-    public void SetHud(HudController hud)
+    public void SetHud(HudController hud, Transform hudRoot)
     {
         _hudCtrl = hud;
+        _hudCtrl.gameObject.transform.SetParent(hudRoot);
         _hudCtrl.InitHud("¹ö¼¸µ¹ÀÌ", Stat.Level, _hudTransform, Color.red);
     }
     public void ShowHud()
-    {
+    {       
         if (_hudCtrl != null)
             _hudCtrl.DisPlay(Stat.HP / Stat.MaxHP);
     }

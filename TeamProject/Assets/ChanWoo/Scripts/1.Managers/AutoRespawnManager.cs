@@ -33,15 +33,16 @@ public class AutoRespawnManager : MonoBehaviour
     }
 
     void Init()
-    {        
+    {
         spawn = SpawnManager._inst;
-        _monsterQ = new Queue<int>();        
-        if(spawn.spawnPoints.Count > 0)
+        _monsterQ = new Queue<int>();
+
+        if (spawn.spawnPoints.Count > 0)
         {
-            for(int i = 0; i < spawn.spawnPoints.Count; i++)
+            for (int i = 0; i < spawn.spawnPoints.Count; i++)
             {
                 int index = spawn.spawnPoints[i].Index;
-                for(int j = 0; j < spawn.spawnPoints[i].maxSpawnCount; j++)
+                for (int j = 0; j < spawn.spawnPoints[i].maxSpawnCount; j++)
                 {
                     _monsterQ.Enqueue(index);
                 }
@@ -65,12 +66,12 @@ public class AutoRespawnManager : MonoBehaviour
     IEnumerator ReserveSpawn()
     {
         _reserveAmount++;
-        yield return new WaitForSeconds(Random.Range(4, _spawnTime));        
+        yield return new WaitForSeconds(Random.Range(4, _spawnTime));
         int index = _monsterQ.Dequeue();
         //Debug.Log(index);
         GameObject go = spawn.SpawnMonster(index);
 
-        if(go.TryGetComponent(out MonsterController monster))
+        if (go.TryGetComponent(out MonsterController monster))
         {
             Vector3 randPos = new Vector3();
             if (go.TryGetComponent(out NavMeshAgent agent) == false)
@@ -92,13 +93,14 @@ public class AutoRespawnManager : MonoBehaviour
             else
             {
                 //최초 생성 시                  
-                GameObject hud = PoolingManager._inst.InstantiateAPS(1000000, uiHudRoot);
+                GameObject hud = PoolingManager._inst.InstantiateAPS(1000000);
+                hud.SetActive(true);
                 HudController hudctrl = hud.GetComponent<HudController>();
-                monster.SetHud(hudctrl);    
+                monster.SetHud(hudctrl, uiHudRoot);
                 //최초 생성 시 
                 // 미니맵 마크 , HUD 생성 
             }
-           
+
             go.transform.position = randPos;
         }
         _reserveAmount--;
