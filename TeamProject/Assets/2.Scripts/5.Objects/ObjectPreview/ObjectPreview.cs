@@ -57,6 +57,7 @@ public class ObjectPreview : MonoBehaviour
                 m_isDone = true;
                 m_collider.size = new Vector3(1.5f, 1f, 1.5f);
                 gameObject.transform.parent.gameObject.isStatic = true;
+                m_PetCtrl.JobDone();
             }
             if (Input.GetKeyUp(KeyCode.F))
                 m_uiWorkload.UpFKey();
@@ -168,7 +169,8 @@ public class ObjectPreview : MonoBehaviour
     {
         m_isFixed = true;
         m_detectiveAreaObj.layer = LayerMask.NameToLayer("Default");
-        m_collider.size = new Vector3(5f, 1f, 5f);
+        m_collider.size = new Vector3(5f, 1f, 5f);                
+        m_PetCtrl = null;
         SetColor(blue);
     }
 

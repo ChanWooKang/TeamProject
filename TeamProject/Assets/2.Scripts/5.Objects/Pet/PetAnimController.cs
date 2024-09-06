@@ -66,15 +66,16 @@ public abstract class PetAnimController : MonoBehaviour
     //근접 기본 공격
     public void AttackEvent()
     {
-        if (_manager.Movement.CheckCloseTarget(_manager.target.position, _manager.attackRange))
-        {            
-            if (_manager.target.CompareTag("Monster"))
+        if (_manager._targetMon != null)
+        {
+            if (_manager.Movement.CheckCloseTarget(_manager.target.position, _manager.attackRange))
             {
-                _manager.target.GetComponent<MonsterController>().OnDamage(_manager.Stat.Damage, _manager.target);
+                if (_manager.target.CompareTag("Monster"))
+                {
+                    _manager.target.GetComponent<MonsterController>().OnDamage(_manager.Stat.Damage, _manager.target);
+                }
             }
-
         }
-
     }
 
     //공격 애니메이션 종료 시 호출

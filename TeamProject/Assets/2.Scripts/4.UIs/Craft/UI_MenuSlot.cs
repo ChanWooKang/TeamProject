@@ -12,6 +12,7 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     UI_InfoBox m_uiInfoBox;
     UI_CraftDeskInteraction m_uiInteraction;
     
+
     int m_x;
     int m_y;
     int m_weaponIndex;
@@ -80,6 +81,6 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         m_uiInteraction.ReadyToCraftSometing(m_weaponIndex);
         m_uiInteraction.OpenInteractionCraftTable();
         m_uiInfoBox.CloseBox();
-
+        m_uiInteraction.SetPetWork(m_uiInteraction.m_tableCtrl);
     }
 }

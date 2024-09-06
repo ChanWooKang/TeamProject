@@ -8,8 +8,8 @@ using DefineDatas;
 public class UI_CraftDeskInteraction : UI_InteractionBase
 {
     #region [참조]   
-    CraftTableController m_tableCtrl;
-    
+    [HideInInspector] public CraftTableController m_tableCtrl;
+
     #endregion[참조]    
 
 
@@ -41,14 +41,15 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
             }
         }
         else if (m_weaponIndex != 0 & !m_isCraftDone) // 무기를 제작 중
-        {
-            if(m_progressCraft.value < m_progressCraft.maxValue)
+        {            
+            if (m_progressCraft.value < m_progressCraft.maxValue)
             {
                 StartCoroutine(SetProgress());
             }
             else
             {
                 //데스크 위에 무기 생성
+                m_petCtrl.JobDone();
                 m_isCraftDone = true;
                 m_weaponIndex = 0;
                 OpenInteractionCraftTable(m_tableCtrl);
@@ -56,6 +57,8 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
             if (Input.GetKey(KeyCode.F))
             {
                 PressFkey();
+                if (m_petCtrl != null)
+                    m_petCtrl.MoveToObject(m_tableCtrl.transform.position);
             }
             if (Input.GetKeyUp(KeyCode.F))
             {
@@ -84,19 +87,19 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
         }
     }
 
-    new public void OpenInteractionCraftTable (CraftTableController ctrl = null)
+    new public void OpenInteractionCraftTable(CraftTableController ctrl = null)
     {
-        if (ctrl == null)
+        if (ctrl != null)
             m_tableCtrl = ctrl;
         base.OpenInteractionCraftTable(ctrl);
-    }   
+    }
     public override void CloseInteraction()
     {
         CloseMenu();
         gameObject.SetActive(false);
     }
-        
-   public override void OpenMenu()
+
+    public override void OpenMenu()
     {
         m_uiMenuObj.SetActive(true);
         m_uiCraftObj.SetActive(false);
@@ -134,7 +137,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
         m_CancelObj.SetActive(true);
         m_uiCraftObj.SetActive(true);
     }
-      
+
     public override void PressCKey(bool isWeapon)
     {
         m_progressCancel.value += Time.deltaTime;
@@ -155,6 +158,6 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
             }
         }
     }
-   
-   
+
+    
 }

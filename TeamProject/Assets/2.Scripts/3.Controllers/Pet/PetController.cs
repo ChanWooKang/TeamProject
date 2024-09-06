@@ -26,13 +26,15 @@ public class PetController : FSM<PetController>
     //몬스터 상태 체크 및 애니메이션 적용     
     [HideInInspector] public PlayerManager _player;
     [HideInInspector] public eAttackType _attackType;
-    eMonsterState _nowState;
+    [SerializeField] eMonsterState _nowState;
 
     //타겟 관련
     [HideInInspector] public MonsterController _targetMon;
     [HideInInspector] public Transform target;
+    [HideInInspector] public Transform player;
     [HideInInspector] public Vector3 targetPos;
-
+    [HideInInspector] public Vector3? m_workPos = null;
+    [HideInInspector] public bool isworkReady;
     [Header("Datas")]
     //floats
     public float delayTime = 2.0f;
@@ -51,14 +53,14 @@ public class PetController : FSM<PetController>
     public PetMovement Movement { get { return _movement; } }
     public PetStat Stat { get { return m_stat; } }
     public NavMeshAgent Agent { get { return m_agent; } }
-    Vector3? m_targetPos = null;
+    
 
     private void Awake()
     {
         //임시
         InitPet(1000);
         InitState(this, PetStateInit._inst);
-
+        player = GameManagerEx._inst.playeManager.transform;
         //
     }
     private void Update()
@@ -80,8 +82,13 @@ public class PetController : FSM<PetController>
     }
     public void MoveToObject(Vector3 targetPos)
     {
-        m_targetPos = targetPos;
-        StartCoroutine(MovePetToTarget());
+        m_workPos = targetPos;
+        ChangeState(PetStateWork._inst);
+       // StartCoroutine(MovePetToTarget());
+    }
+    public void JobDone()
+    {
+        ChangeState(PetStateIdle._inst);
     }
 
     public void InitPet(int index)
@@ -130,6 +137,25 @@ public class PetController : FSM<PetController>
             }
         }
     }
+    public void AttackFunc()
+    {
+        //플레이어 상태 확인 
+        if (_player.isDead)
+            return;
+        
+
+       
+        State = eMonsterState.ATTACK;
+        isAttack = true;
+    }
+    public void WorkFunc()
+    {
+        if (m_workPos == null)
+            return;
+        m_agent.avoidancePriority = 51;
+        State = eMonsterState.WORK;
+        isworkReady = true;
+    }
     public void BaseNavSetting()
     {
         m_agent.ResetPath();
@@ -155,14 +181,14 @@ public class PetController : FSM<PetController>
 
     IEnumerator MovePetToTarget()
     {
-        while (Vector3.Distance(transform.position, m_targetPos.Value) >= 2)
+        while (Vector3.Distance(transform.position, m_workPos.Value) >= 2)
         {
-            if (m_targetPos != null)
+            if (m_workPos != null)
             {
-                transform.position = Vector3.MoveTowards(transform.position, m_targetPos.Value, m_petInfo.Speed * Time.deltaTime);
+                
             }
         }
-        m_targetPos = null;
+        m_workPos = null;
         yield return null;
     }
 }

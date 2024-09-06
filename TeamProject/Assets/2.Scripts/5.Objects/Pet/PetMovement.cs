@@ -23,13 +23,13 @@ public class PetMovement : MonoBehaviour
         _defPos = transform.position;
     }
 
-    //Patrol 상태에서 다음 이동 위치 계산
+    //Patrol 상태에서 다음 이동 위치 계산 
     public Vector3 GetRandomPos(float range = 10.0f)
     {
         Vector3 randPos = Random.onUnitSphere;
         randPos.y = 0;
         float r = Random.Range(1, range);
-        randPos = _defPos + (randPos * r);
+        randPos = _manager.player.position + (randPos * r);
 
         NavMeshPath path = new NavMeshPath();
         if (_agent.CalculatePath(randPos, path))

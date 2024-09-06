@@ -97,6 +97,7 @@ namespace DefineDatas
         KNOCKBACK,
         DIZZY,
         GETHIT,
+        WORK,
         DIE,
         DISABLE
     }

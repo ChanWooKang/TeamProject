@@ -13,7 +13,7 @@ public abstract class UI_InteractionBase : MonoBehaviour
     [SerializeField] protected GameObject m_uiMenuObj;
     [SerializeField] protected GameObject m_uiMenuSlotPrefab;
     [SerializeField] protected GameObject m_uiWorkloadPrefab;
-    [SerializeField] protected  GameObject m_CancelObj;
+    [SerializeField] protected GameObject m_CancelObj;
     [SerializeField] protected GameObject m_weaponInfoBoxObj;
     [SerializeField] protected GameObject m_noEntrytextBox;
     [SerializeField] protected RectTransform m_startSlot;
@@ -27,20 +27,22 @@ public abstract class UI_InteractionBase : MonoBehaviour
     [SerializeField] protected TextMeshProUGUI m_txtWeaponName;
     #endregion [SerializeField]
 
+    protected PetController m_petCtrl;
+
     protected GameObject m_uiMenuSlotObj;
-   
+
 
     protected List<UI_MenuSlot> m_listUIMenuSlot;
     protected Vector2Int m_maxMenuVolAmount;
 
     protected bool m_isNew = true;
     protected bool m_isCraftDone;
+
     protected int m_weaponIndex = 0;
     protected float m_petWorkWeight;
     protected float m_playerWorkWeight;
-
-    public  void OpenInteractionCraftTable(CraftTableController ctrl)
-    {        
+    public void OpenInteractionCraftTable(CraftTableController ctrl)
+    {
         if (m_weaponIndex == 0 && !m_isCraftDone)
         {
             m_txtPressOrHold.text = "Press";
@@ -68,7 +70,7 @@ public abstract class UI_InteractionBase : MonoBehaviour
 
         CloseMenu();
     }
-    public  void OpenInteractionCraftTable (EnforceAnvilController ctrl)
+    public void OpenInteractionCraftTable(EnforceAnvilController ctrl)
     {
 
     }
@@ -77,15 +79,25 @@ public abstract class UI_InteractionBase : MonoBehaviour
     {
         m_weaponIndex = weaponindex;
     }
-    public void SetPetEntry()
+    public void SetPetEntry(PetController pet, CraftTableController ctCtrl)
     {
         m_noEntrytextBox.SetActive(false);
+
         m_petIcon.enabled = true;
         m_petWorkWeight = 1f;
+        m_petCtrl = pet;
+        if (m_weaponIndex != 0 && !m_isCraftDone)
+            pet.MoveToObject(ctCtrl.transform.position);
         //¿ÃπÃ¡ˆ
+    }
+    public void SetPetWork(CraftTableController ctCtrl)
+    {
+        if (m_petCtrl != null)
+            m_petCtrl.MoveToObject(ctCtrl.transform.position);
     }
     public void SetNoEntry()
     {
+        m_petCtrl = null;
         m_noEntrytextBox.SetActive(true);
         m_petIcon.enabled = false;
         m_petWorkWeight = 0;

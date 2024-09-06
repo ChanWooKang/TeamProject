@@ -29,8 +29,8 @@ public class CraftTableController : MonoBehaviour
                 if (m_petCtrl == null && m_interaction != null)
                 {
                     m_petCtrl = other.gameObject.GetComponent<PetController>();
-                    m_petCtrl.MoveToObject(gameObject.transform.position);
-                    m_interaction.SetPetEntry();
+                   // m_petCtrl.MoveToObject(gameObject.transform.position);
+                    m_interaction.SetPetEntry(m_petCtrl, this);
                 }
                 else
                     return;               
@@ -56,8 +56,8 @@ public class CraftTableController : MonoBehaviour
             if (m_petCtrl == null && m_interaction != null)
             {
                 m_petCtrl = other.gameObject.GetComponent<PetController>();
-                m_petCtrl.MoveToObject(gameObject.transform.position);
-                m_interaction.SetPetEntry();
+                //     m_petCtrl.MoveToObject(gameObject.transform.position);
+                m_interaction.SetPetEntry(m_petCtrl, this);
             }
             else
                 return;
@@ -70,7 +70,7 @@ public class CraftTableController : MonoBehaviour
             m_interaction.CloseInteraction();
         }
         if (m_objPreview.IsDone && other.CompareTag("Pet"))
-        {            
+        {                       
             m_interaction.SetNoEntry();
             m_petCtrl = null;   
         }

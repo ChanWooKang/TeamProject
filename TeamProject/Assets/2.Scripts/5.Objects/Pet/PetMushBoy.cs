@@ -59,6 +59,12 @@ public class PetMushBoy : PetAnimController
             case eMonsterState.DIZZY:
                 _animator.SetTrigger(_animIDDizzy);
                 break;
+            case eMonsterState.WORK:
+                if (!_manager.isworkReady)
+                    _animator.CrossFade("Walk", 0.1f);
+                else
+                    WorkAction();
+                break;
             case eMonsterState.DIE:
                 _animator.CrossFade("Die", 0.1f);
                 break;
@@ -66,7 +72,7 @@ public class PetMushBoy : PetAnimController
     }
 
 
-    public void AttackAction()
+    void AttackAction()
     {
         string trigger = "";
         switch (_manager._attackType)
@@ -86,6 +92,11 @@ public class PetMushBoy : PetAnimController
                 _animator.SetTrigger(_animIDBuff);
                 break;
         }
+    }
+    void WorkAction()
+    {
+        string trigger = "KickAttack";
+        _animator.SetTrigger(trigger);
     }
 
 }

@@ -26,8 +26,7 @@ public class PetStatePatrol : TSingleton<PetStatePatrol>,IFSMState<PetController
         }
 
         if (m.target != null)
-        {
-            //플레이어 타겟 설정을 나중에 체크 
+        {           
             //if(m._movement.CheckCloseTarget(m.target.position, m.Stat.Sight))
             if (m.Movement.CheckCloseTarget(m.target.position, m.Stat.AttackRange)) // range 수정할것
             {
