@@ -25,20 +25,19 @@ public class PetStatePatrol : TSingleton<PetStatePatrol>,IFSMState<PetController
             return;
         }
 
-        if (m.target != null)
-        {           
-            //if(m._movement.CheckCloseTarget(m.target.position, m.Stat.Sight))
+        if (m._targetMon != null) //  타겟이 있다.
+        {                     
             if (m.Movement.CheckCloseTarget(m.target.position, m.Stat.AttackRange)) // range 수정할것
             {
                 m.transform.LookAt(m.target);
-               // m.ChangeState(MonsterStateChase._inst);
+                // m.ChangeState(MonsterStateChase._inst);
                 return;
             }
             else
             {
                 if (m.Movement.CheckCloseTarget(m.targetPos, 0.5f))
                 {
-              //      m.ChangeState(MonsterStateIdle._inst);
+                    m.ChangeState(PetStateIdle._inst);
                     return;
                 }
                 else
@@ -48,18 +47,7 @@ public class PetStatePatrol : TSingleton<PetStatePatrol>,IFSMState<PetController
             }
         }
         else
-        {
-            if (GameManagerEx._inst.playeManager.isDead == false)
-            {
-                //m.Stat.Sight
-                //if (m._movement.CheckCloseTarget(target.position, m.Stat.Sight))
-               // if (m.Movement.CheckCloseTarget(target.position, m.Stat.Sight))
-               // {
-               //     m.SetTarget(target, true);
-               //     m.transform.LookAt(target);
-               ////     m.ChangeState(MonsterStateSense._inst);
-               // }
-            }
+        {            
             if (m.Movement.CheckCloseTarget(m.targetPos, 0.5f))
             {
                 //쿨타임 돌리고
@@ -67,7 +55,7 @@ public class PetStatePatrol : TSingleton<PetStatePatrol>,IFSMState<PetController
                  m.ChangeState(PetStateIdle._inst);
             }
             else
-            {
+            {                
                 m.Movement.MoveFunc(m.targetPos);
             }
         }
