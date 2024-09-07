@@ -22,6 +22,7 @@ public class AutoRespawnManager : MonoBehaviour
         Init();
         spawn.OnSpawnEvent -= AddMonsterCount;
         spawn.OnSpawnEvent += AddMonsterCount;
+        
     }
 
     private void Update()

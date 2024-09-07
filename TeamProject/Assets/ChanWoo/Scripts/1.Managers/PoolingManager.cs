@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,7 @@ public class PoolingManager : TSingleton<PoolingManager>
     public Dictionary<int, Dictionary<int, GameObject>> _pooledUnitsByIndex;
 
 
-
+    public Transform _hudRootTransform;
 
 
     public void LoadObjectPool()
@@ -39,7 +40,26 @@ public class PoolingManager : TSingleton<PoolingManager>
             _pooledUnitsByName.Add(_poolingUnits[i].name, objDatas);
         }
     }
+    public void AddPetPool(PetController pet)
+    {
+        int offsetNum = 100;
+        Array.Resize(ref _poolingUnits, _poolingUnits.Length + 1);
+        int lastIndex = _poolingUnits.Length - 1;
+        _poolingUnits[lastIndex] = new PoolUnit();
+        LowBase table = Managers._table.Get(LowDataType.PetTable);
+        int petIndex = table.Find("NameKr", pet.PetInfo.NameKr);
+        string nameKr = table.ToStr(petIndex, "NameKr");
+        _poolingUnits[lastIndex].index = petIndex + offsetNum;
+        _poolingUnits[lastIndex].amount = 1;
+        _poolingUnits[lastIndex].name = nameKr;
+        _poolingUnits[lastIndex].prefab = pet.gameObject;
+        _poolingUnits[lastIndex].type = PoolType.Pet;
 
+        GameObject hud = InstantiateAPS(1000000);
+        hud.SetActive(true);
+        HudController hudctrl = hud.GetComponent<HudController>();
+        pet.SetHud(hudctrl, _hudRootTransform);
+    }
     void SettingPoolingUnits(int index)
     {
         if (_poolingUnits[index].amount > 0)
@@ -58,6 +78,7 @@ public class PoolingManager : TSingleton<PoolingManager>
     GameObject MakeObject(GameObject prefab, Transform parent = null)
     {
         GameObject newItem = (GameObject)Instantiate(prefab);
+
         SetActiveAndParent(newItem, parent);
         return newItem;
     }
@@ -69,6 +90,11 @@ public class PoolingManager : TSingleton<PoolingManager>
             newItem.transform.SetParent(transform);
         else
             newItem.transform.SetParent(parent);
+
+        if (newItem.layer == LayerMask.NameToLayer("UI") && newItem.transform.parent != _hudRootTransform)
+        {
+            newItem.transform.SetParent(_hudRootTransform);
+        }
     }
 
     GameObject GetPooledItem(int index, Transform parent = null)
@@ -77,8 +103,16 @@ public class PoolingManager : TSingleton<PoolingManager>
         {
             foreach (var obj in _pooledUnitsByIndex[index])
             {
-                if (obj.Value.activeInHierarchy == false)
-                    return obj.Value;
+                if (obj.Value.TryGetComponent(out HudController hud))
+                {
+                    if (!hud.IsInit())
+                        return obj.Value;
+                }
+                else
+                {
+                    if (obj.Value.activeInHierarchy == false)
+                        return obj.Value;
+                }
             }
 
             //추가 생성

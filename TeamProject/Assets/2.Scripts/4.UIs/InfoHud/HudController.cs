@@ -68,4 +68,11 @@ public class HudController : MonoBehaviour
         else
             return false;
     }
+    public bool IsInit()
+    {
+        if (m_targetPos == null)
+            return false;
+        else
+            return true;
+    }
 }

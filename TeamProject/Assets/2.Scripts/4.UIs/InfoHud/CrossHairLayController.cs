@@ -9,20 +9,37 @@ public class CrossHairLayController : MonoBehaviour
     [SerializeField]
     RectTransform m_infoBoxRoot;
 
-
+    int targetLayer;
+    bool targetRay;
     public LayerMask m_monsterTarget;
+
     RaycastHit m_hit;
+
+    private void Start()
+    {
+        targetLayer = (1 << LayerMask.NameToLayer("Monster")); //+ (1 << LayerMask.NameToLayer("Pet")));
+    }
 
     private void Update()
     {
         Vector3 rayOrigin = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
         Vector3 rayDir = Camera.main.transform.forward;
-
-        if (Physics.Raycast(rayOrigin, rayDir, out m_hit, Mathf.Infinity, m_monsterTarget))
+        RaycastHit hit;
+        Debug.DrawRay(rayOrigin, rayDir * 100f, Color.red);
+        targetRay = Physics.Raycast(rayOrigin, rayDir, out hit, Mathf.Infinity, targetLayer);
+        if (targetRay)
         {
-            MonsterController mon = m_hit.transform.gameObject.GetComponent<MonsterController>();
-            if (mon != null)
-                mon.ShowHud();
+
+            if (hit.collider.gameObject.TryGetComponent(out MonsterController mon))
+            {
+                if (mon != null)
+                    mon.ShowHud();
+            }
+            else if (hit.collider.gameObject.TryGetComponent(out PetController pet))
+            {
+                if (pet != null)
+                    pet.ShowHud();
+            }
         }
     }
 

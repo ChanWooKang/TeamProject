@@ -48,7 +48,7 @@ public class PetStatePatrol : TSingleton<PetStatePatrol>,IFSMState<PetController
         }
         else
         {            
-            if (m.Movement.CheckCloseTarget(m.targetPos, 0.5f))
+            if (m.Movement.CheckCloseTarget(m.targetPos, 0.5f) || m.Movement.CheckCloseTarget(m.player.position, 1.2f))
             {
                 //쿨타임 돌리고
                 //랜덤위치 받아오기                

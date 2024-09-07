@@ -34,6 +34,7 @@ namespace DefineDatas
     public enum PoolType
     {
         Monster,
+        Pet,
         DropItem,
         Effect,
         UI

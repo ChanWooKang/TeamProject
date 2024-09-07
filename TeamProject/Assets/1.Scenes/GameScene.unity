@@ -770,9 +770,10 @@ MonoBehaviour:
     name: HudInfoBox
     type: 3
     prefab: {fileID: 4746197707204577379, guid: a0c11ace034710e4ea9a99126ce9b80c, type: 3}
-    amount: 3
+    amount: 4
   _defPoolAmount: 0
   _canPoolExpand: 1
+  _hudRootTransform: {fileID: 418621264}
 --- !u!4 &1646067151
 Transform:
   m_ObjectHideFlags: 0
@@ -1092,6 +1093,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &2036698801 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3102450647239388547, guid: bb17c5ee9bedde8498b3f42099a14243, type: 3}
+  m_PrefabInstance: {fileID: 8254733477437266501}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2065605972
 GameObject:
   m_ObjectHideFlags: 0
@@ -23934,6 +23940,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestPetBall
       objectReference: {fileID: 0}
+    - target: {fileID: 5254799121361199108, guid: 816530791354e104a9053b0623c3e58a, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 816530791354e104a9053b0623c3e58a, type: 3}
 --- !u!114 &5573323756087705600
@@ -26729,6 +26739,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1034388949260673417, guid: bb17c5ee9bedde8498b3f42099a14243, type: 3}
+      propertyPath: _hudTransform
+      value: 
+      objectReference: {fileID: 2036698801}
     - target: {fileID: 1034388949260673421, guid: bb17c5ee9bedde8498b3f42099a14243, type: 3}
       propertyPath: m_Name
       value: TestPetMushBoy

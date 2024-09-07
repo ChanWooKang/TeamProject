@@ -9,6 +9,7 @@ public class PetStateIdle : TSingleton<PetStateIdle>, IFSMState<PetController>
     float cntTime;
     public void Enter(PetController m)
     {
+        m.Agent.ResetPath();
         m.Agent.speed = m.Stat.MoveSpeed;
         m.State = eMonsterState.IDLE;
         cntTime = 0;

@@ -27,15 +27,17 @@ public class PetController : FSM<PetController>
     [HideInInspector] public PlayerManager _player;
     [HideInInspector] public eAttackType _attackType;
     [SerializeField] eMonsterState _nowState;
-
+    public Transform _hudTransform;
     //타겟 관련
     [HideInInspector] public MonsterController _targetMon;
     [HideInInspector] public Transform target;
     [HideInInspector] public Transform player;
+    
     [HideInInspector] public Vector3 targetPos;
     [HideInInspector] public Vector3? m_workPos = null;
     [HideInInspector] public bool isworkReady;
     [Header("Datas")]
+    
     //floats
     public float delayTime = 2.0f;
     public float attackRange;
@@ -60,8 +62,14 @@ public class PetController : FSM<PetController>
         //임시
         InitPet(1000);
         InitState(this, PetStateInit._inst);
-        player = GameManagerEx._inst.playeManager.transform;
+        player = GameManagerEx._inst.playeManager.transform;        
+       
         //
+    }
+    private void Start()
+    {
+        //임시
+        PoolingManager._inst.AddPetPool(this);
     }
     private void Update()
     {
@@ -137,6 +145,17 @@ public class PetController : FSM<PetController>
             }
         }
     }
+    public void SetHud(HudController hud, Transform hudRoot)
+    {
+        _hudCtrl = hud;
+        _hudCtrl.gameObject.transform.SetParent(hudRoot);
+        _hudCtrl.InitHud(m_petInfo.NameKr, Stat.Level, _hudTransform, Color.green);
+    }
+    public void ShowHud()
+    {
+        if (_hudCtrl != null)
+            _hudCtrl.DisPlay(Stat.HP / Stat.MaxHP);
+    }
     public void AttackFunc()
     {
         //플레이어 상태 확인 
@@ -178,17 +197,5 @@ public class PetController : FSM<PetController>
     }
 
 
-
-    IEnumerator MovePetToTarget()
-    {
-        while (Vector3.Distance(transform.position, m_workPos.Value) >= 2)
-        {
-            if (m_workPos != null)
-            {
-                
-            }
-        }
-        m_workPos = null;
-        yield return null;
-    }
+    
 }
