@@ -8,12 +8,9 @@ using DefineDatas;
 
 public abstract class UI_InteractionBase : MonoBehaviour
 {
-
     //юс╫ц
     [SerializeField] public GameObject m_uiMenuSlotPrefab;
     [SerializeField] public GameObject m_uiWorkloadPrefab;
-
-
     #region [ChildComponent]
     protected GameObject m_uiCraftObj;
     protected GameObject m_uiMenuObj;
@@ -157,18 +154,21 @@ public abstract class UI_InteractionBase : MonoBehaviour
     public void Init(GameObject menuSlot, GameObject workload)
     {
         m_weaponInfoBoxObj = transform.GetChild(0).gameObject;
+        m_txtWeaponName = transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+
         m_uiCraftObj = transform.GetChild(1).gameObject;
-        m_CancelObj = transform.GetChild(2).gameObject;
-        m_uiMenuObj = transform.GetChild(3).gameObject;
         m_noEntrytextBox = transform.GetChild(1).GetChild(1).GetChild(4).GetChild(0).gameObject;
-        m_startSlot = transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<RectTransform>();
         m_progressCraft = transform.GetChild(1).GetChild(1).GetComponent<Slider>();
-        m_progressCancel = transform.GetChild(2).GetChild(1).GetComponent<Slider>();
         m_petIcon = transform.GetChild(1).GetChild(1).GetChild(4).GetChild(1).GetComponent<Image>();
         m_txtPressOrHold = transform.GetChild(1).GetChild(1).GetChild(2).GetComponent<TextMeshProUGUI>();
-        m_txtMenuName = transform.GetChild(3).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         m_txtMenuOrCraft = transform.GetChild(1).GetChild(1).GetChild(3).GetComponent<TextMeshProUGUI>();
-        m_txtWeaponName = transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+
+        m_CancelObj = transform.GetChild(2).gameObject;
+        m_progressCancel = transform.GetChild(2).GetChild(1).GetComponent<Slider>();
+
+        m_uiMenuObj = transform.GetChild(3).gameObject;
+        m_startSlot = transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<RectTransform>();
+        m_txtMenuName = transform.GetChild(3).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
 
         m_uiMenuSlotPrefab = menuSlot;
         m_uiWorkloadPrefab = workload;

@@ -142,7 +142,7 @@ public class PetController : FSM<PetController>
     {
         _hudCtrl = hud;
         _hudCtrl.gameObject.transform.SetParent(hudRoot);
-        _hudCtrl.InitHud(m_petInfo.NameKr, Stat.Level, _hudTransform, Color.green);
+        _hudCtrl.InitHud(m_petInfo.NameKr, Stat.Level, _hudTransform, Color.green, true);
     }
     public void ShowHud()
     {

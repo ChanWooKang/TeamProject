@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ObjectPreview : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class ObjectPreview : MonoBehaviour
     UI_Workload m_uiWorkload;
     Architecture m_architectureInfo;
     BoxCollider m_collider;
+    NavMeshObstacle m_navObstacle;
     #endregion [ÂüÁ¶]
 
     [SerializeField]
@@ -42,11 +44,14 @@ public class ObjectPreview : MonoBehaviour
         m_isFixed = false;
         m_isDone = false;
         m_collider = GetComponent<BoxCollider>();
+        m_navObstacle = GetComponent<NavMeshObstacle>();
+        m_navObstacle.enabled = false;
     }
 
     void Update()
     {
-        ChangeColor();
+        if (!m_isFixed)
+            ChangeColor();
         if (m_uiWorkload != null && m_uiWorkload.isActiveAndEnabled)
         {
             if (m_uiWorkload.PressFkey())
@@ -119,7 +124,7 @@ public class ObjectPreview : MonoBehaviour
                     break;
                 case "Pet":
                     if (m_PetCtrl == null)
-                    {                       
+                    {
                         m_PetCtrl = other.gameObject.GetComponent<PetController>();
                         m_PetCtrl.MoveToObject(gameObject.transform.position);
                         m_uiWorkload.SetPetWorkEntry(m_PetCtrl.PetInfo.WorkAbility, m_PetCtrl.PetInfo.NameKr);
@@ -136,7 +141,7 @@ public class ObjectPreview : MonoBehaviour
             {
                 m_uiWorkload.OpenUI();
             }
-        }       
+        }
     }
     private void OnTriggerExit(Collider other)
     {
@@ -150,7 +155,7 @@ public class ObjectPreview : MonoBehaviour
                 m_uiWorkload.CloseUI();
             }
         }
-        if(m_isFixed && other.CompareTag("Pet"))
+        if (m_isFixed && other.CompareTag("Pet"))
         {
             if (m_uiWorkload != null)
             {
@@ -158,7 +163,7 @@ public class ObjectPreview : MonoBehaviour
                 m_PetCtrl = null;
             }
         }
-        
+
     }
 
     public bool isBuildable()
@@ -169,8 +174,9 @@ public class ObjectPreview : MonoBehaviour
     {
         m_isFixed = true;
         m_detectiveAreaObj.layer = LayerMask.NameToLayer("Default");
-        m_collider.size = new Vector3(5f, 1f, 5f);                
+        m_collider.size = new Vector3(5f, 1f, 5f);
         m_PetCtrl = null;
+        m_navObstacle.enabled = true;
         SetColor(blue);
     }
 

@@ -131,7 +131,7 @@ public class MonsterController : FSM<MonsterController>
     {
         _hudCtrl = hud;
         _hudCtrl.gameObject.transform.SetParent(hudRoot);
-        _hudCtrl.InitHud("¹ö¼¸µ¹ÀÌ", Stat.Level, _hudTransform, Color.red);
+        _hudCtrl.InitHud("¹ö¼¸µ¹ÀÌ", Stat.Level, _hudTransform, Color.red,false );
     }
     public void ShowHud()
     {       
