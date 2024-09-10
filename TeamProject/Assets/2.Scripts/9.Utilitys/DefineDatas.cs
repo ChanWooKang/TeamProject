@@ -129,7 +129,12 @@ namespace DefineDatas
         AttackEnd
 
     }
+    public enum InteractionType
+    {
+        Craft,
+        EnforceAnvil,
 
+    }
 
     public interface IFSMState<T>
     {

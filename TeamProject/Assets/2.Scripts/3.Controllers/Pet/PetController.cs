@@ -167,6 +167,7 @@ public class PetController : FSM<PetController>
         m_agent.avoidancePriority = 51;
         State = eMonsterState.WORK;
         isworkReady = true;
+        
     }
     public void BaseNavSetting()
     {

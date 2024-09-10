@@ -955,7 +955,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ca9c159f1840354ba6d17732f8ef9b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_uiInteractionObj: {fileID: 0}
+  m_uiInteractionObj: {fileID: 2671872734054659491, guid: df6f02719b63fcf4abcf05ebbc914772, type: 3}
 --- !u!1001 &1940408700
 PrefabInstance:
   m_ObjectHideFlags: 0

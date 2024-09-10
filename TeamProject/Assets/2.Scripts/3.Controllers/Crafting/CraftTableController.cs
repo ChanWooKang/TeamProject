@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DefineDatas;
 public class CraftTableController : MonoBehaviour
 {
     [SerializeField] GameObject m_uiInteractionObj;
@@ -17,6 +17,8 @@ public class CraftTableController : MonoBehaviour
                 GameObject ui = Instantiate(m_uiInteractionObj);
                 Canvas canvas = ui.GetComponent<Canvas>();
                 canvas.worldCamera = GameObject.FindGameObjectWithTag("UICamera").GetComponent<Camera>();
+                UI_InterectionManager interactionM = ui.GetComponent<UI_InterectionManager>();
+                interactionM.InitComponent(InteractionType.Craft);
                 m_interaction = ui.GetComponent<UI_CraftDeskInteraction>();
                 m_interaction.OpenInteractionCraftTable(this);
             }
@@ -29,13 +31,13 @@ public class CraftTableController : MonoBehaviour
                 if (m_petCtrl == null && m_interaction != null)
                 {
                     m_petCtrl = other.gameObject.GetComponent<PetController>();
-                   // m_petCtrl.MoveToObject(gameObject.transform.position);
+                    // m_petCtrl.MoveToObject(gameObject.transform.position);
                     m_interaction.SetPetEntry(m_petCtrl, this);
                 }
                 else
-                    return;               
+                    return;
             }
-        }        
+        }
     }
     private void OnTriggerStay(Collider other)
     {
@@ -46,17 +48,19 @@ public class CraftTableController : MonoBehaviour
                 GameObject ui = Instantiate(m_uiInteractionObj);
                 Canvas canvas = ui.GetComponent<Canvas>();
                 canvas.worldCamera = GameObject.FindGameObjectWithTag("UICamera").GetComponent<Camera>();
+                UI_InterectionManager interactionM = ui.GetComponent<UI_InterectionManager>();
+                interactionM.InitComponent(InteractionType.Craft);
                 m_interaction = ui.GetComponent<UI_CraftDeskInteraction>();
                 m_interaction.OpenInteractionCraftTable(this);
             }
-        }    
-        
-        if(m_objPreview.IsDone && other.CompareTag("Pet"))
+        }
+
+        if (m_objPreview.IsDone && other.CompareTag("Pet"))
         {
             if (m_petCtrl == null && m_interaction != null)
             {
                 m_petCtrl = other.gameObject.GetComponent<PetController>();
-                //     m_petCtrl.MoveToObject(gameObject.transform.position);
+                // m_petCtrl.MoveToObject(gameObject.transform.position);
                 m_interaction.SetPetEntry(m_petCtrl, this);
             }
             else
@@ -64,16 +68,16 @@ public class CraftTableController : MonoBehaviour
         }
     }
     private void OnTriggerExit(Collider other)
-    {       
+    {
         if (m_objPreview.IsDone && other.CompareTag("Player") && m_interaction != null)
         {
             m_interaction.CloseInteraction();
         }
         if (m_objPreview.IsDone && other.CompareTag("Pet"))
-        {                       
+        {
             m_interaction.SetNoEntry();
-            m_petCtrl = null;   
+            m_petCtrl = null;
         }
     }
-   
+
 }

@@ -8,24 +8,29 @@ using DefineDatas;
 
 public abstract class UI_InteractionBase : MonoBehaviour
 {
-    #region [SerializeField]
-    [SerializeField] protected GameObject m_uiCraftObj;
-    [SerializeField] protected GameObject m_uiMenuObj;
-    [SerializeField] protected GameObject m_uiMenuSlotPrefab;
-    [SerializeField] protected GameObject m_uiWorkloadPrefab;
-    [SerializeField] protected GameObject m_CancelObj;
-    [SerializeField] protected GameObject m_weaponInfoBoxObj;
-    [SerializeField] protected GameObject m_noEntrytextBox;
-    [SerializeField] protected RectTransform m_startSlot;
-    [SerializeField] protected Slider m_progressCraft;
-    [SerializeField] protected Slider m_progressCancel;
-    [SerializeField] protected Image m_petIcon;
 
-    [SerializeField] protected TextMeshProUGUI m_txtPressOrHold;
-    [SerializeField] protected TextMeshProUGUI m_txtMenuName;
-    [SerializeField] protected TextMeshProUGUI m_txtMenuOrCraft;
-    [SerializeField] protected TextMeshProUGUI m_txtWeaponName;
-    #endregion [SerializeField]
+    //юс╫ц
+    [SerializeField] public GameObject m_uiMenuSlotPrefab;
+    [SerializeField] public GameObject m_uiWorkloadPrefab;
+
+
+    #region [ChildComponent]
+    protected GameObject m_uiCraftObj;
+    protected GameObject m_uiMenuObj;
+   
+    protected GameObject m_CancelObj;
+    protected GameObject m_weaponInfoBoxObj;
+    protected GameObject m_noEntrytextBox;
+    protected RectTransform m_startSlot;
+    protected Slider m_progressCraft;
+    protected Slider m_progressCancel;
+    protected Image m_petIcon;
+
+    protected TextMeshProUGUI m_txtPressOrHold;
+    protected TextMeshProUGUI m_txtMenuName;
+    protected TextMeshProUGUI m_txtMenuOrCraft;
+    protected TextMeshProUGUI m_txtWeaponName;
+    #endregion [ChildComponent]
 
     protected PetController m_petCtrl;
 
@@ -41,6 +46,7 @@ public abstract class UI_InteractionBase : MonoBehaviour
     protected int m_weaponIndex = 0;
     protected float m_petWorkWeight;
     protected float m_playerWorkWeight;
+   
     public void OpenInteractionCraftTable(CraftTableController ctrl)
     {
         if (m_weaponIndex == 0 && !m_isCraftDone)
@@ -147,5 +153,24 @@ public abstract class UI_InteractionBase : MonoBehaviour
 
         yield return null;
     }
+    
+    public void Init(GameObject menuSlot, GameObject workload)
+    {
+        m_weaponInfoBoxObj = transform.GetChild(0).gameObject;
+        m_uiCraftObj = transform.GetChild(1).gameObject;
+        m_CancelObj = transform.GetChild(2).gameObject;
+        m_uiMenuObj = transform.GetChild(3).gameObject;
+        m_noEntrytextBox = transform.GetChild(1).GetChild(1).GetChild(4).GetChild(0).gameObject;
+        m_startSlot = transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<RectTransform>();
+        m_progressCraft = transform.GetChild(1).GetChild(1).GetComponent<Slider>();
+        m_progressCancel = transform.GetChild(2).GetChild(1).GetComponent<Slider>();
+        m_petIcon = transform.GetChild(1).GetChild(1).GetChild(4).GetChild(1).GetComponent<Image>();
+        m_txtPressOrHold = transform.GetChild(1).GetChild(1).GetChild(2).GetComponent<TextMeshProUGUI>();
+        m_txtMenuName = transform.GetChild(3).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        m_txtMenuOrCraft = transform.GetChild(1).GetChild(1).GetChild(3).GetComponent<TextMeshProUGUI>();
+        m_txtWeaponName = transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
 
+        m_uiMenuSlotPrefab = menuSlot;
+        m_uiWorkloadPrefab = workload;
+    }
 }
