@@ -32,12 +32,12 @@ public class PetController : FSM<PetController>
     [HideInInspector] public MonsterController _targetMon;
     [HideInInspector] public Transform target;
     [HideInInspector] public Transform player;
-    
+
     [HideInInspector] public Vector3 targetPos;
     [HideInInspector] public Vector3? m_workPos = null;
     [HideInInspector] public bool isworkReady;
     [Header("Datas")]
-    
+
     //floats
     public float delayTime = 2.0f;
     public float attackRange;
@@ -55,15 +55,15 @@ public class PetController : FSM<PetController>
     public PetMovement Movement { get { return _movement; } }
     public PetStat Stat { get { return m_stat; } }
     public NavMeshAgent Agent { get { return m_agent; } }
-    
+
 
     private void Awake()
     {
         //임시
         InitPet(1000);
         InitState(this, PetStateInit._inst);
-        player = GameManagerEx._inst.playeManager.transform;        
-       
+        player = GameManagerEx._inst.playeManager.transform;
+
         //
     }
     private void Start()
@@ -92,7 +92,7 @@ public class PetController : FSM<PetController>
     {
         m_workPos = targetPos;
         ChangeState(PetStateWork._inst);
-       // StartCoroutine(MovePetToTarget());
+        // StartCoroutine(MovePetToTarget());
     }
     public void JobDone()
     {
@@ -132,18 +132,11 @@ public class PetController : FSM<PetController>
                 break;
         }
     }
-    public void SetTarget(Transform attacker, bool isPlayer = true)
+    public void SetTarget(Transform attacker)
     {
         target = attacker;
-
-        if (isPlayer)
-        {
-            if (!GameManagerEx._inst.playeManager.isDead)
-            {
-                if (_player == null)
-                    _player = GameManagerEx._inst.playeManager;
-            }
-        }
+        if (target != null)
+            _targetMon = target.GetComponent<MonsterController>();
     }
     public void SetHud(HudController hud, Transform hudRoot)
     {
@@ -161,9 +154,9 @@ public class PetController : FSM<PetController>
         //플레이어 상태 확인 
         if (_player.isDead)
             return;
-        
 
-       
+
+
         State = eMonsterState.ATTACK;
         isAttack = true;
     }
@@ -197,5 +190,5 @@ public class PetController : FSM<PetController>
     }
 
 
-    
+
 }

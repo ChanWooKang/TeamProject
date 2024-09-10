@@ -29,9 +29,9 @@ public class PetStateIdle : TSingleton<PetStateIdle>, IFSMState<PetController>
             {
                 if (m.target != null)
                 {
-                    if (m.Movement.CheckCloseTarget(m.target.position, m.Stat.AttackRange))
+                    if (m.Movement.CheckCloseTarget(m.target.position, m.Stat.Sight))
                     {
-                      //  m.ChangeState(MonsterStateChase._inst);
+                        m.ChangeState(PetStateChase._inst);
                         return;
                     }
                 }
