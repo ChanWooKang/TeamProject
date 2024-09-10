@@ -114,20 +114,20 @@ namespace DefineDatas
 
     public enum ePlayerAnimParams
     {
-        xDir,
+        xDir     = 0,
         yDir,
         Speed,
+        MotionSpeed,
         Ground,
         Jump,
-        FreeFall,
-        MotionSpeed,        
+        FreeFall,              
         Aim,
+        Fire,
+        WeaponType,
         Equip,
         Disarm,
-        WeaponType,
-        Fire,
+        Charge,
         AttackEnd
-
     }
 
 

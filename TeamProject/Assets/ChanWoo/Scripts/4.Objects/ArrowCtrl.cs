@@ -10,6 +10,8 @@ public class ArrowCtrl : MonoBehaviour
 
     public void Init()
     {
+
+
         _rigid = GetComponent<Rigidbody>();
         _rigid.isKinematic = true;
     }

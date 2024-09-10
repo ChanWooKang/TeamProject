@@ -20,7 +20,7 @@ public class InventoryManager : TSingleton<InventoryManager>
     public Dictionary<int, Sprite> Dict_itemSprite;
     public List<ItemSprite> itemSprites;
     public List<int> itemNames;
-    PlayerManager playerManager;
+    //PlayerManager playerManager;
 
     public static bool ActiveChangeEquip = false;
     public int itemCount;
@@ -57,6 +57,8 @@ public class InventoryManager : TSingleton<InventoryManager>
         invenUI.Init();
         equipUI.Init();
         SetDictionary();
+        AddInvenItem(Dict_Item[200]);
+        AddInvenItem(Dict_Item[201]);
         AddInvenItem(Dict_Item[202]);
 
     }
@@ -359,24 +361,22 @@ public class InventoryManager : TSingleton<InventoryManager>
 
 
     //SlotIndex 로 무기 핫키 출력 1 2 3 4
-    public int GetActiveWeaponIndex(int slotIndex, PlayerManager manager = null)
+    public int GetActiveWeaponIndex(int slotIndex)
     {
-        if (playerManager == null)
-            playerManager = manager;
 
         UI_EquipSlot data = equipUI.GetEquipData(slotIndex);
         if (data == null)
         {
             // 비 무장으로 전환
             Debug.Log("인벤토리매니저 : 비무장");
-            return -1;
+            return 0;
         }
         else
         {
             if (data.item == null)
             {
                 Debug.Log("인벤토리매니저 : 아이템 정보 없음");
-                return -1;
+                return 0;
             }
             else
             {

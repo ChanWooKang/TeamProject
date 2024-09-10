@@ -10,8 +10,8 @@ public class MonsterStatePatrol : TSingleton<MonsterStatePatrol>, IFSMState<Mons
     {        
         m.Agent.speed = m.Stat.MoveSpeed;
         m.Agent.avoidancePriority = 47;       
-        m.State = eMonsterState.PATROL;
-        target = GameManagerEx._inst.playeManager.transform;
+        m.State = eMonsterState.PATROL;        
+        target = GameManagerEx._inst.playerManager.transform;
 
     }
 
@@ -49,17 +49,17 @@ public class MonsterStatePatrol : TSingleton<MonsterStatePatrol>, IFSMState<Mons
         }
         else
         {
-            if(GameManagerEx._inst.playeManager.isDead == false)
+            if (GameManagerEx._inst.playerManager.isDead == false)
             {
                 //m.Stat.Sight
                 //if (m._movement.CheckCloseTarget(target.position, m.Stat.Sight))
                 if (m._movement.CheckCloseTarget(target.position, m.Stat.Sight))
-                {                    
-                    m.SetTarget(target,true);
+                {
+                    m.SetTarget(target, true);
                     m.transform.LookAt(target);
                     m.ChangeState(MonsterStateSense._inst);
-                }                
-            }            
+                }
+            }
             if (m._movement.CheckCloseTarget(m.targetPos, 0.5f))
             {
                 //쿨타임 돌리고

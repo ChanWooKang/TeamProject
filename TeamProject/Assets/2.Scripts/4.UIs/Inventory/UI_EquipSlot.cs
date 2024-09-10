@@ -68,8 +68,7 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right)
-        {
-            Debug.Log("1");
+        {            
             if (item != null)
             {
                 
