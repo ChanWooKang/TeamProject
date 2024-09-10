@@ -63,7 +63,6 @@ public class PetController : FSM<PetController>
         InitPet(1000);
         InitState(this, PetStateInit._inst);
         player = GameManagerEx._inst.playerManager.transform;
-
         //
     }
     private void Start()
