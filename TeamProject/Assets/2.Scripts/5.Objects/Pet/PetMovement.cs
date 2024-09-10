@@ -24,7 +24,7 @@ public class PetMovement : MonoBehaviour
     }
 
     //Patrol 상태에서 다음 이동 위치 계산 
-    public Vector3 GetRandomPos(float range = 10.0f)
+    public Vector3 GetRandomPos(float range = 5.0f)
     {
         Vector3 randPos = Random.onUnitSphere;
         randPos.y = 0;

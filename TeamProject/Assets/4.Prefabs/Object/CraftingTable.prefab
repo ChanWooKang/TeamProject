@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 1436622279608546039}
   - component: {fileID: 1436622279608546043}
   - component: {fileID: 8264041299077969412}
+  - component: {fileID: 6794767923316338059}
   m_Layer: 0
   m_Name: model
   m_TagString: Interact
@@ -211,6 +212,22 @@ MonoBehaviour:
   objID: 0
   type: 0
   isNPC: 0
+--- !u!208 &6794767923316338059
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436622279608546042}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &1436622280055881262
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ public class PetStateReturn : TSingleton<PetStateReturn>, IFSMState<PetControlle
     {
         if (m.Movement.CheckCloseTarget(m.Movement._offsetPos, 0.5f))
         {
-            m.SetTarget(null, false);
+            m.SetTarget(null);
             m.ChangeState(PetStateIdle._inst);
         }
         else

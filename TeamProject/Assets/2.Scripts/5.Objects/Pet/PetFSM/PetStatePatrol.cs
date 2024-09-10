@@ -21,7 +21,7 @@ public class PetStatePatrol : TSingleton<PetStatePatrol>,IFSMState<PetController
         //소환위치에서 
         if (m.Movement.CheckFarOffset())
         {
-          //  m.ChangeState(MonsterStateReturn._inst);
+            m.ChangeState(PetStateReturn._inst);
             return;
         }
 
@@ -30,7 +30,7 @@ public class PetStatePatrol : TSingleton<PetStatePatrol>,IFSMState<PetController
             if (m.Movement.CheckCloseTarget(m.target.position, m.Stat.AttackRange)) // range 수정할것
             {
                 m.transform.LookAt(m.target);
-                // m.ChangeState(MonsterStateChase._inst);
+                m.ChangeState(PetStateChase._inst);
                 return;
             }
             else
