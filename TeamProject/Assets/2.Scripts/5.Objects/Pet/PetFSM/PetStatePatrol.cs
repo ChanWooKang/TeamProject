@@ -4,15 +4,12 @@ using UnityEngine;
 using DefineDatas;
 
 public class PetStatePatrol : TSingleton<PetStatePatrol>,IFSMState<PetController>
-{
-    Transform target;
+{    
     public void Enter(PetController m)
     {
         m.Agent.speed = m.Stat.MoveSpeed;
         m.Agent.avoidancePriority = 47;
         m.State = eMonsterState.PATROL;
-        //юс╫ц
-        target = null;
 
     }
 

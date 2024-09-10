@@ -188,11 +188,6 @@ public class PlayerEquipCtrl : MonoBehaviour
         }
     }
 
-    public void SendManagerSetTarget(Transform target = null)
-    {
-        _manager.SetTargetInAim(target);
-    }
-    
     public void SetOnOffWeapon(bool isOn)
     {
         _weapons[nowWeaponIndex].gameObject.SetActive(isOn);

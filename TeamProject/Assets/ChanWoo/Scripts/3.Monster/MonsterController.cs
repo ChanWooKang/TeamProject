@@ -408,7 +408,7 @@ public class MonsterController : FSM<MonsterController>
             if(other.TryGetComponent(out ArrowCtrl arrow))
             {
                 OnDamage(arrow.Damage, arrow.Shooter, true);
-                arrow.gameObject.DestroyAPS();
+                arrow.ClearRigidBody();
             }
         }
     }
