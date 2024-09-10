@@ -57,6 +57,12 @@ public class PlayerAnimCtrl : MonoBehaviour
     public void OnAttack()
     {
         _manager._equip.AttackAction();
+        
+    }
+
+    public void OnAttackEnd()
+    {
+        SetAnimation(ePlayerAnimParams.AttackEnd, true);
     }
 
     public void OnEquip()

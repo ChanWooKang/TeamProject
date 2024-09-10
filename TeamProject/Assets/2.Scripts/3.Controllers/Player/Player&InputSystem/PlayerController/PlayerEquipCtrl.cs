@@ -187,6 +187,11 @@ public class PlayerEquipCtrl : MonoBehaviour
             SetOnOffWeapon(true);
         }
     }
+
+    public void SendManagerSetTarget(Transform target = null)
+    {
+        _manager.SetTargetInAim(target);
+    }
     
     public void SetOnOffWeapon(bool isOn)
     {
@@ -197,6 +202,7 @@ public class PlayerEquipCtrl : MonoBehaviour
     {
         _weapons[nowWeaponIndex].ChargeStart();
         _manager._anim.SetAnimation(ePlayerAnimParams.Charge, true);
+        _manager._anim.SetAnimation(ePlayerAnimParams.AttackEnd, false);
     }
 
     public void ChargeEnd()
@@ -208,10 +214,11 @@ public class PlayerEquipCtrl : MonoBehaviour
     public void ChargeCancle()
     {
         _manager._anim.SetAnimation(ePlayerAnimParams.Charge, false);
+        _manager._anim.SetAnimation(ePlayerAnimParams.AttackEnd, true);
     }
 
     public void Reload()
     {
         _weapons[nowWeaponIndex].Reload();
-    }  
+    }      
 }

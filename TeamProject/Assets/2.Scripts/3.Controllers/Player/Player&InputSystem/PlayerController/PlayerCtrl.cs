@@ -19,11 +19,13 @@ public class PlayerCtrl : MonoBehaviour
     PlayerInput _playerInput;
     PlayerAssetsInputs _assetInput;
     CharacterController _control;
-        
+
+    [SerializeField] Transform CameraRoot;
     GameObject _recogObject;
     
     Coroutine _damagedCoroutine;
     public bool isDead;
+    public bool isAttack;
 
     public bool IsCurrentDeviceMouse
     {
@@ -119,5 +121,20 @@ public class PlayerCtrl : MonoBehaviour
         _render.ChangeColor(Color.red);
         yield return new WaitForSeconds(0.3f);
         _render.ReturnColor();
+    }
+
+    public void SetTargetInAim(Transform target = null)
+    {
+        if (target == null)
+        {
+            _input.AimCamSetting(CameraRoot);
+            isAttack = false;
+        }            
+        else
+        {
+            isAttack = true;
+            _input.AimCamSetting(target);
+        }
+            
     }
 }

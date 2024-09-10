@@ -88,6 +88,12 @@ public class PlayerInputCtrl : MonoBehaviour
         CamTarget.transform.rotation = Quaternion.Euler(_camTargetPitch + CamAngleOverride, _camTargetYaw, 0);
     }
 
+    public void AimCamSetting(Transform target)
+    {
+        AimCam.Follow = target;
+        AimCam.LookAt = target;
+    }
+
     void CheckCrossHair()
     {
         Transform target = Camera.main.transform;
@@ -127,7 +133,7 @@ public class PlayerInputCtrl : MonoBehaviour
             {
                 if (AimCam.gameObject.activeSelf == false)
                 {
-                    AimCam.gameObject.SetActive(true);
+                    AimCam.gameObject.SetActive(true);                   
                     ChangeAlpha(1.0f);
                 }
             }            
@@ -136,8 +142,11 @@ public class PlayerInputCtrl : MonoBehaviour
         {
             if (AimCam.gameObject.activeSelf == true)
             {
-                AimCam.gameObject.SetActive(false);
-                ChangeAlpha(0.3f);
+                if(_manager.isAttack == false)
+                {
+                    AimCam.gameObject.SetActive(false);
+                    ChangeAlpha(0.3f);
+                }                
             }
         }
 

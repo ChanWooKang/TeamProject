@@ -13,6 +13,8 @@ TagManager:
   - Monster
   - Slash
   - Bomb
+  - Arrow
+  - ThrowStone
   layers:
   - Default
   - TransparentFX

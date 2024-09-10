@@ -398,4 +398,18 @@ public class MonsterController : FSM<MonsterController>
             }
         }
     }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Arrow"))
+        {
+            Debug.Log("1");
+            if(other.TryGetComponent(out ArrowCtrl arrow))
+            {
+                OnDamage(arrow.Damage, arrow.Shooter, true);
+                arrow.gameObject.DestroyAPS();
+            }
+        }
+    }
 }
