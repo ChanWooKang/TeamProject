@@ -33,7 +33,7 @@ public class MonsterController : FSM<MonsterController>
     Rigidbody _rigid;
 
     //OtherComponent
-    [HideInInspector] public PlayerManager _player;
+    [HideInInspector] public PlayerCtrl _player;
     [HideInInspector] public PetBallController Ball;
     DuringBuff buffEffect;
     HudController _hudCtrl;
@@ -96,7 +96,7 @@ public class MonsterController : FSM<MonsterController>
         {
             Vector3 hitPoint = transform.position;
             hitPoint.y += 1.0f;
-            OnDamage(5, GameManagerEx._inst.playeManager.transform, true);
+            OnDamage(5, GameManagerEx._inst.playerManager.transform, true);
         }
 
         if (Input.GetKeyDown(KeyCode.H))
@@ -223,10 +223,10 @@ public class MonsterController : FSM<MonsterController>
 
         if (isPlayer)
         {
-            if (!GameManagerEx._inst.playeManager.isDead)
+            if (!GameManagerEx._inst.playerManager.isDead)
             {
                 if (_player == null)
-                    _player = GameManagerEx._inst.playeManager;
+                    _player = GameManagerEx._inst.playerManager;
             }
         }
 
@@ -320,7 +320,7 @@ public class MonsterController : FSM<MonsterController>
             yield return new WaitForSeconds(0.20f);
             //Á×À» ¶§ ÀÛ¾÷
             _collider.enabled = false;
-            Stat.DeadFunc(_player.Stat);
+            Stat.DeadFunc(_player._stat);
             ChangeColor(Color.gray);
             ChangeState(MonsterStateDie._inst);
             yield break;
@@ -395,6 +395,20 @@ public class MonsterController : FSM<MonsterController>
             {
                 buffEffect = null;
                 isBuffed = false;
+            }
+        }
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Arrow"))
+        {
+            Debug.Log("1");
+            if(other.TryGetComponent(out ArrowCtrl arrow))
+            {
+                OnDamage(arrow.Damage, arrow.Shooter, true);
+                arrow.gameObject.DestroyAPS();
             }
         }
     }

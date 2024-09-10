@@ -7,7 +7,7 @@ public class DataManager
 {    
     public Dictionary<int, RequiredEXPByLevel> Dict_RequiredExp { get; private set; }
     public Dictionary<int, MonsterInfo> Dict_Monster;
-    public Dictionary<int, MonsterLevelInfo> Dict_MonsterLevel;
+    public Dictionary<int, MonsterLevelInfo> Dict_MonsterLevel;    
     const string DRE = "RequiredEXPByLevel";
 
     public void Init()

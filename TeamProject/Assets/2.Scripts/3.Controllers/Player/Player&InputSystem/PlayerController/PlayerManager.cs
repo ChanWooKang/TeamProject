@@ -173,7 +173,7 @@ public class PlayerManager : MonoBehaviour
     {
         //ÆçÇÑÅ× Å¸°Ù º¸³»±â
     }
-
+    
     #region [ Animation Parameter Setting ]
     private void OnFootstep(AnimationEvent animationEvent)
     {
