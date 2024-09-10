@@ -26,9 +26,7 @@ public class BowCtrl : BaseWeaponCtrl
                 isReadyToFire = false;
                 ChargeCancle();
             }                        
-        }
-        
-        
+        }                
         _animator.SetBool(Animator.StringToHash("Charge"), _input.aim);
     }
 
@@ -46,12 +44,10 @@ public class BowCtrl : BaseWeaponCtrl
     {
         if (isReadyToFire)
         {
-            _playerEquip.SendManagerSetTarget(_arrowPoint.transform);
             _arrowModel.SetActive(false);
             GameObject go = PoolingManager._inst.InstantiateAPS("Arrow", _arrowPoint.transform.position, _arrowPoint.rotation, Vector3.one);            
-            go.GetComponent<ArrowCtrl>().ShootArrow(_playerEquip.transform,_arrowPoint.transform, TotalDamage);
+            go.GetComponent<ArrowCtrl>().ShootArrow(_playerEquip.transform, TotalDamage);
             isReadyToFire = false;
-            _playerEquip.SendManagerSetTarget();
         }            
     }
 
@@ -72,8 +68,7 @@ public class BowCtrl : BaseWeaponCtrl
 
     void ChargeCancle()
     {
-        _arrowModel.SetActive(false);
-        _playerEquip.ChargeCancle();        
+        _arrowModel.SetActive(false);     
     }
 
     public override void Reload()

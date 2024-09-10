@@ -25,7 +25,6 @@ public class PlayerCtrl : MonoBehaviour
     
     Coroutine _damagedCoroutine;
     public bool isDead;
-    public bool isAttack;
 
     public bool IsCurrentDeviceMouse
     {
@@ -123,18 +122,4 @@ public class PlayerCtrl : MonoBehaviour
         _render.ReturnColor();
     }
 
-    public void SetTargetInAim(Transform target = null)
-    {
-        if (target == null)
-        {
-            _input.AimCamSetting(CameraRoot);
-            isAttack = false;
-        }            
-        else
-        {
-            isAttack = true;
-            _input.AimCamSetting(target);
-        }
-            
-    }
 }

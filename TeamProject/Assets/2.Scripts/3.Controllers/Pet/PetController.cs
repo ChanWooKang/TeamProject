@@ -24,7 +24,7 @@ public class PetController : FSM<PetController>
     #endregion [Component]
 
     //몬스터 상태 체크 및 애니메이션 적용     
-    [HideInInspector] public PlayerManager _player;
+    [HideInInspector] public PlayerCtrl _player;
     [HideInInspector] public eAttackType _attackType;
     [SerializeField] eMonsterState _nowState;
     public Transform _hudTransform;
@@ -62,7 +62,7 @@ public class PetController : FSM<PetController>
         //임시
         InitPet(1000);
         InitState(this, PetStateInit._inst);
-        player = GameManagerEx._inst.playeManager.transform;
+        player = GameManagerEx._inst.playerManager.transform;
 
         //
     }
