@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/999.DownAssets/Scene/ChanWooScene.unity
+    path: Assets/ChanWoo/Scene/ChanWooScene.unity
     guid: 73209734da2fbd2479bc10b1c0561117
   - enabled: 1
     path: Assets/1.Scenes/GameScene.unity
