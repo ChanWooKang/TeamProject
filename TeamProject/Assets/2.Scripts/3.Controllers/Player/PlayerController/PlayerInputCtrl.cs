@@ -45,6 +45,7 @@ public class PlayerInputCtrl : MonoBehaviour
         _input = input;
 
         _camTargetYaw = CamTarget.transform.rotation.eulerAngles.y;
+        ChangeAlpha(0.3f);
     }
 
     static float ClampAngle(float lfAngle, float lfMin, float lfMax)
@@ -191,8 +192,7 @@ public class PlayerInputCtrl : MonoBehaviour
     void InventoryAction()
     {
         if (_input.inventory)
-        {
-            Debug.Log("Check");
+        {            
             InventoryManager._inst.invenUI.TryOpenInventory();
             _input.inventory = false;
         }

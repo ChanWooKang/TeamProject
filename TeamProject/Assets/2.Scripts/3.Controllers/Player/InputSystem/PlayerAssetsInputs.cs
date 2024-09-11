@@ -14,7 +14,8 @@ public class PlayerAssetsInputs : MonoBehaviour
     public bool interact;
     public bool inventory;
     public bool aim;
-    public bool craft;    
+    public bool craft;
+    public float scrollY;
 
     [Header("Movement Settings")]
     public bool analogMovement;
@@ -72,6 +73,11 @@ public class PlayerAssetsInputs : MonoBehaviour
         FireInput(value.isPressed);
     }
 
+    public void OnWeaponSelect(InputValue value)
+    {
+        WeaponSelectInput(value.Get<float>());
+    }
+
 #endif
     public void MoveInput(Vector2 newMoveDirection)
     {        
@@ -115,6 +121,11 @@ public class PlayerAssetsInputs : MonoBehaviour
     public void FireInput(bool newFireState)
     {
         fire = newFireState;
+    }
+
+    public void WeaponSelectInput(float newSelectState)
+    {
+        scrollY = newSelectState;
     }
 
     private void OnApplicationFocus(bool hasFocus)

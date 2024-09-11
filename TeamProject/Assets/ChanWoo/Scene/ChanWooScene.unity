@@ -3744,7 +3744,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &451939522
 Transform:
   m_ObjectHideFlags: 0
@@ -23310,7 +23310,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1348117606770557548, guid: 4ae702e1d5b52724ba452b7ee18aed4c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2922039459300796283, guid: 4ae702e1d5b52724ba452b7ee18aed4c, type: 3}
       propertyPath: AimCam
@@ -23370,7 +23370,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3914612624799577619, guid: 4ae702e1d5b52724ba452b7ee18aed4c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915148192124005455, guid: 4ae702e1d5b52724ba452b7ee18aed4c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915148193455494531, guid: 4ae702e1d5b52724ba452b7ee18aed4c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915148193890389458, guid: 4ae702e1d5b52724ba452b7ee18aed4c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ae702e1d5b52724ba452b7ee18aed4c, type: 3}
@@ -24739,7 +24751,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7493446922441501383
 MonoBehaviour:
@@ -24754,7 +24766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.07986283, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

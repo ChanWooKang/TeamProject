@@ -40,11 +40,16 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
         Item_Image.color = color;
     }
 
-    public void SetItem(BaseItem _item)
+    public void SetItem(BaseItem _item = null)
     {
         if (_item != null)
         {
-            Debug.Log("setting");
+            if (_item.EquipType == eEquipType.Weapon)
+            {
+                GameManagerEx._inst.playerManager._equip.MaxSlotCount = 1;
+            }
+                
+
             item = _item;
             Item_Image.sprite = InventoryManager._inst.GetItemSprite(item.Index) ;
             itemWeight = item.Weight;
@@ -58,6 +63,16 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
 
     public void ClearSlot()
     {
+        if (item != null)
+        {
+            if(item.EquipType == eEquipType.Weapon)
+            {                
+                GameManagerEx._inst.playerManager._equip.MaxSlotCount = -1;
+            }                
+        }
+            
+
+
         item = null;
         Item_Image.sprite = null;
         Weight_Text.text = "";

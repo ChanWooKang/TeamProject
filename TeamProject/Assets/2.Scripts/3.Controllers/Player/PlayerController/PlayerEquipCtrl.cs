@@ -17,9 +17,27 @@ public class PlayerEquipCtrl : MonoBehaviour
     public WeaponType currWeaponType;
     public WeaponType prevWeaponType;
 
-    public int nowActiveLayer;    
+    int nowSlotIndex = 0;
+    int changeSlotIndex = 0;
+    int maxSlotCount = 0;
+    bool isAniEnd = true;
+    public int nowActiveLayer;
+    
 
     public PlayerAssetsInputs InputAsset { get { return _input; } }
+
+    public int MaxSlotCount {
+        get { return maxSlotCount; } 
+        set 
+        {            
+            if (value >= 0)
+                maxSlotCount = ++maxSlotCount > 4 ? 4 : maxSlotCount;
+            else
+                maxSlotCount = --maxSlotCount < 0 ? 0 : maxSlotCount;
+
+            Debug.Log(maxSlotCount);
+        } 
+    }
 
     public void Init(PlayerCtrl manager, PlayerAssetsInputs input)
     {
@@ -60,29 +78,46 @@ public class PlayerEquipCtrl : MonoBehaviour
 
     public void OnUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            OnNowWeapon(1);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            OnNowWeapon(2);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            OnNowWeapon(3);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            OnNowWeapon(4);
-        }
+        CheckScroll();
+          
     }    
+
+    void CheckScroll()
+    {                
+        if (_input.scrollY == 0.0f || isAniEnd == false)
+        {
+            Debug.Log(changeSlotIndex);
+            Debug.Log(nowSlotIndex);
+            return;
+        }
+        
+        if(isAniEnd)
+        {
+            
+            if (_input.scrollY > 0)
+            {
+                changeSlotIndex = ++changeSlotIndex > maxSlotCount ? 0 : changeSlotIndex;
+            }
+            else
+            {
+                changeSlotIndex = --changeSlotIndex < 0 ? maxSlotCount : changeSlotIndex;
+            }
+
+        }        
+
+        if (nowSlotIndex != changeSlotIndex)
+        {
+            nowSlotIndex = changeSlotIndex;
+            OnNowWeapon(nowSlotIndex);
+        }
+        else
+            isAniEnd = true;
+        
+    }
 
     void OnNowWeapon(int slotIndex)
     {
+        isAniEnd = false;
         //인벤토리 핫슬롯에 등록되어있는 아이텡이 있을 경우 해당 아이템 Index 값 호출 없을 경우 0
         int weaponIndex = InventoryManager._inst.GetActiveWeaponIndex(slotIndex);                
         if(weaponIndex > 0)
@@ -97,6 +132,7 @@ public class PlayerEquipCtrl : MonoBehaviour
             else
             {
                 Debug.Log("오류");
+                isAniEnd = true;
             }
         }
         else
@@ -106,7 +142,10 @@ public class PlayerEquipCtrl : MonoBehaviour
                 nowActiveLayer = (int)WeaponType.None;
                 ChangeWeapon(0, WeaponType.None, false);
             }
-            
+            else
+            {
+                isAniEnd = true;
+            }
         }
         
     }
@@ -166,15 +205,16 @@ public class PlayerEquipCtrl : MonoBehaviour
     
     public void EquipEvent()
     {        
-        SetLayerWeight();        
+        SetLayerWeight();
+        isAniEnd = true;
+        Debug.Log(isAniEnd);
     }
 
     public void DisarmEvent()
     {        
         //다르면 진행해줘야함
         if(nextWeaponIndex > 0)
-        {
-            Debug.Log(nowWeaponIndex);
+        {            
             nowWeaponIndex = nextWeaponIndex;
             nextWeaponIndex = 0;
             _manager._anim.SetAnimation(ePlayerAnimParams.WeaponType, (int)currWeaponType);
@@ -185,6 +225,7 @@ public class PlayerEquipCtrl : MonoBehaviour
             SetLayerWeight();
             nowWeaponIndex = 0;
             SetOnOffWeapon(true);
+            isAniEnd = true;
         }
     }
 
