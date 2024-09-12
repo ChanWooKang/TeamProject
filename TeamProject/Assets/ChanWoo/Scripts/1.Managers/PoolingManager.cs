@@ -7,7 +7,7 @@ using DefineDatas;
 [AddComponentMenu("Custom/PoolingManager")]
 public class PoolingManager : TSingleton<PoolingManager>
 {
-    public PoolUnit[] _poolingUnits;
+    public PoolUnit[] _poolingUnits;    
     //public List<GameObject>[] _pooledUnitList;
     public int _defPoolAmount;
     public bool _canPoolExpand = true;
@@ -47,6 +47,7 @@ public class PoolingManager : TSingleton<PoolingManager>
         int lastIndex = _poolingUnits.Length - 1;
         _poolingUnits[lastIndex] = new PoolUnit();
         LowBase table = Managers._table.Get(LowDataType.PetTable);
+        
         int petIndex = table.Find("NameKr", pet.PetInfo.NameKr);
         string nameKr = table.ToStr(petIndex, "NameKr");
         _poolingUnits[lastIndex].index = petIndex + offsetNum;
@@ -54,6 +55,8 @@ public class PoolingManager : TSingleton<PoolingManager>
         _poolingUnits[lastIndex].name = nameKr;
         _poolingUnits[lastIndex].prefab = pet.gameObject;
         _poolingUnits[lastIndex].type = PoolType.Pet;
+
+        MakeObject(_poolingUnits[lastIndex].prefab);       
 
         GameObject hud = InstantiateAPS(1000000);
         hud.SetActive(true);
@@ -77,7 +80,7 @@ public class PoolingManager : TSingleton<PoolingManager>
 
     GameObject MakeObject(GameObject prefab, Transform parent = null)
     {
-        GameObject newItem = (GameObject)Instantiate(prefab);
+        GameObject newItem = Instantiate(prefab);
 
         SetActiveAndParent(newItem, parent);
         return newItem;

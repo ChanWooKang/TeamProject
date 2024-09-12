@@ -18,6 +18,7 @@ public class InventoryManager : TSingleton<InventoryManager>
     public Dictionary<int, WeaponItemInfo> Dict_Weapon;
     public Dictionary<int, PetBallInfo> Dict_Petball;
     public Dictionary<int, Sprite> Dict_itemSprite;
+    
     public List<ItemSprite> itemSprites;
     public List<int> itemNames;
     //PlayerManager playerManager;
@@ -36,6 +37,7 @@ public class InventoryManager : TSingleton<InventoryManager>
         Items = new List<BaseItem>();
         Dict_Weapon = new Dictionary<int, WeaponItemInfo>();
         Dict_Petball = new Dictionary<int, PetBallInfo>();
+        
 
         AddItems(LowDataType.MaterialTable);
         AddItems(LowDataType.WeaponTable);

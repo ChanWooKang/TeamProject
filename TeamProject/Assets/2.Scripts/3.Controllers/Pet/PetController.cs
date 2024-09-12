@@ -60,15 +60,14 @@ public class PetController : FSM<PetController>
     private void Awake()
     {
         //임시
-        InitPet(1000);
+        
         InitState(this, PetStateInit._inst);
         player = GameManagerEx._inst.playerManager.transform;
         //
     }
     private void Start()
-    {
-        //임시
-        PoolingManager._inst.AddPetPool(this);
+    {        
+      
     }
     private void Update()
     {
