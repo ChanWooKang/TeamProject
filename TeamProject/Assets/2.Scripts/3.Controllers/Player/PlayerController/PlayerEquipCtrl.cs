@@ -86,8 +86,8 @@ public class PlayerEquipCtrl : MonoBehaviour
     {                
         if (_input.scrollY == 0.0f || isAniEnd == false)
         {
-            Debug.Log(changeSlotIndex);
-            Debug.Log(nowSlotIndex);
+            //Debug.Log(changeSlotIndex);
+            //Debug.Log(nowSlotIndex);
             return;
         }
         

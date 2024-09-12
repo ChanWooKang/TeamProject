@@ -58,6 +58,12 @@ public class PetCactus : PetAnimController
             case eMonsterState.DIZZY:
                 _animator.SetTrigger(_animIDDizzy);
                 break;
+            case eMonsterState.WORK:
+                if (!_manager.isworkReady)
+                    _animator.CrossFade("Walk", 0.1f);
+                else
+                    WorkAction();
+                break;
             case eMonsterState.DIE:
                 _animator.CrossFade("Die", 0.1f);
                 break;
@@ -84,5 +90,11 @@ public class PetCactus : PetAnimController
                 _animator.SetTrigger(_animIDBuff);
                 break;
         }
+    }
+
+    void WorkAction()
+    {
+        string trigger = "PunchAttack";
+        _animator.SetTrigger(trigger);
     }
 }

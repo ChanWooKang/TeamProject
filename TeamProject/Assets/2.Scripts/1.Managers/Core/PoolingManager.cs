@@ -7,7 +7,7 @@ using DefineDatas;
 [AddComponentMenu("Custom/PoolingManager")]
 public class PoolingManager : TSingleton<PoolingManager>
 {
-    public PoolUnit[] _poolingUnits;    
+    public PoolUnit[] _poolingUnits;
     //public List<GameObject>[] _pooledUnitList;
     public int _defPoolAmount;
     public bool _canPoolExpand = true;
@@ -47,7 +47,7 @@ public class PoolingManager : TSingleton<PoolingManager>
         int lastIndex = _poolingUnits.Length - 1;
         _poolingUnits[lastIndex] = new PoolUnit();
         LowBase table = Managers._table.Get(LowDataType.PetTable);
-        
+
         int petIndex = table.Find("NameKr", pet.PetInfo.NameKr);
         string nameKr = table.ToStr(petIndex, "NameKr");
         _poolingUnits[lastIndex].index = petIndex + offsetNum;
@@ -55,13 +55,17 @@ public class PoolingManager : TSingleton<PoolingManager>
         _poolingUnits[lastIndex].name = nameKr;
         _poolingUnits[lastIndex].prefab = pet.gameObject;
         _poolingUnits[lastIndex].type = PoolType.Pet;
+        Dictionary<int, GameObject> objDatas = new Dictionary<int, GameObject>();
+        GameObject makePet = MakeObject(_poolingUnits[lastIndex].prefab);
+        objDatas.Add(0, makePet);
+        PetController petCtrl = makePet.GetComponent<PetController>();
+        petCtrl.InitPet(petIndex);
 
-        MakeObject(_poolingUnits[lastIndex].prefab);       
-
+        _pooledUnitsByIndex.Add(petIndex + offsetNum, objDatas);
         GameObject hud = InstantiateAPS(1000000);
-        hud.SetActive(true);
         HudController hudctrl = hud.GetComponent<HudController>();
-        pet.SetHud(hudctrl, _hudRootTransform);
+        petCtrl.SetHud(hudctrl, _hudRootTransform);
+        hudctrl.HideHud();
     }
     void SettingPoolingUnits(int index)
     {

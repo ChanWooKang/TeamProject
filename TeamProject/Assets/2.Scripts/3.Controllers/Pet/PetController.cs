@@ -20,7 +20,7 @@ public class PetController : FSM<PetController>
     CapsuleCollider m_collider;
     Rigidbody m_rigid;
     MonsterInfo m_petInfo;
-    HudController _hudCtrl;
+    public HudController _hudCtrl;
     #endregion [Component]
 
     //몬스터 상태 체크 및 애니메이션 적용     
@@ -59,19 +59,17 @@ public class PetController : FSM<PetController>
 
     private void Awake()
     {
-        //임시
-        
-        InitState(this, PetStateInit._inst);
+        //임시                
         player = GameManagerEx._inst.playerManager.transform;
         //
     }
     private void Start()
-    {        
-      
+    {
+        InitState(this, PetStateInit._inst);
     }
     private void Update()
     {
-        FSMUpdate();
+        FSMUpdate();        
     }
     private void LateUpdate()
     {
@@ -107,12 +105,14 @@ public class PetController : FSM<PetController>
         m_animCtrl.Init(this, m_animator);
         _movement.Init(this, m_agent);
         Stat.Init(index);
+        
     }
     public void SettingPetStatByLevel()
     {
         Stat.Level = PetLevel;
         Stat.SetByLevel();
-
+        _hudCtrl.InitHud(m_petInfo.NameKr, Stat.Level, _hudTransform, Color.green, true, this);
+        SetHudHp();
     }
     public void GetRangeByAttackType()
     {
@@ -140,9 +140,9 @@ public class PetController : FSM<PetController>
     {
         _hudCtrl = hud;
         _hudCtrl.gameObject.transform.SetParent(hudRoot);
-        _hudCtrl.InitHud(m_petInfo.NameKr, Stat.Level, _hudTransform, Color.green, true);
+        SettingPetStatByLevel();
     }
-    public void ShowHud()
+    public void SetHudHp()
     {
         if (_hudCtrl != null)
             _hudCtrl.DisPlay(Stat.HP / Stat.MaxHP);

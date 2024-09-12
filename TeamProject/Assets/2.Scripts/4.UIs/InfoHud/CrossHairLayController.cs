@@ -34,12 +34,7 @@ public class CrossHairLayController : MonoBehaviour
             {
                 if (mon != null)
                     mon.ShowHud();
-            }
-            else if (hit.collider.gameObject.TryGetComponent(out PetController pet))
-            {
-                if (pet != null)
-                    pet.ShowHud();
-            }
+            }            
         }
     }
 

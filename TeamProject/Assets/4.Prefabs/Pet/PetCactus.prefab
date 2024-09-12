@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 813435655146078834}
   m_Layer: 10
   m_Name: PetCactus
-  m_TagString: Monster
+  m_TagString: Pet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -458,6 +458,7 @@ MonoBehaviour:
   m_stat: {fileID: 8794688141442699377}
   _movement: {fileID: 971298646207687934}
   m_animCtrl: {fileID: 813435655146078834}
+  _hudCtrl: {fileID: 0}
   _player: {fileID: 0}
   _attackType: 0
   _nowState: 0

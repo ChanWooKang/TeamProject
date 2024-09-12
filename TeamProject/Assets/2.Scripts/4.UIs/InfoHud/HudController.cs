@@ -16,13 +16,15 @@ public class HudController : MonoBehaviour
     TextMeshProUGUI m_txtLevel;
     [SerializeField]
     Image m_bgColor;
-
+    PetController m_petCtrl;
     Transform m_targetPos;
 
     bool m_isPet;
+    bool m_isDetected;
+    float m_timer;
     private void Update()
     {
-        if (isActiveAndEnabled && m_targetPos != null)
+        if (m_isDetected && isActiveAndEnabled && m_targetPos != null && (m_petCtrl == null || m_petCtrl.isActiveAndEnabled))
         {
             Vector3 screenPos = Camera.main.WorldToScreenPoint(m_targetPos.position);
             transform.position = screenPos;
@@ -36,7 +38,23 @@ public class HudController : MonoBehaviour
             }
         }
     }
-    public void InitHud(string name, int level, Transform tartgetPos, Color color, bool isPet) // 몬스터 생성과 동시에 초기화, Color - 몬스터 : 레드, 펫 : 그린
+    private void LateUpdate()
+    {
+        if (m_isDetected && !m_isPet)
+        {
+            m_timer += Time.deltaTime;
+            if (m_timer > 5)
+            {
+                if (m_petCtrl == null)
+                {
+                    HideHud();
+                    m_timer = 0;
+                    m_isDetected = false;
+                }
+            }
+        }
+    }
+    public void InitHud(string name, int level, Transform tartgetPos, Color color, bool isPet, PetController pet = null) // 몬스터 생성과 동시에 초기화, Color - 몬스터 : 레드, 펫 : 그린
     {
         m_txtName.text = name;
         m_txtLevel.text = level.ToString();
@@ -44,28 +62,32 @@ public class HudController : MonoBehaviour
         m_bgColor.color = color;
         m_targetPos = tartgetPos;
         m_isPet = isPet;
+        if (pet != null)
+            m_petCtrl = pet;
         if (!m_isPet)
             HideHud();
+        else
+            m_isDetected = true;
+
     }
     public void DisPlay(float normalizedHp) // 데미지를 입거나 카메라 ray에 닿았을 때 
     {
         Vector3 screenPos = Camera.main.WorldToScreenPoint(m_targetPos.position);
         transform.position = screenPos;
-        ShowHud();
-        if (IsInvoking("HideHud"))
-            CancelInvoke("HideHud");
-        if (!m_isPet)
-            Invoke("HideHud", 5f);
+        m_isDetected = true;
+        m_infoBox.SetActive(true);
+
 
         m_hpBar.value = normalizedHp;
     }
-    void ShowHud()
+    public void ShowHud()
     {
-        gameObject.SetActive(true);
+        m_infoBox.SetActive(true);
     }
-    void HideHud()
+    public void HideHud()
     {
-        gameObject.SetActive(false);
+        m_infoBox.SetActive(false);
+        m_isDetected = false;
     }
     bool IsObjectFront(Vector3? obj)
     {
