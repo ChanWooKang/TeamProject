@@ -61,6 +61,15 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
     {
         // 풀에서 이미지를 받아옴
     }
+    public void OpenUI()
+    {
+        gameObject.SetActive(true);
+    }
+    public void CloseUI()
+    {
+        gameObject.SetActive(false);
+    }
+   
     void RightSwap()
     {
         //for (int i = 0; i < m_listPetIcon.Count; i++)
@@ -97,6 +106,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
         }
         PetController pet = m_recalledPet.GetComponent<PetController>();
         pet.SetHud(m_recalledPetsHud, PoolingManager._inst._hudRootTransform);
+        
     }
     void PutIn()
     {
@@ -107,6 +117,9 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
     {
         m_hudInfo.InitHud(pet.PetInfo.NameKr, pet.PetLevel, null, Color.white, true, null);        
     }
+    public void ShowPetPortrait()
+    {
 
+    }
 
 }

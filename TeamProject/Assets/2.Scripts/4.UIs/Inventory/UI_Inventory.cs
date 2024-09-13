@@ -5,11 +5,16 @@ using UnityEngine.UI;
 using DefineDatas;
 
 public class UI_Inventory : MonoBehaviour
-{        
+{
     public GameObject main;
+    public GameObject petInven;
     public GameObject Slot_Parent;
+    public GameObject petSlot_Parent;
     public Text InvenWeightText;
+    [SerializeField] GameObject[] m_tags;
+    [SerializeField] UI_PetEnryInfoBoxController m_petEntryBox;
     UI_Slot[] slots;
+    UI_PetInvenSlot[] m_petSlots;
 
     bool isOnUI;
 
@@ -18,13 +23,14 @@ public class UI_Inventory : MonoBehaviour
     public void Init()
     {
         slots = Slot_Parent.GetComponentsInChildren<UI_Slot>();
-        for(int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < slots.Length; i++)
         {
             slots[i].Init();
         }
         UI_ItemInfo._info.Init();
         CloseUI();
-    }  
+
+    }
 
     public void TryOpenInventory()
     {
@@ -41,15 +47,28 @@ public class UI_Inventory : MonoBehaviour
         isOnUI = true;
         SettingInvenWeight();
         main.SetActive(isOnUI);
+        petInven.SetActive(false);
+        for (int i = 0; i < m_tags.Length; i++)
+        {
+            m_tags[i].SetActive(true);
+        }
+        m_petEntryBox.CloseUI();
     }
 
     void CloseUI()
     {
         isOnUI = false;
+        m_petEntryBox.OpenUI();
         main.SetActive(isOnUI);
+        petInven.SetActive(false);
         UI_ItemInfo._info.OffInformation();
+        for (int i = 0; i < m_tags.Length; i++)
+        {
+            m_tags[i].SetActive(false);
+        }
     }
 
+    #region [Main]
     void SettingInvenWeight()
     {
         float weight = GetItemWeights();
@@ -61,7 +80,7 @@ public class UI_Inventory : MonoBehaviour
     public float GetItemWeights()
     {
         float weights = 0;
-        foreach(UI_Slot slot in slots)
+        foreach (UI_Slot slot in slots)
         {
             weights += slot.itemWeight;
         }
@@ -81,11 +100,11 @@ public class UI_Inventory : MonoBehaviour
         if (newItem.Type == eItemType.Gold)
             return;
 
-        if(newItem.Type != eItemType.Equipment)
+        if (newItem.Type != eItemType.Equipment)
         {
             for (int i = 0; i < slots.Length; i++)
             {
-                if(slots[i].itemData != null)
+                if (slots[i].itemData != null)
                 {
                     if (slots[i].itemData.Index == newItem.Index)
                     {
@@ -106,7 +125,7 @@ public class UI_Inventory : MonoBehaviour
             }
         }
 
-        for(int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < slots.Length; i++)
         {
             if (slots[i].itemData == null)
             {
@@ -149,4 +168,34 @@ public class UI_Inventory : MonoBehaviour
 
         return true;
     }
+    #endregion [Main]
+
+    #region [PetInven]
+    void InitPetInven()
+    {
+        m_petSlots = petSlot_Parent.GetComponentsInChildren<UI_PetInvenSlot>();
+        for (int i = 0; i < m_petSlots.Length; i++)
+        {
+            if (i < PetEntryManager._inst.m_listPetEntryCtrl.Count)
+                m_petSlots[i].InitSlot(PetEntryManager._inst.m_listPetEntryCtrl[i]);
+            else
+                m_petSlots[i].InitSlot();
+        }
+
+    }
+    #endregion [PetInven]
+
+    #region [Button]
+    public void MainInvenTagBnt()
+    {
+        main.SetActive(true);
+        petInven.SetActive(false);
+    }
+    public void PetInvenTagBtn()
+    {
+        main.SetActive(false);
+        petInven.SetActive(true);
+        InitPetInven();
+    }
+    #endregion [Button]
 }

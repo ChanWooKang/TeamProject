@@ -69,7 +69,7 @@ public class PetController : FSM<PetController>
     }
     private void Update()
     {
-        FSMUpdate();        
+        FSMUpdate();
     }
     private void LateUpdate()
     {
@@ -105,14 +105,18 @@ public class PetController : FSM<PetController>
         m_animCtrl.Init(this, m_animator);
         _movement.Init(this, m_agent);
         Stat.Init(index);
-        
+        SettingPetStatByLevel();
     }
     public void SettingPetStatByLevel()
     {
         Stat.Level = PetLevel;
         Stat.SetByLevel();
-        _hudCtrl.InitHud(m_petInfo.NameKr, Stat.Level, _hudTransform, Color.green, true, this);
-        SetHudHp();
+        if (_hudCtrl != null)
+        {
+            _hudCtrl.InitHud(m_petInfo.NameKr, Stat.Level, _hudTransform, Color.green, true, this);
+            SetHudHp();
+        }
+        
     }
     public void GetRangeByAttackType()
     {
@@ -144,7 +148,7 @@ public class PetController : FSM<PetController>
     }
     public void SetHudHp()
     {
-        if (_hudCtrl != null)
+        if (_hudCtrl != null && gameObject.activeSelf == true)
             _hudCtrl.DisPlay(Stat.HP / Stat.MaxHP);
     }
     public void AttackFunc()
@@ -165,7 +169,7 @@ public class PetController : FSM<PetController>
         m_agent.avoidancePriority = 51;
         State = eMonsterState.WORK;
         isworkReady = true;
-        
+
     }
     public void BaseNavSetting()
     {
