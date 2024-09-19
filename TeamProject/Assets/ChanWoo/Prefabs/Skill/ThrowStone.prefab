@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1047425503770677771}
   m_Layer: 10
   m_Name: ThrowStone
-  m_TagString: ThrowStone
+  m_TagString: MonsterSkill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,3 +95,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 0
+  skillID: 1100003

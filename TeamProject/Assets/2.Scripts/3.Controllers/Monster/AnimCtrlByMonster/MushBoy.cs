@@ -5,26 +5,14 @@ using DefineDatas;
 
 public class MushBoy : MonsterAnimCtrl
 {
-    enum MeleeAttack
-    {
-        HeadAttack = 0,
-        KickAttack,        
-    }
-
-    enum RangeAttack
-    {
-        LeafAttack = 0,
-        BombAttack,        
-    }
-
-    int _animIDGetHit;
+    
     int _animIDDizzy;
     int _animIDBuff;
 
     public override void Init(MonsterController manager, Animator animator)
     {
         base.Init(manager, animator);
-        _animIDGetHit = Animator.StringToHash("GetHit");
+        
         _animIDDizzy = Animator.StringToHash("Dizzy");
         _animIDBuff = Animator.StringToHash("Buff");
     }
@@ -63,29 +51,5 @@ public class MushBoy : MonsterAnimCtrl
                 _animator.CrossFade("Die", 0.1f);
                 break;                        
         }
-    }
-
-
-    public void AttackAction()
-    {        
-        string trigger = "";
-        switch (_manager._attackType)
-        {
-            case eAttackType.MeleeAttack:
-                trigger = Utilitys.ConvertEnum(
-                    (MeleeAttack)PickPattern(_manager._attackType));                
-                _animator.SetTrigger(trigger);
-                
-                break;
-            case eAttackType.RangeAttack:
-                trigger = Utilitys.ConvertEnum(
-                    (RangeAttack)PickPattern(_manager._attackType));                
-                _animator.SetTrigger(trigger);
-                break;
-            case eAttackType.Buff:
-                _animator.SetTrigger(_animIDBuff);
-                break;
-        }        
-    }
-
+    }    
 }

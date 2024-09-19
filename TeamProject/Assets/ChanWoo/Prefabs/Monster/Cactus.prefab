@@ -173,15 +173,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c3805325b5200e45b02f1029d681bde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackTypeWeight:
-  - 0.85
-  - 0.95
+  nextSkill: 0
+  AttackWeights:
+  - 0.1
   - 1
   _meleeWeightProbs:
   - 0.5
   - 1
-  _rangeWeightProbs:
-  - 1
+  _firePos: {fileID: 0}
 --- !u!114 &3094148171186972974
 MonoBehaviour:
   m_ObjectHideFlags: 0

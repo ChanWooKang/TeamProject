@@ -158,6 +158,7 @@ namespace DefineDatas
         PetTable,
         WeaponTable,
         PetBallTable,
+        SkillTable
     }
 
     [System.Serializable]

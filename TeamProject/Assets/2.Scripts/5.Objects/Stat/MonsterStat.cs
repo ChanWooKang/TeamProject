@@ -29,6 +29,7 @@ public class MonsterStat : BaseStat
     public float DropExp { get { return _dropExp; } }
     public int CaptureRate { get { return _captureRate; } }
     public int CharacterType { get { return _characterType; } }
+    public MonsterInfo MonsterInfo { get { return _monster; } }
 
     public float EXP 
     {
@@ -120,10 +121,7 @@ public class MonsterStat : BaseStat
         _characterType = 1;
 
         //SetConvertibleStat(info.Index,level);
-    }
-
-    //생성 후 재 소환 시 설정
-
+    }    
 
     //외부에서 레벨 설정 시 처리
     public void SetByLevel()

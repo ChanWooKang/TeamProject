@@ -9808,7 +9808,7 @@ GameObject:
   - component: {fileID: 1098059996598783515}
   m_Layer: 10
   m_Name: MushBomb
-  m_TagString: Bomb
+  m_TagString: MonsterSkill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9865,6 +9865,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _model: {fileID: 7259168236683062474}
   _particle: {fileID: 8791519403062829464}
+  skillID: 1100002
   castRange: 5
   castMask:
     serializedVersion: 2

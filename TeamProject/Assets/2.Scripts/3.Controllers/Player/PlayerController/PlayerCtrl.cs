@@ -99,7 +99,7 @@ public class PlayerCtrl : MonoBehaviour
    
     public void OnDamage(float damage)
     {
-        if (isDead)
+        if (isDead && gameObject.activeSelf)
             return;
 
         isDead = _stat.GetHit(damage);
@@ -122,4 +122,16 @@ public class PlayerCtrl : MonoBehaviour
         _render.ReturnColor();
     }
 
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("MonsterSkill"))
+        {
+            if(other.TryGetComponent(out BaseSkill skill))
+            {
+                OnDamage(skill.Damage);
+                other.gameObject.DestroyAPS();
+            }
+        }
+    }
 }

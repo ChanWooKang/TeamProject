@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LeafSlash : MonoBehaviour
+public class LeafSlash : BaseSkill
 {
     Rigidbody _rigid;
     BoxCollider _collider;
     ParticleSystem _particle;
-
     Vector3 direction;
-    float _offSetPosY;
-    public float Damage = 0;
+    float _offSetPosY;    
     [SerializeField] float power;
     bool isShoot = false;
 
@@ -27,10 +25,18 @@ public class LeafSlash : MonoBehaviour
     }
 
     void Init()
-    {
+    {        
         _rigid = GetComponent<Rigidbody>();
         _collider = GetComponent<BoxCollider>();
         _particle = GetComponentInChildren<ParticleSystem>();
+        if (Managers._data.Dict_Skill.ContainsKey(skillID))
+        {
+            Info = Managers._data.Dict_Skill[skillID];
+        }
+        else
+        {
+            Info = null;
+        }
         _offSetPosY = 0.8f;
         SetEnable(false);
     }
@@ -54,7 +60,16 @@ public class LeafSlash : MonoBehaviour
         SetPosition(shooter);
         direction = destination;
         direction.y = 0;
-        Damage = damage;
+
+
+        if(Info != null)
+        {
+            Damage = damage * Info.DamageTimes;
+        }
+        else
+        {
+            Damage = damage;
+        }        
         if (SlashCoroutine != null)
             StopCoroutine(SlashCoroutine);
         SlashCoroutine = StartCoroutine(OnSlashEvent());

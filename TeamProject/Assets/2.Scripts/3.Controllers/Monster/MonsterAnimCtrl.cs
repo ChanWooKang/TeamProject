@@ -8,17 +8,33 @@ public abstract class MonsterAnimCtrl : BaseAnimCtrl
     protected MonsterController _manager;
     protected Animator _animator;
     [SerializeField] protected Transform _firePos;
-        
     public virtual void Init(MonsterController manager, Animator animator)
     {
         _manager = manager;
         _animator = animator;
-
-        
+        InitAnimData();
     }
 
     public abstract void ChangeAnimation(eMonsterState type);
     
+    public void AttackAction()
+    {                
+        // nextSkill이 0이상일 경우 스킬 실행
+        if(nextSkill > 0)
+        {
+            if (Managers._data.Dict_Skill.ContainsKey(nextSkill))
+            {
+                string trigger = Managers._data.Dict_Skill[nextSkill].NameEn;
+                Debug.Log(trigger);
+                _animator.SetTrigger(trigger);
+                nextSkill = 0;
+                return;
+            }            
+        }
+        int pattern = PickBaseAttackPattern();
+        _animator.SetInteger(_animIDAttackPattern, pattern);
+        _animator.SetTrigger(_animIDAttack);
+    }
 
     #region [ Animation CallEvent ]
     
@@ -45,7 +61,8 @@ public abstract class MonsterAnimCtrl : BaseAnimCtrl
     {
         _manager.Agent.avoidancePriority = 50;
         _manager.GetRangeByAttackType();        
-        _manager.isAttack = false;              
+        _manager.isAttack = false;
+        
     }
 
     //피격 애니메이션 종료 시 호출
@@ -89,7 +106,7 @@ public abstract class MonsterAnimCtrl : BaseAnimCtrl
     }
 
     public void BuffAction()
-    {        
+    {                
         GameObject go = PoolingManager._inst.InstantiateAPS("AuraBuff", transform.position, Quaternion.identity, Vector3.one, transform);
         if (go.TryGetComponent(out AuraBuff aura))
             aura.BuffEvent();

@@ -1082,14 +1082,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f36ec4ea05feddd4da5abc767d137ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _firePos: {fileID: 854916044785574678}
-  AttackTypeWeight:
-  - 0.3
+  nextSkill: 0
+  AttackWeights:
+  - 0.7
   - 1
   _meleeWeightProbs:
   - 1
-  _rangeWeightProbs:
-  - 1
+  _firePos: {fileID: 854916044785574678}
 --- !u!1 &7652724478869374857
 GameObject:
   m_ObjectHideFlags: 0

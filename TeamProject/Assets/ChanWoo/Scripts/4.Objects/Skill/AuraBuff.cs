@@ -14,7 +14,7 @@ public class AuraBuff : ObjectInParticle
         targetMonsters = new List<MonsterController>();
         startParticle.Play(gameObject);
         //1초뒤 레이 쏠거임
-        Invoke("ShootRay", 1.0f);
+        ShootRay();
     }
 
     public void ShootRay()

@@ -22,7 +22,8 @@ public class MonsterInfo
     protected int _rate;
     protected int[] _reward;
     protected float _chaseRange;
-    protected int[] _rewardCount;    
+    protected int[] _rewardCount;
+    protected int[] _skills;
 
     #region [ Property ]
     public int Index { get { return _index; } }
@@ -41,13 +42,14 @@ public class MonsterInfo
     public int CaptureRate { get { return _rate; } }
     public int[] Rewards { get { return _reward; } }
     public float ChaseRange { get { return _chaseRange; } }
-    public int[] RewardCounts { get { return _rewardCount; } }    
+    public int[] RewardCounts { get { return _rewardCount; } }  
+    public int[] Skills { get { return _skills; } }
     #endregion
 
     public MonsterInfo
         (int index, string nameEn, string nameKr, string desc, float hp, float speed,
         float runSpeed, float range, float damage, float attackDelay, float sight,
-        float workAbility, int type, int rate, int[] reward, float chaseRange, int[] rewardCounts
+        float workAbility, int type, int rate, int[] reward, float chaseRange, int[] rewardCounts, int[] skills
         )
     {        
         _index = index;
@@ -66,7 +68,8 @@ public class MonsterInfo
         _rate = rate;
         _reward = reward;
         _chaseRange = chaseRange;
-        _rewardCount = rewardCounts;        
+        _rewardCount = rewardCounts;  
+        _skills = skills;
     }
     //Ã³Ä¡½Ã È¹µæ ÇÒ ¼ö ÀÖ´Â EXP °ª
 }

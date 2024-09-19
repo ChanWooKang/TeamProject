@@ -4,27 +4,13 @@ using UnityEngine;
 using DefineDatas;
 
 public class Cactus : MonsterAnimCtrl
-{
-    enum MeleeAttack
-    {
-        PunchAttack = 0,
-        HeadAttack,
-
-    }
-
-    enum RangeAttack
-    {
-        LeafAttack,
-    }
-
-    int _animIDGetHit;
+{    
     int _animIDDizzy;
     int _animIDBuff;
 
     public override void Init(MonsterController manager, Animator animator)
     {
         base.Init(manager, animator);
-        _animIDGetHit = Animator.StringToHash("GetHit");
         _animIDDizzy = Animator.StringToHash("Dizzy");
         _animIDBuff = Animator.StringToHash("Buff");
     }
@@ -63,28 +49,6 @@ public class Cactus : MonsterAnimCtrl
                 _animator.CrossFade("Die", 0.1f);
                 break;
         }
-    }
-
-    public void AttackAction()
-    {
-        string trigger = "";
-        switch (_manager._attackType)
-        {
-            case eAttackType.MeleeAttack:
-                trigger = Utilitys.ConvertEnum(
-                    (MeleeAttack)PickPattern(_manager._attackType));
-                _animator.SetTrigger(trigger);
-
-                break;
-            case eAttackType.RangeAttack:
-                trigger = Utilitys.ConvertEnum(
-                    (RangeAttack)PickPattern(_manager._attackType));
-                _animator.SetTrigger(trigger);
-                break;
-            case eAttackType.Buff:
-                _animator.SetTrigger(_animIDBuff);
-                break;
-        }
-    }
+    }   
     
 }

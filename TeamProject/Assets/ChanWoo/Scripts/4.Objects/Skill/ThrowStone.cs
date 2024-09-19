@@ -2,24 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThrowStone : MonoBehaviour
+public class ThrowStone : BaseSkill
 {
-    MonsterController _targetMonster;
-
+    MonsterController _targetMonster;    
     float gravity = 9.81f;
-    float firingAngle = 15.0f;
-    public float Damage;
+    float firingAngle = 15.0f;    
     Coroutine ShootCoroutine = null;
     void Init(MonsterController monster)
     {
         _targetMonster = monster;
-
+        if (Managers._data.Dict_Skill.ContainsKey(skillID))
+        {
+            Info = Managers._data.Dict_Skill[skillID];
+        }
+        else
+        {
+            Info = null;
+        }
     }
 
     public void ThrowEvent(MonsterController monster, Vector3 start, Vector3 target, float damage)
     {
         Init(monster);
-        Damage = damage;
+        if (Info != null)
+        {
+            Damage = damage * Info.DamageTimes;
+        }
+        else
+        {
+            Damage = damage;
+        }
         if (ShootCoroutine != null)
             StopCoroutine(ShootCoroutine);
         ShootCoroutine = StartCoroutine(OnShootEvent(start, target));

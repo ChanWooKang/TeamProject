@@ -10,6 +10,8 @@ public class MushBomb : ObjectInParticle
     [SerializeField] GameObject _model;
     [SerializeField] ParticleCallBack _particle;
     MonsterController _targetMonster;
+    public int skillID;
+    SkillInfo Info;
 
     int _animIDBomb;
     
@@ -27,6 +29,14 @@ public class MushBomb : ObjectInParticle
         _animator = GetComponent<Animator>();
         _rigid = GetComponent<Rigidbody>();
         _animIDBomb = Animator.StringToHash("Bomb");
+        if (Managers._data.Dict_Skill.ContainsKey(skillID))
+        {
+            Info = Managers._data.Dict_Skill[skillID];
+        }
+        else
+        {
+            Info = null;
+        }
         SetEnable(false);
     }
 
@@ -42,7 +52,14 @@ public class MushBomb : ObjectInParticle
     {
         Init(monster);
         SetEnable(true);
-        Damage = damage;
+        if (Info != null)
+        {
+            Damage = damage * Info.DamageTimes;
+        }
+        else
+        {
+            Damage = damage;
+        }
         if (ShootCoroutine != null)
             StopCoroutine(ShootCoroutine);
         ShootCoroutine = StartCoroutine(OnShootEvent(start,target));
@@ -99,17 +116,17 @@ public class MushBomb : ObjectInParticle
                     }                    
                 }
 
-                if (rhit.transform.CompareTag("Monster"))
-                {
-                    if(rhit.transform.TryGetComponent(out MonsterController mc))
-                    {
-                        if(mc != _targetMonster)
-                        {
-                            mc.SetTarget(_targetMonster.transform);
-                            mc.OnDamage(Damage, _targetMonster.transform);
-                        }
-                    }
-                }
+                //if (rhit.transform.CompareTag("Monster"))
+                //{
+                //    if(rhit.transform.TryGetComponent(out MonsterController mc))
+                //    {
+                //        if(mc != _targetMonster)
+                //        {
+                //            mc.SetTarget(_targetMonster.transform);
+                //            mc.OnDamage(Damage, _targetMonster.transform);
+                //        }
+                //    }
+                //}
             }
         }               
     }

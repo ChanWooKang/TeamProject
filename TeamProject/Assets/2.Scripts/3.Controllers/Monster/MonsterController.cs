@@ -42,7 +42,7 @@ public class MonsterController : FSM<MonsterController>
     //몬스터 상태 체크 및 애니메이션 적용     
     [HideInInspector] public eAttackType _attackType;
     eMonsterState _nowState;
-
+    public List<SkillInfo> _mySkills;
     //타겟 관련
     [HideInInspector] public Transform target;
     [HideInInspector] public Vector3 targetPos;
@@ -85,9 +85,9 @@ public class MonsterController : FSM<MonsterController>
     private void Start()
     {
         //최초
-        //PoolingManager._inst.InstantiateAPS("HP");
-        InitComponent();
+        //PoolingManager._inst.InstantiateAPS("HP");        
         InitState(this, MonsterStateInit._inst);
+        _mySkills = Managers._data.GetSkillList(Index);
     }
 
     private void Update()
@@ -252,7 +252,7 @@ public class MonsterController : FSM<MonsterController>
 
     public void GetRangeByAttackType()
     {
-        _attackType = _animCtrl.GetAttackTypeByWeight();
+        _attackType = _animCtrl.ChooseAttackType(Index);        
         switch (_attackType)
         {
             case eAttackType.MeleeAttack:
@@ -286,15 +286,6 @@ public class MonsterController : FSM<MonsterController>
         return transform.position + (normalVec * Stat.ChaseRange);
     }
 
-
-    public void OnDamage()
-    {
-        if (DamageCoroutine != null)
-            StopCoroutine(DamageCoroutine);
-        DamageCoroutine = StartCoroutine(OnDamageEvent());
-    }
-
-
     public void OnDamage(float damage, Transform attacker, bool isPlayer = false)
     {
         if (isDead)
@@ -307,14 +298,17 @@ public class MonsterController : FSM<MonsterController>
             _hudCtrl.DisPlay(Stat.HP / Stat.MaxHP);
         State = eMonsterState.GETHIT;
         isDead = Stat.CalculateDamage(damage);
-        FloatText.Create("FloatText", transform.position, (int)Stat.AttackDamage);
-        OnDamage();
+
+        if (DamageCoroutine != null)
+            StopCoroutine(DamageCoroutine);
+        DamageCoroutine = StartCoroutine(OnDamageEvent());
     }
 
     IEnumerator OnDamageEvent()
     {
         float randValue = Random.Range(0.0f, 1.0f);
         bool isDizzy = randValue <= dizzyRate;
+        FloatText.Create("FloatText", transform.position, (int)Stat.AttackDamage);
         if (isDead)
         {
             yield return new WaitForSeconds(0.20f);
