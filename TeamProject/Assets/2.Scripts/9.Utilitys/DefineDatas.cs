@@ -109,6 +109,8 @@ namespace DefineDatas
         MeleeAttack,
         RangeAttack,
         Buff,
+        HealBuff,
+        AttackBuff,
         MaxCount
     }
 
