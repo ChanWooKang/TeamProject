@@ -16,6 +16,13 @@ public class BossCtrl : FSM<BossCtrl>
     public BossMoveCtrl _move;
     public BossAnimCtrl _anim;
     public BossRenderCtrl _render;
+
+    [Header("Transforms")]
+    public Transform _model;
+    public Transform _captureModel;
+    public Transform _hudTransform;
+
+
     
 
     //보스는 플레이어만 인식?

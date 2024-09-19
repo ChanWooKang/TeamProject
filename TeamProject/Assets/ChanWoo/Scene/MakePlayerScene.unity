@@ -535,6 +535,9 @@ GameObject:
   - component: {fileID: 311763291}
   - component: {fileID: 311763290}
   - component: {fileID: 311763293}
+  - component: {fileID: 311763295}
+  - component: {fileID: 311763294}
+  - component: {fileID: 311763292}
   m_Layer: 0
   m_Name: BossDragon
   m_TagString: Untagged
@@ -578,6 +581,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &311763292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311763289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a1239684cea04046bde51428e8d37c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _model: {fileID: 0}
+  _captureModel: {fileID: 0}
 --- !u!114 &311763293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -594,6 +611,38 @@ MonoBehaviour:
   MonsterLevel: 1
   Stat: {fileID: 0}
   _move: {fileID: 0}
+  _anim: {fileID: 0}
+  _render: {fileID: 0}
+--- !u!114 &311763294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311763289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08d6f628dbd7b804aa122defe6b72658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextSkill: 0
+  AttackWeights: []
+  _meleeWeightProbs: []
+--- !u!114 &311763295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311763289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41c3abdcf5a315b46a567553b798819e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _defPos: {x: 0, y: 0, z: 0}
+  _offsetPos: {x: 0, y: 0, z: 0}
+  _rotateSpeed: 15
 --- !u!1 &313828671
 GameObject:
   m_ObjectHideFlags: 0

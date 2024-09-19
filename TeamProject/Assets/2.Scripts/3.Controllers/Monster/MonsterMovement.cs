@@ -12,13 +12,10 @@ public class MonsterMovement : MonoBehaviour
     //회전 속도
     public float _rotateSpeed = 15.0f;
 
-    //Test
-    MonsterController _manager;
-    NavMeshAgent _agent;
+    protected NavMeshAgent _agent;
 
-    public void Init(MonsterController manager, NavMeshAgent agent)
-    {
-        _manager = manager;
+    public void Init(NavMeshAgent agent)
+    {        
         _agent = agent;
         _defPos = transform.position;
     }

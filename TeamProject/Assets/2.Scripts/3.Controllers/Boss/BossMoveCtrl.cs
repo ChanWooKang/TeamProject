@@ -4,13 +4,9 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class BossMoveCtrl : MonsterMovement
-{
-    BossCtrl _manager;
-    NavMeshAgent _agent;
-
-    public void Init(BossCtrl manager)
-    {
-        _manager = manager;
+{        
+    public void Init()
+    {        
         _agent = GetComponent<NavMeshAgent>();
         _defPos = transform.position;
     }

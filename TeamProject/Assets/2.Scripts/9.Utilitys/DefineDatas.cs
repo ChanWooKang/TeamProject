@@ -100,7 +100,13 @@ namespace DefineDatas
         GETHIT,
         WORK,
         DIE,
+        SLEEP,
         DISABLE
+    }    
+
+    public enum eBossState
+    {
+
     }
 
     public enum eAttackType

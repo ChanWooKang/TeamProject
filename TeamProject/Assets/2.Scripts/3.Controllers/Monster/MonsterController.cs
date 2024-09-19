@@ -124,7 +124,7 @@ public class MonsterController : FSM<MonsterController>
         _movement = GetComponent<MonsterMovement>();
         _animCtrl = GetComponent<MonsterAnimCtrl>();
 
-        _movement.Init(this, _agent);
+        _movement.Init(_agent);
         _animCtrl.Init(this, _animator);
     }
     public void SetHud(HudController hud, Transform hudRoot)

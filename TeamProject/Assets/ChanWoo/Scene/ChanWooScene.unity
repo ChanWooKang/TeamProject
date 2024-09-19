@@ -393,6 +393,11 @@ Transform:
   m_Father: {fileID: 1040791858}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 8.916, y: -88.575, z: 1.882}
+--- !u!4 &662056071 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3336904933336925212, guid: 0e39103d3b61ea3448463deb4a9f7cf6, type: 3}
+  m_PrefabInstance: {fileID: 1296599781}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &810676222
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,6 +658,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2922039459820189819, guid: 4ae702e1d5b52724ba452b7ee18aed4c, type: 3}
   m_PrefabInstance: {fileID: 3915148192123703926}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1296599781
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5182385616133084826}
+    m_Modifications:
+    - target: {fileID: 3336904933336925212, guid: 0e39103d3b61ea3448463deb4a9f7cf6, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3336904933336925212, guid: 0e39103d3b61ea3448463deb4a9f7cf6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3336904933336925212, guid: 0e39103d3b61ea3448463deb4a9f7cf6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1167
+      objectReference: {fileID: 0}
+    - target: {fileID: 3336904933336925212, guid: 0e39103d3b61ea3448463deb4a9f7cf6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3336904933336925212, guid: 0e39103d3b61ea3448463deb4a9f7cf6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3336904933336925212, guid: 0e39103d3b61ea3448463deb4a9f7cf6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3336904933336925212, guid: 0e39103d3b61ea3448463deb4a9f7cf6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3336904933336925212, guid: 0e39103d3b61ea3448463deb4a9f7cf6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3336904933336925212, guid: 0e39103d3b61ea3448463deb4a9f7cf6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3336904933336925212, guid: 0e39103d3b61ea3448463deb4a9f7cf6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3336904933336925212, guid: 0e39103d3b61ea3448463deb4a9f7cf6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3336904933336925213, guid: 0e39103d3b61ea3448463deb4a9f7cf6, type: 3}
+      propertyPath: m_Name
+      value: PetAvartarCamera
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0e39103d3b61ea3448463deb4a9f7cf6, type: 3}
 --- !u!1 &1440685397
 GameObject:
   m_ObjectHideFlags: 0
@@ -827,6 +889,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1276448956075557011, guid: 21e14fbe06913f346a02e90ac7797d13, type: 3}
+      propertyPath: m_petPortraitRoot
+      value: 
+      objectReference: {fileID: 662056071}
+    - target: {fileID: 1276448956075557011, guid: 21e14fbe06913f346a02e90ac7797d13, type: 3}
+      propertyPath: m_uiPetEntryInfoBox
+      value: 
+      objectReference: {fileID: 5762232605756951013}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21e14fbe06913f346a02e90ac7797d13, type: 3}
 --- !u!224 &28015340314224495
@@ -29731,8 +29801,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4bf4a29f702ac042a552579b6d0b5f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invenUI: {fileID: 0}
-  equipUI: {fileID: 0}
+  invenUI: {fileID: 2748145411544897371}
+  equipUI: {fileID: 7955007918737583828}
   itemSprites:
   - index: 100
     icon: {fileID: 21300000, guid: db427fab3e94daf4caa704d9314a77a1, type: 3}
@@ -29798,6 +29868,7 @@ Transform:
   - {fileID: 6581711742301439775}
   - {fileID: 2474687476635748829}
   - {fileID: 5182385617540504520}
+  - {fileID: 662056071}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
