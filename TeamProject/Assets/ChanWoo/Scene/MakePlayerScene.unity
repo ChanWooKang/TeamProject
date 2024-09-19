@@ -535,6 +535,7 @@ GameObject:
   - component: {fileID: 311763291}
   - component: {fileID: 311763290}
   - component: {fileID: 311763293}
+  - component: {fileID: 311763296}
   - component: {fileID: 311763295}
   - component: {fileID: 311763294}
   - component: {fileID: 311763292}
@@ -613,6 +614,9 @@ MonoBehaviour:
   _move: {fileID: 0}
   _anim: {fileID: 0}
   _render: {fileID: 0}
+  _model: {fileID: 0}
+  _captureModel: {fileID: 0}
+  _hudTransform: {fileID: 0}
 --- !u!114 &311763294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,6 +647,19 @@ MonoBehaviour:
   _defPos: {x: 0, y: 0, z: 0}
   _offsetPos: {x: 0, y: 0, z: 0}
   _rotateSpeed: 15
+--- !u!114 &311763296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311763289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2d473e9b8190ba41b8dbdc7a2641d1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseHp: 0
 --- !u!1 &313828671
 GameObject:
   m_ObjectHideFlags: 0
