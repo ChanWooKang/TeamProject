@@ -68,7 +68,5 @@ public class MonsterInfo
         _chaseRange = chaseRange;
         _rewardCount = rewardCounts;        
     }
-
-
     //처치시 획득 할 수 있는 EXP 값
 }

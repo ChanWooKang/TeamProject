@@ -117,5 +117,5 @@ public class DataManager
         MonsterLevelInfo level = new MonsterLevelInfo(index, requiredExp, rewardAbility, rewardExp);
         if (Dict_MonsterLevel.ContainsKey(index) == false)
             Dict_MonsterLevel.Add(index, level);
-    }
+    }    
 }
