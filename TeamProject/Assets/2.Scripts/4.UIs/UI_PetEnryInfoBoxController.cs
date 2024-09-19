@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class UI_PetEnryInfoBoxController : MonoBehaviour
 {
     const int offset = 100;
+    public int m_currentPetIndex;
     int m_maxEntryCount;
-    int m_currentPetIndex;
     int m_currentPetNum;
 
     List<Image> m_listPetIcon;
@@ -69,7 +69,10 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-   
+   public void InitCurrentPetIndex(int index)
+    {
+        m_currentPetIndex = index + offset;
+    }
     void RightSwap()
     {
         //for (int i = 0; i < m_listPetIcon.Count; i++)
@@ -97,7 +100,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
 
     void ReCall()
     {
-        m_recalledPet = PoolingManager._inst.InstantiateAPS(m_currentPetIndex, GameManagerEx._inst.playerManager.transform.position + (Vector3.forward * 0.5f) + (Vector3.right * 0.8f), PetEntryManager._inst.m_listPetEntry[1].transform.rotation, Vector3.one);
+        m_recalledPet = PoolingManager._inst.InstantiateAPS(m_currentPetIndex, GameManagerEx._inst.playerManager.transform.position + (Vector3.forward * 0.5f) + (Vector3.right * 0.8f), PetEntryManager._inst.m_listPetEntryPrefab[1].transform.rotation, Vector3.one);
         if (m_recalledPetsHud == null)
         {
             GameObject hud = PoolingManager._inst.InstantiateAPS(1000000);

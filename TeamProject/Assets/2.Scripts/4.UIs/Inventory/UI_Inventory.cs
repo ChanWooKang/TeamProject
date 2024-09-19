@@ -2,19 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using DefineDatas;
 
 public class UI_Inventory : MonoBehaviour
 {
+    #region [Main Component & Param]
     public GameObject main;
-    public GameObject petInven;
     public GameObject Slot_Parent;
-    public GameObject petSlot_Parent;
     public Text InvenWeightText;
     [SerializeField] GameObject[] m_tags;
-    [SerializeField] UI_PetEnryInfoBoxController m_petEntryBox;
     UI_Slot[] slots;
+    #endregion [Main Component & Param]
+
+    #region [PetInven Component & Param]
+    public GameObject petInven;
+    public GameObject petSlot_Parent;
+    [HideInInspector] public GameObject m_currentPortrait;
     UI_PetInvenSlot[] m_petSlots;
+    [SerializeField] GameObject m_DescBox;
+    [SerializeField] GameObject m_StatusBox;
+    [SerializeField] GameObject m_SkillBox;
+
+    [SerializeField] UI_PetEnryInfoBoxController m_petEntryBox;
+    [SerializeField] TextMeshProUGUI m_textPetDesc;
+    [SerializeField] TextMeshProUGUI m_textPetAttack;
+    [SerializeField] TextMeshProUGUI m_textPetWorkAbility;
+    [SerializeField] TextMeshProUGUI m_textSkill1Name;
+    [SerializeField] TextMeshProUGUI m_textSkill1Value;
+    [SerializeField] Image m_iconSkill1;
+    [SerializeField] TextMeshProUGUI m_textSkill2Name;
+    [SerializeField] TextMeshProUGUI m_textSkill2Value;
+    [SerializeField] Image m_iconSkill2;
+    [SerializeField] TextMeshProUGUI m_textSkill3Name;
+    [SerializeField] TextMeshProUGUI m_textSkill3Value;
+    [SerializeField] Image m_iconSkill3;
+    #endregion [PetInven Component & Param]
+
+
 
     bool isOnUI;
 
@@ -61,6 +86,11 @@ public class UI_Inventory : MonoBehaviour
         m_petEntryBox.OpenUI();
         main.SetActive(isOnUI);
         petInven.SetActive(false);
+        m_DescBox.SetActive(false);
+        m_StatusBox.SetActive(false);
+        m_SkillBox.SetActive(false);
+        if (m_currentPortrait != null)
+            m_currentPortrait.SetActive(false);
         UI_ItemInfo._info.OffInformation();
         for (int i = 0; i < m_tags.Length; i++)
         {
@@ -177,7 +207,7 @@ public class UI_Inventory : MonoBehaviour
         for (int i = 0; i < m_petSlots.Length; i++)
         {
             if (i < PetEntryManager._inst.m_listPetEntryCtrl.Count)
-                m_petSlots[i].InitSlot(PetEntryManager._inst.m_listPetEntryCtrl[i]);
+                m_petSlots[i].InitSlot(this, PetEntryManager._inst.m_listPetEntryCtrl[i]);
             else
                 m_petSlots[i].InitSlot();
         }
@@ -196,6 +226,16 @@ public class UI_Inventory : MonoBehaviour
         main.SetActive(false);
         petInven.SetActive(true);
         InitPetInven();
+    }
+    public void ClickPetSlot(PetController pet)
+    {
+        m_textPetDesc.text = pet.PetInfo.Desc;
+        m_textPetAttack.text = pet.PetInfo.Damage.ToString();
+        m_textPetWorkAbility.text = pet.PetInfo.WorkAbility.ToString();
+        m_DescBox.SetActive(true);
+        m_StatusBox.SetActive(true);
+        m_SkillBox.SetActive(true);
+
     }
     #endregion [Button]
 }

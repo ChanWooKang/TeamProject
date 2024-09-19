@@ -15,10 +15,13 @@ public class UI_PetInvenSlot : MonoBehaviour, IPointerClickHandler, IPointerEnte
     [SerializeField] Slider m_hpBar;
 
     PetController petCtrl;
-    public void InitSlot(PetController pet = null)
+    UI_Inventory m_manager;
+
+    public void InitSlot(UI_Inventory manager = null, PetController pet = null)
     {
-        if(pet != null)
+        if (manager != null)
         {
+            m_manager = manager;
             m_txtLevel.enabled = true;
             m_txtLV.enabled = true;
             m_txtName.enabled = true;
@@ -44,7 +47,11 @@ public class UI_PetInvenSlot : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
     public void OnPointerClick(PointerEventData eventData)
     {
-
+        if (m_manager.m_currentPortrait != null)
+            m_manager.m_currentPortrait.SetActive(false);
+        m_manager.m_currentPortrait = PetEntryManager._inst.m_dicPetPortraitObject[petCtrl.PetInfo.Index];
+        m_manager.m_currentPortrait.SetActive(true);
+        m_manager.ClickPetSlot(petCtrl);
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
