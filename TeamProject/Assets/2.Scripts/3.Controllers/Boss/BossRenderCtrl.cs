@@ -4,8 +4,7 @@ using UnityEngine;
 using DefineDatas;
 
 public class BossRenderCtrl : MonoBehaviour
-{
-    BossCtrl _manager;
+{    
     Renderer[] _renders;
 
     //Components
@@ -13,9 +12,8 @@ public class BossRenderCtrl : MonoBehaviour
     [SerializeField] Transform _captureModel;
     
 
-    public void Init(BossCtrl manager)
-    {
-        _manager = manager;
+    public void Init()
+    {       
         _renders = _model.GetComponentsInChildren<Renderer>();
     }
 

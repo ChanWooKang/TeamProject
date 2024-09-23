@@ -26,6 +26,5 @@ public class BossMoveCtrl : MonsterMovement
         _agent.updatePosition = true;
         _agent.updateRotation = false;
         _agent.velocity = Vector3.zero;
-    }
-       
+    }        
 }
