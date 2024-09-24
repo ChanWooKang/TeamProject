@@ -9,6 +9,8 @@ public class UI_PetBoxSlot : MonoBehaviour
     PetController m_petCtrl;
     int m_slotNum;
 
+    public int SlotNum { get { return m_slotNum; } }
+
 
     public void InitSlot(int num, PetController pet = null)
     {

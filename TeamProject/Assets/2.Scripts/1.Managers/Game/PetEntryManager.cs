@@ -15,6 +15,8 @@ public class PetEntryManager : TSingleton<PetEntryManager>
 
     [SerializeField] UI_PetEnryInfoBoxController m_uiPetEntryInfoBox;
     [SerializeField] Transform m_petPortraitRoot;
+
+    [HideInInspector] public UI_PetBoxController m_petBoxCtrl;
     private void Awake()
     {
         m_dicPetObject = new Dictionary<int, GameObject>();
@@ -71,6 +73,14 @@ public class PetEntryManager : TSingleton<PetEntryManager>
             else
             {
                 //ø£∆Æ∏Æø° ∆Í¿Ã ≤À √°¿ª ∂ß
+                if(m_petBoxCtrl != null)
+                {
+
+                }
+                else
+                {
+
+                }
             }
         }
         else
@@ -84,6 +94,9 @@ public class PetEntryManager : TSingleton<PetEntryManager>
         m_listPetEntryPrefab.Remove(pet.gameObject);
         m_listPetEntryCtrl.Remove(pet);
     }
-
-
+    public void InitPetBox(UI_PetBoxController petbox)
+    {
+        m_petBoxCtrl = petbox;
+    }
+    
 }
