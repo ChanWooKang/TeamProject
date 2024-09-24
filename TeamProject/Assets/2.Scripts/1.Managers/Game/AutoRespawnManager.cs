@@ -104,6 +104,18 @@ public class AutoRespawnManager : MonoBehaviour
 
             go.transform.position = randPos;
         }
+        else if (go.TryGetComponent(out BossCtrl boss))
+        {
+            if(boss.isDead)
+                boss.OnResurrectEvent();
+            else
+            {
+                //GameObject hud = PoolingManager._inst.InstantiateAPS(1000000);
+                //hud.SetActive(true);
+                //HudController hudctrl = hud.GetComponent<HudController>();
+                //boss.SetHud(hudctrl, uiHudRoot);
+            }
+        }
         _reserveAmount--;
     }
 }

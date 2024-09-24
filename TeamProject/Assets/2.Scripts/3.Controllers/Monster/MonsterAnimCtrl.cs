@@ -24,8 +24,7 @@ public abstract class MonsterAnimCtrl : BaseAnimCtrl
         {
             if (Managers._data.Dict_Skill.ContainsKey(nextSkill))
             {
-                string trigger = Managers._data.Dict_Skill[nextSkill].NameEn;
-                Debug.Log(trigger);
+                string trigger = Managers._data.Dict_Skill[nextSkill].NameEn;                
                 _animator.SetTrigger(trigger);
                 nextSkill = 0;
                 return;
@@ -47,10 +46,10 @@ public abstract class MonsterAnimCtrl : BaseAnimCtrl
             {
                 _manager._player.OnDamage(_manager.Stat.Damage);
             }
-            else if (_manager.target.CompareTag("Monster"))
-            {
-                _manager.target.GetComponent<MonsterController>().OnDamage(_manager.Stat.Damage,_manager.target);
-            }
+            //else if (_manager.target.CompareTag("Monster"))
+            //{
+            //    _manager.target.GetComponent<MonsterController>().OnDamage(_manager.Stat.Damage,_manager.target);
+            //}
             
         }
         
@@ -58,7 +57,7 @@ public abstract class MonsterAnimCtrl : BaseAnimCtrl
 
     //공격 애니메이션 종료 시 호출
     public void AttackEnd()
-    {
+    {        
         _manager.Agent.avoidancePriority = 50;
         _manager.GetRangeByAttackType();        
         _manager.isAttack = false;

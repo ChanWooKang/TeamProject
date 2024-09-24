@@ -61,8 +61,9 @@ public abstract class BaseWeaponCtrl : MonoBehaviour
         if (Physics.SphereCast(FirePos.position, RayRadius, FirePos.forward, out RaycastHit rhit, _minDist+_weaponRange, AcceptLayer))
         {
             if(rhit.transform.TryGetComponent(out MonsterController mc))
-            {               
-                mc.OnDamage(TotalDamage, _playerEquip.transform, true);
+            {
+                Debug.Log(rhit.point);
+                mc.OnDamage(TotalDamage, _playerEquip.transform, rhit.point);
             }
         }
     }

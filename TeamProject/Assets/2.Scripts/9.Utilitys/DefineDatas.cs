@@ -102,11 +102,27 @@ namespace DefineDatas
         DIE,
         SLEEP,
         DISABLE
-    }    
+    }        
+
+    public enum eBossType
+    {
+        Grounded,
+        Flying,
+        Dragon,
+    }
 
     public enum eBossState
     {
-
+        IDLE,
+        SLEEP,
+        GROWL,
+        PATROL,
+        RETURN,
+        CHASE,        
+        GETHIT,
+        ATTACK,
+        DIE,        
+        DISABLE,
     }
 
     public enum eAttackType

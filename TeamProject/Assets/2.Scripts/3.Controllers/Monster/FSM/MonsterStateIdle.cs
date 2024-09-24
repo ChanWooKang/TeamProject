@@ -44,6 +44,6 @@ public class MonsterStateIdle : TSingleton<MonsterStateIdle>, IFSMState<MonsterC
 
     public void Exit(MonsterController m)
     {
-        cntTime = 0;
+        
     }
 }

@@ -7,7 +7,8 @@ public class BossStateGrowl : TSingleton<BossStateGrowl>, IFSMState<BossCtrl>
 {
     public void Enter(BossCtrl m)
     {
-
+        m._move.AttackNavSetting();
+        m.State = eBossState.GROWL;        
     }
 
     public void Execute(BossCtrl m)
@@ -17,6 +18,6 @@ public class BossStateGrowl : TSingleton<BossStateGrowl>, IFSMState<BossCtrl>
 
     public void Exit(BossCtrl m)
     {
-
+        m._move.BaseNavSetting();
     }
 }

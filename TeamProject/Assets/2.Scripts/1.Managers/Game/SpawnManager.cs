@@ -23,6 +23,10 @@ public class SpawnManager : TSingleton<SpawnManager>
         {
             index = monster.Index;
         }
+        else if (go.TryGetComponent(out BossCtrl boss))
+        {
+            index = boss.Index;                        
+        }
 
         return index;
     }
@@ -45,16 +49,22 @@ public class SpawnManager : TSingleton<SpawnManager>
         }
 
         GameObject go = pool.InstantiateAPS(index, spawnTransform.position, spawnTransform.rotation, Vector3.one);
-        if(go.TryGetComponent(out MonsterController monster) == false)
+        if(go.TryGetComponent(out MonsterController monster))
         {
-            Debug.Log($"해당하는 Index({index})값에 MonsterController Script가 존재하지 않습니다.");
-            return null;
+            monster._movement._defPos = spawnTransform.position;
         }
-        //최초 생성
-        monster._movement._defPos = spawnTransform.position;
-        
-
-
+        else
+        {
+            if(go.TryGetComponent(out BossCtrl boss))
+            {
+                boss._move._defPos = spawnTransform.position;
+            }
+            else
+            {
+                Debug.Log($"해당하는 Index({index})값에 MonsterController Script가 존재하지 않습니다.");
+                return null;
+            }            
+        }        
 
         OnSpawnEvent?.Invoke(index, 1);
         return go;

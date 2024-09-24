@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -39,11 +39,11 @@ public class MonsterController : FSM<MonsterController>
     HudController _hudCtrl;
 
 
-    //¸ó½ºÅÍ »óÅÂ Ã¼Å© ¹× ¾Ö´Ï¸ŞÀÌ¼Ç Àû¿ë     
+    //ëª¬ìŠ¤í„° ìƒíƒœ ì²´í¬ ë° ì• ë‹ˆë©”ì´ì…˜ ì ìš©     
     [HideInInspector] public eAttackType _attackType;
     eMonsterState _nowState;
     public List<SkillInfo> _mySkills;
-    //Å¸°Ù °ü·Ã
+    //íƒ€ê²Ÿ ê´€ë ¨
     [HideInInspector] public Transform target;
     [HideInInspector] public Vector3 targetPos;
 
@@ -54,7 +54,7 @@ public class MonsterController : FSM<MonsterController>
     public float dizzyRate = 0.05f;
 
     //Bools
-    //¸ó½ºÅÍ°¡ ÃÖÃÊ·Î »ı¼º‰çÀ»¶§ °®°íÀÖ´Â´Ù ÃÊ½Ä¸¸ °®°íÀÖ´Â´Ù
+    //ëª¬ìŠ¤í„°ê°€ ìµœì´ˆë¡œ ìƒì„±ë¬ì„ë•Œ ê°–ê³ ìˆëŠ”ë‹¤ ì´ˆì‹ë§Œ ê°–ê³ ìˆëŠ”ë‹¤
     public bool isStatic;
     public bool isDead;
     public bool isAttack;
@@ -84,25 +84,14 @@ public class MonsterController : FSM<MonsterController>
 
     private void Start()
     {
-        //ÃÖÃÊ
+        //ìµœì´ˆ
         //PoolingManager._inst.InstantiateAPS("HP");        
         InitState(this, MonsterStateInit._inst);
         _mySkills = Managers._data.GetSkillList(Index);
     }
 
     private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            Vector3 hitPoint = transform.position;
-            hitPoint.y += 1.0f;
-            OnDamage(5, GameManagerEx._inst.playerManager.transform, true);
-        }
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            ChangeState(MonsterStateDizzy._inst);
-        }
+    {        
         FSMUpdate();
     }
 
@@ -131,14 +120,14 @@ public class MonsterController : FSM<MonsterController>
     {
         _hudCtrl = hud;
         _hudCtrl.gameObject.transform.SetParent(hudRoot);
-        _hudCtrl.InitHud("¹ö¼¸µ¹ÀÌ", Stat.Level, _hudTransform, Color.red,false );
+        _hudCtrl.InitHud(Stat.MonsterInfo.NameKr, Stat.Level, _hudTransform, Color.red,false );
     }
     public void ShowHud()
     {       
         if (_hudCtrl != null)
             _hudCtrl.DisPlay(Stat.HP / Stat.MaxHP);
     }
-    //State = Init ÃÖÃÊ µ¥ÀÌÅÍ ¼³Á¤
+    //State = Init ìµœì´ˆ ë°ì´í„° ì„¤ì •
     public void InitData()
     {
         target = null;
@@ -241,7 +230,7 @@ public class MonsterController : FSM<MonsterController>
 
     public void AttackFunc()
     {
-        //ÇÃ·¹ÀÌ¾î »óÅÂ È®ÀÎ 
+        //í”Œë ˆì´ì–´ ìƒíƒœ í™•ì¸ 
         if (_player.isDead)
             return;
 
@@ -273,32 +262,59 @@ public class MonsterController : FSM<MonsterController>
         //Debug.Log(target.position);
         //Vector3 reverseNormalVect = transform.position - target.position;
         //Vector3 NormalVect = target.position - transform.position;
-        ////Å¸°Ù¿¡¼­ ¸ó½ºÅÍ±îÁö °Å¸® °ª (Á¦°ö±Ù)
+        ////íƒ€ê²Ÿì—ì„œ ëª¬ìŠ¤í„°ê¹Œì§€ ê±°ë¦¬ ê°’ (ì œê³±ê·¼)
         //float distFromTarget = reverseNormalVect.sqrMagnitude;
         //distFromTarget = Mathf.Sqrt(distFromTarget);
-        ////Å¸°Ù¿¡¼­ ¸ó½ºÅÍÀÇ ¹æÇâ º¤ÅÍ
+        ////íƒ€ê²Ÿì—ì„œ ëª¬ìŠ¤í„°ì˜ ë°©í–¥ ë²¡í„°
         //reverseNormalVect = reverseNormalVect.normalized;
-        ////ÀÌµ¿ °Å¸® ±¸ÇÏ±â
-        ////¿¹½Ã·Î Ãß°İ °Å¸® ¹ÛÀ¸·Î ÀÌµ¿
+        ////ì´ë™ ê±°ë¦¬ êµ¬í•˜ê¸°
+        ////ì˜ˆì‹œë¡œ ì¶”ê²© ê±°ë¦¬ ë°–ìœ¼ë¡œ ì´ë™
         Vector3 normalVec = Camera.main.transform.forward;
         normalVec.y = 0;
         transform.LookAt(normalVec);
         return transform.position + (normalVec * Stat.ChaseRange);
     }
 
-    public void OnDamage(float damage, Transform attacker, bool isPlayer = false)
+    public void OnDamage(float damage, Transform attacker)
     {
         if (isDead)
             return;
 
         isStatic = false;
+
         if (target != attacker)
-            SetTarget(attacker, isPlayer);
+            SetTarget(attacker);
+
         if (_hudCtrl != null)
             _hudCtrl.DisPlay(Stat.HP / Stat.MaxHP);
+
         State = eMonsterState.GETHIT;
         isDead = Stat.CalculateDamage(damage);
 
+        OnDamage();
+    }
+
+    public void OnDamage(float damage, Transform attacker, Vector3 hitPoint)
+    {
+        if(isDead)
+            return;
+        isStatic = false;
+
+        if (target != attacker)
+            SetTarget(attacker);
+
+        if (_hudCtrl != null)
+            _hudCtrl.DisPlay(Stat.HP / Stat.MaxHP);
+
+        State = eMonsterState.GETHIT;
+        isDead = Stat.CalculateDamage(damage);
+
+        DamageTextManager._inst.ShowDamageText(hitPoint, damage);
+        OnDamage();
+    }
+
+    public void OnDamage()
+    {
         if (DamageCoroutine != null)
             StopCoroutine(DamageCoroutine);
         DamageCoroutine = StartCoroutine(OnDamageEvent());
@@ -308,11 +324,12 @@ public class MonsterController : FSM<MonsterController>
     {
         float randValue = Random.Range(0.0f, 1.0f);
         bool isDizzy = randValue <= dizzyRate;
-        FloatText.Create("FloatText", transform.position, (int)Stat.AttackDamage);
+
+        //FloatText.Create("FloatText", transform.position, (int)Stat.AttackDamage);        
         if (isDead)
         {
             yield return new WaitForSeconds(0.20f);
-            //Á×À» ¶§ ÀÛ¾÷
+            //ì£½ì„ ë•Œ ì‘ì—…
             _collider.enabled = false;
             Stat.DeadFunc(_player._stat);
             ChangeColor(Color.gray);
@@ -361,9 +378,9 @@ public class MonsterController : FSM<MonsterController>
                 buffEffect.gameObject.DestroyAPS();
                 buffEffect = null;
                 isBuffed = false;
-                //½ºÅÈ Á¤»óÈ­
+                //ìŠ¤íƒ¯ ì •ìƒí™”
 
-                //¹öÇÁ ´Ù½Ã ¼³Á¤
+                //ë²„í”„ ë‹¤ì‹œ ì„¤ì •
                 GetBuffEffect();
             }
         }
@@ -373,8 +390,8 @@ public class MonsterController : FSM<MonsterController>
     {
         if (isOn)
         {
-            //¹öÇÁ ¼³Á¤
-            //½ºÅÈ ¼³Á¤ 
+            //ë²„í”„ ì„¤ì •
+            //ìŠ¤íƒ¯ ì„¤ì • 
             if (buffEffect != null)
             {
                 buffEffect.BuffOn(this);
@@ -383,8 +400,8 @@ public class MonsterController : FSM<MonsterController>
         }
         else
         {
-            //¹öÇÁ ÇØÁ¦
-            //½ºÅÈ Á¤»óÈ­ 
+            //ë²„í”„ í•´ì œ
+            //ìŠ¤íƒ¯ ì •ìƒí™” 
             if (buffEffect != null)
             {
                 buffEffect = null;
@@ -397,11 +414,10 @@ public class MonsterController : FSM<MonsterController>
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Arrow"))
-        {
-            Debug.Log("1");
+        {            
             if(other.TryGetComponent(out ArrowCtrl arrow))
             {
-                OnDamage(arrow.Damage, arrow.Shooter, true);
+                OnDamage(arrow.Damage, arrow.Shooter,other.ClosestPoint(transform.position));
                 arrow.ClearRigidBody();
             }
         }
