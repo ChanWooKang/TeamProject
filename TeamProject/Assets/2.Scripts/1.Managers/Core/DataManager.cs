@@ -10,11 +10,12 @@ public class DataManager
     public Dictionary<int, MonsterLevelInfo> Dict_MonsterLevel;
     public Dictionary<int, SkillInfo> Dict_Skill;
     public Dictionary<int, List<SkillInfo>> Dict_MonsterSkill;
+    public Dictionary<int, int> Dict_UniqueID;
     const string DRE = "RequiredEXPByLevel";
 
     public void Init()
     {
-        LoadData();
+        LoadData();                
     }
 
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
@@ -43,6 +44,21 @@ public class DataManager
         AddMonsterLevel();
         Dict_MonsterSkill = new Dictionary<int, List<SkillInfo>>();
         AddMonsterSkill();
+        Dict_UniqueID = new Dictionary<int, int>();
+    }
+
+    public bool AddUniqueID(int uniqueID, int index)
+    {
+        if (Dict_UniqueID.ContainsKey(uniqueID))
+        {
+            //고유 번호가 존재합니다.
+            return false;
+        }
+        else
+        {
+            Dict_UniqueID.Add(uniqueID, index);
+            return true;
+        }
     }
 
     void AddMonster()
