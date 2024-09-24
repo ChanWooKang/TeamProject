@@ -7,7 +7,7 @@ public class PetEntryManager : TSingleton<PetEntryManager>
     const int m_maxEntryCount = 6;
     public int MaxEntryCount { get { return m_maxEntryCount; } }
     public List<GameObject> m_listPetEntryPrefab;
-    public List<GameObject> m_listPetPortraitPrefab;   
+    public List<GameObject> m_listPetPortraitPrefab;
     [HideInInspector] public List<PetController> m_listPetEntryCtrl;
     public Dictionary<int, GameObject> m_dicPetPortraitObject;
     public Dictionary<int, GameObject> m_dicPetObject;
@@ -21,30 +21,34 @@ public class PetEntryManager : TSingleton<PetEntryManager>
     {
         m_dicPetObject = new Dictionary<int, GameObject>();
         m_dicPetPortraitObject = new Dictionary<int, GameObject>();
-        for(int i = 0; i < m_listPetEntryPrefab.Count; i++)
+        for (int i = 0; i < m_listPetEntryPrefab.Count; i++)
         {
             int index = 1000 + i;
             m_dicPetObject.Add(index, m_listPetEntryPrefab[i]);
             m_dicPetPortraitObject.Add(index, m_listPetPortraitPrefab[i]);
         }
     }
-    private void Start()
+    
+    private void Update()
     {
-        //임시
-        m_listPetEntryCtrl = new List<PetController>(m_maxEntryCount);
-        m_listPetIndex = new List<int>();
-        for (int i = 0; i < m_listPetEntryPrefab.Count; i++)
+        // 임시
+        if (Input.GetKeyDown(KeyCode.F12))
         {
-            PetController petCtrl = m_listPetEntryPrefab[i].GetComponent<PetController>();
-            int index = 1000 + i;
-            petCtrl.InitPet(index);
-            m_listPetIndex.Add(index);
-            m_listPetEntryCtrl.Add(petCtrl);
-            PoolingManager._inst.AddPetPool(petCtrl); // 펫을 잡을 때 이 함수를 실행해야함            
-            m_dicPetPortraitObject[index] = Instantiate(m_dicPetPortraitObject[index], m_petPortraitRoot, false);
-            m_dicPetPortraitObject[index].SetActive(false);
+            m_listPetEntryCtrl = new List<PetController>(m_maxEntryCount);
+            m_listPetIndex = new List<int>();
+            for (int i = 0; i < m_listPetEntryPrefab.Count; i++)
+            {
+                PetController petCtrl = m_listPetEntryPrefab[i].GetComponent<PetController>();
+                int index = 1000 + i;
+                petCtrl.InitPet(index);
+                m_listPetIndex.Add(index);
+                m_listPetEntryCtrl.Add(petCtrl);
+                PoolingManager._inst.AddPetPool(petCtrl); // 펫을 잡을 때 이 함수를 실행해야함            
+                m_dicPetPortraitObject[index] = Instantiate(m_dicPetPortraitObject[index], m_petPortraitRoot, false);
+                m_dicPetPortraitObject[index].SetActive(false);
+            }
+            m_uiPetEntryInfoBox.SetHudInfoBox(m_listPetEntryCtrl[0]);
         }
-        m_uiPetEntryInfoBox.SetHudInfoBox(m_listPetEntryCtrl[0]);
     }
     public void InitEntry()
     {
@@ -53,42 +57,33 @@ public class PetEntryManager : TSingleton<PetEntryManager>
         m_listPetIndex = new List<int>();
     }
 
-    public void AddEntry(int Petindex)
+    public void AddEntry(int UniqueId)
     {
-       
-        if (!m_listPetIndex.Contains(Petindex))
+
+        if (!m_listPetIndex.Contains(UniqueId))
         {
-            m_listPetIndex.Add(Petindex);
+            m_listPetIndex.Add(UniqueId);
+            PetController pet = m_dicPetObject[UniqueId].GetComponent<PetController>();
+            pet.InitPet(UniqueId);
             if (m_listPetEntryPrefab.Count <= MaxEntryCount)
             {
-                PetController pet = m_dicPetObject[Petindex].GetComponent<PetController>();
-                pet.InitPet(Petindex);
-                m_listPetEntryCtrl.Add(pet);
-                PoolingManager._inst.AddPetPool(pet);
-                m_uiPetEntryInfoBox.SetHudInfoBox(pet);
-                m_uiPetEntryInfoBox.InitCurrentPetIndex(Petindex);
-                GameObject portrait = Instantiate(m_listPetPortraitPrefab[Petindex], m_petPortraitRoot, false);
-                portrait.SetActive(false);
+                InitPetEntry(pet, UniqueId);
             }
             else
             {
                 //엔트리에 펫이 꽉 찼을 때
-                if(m_petBoxCtrl != null)
+                if (m_petBoxCtrl != null)
                 {
-
+                    m_petBoxCtrl.GetPetIntheBox(pet);
                 }
                 else
                 {
 
                 }
             }
-        }
-        else
-        {
-            // 이미 보유중인 펫을 잡았을 때
-        }
+        }        
     }
-    
+
     public void RemoveEntry(PetController pet)
     {
         m_listPetEntryPrefab.Remove(pet.gameObject);
@@ -98,5 +93,14 @@ public class PetEntryManager : TSingleton<PetEntryManager>
     {
         m_petBoxCtrl = petbox;
     }
-    
+    public void InitPetEntry(PetController pet, int Petindex)
+    {
+        m_listPetEntryCtrl.Add(pet);
+        PoolingManager._inst.AddPetPool(pet);
+        m_uiPetEntryInfoBox.SetHudInfoBox(pet);
+        m_uiPetEntryInfoBox.InitCurrentPetIndex(Petindex);
+        GameObject portrait = Instantiate(m_listPetPortraitPrefab[Petindex], m_petPortraitRoot, false);
+        portrait.SetActive(false);
+    }
+
 }
