@@ -7,6 +7,7 @@ public class Dragon : BossAnimCtrl
 {
     bool isSleep;
     bool isFlying;
+    bool isActing;
 
     //Bools Type
     int _animIDWalk;
@@ -44,6 +45,7 @@ public class Dragon : BossAnimCtrl
         _bossType = eBossType.Dragon;
         isFlying = false;
         isSleep = true;
+        isActing = false;
     }
 
     public override void ChangeAnimation(eBossState type)
@@ -76,6 +78,7 @@ public class Dragon : BossAnimCtrl
                     Invoke("GetHitEnd", 0.5f);
                 break;
             case eBossState.ATTACK:
+                Debug.Log(_manager.attackRange);
                 AttackAction();
                 break;
             case eBossState.DIE:
@@ -97,7 +100,11 @@ public class Dragon : BossAnimCtrl
     {
         if (isFlying)
         {
-            _animator.SetTrigger(_animIDLanding);
+            if(isActing == false)
+            {
+                isActing = true;
+                _animator.SetTrigger(_animIDLanding);
+            }            
         }
         else
         {
@@ -118,12 +125,16 @@ public class Dragon : BossAnimCtrl
     public void GrowlEnd()
     {
         //플레이어 인식 후 날건지 걸을건지 선택
-        int randValue = Random.Range(0, 2);
+        int randValue = Random.Range(0, 5);
         bool checkFly = randValue > 0 ? true : false;
         Sleep(false);
         if (checkFly)
         {
-            _animator.SetTrigger(_animIDTakeOff);
+            if(isActing == false)
+            {
+                isActing = true;
+                _animator.SetTrigger(_animIDTakeOff);
+            }            
         }
         else
         {
@@ -136,6 +147,7 @@ public class Dragon : BossAnimCtrl
         bool isFly = value > 0 ? true : false;
         isFlying = isFly;
         _animator.SetBool(_animIDFlying, isFlying);
+        isActing = false;
         if (isFlying)
         {
             _manager.ChangeState(BossStateChase._inst);

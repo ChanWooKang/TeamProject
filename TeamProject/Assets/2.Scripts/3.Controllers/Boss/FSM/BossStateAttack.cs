@@ -9,6 +9,7 @@ public class BossStateAttack : TSingleton<BossStateAttack>, IFSMState<BossCtrl>
     public void Enter(BossCtrl m)
     {
         m._move.AttackNavSetting();
+        m.State = eBossState.IDLE;
     }
 
     public void Execute(BossCtrl m)
