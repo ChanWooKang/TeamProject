@@ -110,10 +110,10 @@ public class AutoRespawnManager : MonoBehaviour
                 boss.OnResurrectEvent();
             else
             {
-                //GameObject hud = PoolingManager._inst.InstantiateAPS(1000000);
-                //hud.SetActive(true);
-                //HudController hudctrl = hud.GetComponent<HudController>();
-                //boss.SetHud(hudctrl, uiHudRoot);
+                GameObject hud = PoolingManager._inst.InstantiateAPS(1000000);
+                hud.SetActive(true);
+                HudController hudctrl = hud.GetComponent<HudController>();
+                boss.SetHud(hudctrl, uiHudRoot);
             }
         }
         _reserveAmount--;

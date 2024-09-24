@@ -95,4 +95,9 @@ public class PlayerAnimCtrl : MonoBehaviour
     {
         _manager._equip.Reload();
     }
+
+    public void ReadyToThrow()
+    {
+        _animator.Update(0);
+    }
 }
