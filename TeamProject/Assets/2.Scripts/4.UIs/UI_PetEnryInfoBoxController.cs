@@ -100,6 +100,8 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
 
     void ReCall()
     {
+        if (PetEntryManager._inst.m_listPetEntryCtrl.Count == 0)
+            return;
         m_recalledPet = PoolingManager._inst.InstantiateAPS(m_currentPetIndex, GameManagerEx._inst.playerManager.transform.position + (Vector3.forward * 0.5f) + (Vector3.right * 0.8f), PetEntryManager._inst.m_listPetEntryPrefab[1].transform.rotation, Vector3.one);
         if (m_recalledPetsHud == null)
         {
@@ -113,6 +115,8 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
     }
     void PutIn()
     {
+        if (m_recalledPet == null)
+            return;
         PoolingManager.DestroyAPS(m_recalledPet);
         m_recalledPetsHud.HideHud();
     }

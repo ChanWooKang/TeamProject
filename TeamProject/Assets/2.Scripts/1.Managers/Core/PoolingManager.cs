@@ -60,8 +60,8 @@ public class PoolingManager : TSingleton<PoolingManager>
         objDatas.Add(0, makePet);
         PetController petCtrl = makePet.GetComponent<PetController>();
         petCtrl.InitPet(petIndex);
-
-        _pooledUnitsByIndex.Add(petIndex + offsetNum, objDatas);
+        if (!_pooledUnitsByIndex.ContainsKey(petIndex + offsetNum))
+            _pooledUnitsByIndex.Add(petIndex + offsetNum, objDatas);
         GameObject hud = InstantiateAPS(1000000);
         HudController hudctrl = hud.GetComponent<HudController>();
         petCtrl.SetHud(hudctrl, _hudRootTransform);

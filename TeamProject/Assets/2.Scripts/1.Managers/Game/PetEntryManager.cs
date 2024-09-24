@@ -24,28 +24,25 @@ public class PetEntryManager : TSingleton<PetEntryManager>
         for (int i = 0; i < m_listPetEntryPrefab.Count; i++)
         {
             int index = 1000 + i;
-            m_dicPetObject.Add(index, m_listPetEntryPrefab[i]);
-            m_dicPetPortraitObject.Add(index, m_listPetPortraitPrefab[i]);
+            m_dicPetObject.Add(index, m_listPetEntryPrefab[i]);            
         }
     }
-    
+    private void Start()
+    {
+        m_listPetEntryCtrl = new List<PetController>(m_maxEntryCount);
+        m_listPetIndex = new List<int>();
+    }
     private void Update()
     {
         // 임시
         if (Input.GetKeyDown(KeyCode.F12))
         {
-            m_listPetEntryCtrl = new List<PetController>(m_maxEntryCount);
-            m_listPetIndex = new List<int>();
-            for (int i = 0; i < m_listPetEntryPrefab.Count; i++)
+            for (int i = 0; i < 45; i++)
             {
-                PetController petCtrl = m_listPetEntryPrefab[i].GetComponent<PetController>();
-                int index = 1000 + i;
+                PetController petCtrl = m_listPetEntryPrefab[0].GetComponent<PetController>();
+                int index = 1000;
                 petCtrl.InitPet(index);
-                m_listPetIndex.Add(index);
-                m_listPetEntryCtrl.Add(petCtrl);
-                PoolingManager._inst.AddPetPool(petCtrl); // 펫을 잡을 때 이 함수를 실행해야함            
-                m_dicPetPortraitObject[index] = Instantiate(m_dicPetPortraitObject[index], m_petPortraitRoot, false);
-                m_dicPetPortraitObject[index].SetActive(false);
+                AddEntry(1000, index + i);
             }
             m_uiPetEntryInfoBox.SetHudInfoBox(m_listPetEntryCtrl[0]);
         }
@@ -57,15 +54,15 @@ public class PetEntryManager : TSingleton<PetEntryManager>
         m_listPetIndex = new List<int>();
     }
 
-    public void AddEntry(int UniqueId)
+    public void AddEntry(int index, int UniqueId)
     {
 
         if (!m_listPetIndex.Contains(UniqueId))
         {
             m_listPetIndex.Add(UniqueId);
-            PetController pet = m_dicPetObject[UniqueId].GetComponent<PetController>();
-            pet.InitPet(UniqueId);
-            if (m_listPetEntryPrefab.Count <= MaxEntryCount)
+            PetController pet = m_dicPetObject[index].GetComponent<PetController>();
+            pet.InitPet(index);
+            if (m_listPetEntryCtrl.Count <= MaxEntryCount)
             {
                 InitPetEntry(pet, UniqueId);
             }
@@ -81,7 +78,7 @@ public class PetEntryManager : TSingleton<PetEntryManager>
 
                 }
             }
-        }        
+        }
     }
 
     public void RemoveEntry(PetController pet)
@@ -93,14 +90,18 @@ public class PetEntryManager : TSingleton<PetEntryManager>
     {
         m_petBoxCtrl = petbox;
     }
-    public void InitPetEntry(PetController pet, int Petindex)
+    public void InitPetEntry(PetController pet, int UniqueID)
     {
         m_listPetEntryCtrl.Add(pet);
         PoolingManager._inst.AddPetPool(pet);
         m_uiPetEntryInfoBox.SetHudInfoBox(pet);
-        m_uiPetEntryInfoBox.InitCurrentPetIndex(Petindex);
-        GameObject portrait = Instantiate(m_listPetPortraitPrefab[Petindex], m_petPortraitRoot, false);
-        portrait.SetActive(false);
+        m_uiPetEntryInfoBox.InitCurrentPetIndex(pet.PetInfo.Index);
+        if (!m_dicPetPortraitObject.ContainsKey(pet.PetInfo.Index))
+        {
+            GameObject portrait = Instantiate(m_listPetPortraitPrefab[0], m_petPortraitRoot, false);
+            m_dicPetPortraitObject.Add(pet.PetInfo.Index, portrait);
+            portrait.SetActive(false);
+        }
     }
 
 }

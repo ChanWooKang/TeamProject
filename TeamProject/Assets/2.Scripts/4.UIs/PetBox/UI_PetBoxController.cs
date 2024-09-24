@@ -14,7 +14,9 @@ public class UI_PetBoxController : MonoBehaviour
 
     List<UI_PetInvenSlot> m_listEntrySlots;
     Dictionary<int, List<UI_PetBoxSlot>> m_dicPetboxSlotLists; // Dic<boxNum, List<petSlot>>
-    List<UI_PetBoxSlot> m_listCurrentPetBoxSlots;
+    List<UI_PetBoxSlot> m_listPetBoxSlots1;
+    List<UI_PetBoxSlot> m_listPetBoxSlots2;
+    List<UI_PetBoxSlot> m_listPetBoxSlots3;
 
     [SerializeField] UI_PetInvenSlot m_selectedPetInfoSlot;
 
@@ -32,12 +34,15 @@ public class UI_PetBoxController : MonoBehaviour
 
     [SerializeField] GameObject m_petBoxUI;
     [SerializeField] GameObject m_selectedPetInfoBox;
+    [SerializeField] GameObject m_noDataObj;
+
+
     #endregion [Component]
 
     private void Awake()
     {
         m_petBoxUI.SetActive(false);
-        
+
     }
     private void Update()
     {
@@ -45,8 +50,8 @@ public class UI_PetBoxController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             if (!m_petBoxUI.activeSelf)
-            {
-                InitUI();
+            {                
+                    InitUI();
                 OpenPetBox(m_boxNum);
             }
             else
@@ -83,7 +88,8 @@ public class UI_PetBoxController : MonoBehaviour
     }
     public void InitUI()
     {
-        InitPetBox();
+        if (m_dicPetboxSlotLists == null)
+            InitPetBox();
         InitPetInven();
     }
     void InitPetInven()
@@ -103,22 +109,40 @@ public class UI_PetBoxController : MonoBehaviour
     void InitPetBox()
     {
         m_dicPetboxSlotLists = new Dictionary<int, List<UI_PetBoxSlot>>();
-       
+
         m_boxNum = 1;
 
         UI_PetBoxSlot[] petBoxSlots = m_petBoxSlotsRoot.GetComponentsInChildren<UI_PetBoxSlot>();
-        for (int j = 0; j < 3; j++)
+
+        m_listPetBoxSlots1 = new List<UI_PetBoxSlot>();
+        m_listPetBoxSlots2 = new List<UI_PetBoxSlot>();
+        m_listPetBoxSlots3 = new List<UI_PetBoxSlot>();
+        for (int i = 0; i < petBoxSlots.Length; i++)
         {
-            m_listCurrentPetBoxSlots = new List<UI_PetBoxSlot>();
-            for (int i = 0; i < petBoxSlots.Length; i++)
+            if (i < 25)
             {
-                m_listCurrentPetBoxSlots.Add(petBoxSlots[i]);
-                m_listCurrentPetBoxSlots[i].InitSlot(i);
+                m_listPetBoxSlots1.Add(petBoxSlots[i]);
+                m_listPetBoxSlots1[i].InitSlot(i);
             }
-            m_dicPetboxSlotLists.Add(m_boxNum, m_listCurrentPetBoxSlots);
-            ++m_boxNum;
+            else if (i >= 25 && i < 50)
+            {
+                m_listPetBoxSlots2.Add(petBoxSlots[i]);
+                m_listPetBoxSlots2[i - 25].InitSlot(i);
+            }
+            else if (i >= 50 && i < 75)
+            {
+                m_listPetBoxSlots3.Add(petBoxSlots[i]);
+                m_listPetBoxSlots3[i - 50].InitSlot(i);
+
+            }
         }
+        m_dicPetboxSlotLists.Add(1, m_listPetBoxSlots1);
+        m_dicPetboxSlotLists.Add(2, m_listPetBoxSlots2);
+        m_dicPetboxSlotLists.Add(3, m_listPetBoxSlots3);
+
+
         m_selectedPetInfoBox.SetActive(false);
+        m_noDataObj.SetActive(true);
         m_boxNum = 1;
         PetEntryManager._inst.InitPetBox(this);
         m_petBoxUI.SetActive(false);
@@ -126,11 +150,16 @@ public class UI_PetBoxController : MonoBehaviour
     void OpenPetBox(int boxNum)
     {
         m_petBoxUI.SetActive(true);
-        m_listCurrentPetBoxSlots = m_dicPetboxSlotLists[1];
-        UI_PetBoxSlot[] petBoxSlots = m_petBoxSlotsRoot.GetComponentsInChildren<UI_PetBoxSlot>();
-        for (int i = 0; i < petBoxSlots.Length; i++)
+        for (int i = 1; i < 4; i++)
         {
-            petBoxSlots[i] = m_listCurrentPetBoxSlots[i];
+            for (int j = 0; j < m_dicPetboxSlotLists[i].Count; j++)
+            {
+                m_dicPetboxSlotLists[i][j].ActiveSlot(false);
+            }
+        }
+        for (int i = 0; i < m_dicPetboxSlotLists[boxNum].Count; i++)
+        {
+            m_dicPetboxSlotLists[boxNum][i].ActiveSlot(true);
         }
     }
     void ClosePetBox()
@@ -142,11 +171,12 @@ public class UI_PetBoxController : MonoBehaviour
         m_boxNum = 1;
     }
 
+
     public bool GetPetIntheBox(PetController pet)
     {
-        for(int i = 0;i < m_dicPetboxSlotLists.Count; i++)
+        for (int i = 0; i < m_dicPetboxSlotLists.Count; i++)
         {
-            for(int j = 0; j < m_dicPetboxSlotLists[i+1].Count; j++)
+            for (int j = 0; j < m_dicPetboxSlotLists[i + 1].Count; j++)
             {
                 if (m_dicPetboxSlotLists[i + 1][j].Pet == null)
                 {
@@ -156,5 +186,12 @@ public class UI_PetBoxController : MonoBehaviour
             }
         }
         return false;
+    }
+    public void ShowSelectedInfo(PetController pet)
+    {
+        m_noDataObj.SetActive(false);
+        m_selectedPetInfoSlot.InitSlot(0, this, pet);
+        m_textSelectedPetAttack.text = pet.Stat.AttackDamage.ToString();
+        m_textSelectedPetWorkAbility.text = pet.PetInfo.WorkAbility.ToString();
     }
 }
