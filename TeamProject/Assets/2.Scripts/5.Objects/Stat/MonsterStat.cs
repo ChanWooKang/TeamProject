@@ -13,6 +13,7 @@ public class MonsterStat : BaseStat
     protected int _captureRate;
     protected float _sight;
     protected int _characterType;
+    protected int _uniqueID;
 
     MonsterInfo _monster;
     [SerializeField] float baseHp;
@@ -30,6 +31,8 @@ public class MonsterStat : BaseStat
     public int CaptureRate { get { return _captureRate; } }
     public int CharacterType { get { return _characterType; } }
     public MonsterInfo MonsterInfo { get { return _monster; } }
+
+    public int UniqueID { get { return _uniqueID; } }
 
     public float EXP 
     {
@@ -64,6 +67,7 @@ public class MonsterStat : BaseStat
             _monster = Managers._data.Dict_Monster[index];
             LoadAndSetData();
             SetBaseStat();
+            SettingUniqueID();
         }
         else
         {
@@ -99,6 +103,18 @@ public class MonsterStat : BaseStat
             _dropExp = 60;
         }        
     }   
+
+    void SettingUniqueID()
+    {
+        int id;
+        do
+        {
+            id = Random.Range(0, 10000);
+        }
+        while (Managers._data.AddUniqueID(id, Index));
+
+        _uniqueID = id;
+    }
 
     public void DeadFunc(PlayerStat stat)
     {
