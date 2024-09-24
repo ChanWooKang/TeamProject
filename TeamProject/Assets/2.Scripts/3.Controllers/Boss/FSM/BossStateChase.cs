@@ -12,6 +12,8 @@ public class BossStateChase : TSingleton<BossStateChase>, IFSMState<BossCtrl>
         m.State = eBossState.CHASE;
         if (m._attackType == eAttackType.None)
             m.GetRangeByAttackType();
+
+        
     }
 
     public void Execute(BossCtrl m)

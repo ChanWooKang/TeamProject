@@ -98,6 +98,9 @@ public class BossCtrl : FSM<BossCtrl>
         _move.Init();
         _anim.Init(this);
         _render.Init();
+
+        Debug.Log(Stat.ChaseRange);
+        Debug.Log(Stat.AttackRange);
     }
 
     public void SetHud(HudController hud, Transform hudRoot)
@@ -134,15 +137,19 @@ public class BossCtrl : FSM<BossCtrl>
     //보스는 플레이어만 인식?
     public void SetTarget(bool Return = false)
     {
-        if(player == null)
+        if (player == null)
         {
             if (GameManagerEx._inst.playerManager != null)
             {
                 //Target 설정
                 player = GameManagerEx._inst.playerManager;
             }
+        }        
+
+        if(target == null)
+        {
+            ChangeState(BossStateGrowl._inst);
         }
-        State = eBossState.GROWL;
 
         target = Return ? null : player.transform;        
     }

@@ -4740,7 +4740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4cbef35eae44b449bd8ab608779008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Index: 2000
+  Index: 1003
   MonsterLevel: 1
   Stat: {fileID: 0}
   _move: {fileID: 0}
