@@ -62,7 +62,13 @@ public abstract class PetAnimController : MonoBehaviour
     }
 
     #region [ Animation CallEvent ]
-
+    //제작
+    public void WorkAction()
+    {
+        string trigger = "Attack";
+        _animator.SetTrigger(trigger);
+        _animator.SetInteger("Pattern", 1);
+    }
     //근접 기본 공격
     public void AttackEvent()
     {

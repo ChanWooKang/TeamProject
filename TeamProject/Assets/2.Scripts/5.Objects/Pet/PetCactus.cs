@@ -92,9 +92,5 @@ public class PetCactus : PetAnimController
         }
     }
 
-    void WorkAction()
-    {
-        string trigger = "PunchAttack";
-        _animator.SetTrigger(trigger);
-    }
+    
 }

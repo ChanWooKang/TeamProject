@@ -93,10 +93,6 @@ public class PetMushBoy : PetAnimController
                 break;
         }
     }
-    void WorkAction()
-    {
-        string trigger = "KickAttack";
-        _animator.SetTrigger(trigger);
-    }
+   
 
 }

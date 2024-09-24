@@ -7,7 +7,7 @@ public class PetEntryManager : TSingleton<PetEntryManager>
     const int m_maxEntryCount = 6;
     public int MaxEntryCount { get { return m_maxEntryCount; } }
     public List<GameObject> m_listPetEntryPrefab;
-    public List<GameObject> m_listPetPortraitPrefab;
+    public List<GameObject> m_listPetPortraitPrefab;   
     [HideInInspector] public List<PetController> m_listPetEntryCtrl;
     public Dictionary<int, GameObject> m_dicPetPortraitObject;
     public Dictionary<int, GameObject> m_dicPetObject;
