@@ -116,6 +116,15 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Throw"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""02cfb596-495f-407c-a237-fd6887fdef42"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -272,6 +281,17 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
                     ""action"": ""WeaponSelect"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""de5b4213-5389-4a64-b28e-0f92c8d2d3ff"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Throw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -307,6 +327,7 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
         m_Player_Craft = m_Player.FindAction("Craft", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_WeaponSelect = m_Player.FindAction("WeaponSelect", throwIfNotFound: true);
+        m_Player_Throw = m_Player.FindAction("Throw", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -378,6 +399,7 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Craft;
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_WeaponSelect;
+    private readonly InputAction m_Player_Throw;
     public struct PlayerActions
     {
         private @PlayerAssets m_Wrapper;
@@ -392,6 +414,7 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
         public InputAction @Craft => m_Wrapper.m_Player_Craft;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @WeaponSelect => m_Wrapper.m_Player_WeaponSelect;
+        public InputAction @Throw => m_Wrapper.m_Player_Throw;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -431,6 +454,9 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
             @WeaponSelect.started += instance.OnWeaponSelect;
             @WeaponSelect.performed += instance.OnWeaponSelect;
             @WeaponSelect.canceled += instance.OnWeaponSelect;
+            @Throw.started += instance.OnThrow;
+            @Throw.performed += instance.OnThrow;
+            @Throw.canceled += instance.OnThrow;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -465,6 +491,9 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
             @WeaponSelect.started -= instance.OnWeaponSelect;
             @WeaponSelect.performed -= instance.OnWeaponSelect;
             @WeaponSelect.canceled -= instance.OnWeaponSelect;
+            @Throw.started -= instance.OnThrow;
+            @Throw.performed -= instance.OnThrow;
+            @Throw.canceled -= instance.OnThrow;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -503,5 +532,6 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
         void OnCraft(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnWeaponSelect(InputAction.CallbackContext context);
+        void OnThrow(InputAction.CallbackContext context);
     }
 }

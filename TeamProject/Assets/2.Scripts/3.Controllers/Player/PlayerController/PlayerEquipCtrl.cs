@@ -34,8 +34,6 @@ public class PlayerEquipCtrl : MonoBehaviour
                 maxSlotCount = ++maxSlotCount > 4 ? 4 : maxSlotCount;
             else
                 maxSlotCount = --maxSlotCount < 0 ? 0 : maxSlotCount;
-
-            Debug.Log(maxSlotCount);
         } 
     }
 
@@ -207,7 +205,6 @@ public class PlayerEquipCtrl : MonoBehaviour
     {        
         SetLayerWeight();
         isAniEnd = true;
-        Debug.Log(isAniEnd);
     }
 
     public void DisarmEvent()

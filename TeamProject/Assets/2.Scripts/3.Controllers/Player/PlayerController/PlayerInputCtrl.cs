@@ -68,7 +68,9 @@ public class PlayerInputCtrl : MonoBehaviour
 
             InteractAction();
 
-            FireAction();            
+            FireAction();
+
+            ThrowAction();
         }
 
         InventoryAction();
@@ -157,6 +159,20 @@ public class PlayerInputCtrl : MonoBehaviour
 
         }
         _manager._anim.SetAnimation(ePlayerAnimParams.Fire, _input.fire);
+    }
+
+    void ThrowAction()
+    {
+        if (_input.throws)
+        {
+
+        }
+        else
+        {
+
+        
+        }
+        _manager._anim.SetAnimation(ePlayerAnimParams.Throw, _input.throws);
     }
 
     //KeyBoard F Key

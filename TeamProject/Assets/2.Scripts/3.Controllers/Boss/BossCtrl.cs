@@ -98,9 +98,6 @@ public class BossCtrl : FSM<BossCtrl>
         _move.Init();
         _anim.Init(this);
         _render.Init();
-
-        Debug.Log(Stat.ChaseRange);
-        Debug.Log(Stat.AttackRange);
     }
 
     public void SetHud(HudController hud, Transform hudRoot)
