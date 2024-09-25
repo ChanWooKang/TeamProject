@@ -7,6 +7,7 @@ public class BossStateReturn : TSingleton<BossStateReturn>, IFSMState<BossCtrl>
 {
     public void Enter(BossCtrl m)
     {
+        m._move.BaseNavSetting();
         m.Agent.speed = m.Stat.MoveSpeed * 5f;
         m.State = eBossState.RETURN;
         

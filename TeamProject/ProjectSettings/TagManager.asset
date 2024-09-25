@@ -16,6 +16,9 @@ TagManager:
   - Arrow
   - ThrowStone
   - MonsterSkill
+  - FireBall
+  - Fire
+  - Block
   layers:
   - Default
   - TransparentFX

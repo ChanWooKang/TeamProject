@@ -585,14 +585,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.8047753
+      - time: 0.92128015
         functionName: FlameEnd
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.88904494
+      - time: 0.97642356
         functionName: AttackEnd
         data: 
         objectReferenceParameter: {instanceID: 0}

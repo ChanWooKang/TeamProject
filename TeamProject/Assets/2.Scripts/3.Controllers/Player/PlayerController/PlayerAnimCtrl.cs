@@ -19,7 +19,7 @@ public class PlayerAnimCtrl : MonoBehaviour
         int animID = Animator.StringToHash(Utilitys.ConvertEnum(parmas));
         return animID;
     }
-    
+
     //Trigger
     public void SetAnimation(ePlayerAnimParams parmas)
     {
@@ -31,7 +31,7 @@ public class PlayerAnimCtrl : MonoBehaviour
     public void SetAnimation(ePlayerAnimParams parmas, bool isOn)
     {
         int ID = GetAnimationID(parmas);
-        _animator.SetBool(ID,isOn);
+        _animator.SetBool(ID, isOn);
     }
 
     //Float
@@ -57,7 +57,7 @@ public class PlayerAnimCtrl : MonoBehaviour
     public void OnAttack()
     {
         _manager._equip.AttackAction();
-        
+
     }
 
     public void OnAttackEnd()
@@ -67,19 +67,19 @@ public class PlayerAnimCtrl : MonoBehaviour
 
     public void OnEquip()
     {
-        _manager._equip.EquipEvent();        
+        _manager._equip.EquipEvent();
     }
 
     public void OnDisarm()
     {
         _manager._equip.DisarmEvent();
-        
+
     }
 
     public void OnActiveObject(int value)
     {
-        _manager._equip.SetOnOffWeapon(value > 0);        
-    }    
+        _manager._equip.SetOnOffWeapon(value > 0);
+    }
 
     public void ChargeStart()
     {
@@ -89,7 +89,7 @@ public class PlayerAnimCtrl : MonoBehaviour
     public void ChargeEnd()
     {
         _manager._equip.ChargeEnd();
-    }    
+    }
 
     public void Reload()
     {
@@ -98,6 +98,17 @@ public class PlayerAnimCtrl : MonoBehaviour
 
     public void ReadyToThrow()
     {
-        _animator.Update(0);
+        _manager._equip.GeneratePetBall();
+    }
+
+    public void ThrowEvent()
+    {
+        _manager._equip.ThrowBall();
+    }
+
+    public void ThrowEnd()
+    {
+        _manager._equip.ThrowEnd();
+        SetAnimation(ePlayerAnimParams.AttackEnd, true);
     }
 }

@@ -29,14 +29,8 @@ public class LeafSlash : BaseSkill
         _rigid = GetComponent<Rigidbody>();
         _collider = GetComponent<BoxCollider>();
         _particle = GetComponentInChildren<ParticleSystem>();
-        if (Managers._data.Dict_Skill.ContainsKey(skillID))
-        {
-            Info = Managers._data.Dict_Skill[skillID];
-        }
-        else
-        {
-            Info = null;
-        }
+
+        SetInformation();
         _offSetPosY = 0.8f;
         SetEnable(false);
     }
