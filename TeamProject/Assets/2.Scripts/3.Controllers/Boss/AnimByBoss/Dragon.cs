@@ -77,8 +77,7 @@ public class Dragon : BossAnimCtrl
                 else
                     Invoke("GetHitEnd", 0.5f);
                 break;
-            case eBossState.ATTACK:
-                Debug.Log(_manager.attackRange);
+            case eBossState.ATTACK:                
                 AttackAction();
                 break;
             case eBossState.DIE:
@@ -158,5 +157,10 @@ public class Dragon : BossAnimCtrl
         }
     }
 
-    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;        
+        Gizmos.DrawRay(_firePos.position, _firePos.right * -5f);        
+    }
+
 }

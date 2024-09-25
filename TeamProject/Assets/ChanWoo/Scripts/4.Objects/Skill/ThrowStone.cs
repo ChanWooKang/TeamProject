@@ -11,14 +11,7 @@ public class ThrowStone : BaseSkill
     void Init(MonsterController monster)
     {
         _targetMonster = monster;
-        if (Managers._data.Dict_Skill.ContainsKey(skillID))
-        {
-            Info = Managers._data.Dict_Skill[skillID];
-        }
-        else
-        {
-            Info = null;
-        }
+        SetInformation();
     }
 
     public void ThrowEvent(MonsterController monster, Vector3 start, Vector3 target, float damage)

@@ -23,48 +23,60 @@ public class PetBallController : MonoBehaviour
 
     Vector3 m_capturePos;
 
-    
+
     bool m_isSuccess;
-    private void Start()
-    {
-        //임시
-        InitBall(500);        
-        m_rigidbdy = GetComponent<Rigidbody>();
-    }
- 
+    float _shootPower = 20.0f;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Monster") && m_targetMonsterCtrl == null)
         {
             //포획            
             m_rigidbdy.isKinematic = true;
-            m_capturePos = gameObject.transform.position;                   
-                   
+            m_capturePos = gameObject.transform.position;
+
             m_targetMonsterCtrl = other.GetComponent<MonsterController>();
             // 잡히는 이펙트 .... (모델 껏다 켯다 , 살짝위로 이동 )
             m_targetMonsterCtrl.gameObject.SetActive(false);
-           // m_targetMonsterCtrl.ChangeState(MonsterStateCapture._inst);
+            // m_targetMonsterCtrl.ChangeState(MonsterStateCapture._inst);
             StartCoroutine(CaptureStart());
         }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
+
+    void Init(int index = 500)
+    {
+        InitBall(index);
+        m_rigidbdy = GetComponent<Rigidbody>();
+    }
+
     public void InitBall(int index)
     {
         m_petBallInfo = InventoryManager._inst.Dict_Petball[index];
         m_animator = GetComponent<Animator>();
     }
 
+    public void ShootEvent(int petBallIndex = 500)
+    {
+        Init(petBallIndex);        
+        Vector3 dir = transform.forward * _shootPower;
+        m_rigidbdy.AddForce(dir, ForceMode.Impulse);
+    }
+
+    void DestoryObject()
+    {
+        m_rigidbdy.velocity = Vector3.zero;
+        m_rigidbdy.inertiaTensor = Vector3.zero;
+        gameObject.DestroyAPS();
+    }
+
     IEnumerator CaptureStart()
     {
         Vector3 targetPos = m_capturePos + Vector3.up * 4;
-        
+
         while (transform.position != targetPos)
         {
             // 최대한 화려한 이펙트 : 재생하는 동안 볼 위치 따라가도록
-            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, targetPos, 4f * Time.deltaTime);           
+            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, targetPos, 4f * Time.deltaTime);
             if (Vector3.Distance(transform.position, targetPos) < 0.05f)
             {
                 gameObject.transform.position = targetPos;
@@ -73,10 +85,10 @@ public class PetBallController : MonoBehaviour
             yield return null;
         }
         m_animator.SetTrigger("SpinBall");
-        GameObject ui = Instantiate(m_uiRateBoxPrefab);             
-        m_uiRateBox = ui.GetComponent<UI_CaptureRateBox>();        
+        GameObject ui = Instantiate(m_uiRateBoxPrefab);
+        m_uiRateBox = ui.GetComponent<UI_CaptureRateBox>();
         m_uiRateBox.OpenUI(gameObject.transform.position);
-        CaculateCaputreRate();        
+        CaculateCaputreRate();
     }
 
     IEnumerator ShakeBall(float a)
@@ -94,11 +106,11 @@ public class PetBallController : MonoBehaviour
                 //포획 실패 (볼에서 펫이 탈출)
                 Debug.Log("앗 펫이 볼에서 빠져나왔다!");
                 m_isSuccess = false;
-                m_uiRateBox.CaptureFailed();                
+                m_uiRateBox.CaptureFailed();
                 break;
             }
             else if (RN < b)
-            {              
+            {
                 if (count >= 1 && count < m_shakeMaxCount)
                 {
                     Debug.LogFormat("볼이 흔들렸다!" + (count));
@@ -113,7 +125,7 @@ public class PetBallController : MonoBehaviour
                     //볼 흔들림 or 이펙트
                     yield return new WaitForSeconds(m_shakeDelayTime);
                     Debug.Log("잡았다!");
-                    PetEntryManager._inst.AddEntry(m_targetMonsterCtrl.Index ,m_targetMonsterCtrl.Stat.UniqueID);
+                    PetEntryManager._inst.AddEntry(m_targetMonsterCtrl.Index, m_targetMonsterCtrl.Stat.UniqueID);
                     m_isSuccess = true;
                     break;
                 }
@@ -128,15 +140,15 @@ public class PetBallController : MonoBehaviour
             //UI 적용
             m_uiRateBox.CaptureSuccess();
             //몬스터 잡혔으면 setactive false
-            
+
         }
         else
         {
             //실패시 몬스터 튀어나옴 스테이트, 모델 변경해야함
             //m_targetMonsterCtrl.ChangeState(MonsterStateChase._inst);
-        }    
+        }
 
-        Destroy(gameObject);
+        DestoryObject();
     }
     IEnumerator CaptureImmediately()
     {
@@ -145,7 +157,7 @@ public class PetBallController : MonoBehaviour
         yield return new WaitForSeconds(m_shakeDelayTime);
         Debug.Log("바로 잡혔다");
         m_uiRateBox.CaptureSuccess();
-        Destroy(gameObject);
+        DestoryObject();
     }
 
     void CaculateCaputreRate()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DefineDatas;
 
+
 public abstract class BossAnimCtrl : BaseAnimCtrl
 {
     protected BossCtrl _manager;
@@ -10,10 +11,13 @@ public abstract class BossAnimCtrl : BaseAnimCtrl
     [SerializeField] protected Transform _firePos;
     public eBossType _bossType;
 
+    FlameCtrl _flame;
+
     public virtual void Init(BossCtrl manager)
     {
         _manager = manager;
         _animator = GetComponent<Animator>();
+        _flame = null;
         InitAnimData();
     }
 
@@ -70,19 +74,69 @@ public abstract class BossAnimCtrl : BaseAnimCtrl
     //불똥 발사
     public void FireBallAction()
     {
-        Debug.Log("파이어볼 !");
+        GameObject go = PoolingManager._inst.InstantiateAPS("FireBall",_firePos.position,_firePos.rotation,Vector3.one);
+        if(go.TryGetComponent(out FireBall fireBall))
+        {
+            float damageTime = GetDamageTime(fireBall.skillID);
+            fireBall.ShootEvent(GetDirection(_firePos.position,_manager.target.position), _manager.Stat.Damage * damageTime);
+        }
+        else
+        {
+            Destroy(go);
+        }
+        
     }
+
+    Vector3 GetDirection(Vector3 strat, Vector3 end)
+    {
+        Vector3 xzVec = _firePos.right * -1;
+        Vector3 yVec = end - strat;
+        yVec = yVec.normalized;
+        return new Vector3(xzVec.x,yVec.y,xzVec.z);
+    }
+   
 
     //화염 방사
     public void FlameAction()
-    {
-        Debug.Log("부우우우우울바다");
+    {        
+        if(_flame == null)
+        {
+            GameObject go = PoolingManager._inst.InstantiateAPS("Flame",transform);
+            if (go.TryGetComponent(out _flame))
+            {
+                float damageTime = GetDamageTime(_flame.skillID);
+                _flame.OnFlameEvent(_firePos,_manager.target,_manager.Stat.Damage * damageTime);                
+            }
+            else
+            {
+                Destroy(go);
+                _flame = null;
+            }
+        }
+        else
+        {
+            float damageTime = GetDamageTime(_flame.skillID);
+            _flame.OnFlameEvent(_firePos, _manager.target,_manager.Stat.Damage * damageTime);
+        }
+        
     }
 
     public void FlameEnd()
     {
-        Debug.Log("끝");
+        if(_flame != null)
+        {
+            _flame.OffFlameEvent();
+        }
     }
 
     
+    float GetDamageTime(int skillID)
+    {
+        float times = 1.0f;
+        if (Managers._data.Dict_Skill.ContainsKey(skillID))
+        {
+            times = Managers._data.Dict_Skill[skillID].DamageTimes;
+        }
+        return times;
+    }
 }

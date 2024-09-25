@@ -7,7 +7,7 @@ using Cinemachine;
 using DefineDatas;
 
 public class PlayerInputCtrl : MonoBehaviour
-{            
+{
     [Header("LayerMask")]
     [SerializeField] float _recogMaskRange;
     [SerializeField] LayerMask _recogLayer;
@@ -21,9 +21,9 @@ public class PlayerInputCtrl : MonoBehaviour
     public float TopClamp = 30.0f;
     public float BottomClamp = -10.0f;
     public float CamAngleOverride = 0;
-    public bool  LockCamPos = false;
+    public bool LockCamPos = false;
     public float SpanMinY = -10.0f;
-    public float SpanMaxY =  10.0f;
+    public float SpanMaxY = 10.0f;
 
     //나중에 변경 해야함
     [Header("Craft")]
@@ -52,7 +52,7 @@ public class PlayerInputCtrl : MonoBehaviour
     {
         float baseAngle = 360.0f;
         if (lfAngle < -baseAngle) lfAngle += baseAngle;
-        if (lfAngle >  baseAngle) lfAngle -= baseAngle;
+        if (lfAngle > baseAngle) lfAngle -= baseAngle;
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
     }
 
@@ -60,7 +60,7 @@ public class PlayerInputCtrl : MonoBehaviour
     {
         CheckCrossHair();
 
-        if(GameManagerEx._inst.CheckIsMoveAble() && GameManagerEx._inst.isOnBuild == false)
+        if (GameManagerEx._inst.CheckIsMoveAble() && GameManagerEx._inst.isOnBuild == false)
         {
             AimAction();
 
@@ -78,7 +78,7 @@ public class PlayerInputCtrl : MonoBehaviour
 
     public void CamRotate()
     {
-        if(_input.look.sqrMagnitude >= _threshold && !LockCamPos)
+        if (_input.look.sqrMagnitude >= _threshold && !LockCamPos)
         {
             float times = _manager.IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
             _camTargetYaw += _input.look.x * times;
@@ -103,12 +103,12 @@ public class PlayerInputCtrl : MonoBehaviour
                 //Recognize Object Setting
                 if (_manager.RecognizeObject != rhit.transform.gameObject)
                     _manager.SetRecognizeObject(rhit.transform.gameObject);
-            }            
+            }
         }
         else
         {
             //Recognize Object Reset
-            if(_manager.RecognizeObject != null)
+            if (_manager.RecognizeObject != null)
                 _manager.SetRecognizeObject();
         }
     }
@@ -125,14 +125,14 @@ public class PlayerInputCtrl : MonoBehaviour
     {
         if (_input.aim)
         {
-            if(_input.fire == false)
+            if (_input.fire == false)
             {
                 if (AimCam.gameObject.activeSelf == false)
                 {
-                    AimCam.gameObject.SetActive(true);                   
+                    AimCam.gameObject.SetActive(true);
                     ChangeAlpha(1.0f);
                 }
-            }            
+            }
         }
         else
         {
@@ -165,12 +165,22 @@ public class PlayerInputCtrl : MonoBehaviour
     {
         if (_input.throws)
         {
-
+            _manager._equip.ReadyToGottcha(false);
+            if (AimCam.gameObject.activeSelf == false)
+            {
+                AimCam.gameObject.SetActive(true);
+            }
         }
         else
         {
+            _manager._equip.ReadyToGottcha(true);
+            if (AimCam.gameObject.activeSelf == true)
+            {
+                AimCam.gameObject.SetActive(false);
+            }
 
-        
+            if (_manager._equip.PetBallModel.activeSelf)
+                _manager._equip.ThrowEnd();
         }
         _manager._anim.SetAnimation(ePlayerAnimParams.Throw, _input.throws);
     }
@@ -180,10 +190,10 @@ public class PlayerInputCtrl : MonoBehaviour
     {
         if (_input.interact)
         {
-            if(_manager.RecognizeObject != null)
+            if (_manager.RecognizeObject != null)
             {
                 GameObject go = _manager.RecognizeObject;
-                if(go.TryGetComponent(out ObjectData data))
+                if (go.TryGetComponent(out ObjectData data))
                 {
                     if (data.isNPC)
                     {
@@ -191,7 +201,7 @@ public class PlayerInputCtrl : MonoBehaviour
                     }
                     else
                     {
-                        if(go.TryGetComponent(out ItemCtrl item))
+                        if (go.TryGetComponent(out ItemCtrl item))
                         {
                             if (item.Root())
                                 _manager.SetRecognizeObject();
@@ -208,7 +218,7 @@ public class PlayerInputCtrl : MonoBehaviour
     void InventoryAction()
     {
         if (_input.inventory)
-        {            
+        {
             InventoryManager._inst.invenUI.TryOpenInventory();
             _input.inventory = false;
         }

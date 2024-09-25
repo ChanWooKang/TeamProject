@@ -8,4 +8,16 @@ public class BaseSkill : MonoBehaviour
     public int skillID;
     protected SkillInfo Info;
 
+
+    protected void SetInformation()
+    {
+        if (Managers._data.Dict_Skill.ContainsKey(skillID))
+        {
+            Info = Managers._data.Dict_Skill[skillID];
+        }
+        else
+        {
+            Info = null;
+        }
+    }
 }
