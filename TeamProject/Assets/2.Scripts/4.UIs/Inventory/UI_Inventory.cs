@@ -37,6 +37,11 @@ public class UI_Inventory : MonoBehaviour
     [SerializeField] TextMeshProUGUI m_textSkill3Name;
     [SerializeField] TextMeshProUGUI m_textSkill3Value;
     [SerializeField] Image m_iconSkill3;
+
+    [SerializeField] Sprite m_imageRangeSkill;
+    [SerializeField] Sprite m_imageBuff;
+    [SerializeField] Sprite m_imageAttackBuff;
+    [SerializeField] Sprite m_imageHealBuff;
     #endregion [PetInven Component & Param]
 
 
@@ -232,10 +237,76 @@ public class UI_Inventory : MonoBehaviour
         m_textPetDesc.text = pet.PetInfo.Desc;
         m_textPetAttack.text = pet.PetInfo.Damage.ToString();
         m_textPetWorkAbility.text = pet.PetInfo.WorkAbility.ToString();
+        ShowPetSkills(pet.PetInfo.Index);
         m_DescBox.SetActive(true);
         m_StatusBox.SetActive(true);
         m_SkillBox.SetActive(true);
 
+    }
+    void ShowPetSkills(int index) // 스킬 인포창 
+    {
+        List<SkillInfo> skills = Managers._data.Dict_MonsterSkill[index];
+        int skillsCount = skills.Count;
+        switch (skillsCount)
+        {
+            case 1:
+                m_iconSkill1.sprite = SetSkillType(skills, 0);
+                m_textSkill1Name.text = skills[0].NameKr;
+                m_textSkill1Value.text = skills[0].DamageTimes.ToString();
+                m_iconSkill2.enabled = false;
+                m_textSkill2Name.text = NoneSKill();
+                m_textSkill2Value.enabled = false;
+                m_iconSkill3.enabled = false;
+                m_textSkill3Name.text = NoneSKill();
+                m_textSkill3Value.enabled = false;
+                break;
+            case 2:
+                m_iconSkill1.sprite = SetSkillType(skills, 0);
+                m_textSkill1Name.text = skills[0].NameKr;
+                m_textSkill1Value.text = skills[0].DamageTimes.ToString();
+                m_iconSkill2.sprite = SetSkillType(skills, 1);
+                m_textSkill2Name.text = skills[1].NameKr;
+                m_textSkill2Value.text = skills[1].DamageTimes.ToString();
+                m_iconSkill3.enabled = false;
+                m_textSkill3Name.text = NoneSKill();
+                m_textSkill3Value.enabled = false;
+                break;
+            case 3:
+                m_iconSkill1.sprite = SetSkillType(skills, 0);
+                m_textSkill1Name.text = skills[0].NameKr;
+                m_textSkill1Value.text = skills[0].DamageTimes.ToString();
+                m_iconSkill2.sprite = SetSkillType(skills, 1);
+                m_textSkill2Name.text = skills[1].NameKr;
+                m_textSkill2Value.text = skills[1].DamageTimes.ToString();
+                m_iconSkill3.sprite = SetSkillType(skills, 2);
+                m_textSkill3Name.text = skills[2].NameKr;
+                m_textSkill3Value.text = skills[2].DamageTimes.ToString();
+                break;
+        }
+    }
+    Sprite SetSkillType(List<SkillInfo> skills, int index) // 스킬 타입 셋
+    {
+        eAttackType type = skills[index].Type;
+        switch (type)
+        {
+            case eAttackType.RangeAttack:
+                return m_imageRangeSkill;
+
+            case eAttackType.Buff:
+                return m_imageBuff;
+
+            case eAttackType.AttackBuff:
+                return m_imageAttackBuff;
+
+            case eAttackType.HealBuff:
+                return m_imageHealBuff;
+
+        }
+        return null;
+    }
+    string NoneSKill()
+    {
+        return "스킬 없음";
     }
     #endregion [Button]
 }

@@ -3,33 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-public class UI_PetBoxSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IEndDragHandler
+public class UI_PetBoxSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IDropHandler, IBeginDragHandler, IPointerExitHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField] Image m_petIcon;
     PetController m_petCtrl;
 
     GameObject m_draggingObject;
     RectTransform m_canvasTF;
-
+    UI_PetBoxController m_manager;
     Vector2 m_dragOffset = Vector2.zero;
     int m_slotNum;
 
+    public Image Icon { get { return m_petIcon; } }
     public int SlotNum { get { return m_slotNum; } }
+
     public PetController Pet { get { return m_petCtrl; } }
 
-    public void InitSlot(int num, PetController pet = null)
+    public void InitSlot(int num, UI_PetBoxController manager = null, PetController pet = null)
     {
         m_slotNum = num;
         if (pet != null)
         {
             m_petCtrl = pet;
-            m_petIcon.enabled = true;            
+            m_petIcon.enabled = true;
         }
         else
         {
             m_petCtrl = null;
             m_petIcon.enabled = false;
         }
+        if (manager != null)
+            m_manager = manager;
     }
     public void ActiveSlot(bool isActive)
     {
@@ -40,7 +44,11 @@ public class UI_PetBoxSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        
+        if (m_manager == null)
+            return;
+        m_manager.ShowSelectedInfo(m_petCtrl);
+        m_manager.m_currentPetPortrait = PetEntryManager._inst.m_dicPetPortraitObject[m_petCtrl.PetInfo.Index];
+        m_manager.m_currentPetPortrait.SetActive(true);
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -52,10 +60,33 @@ public class UI_PetBoxSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     }
     public void OnDrop(PointerEventData eventData)
     {
+        if (eventData.pointerDrag.transform.TryGetComponent(out UI_PetBoxSlot slot))
+        {
+            m_petCtrl = slot.Pet;
+            slot.SwapSlot(this);
+            m_petIcon.enabled = true;
+            m_petIcon.sprite = slot.Icon.sprite;
+        }
+        else if (eventData.pointerDrag.transform.TryGetComponent(out UI_PetInvenSlot Islot))
+        {
+            if (m_petCtrl == null)
+            {
+                Islot.InitSlot(Islot.SlotNum, m_manager);
+                m_petCtrl = Islot.Pet;
+                InitSlot(m_slotNum, Islot.ManagerPetBox, m_petCtrl);
+                PetEntryManager._inst.m_listPetEntryCtrl.Remove(Islot.Pet);
+                m_manager.InitPetInven();
+            }
+            else
+                Islot.InitSlot(Islot.SlotNum, m_manager, m_petCtrl);
+            m_petIcon.enabled = true;
 
+
+        }
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
+
         if (m_draggingObject != null)
             Destroy(m_draggingObject);
         if (!m_petIcon.enabled)
@@ -80,11 +111,40 @@ public class UI_PetBoxSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     }
     public void OnDrag(PointerEventData eventData)
     {
+
         UpdateDraggingObjectPos(eventData);
     }
     public void OnEndDrag(PointerEventData eventData)
     {
         Destroy(m_draggingObject);
+    }
+    public void SwapSlot(UI_PetBoxSlot slot)
+    {
+        if (!slot.Icon.enabled)
+        {
+            m_petIcon.enabled = false;
+            m_petCtrl = null;
+        }
+        else
+        {
+            m_petIcon.enabled = true;
+            m_petCtrl = slot.Pet;
+            m_petIcon.sprite = slot.Icon.sprite;
+        }
+    }
+    public void SwapSlot(UI_PetInvenSlot slot)
+    {
+        if (!slot.Icon.enabled)
+        {
+            m_petIcon.enabled = false;
+            m_petCtrl = null;
+        }
+        else
+        {
+            m_petIcon.enabled = true;
+            m_petCtrl = slot.Pet;
+            m_petIcon.sprite = slot.Icon.sprite;
+        }
     }
     void UpdateDraggingObjectPos(PointerEventData eventData)
     {
@@ -103,4 +163,5 @@ public class UI_PetBoxSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             m_draggingObject.transform.rotation = m_canvasTF.rotation;
         }
     }
+
 }

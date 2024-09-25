@@ -4765,7 +4765,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 909089129}
   m_HandleRect: {fileID: 0}
@@ -13390,7 +13390,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1673885835}
   m_HandleRect: {fileID: 0}
@@ -22640,7 +22640,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1389836804}
   m_HandleRect: {fileID: 0}
@@ -22730,7 +22730,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1058354336}
   m_HandleRect: {fileID: 0}
@@ -23200,6 +23200,13 @@ MonoBehaviour:
   - {fileID: 1474925339}
   - {fileID: 2088272423}
   - {fileID: 1687305584}
+  m_imageSelectedPetSkill1: {fileID: 2061030517}
+  m_imageSelectedPetSkill2: {fileID: 1359625603}
+  m_imageSelectedPetSkill3: {fileID: 339469726}
+  m_imageRangeSkill: {fileID: 21300000, guid: 1d78ea13ed0615c4996735add71cbd43, type: 3}
+  m_imageBuff: {fileID: 21300000, guid: 992d57164098d6e49b3fb15d023a2720, type: 3}
+  m_imageAttackBuff: {fileID: 21300000, guid: c31f25a265f7eb4488e60fb139c60279, type: 3}
+  m_imageHealBuff: {fileID: 21300000, guid: cc85561e633b0f741be39cda62c016e6, type: 3}
   m_petBoxUI: {fileID: 1047331726}
   m_selectedPetInfoBox: {fileID: 915137142}
   m_noDataObj: {fileID: 236013776}
@@ -23769,7 +23776,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 327336307}
   m_HandleRect: {fileID: 0}
@@ -56999,7 +57006,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 6551338509679499230}
   m_HandleRect: {fileID: 0}
@@ -59908,7 +59915,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 6551338511461299664}
   m_HandleRect: {fileID: 0}
@@ -60898,7 +60905,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 6551338511702193555}
   m_HandleRect: {fileID: 0}
@@ -61459,7 +61466,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 6551338511660158764}
   m_HandleRect: {fileID: 0}
@@ -61720,6 +61727,7 @@ MonoBehaviour:
   aim: 0
   craft: 0
   scrollY: 0
+  throws: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLock: 1
@@ -63076,6 +63084,10 @@ MonoBehaviour:
   m_textSkill3Name: {fileID: 716083456}
   m_textSkill3Value: {fileID: 530906788}
   m_iconSkill3: {fileID: 612587822}
+  m_imageRangeSkill: {fileID: 21300000, guid: 1d78ea13ed0615c4996735add71cbd43, type: 3}
+  m_imageBuff: {fileID: 21300000, guid: 992d57164098d6e49b3fb15d023a2720, type: 3}
+  m_imageAttackBuff: {fileID: 21300000, guid: c31f25a265f7eb4488e60fb139c60279, type: 3}
+  m_imageHealBuff: {fileID: 21300000, guid: cc85561e633b0f741be39cda62c016e6, type: 3}
 --- !u!224 &7625948455521916710
 RectTransform:
   m_ObjectHideFlags: 0

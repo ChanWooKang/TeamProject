@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DefineDatas;
 public class UI_PetBoxController : MonoBehaviour
 {
     #region [Component]
@@ -23,7 +24,7 @@ public class UI_PetBoxController : MonoBehaviour
     [SerializeField] TextMeshProUGUI m_textBoxNum;
 
     [SerializeField] TextMeshProUGUI m_textSelectedPetAttack;
-    [SerializeField] TextMeshProUGUI m_textSelectedPetWorkAbility;
+    [SerializeField] TextMeshProUGUI m_textSelectedPetWorkAbility;    
     [SerializeField] TextMeshProUGUI m_textSelectedPetSkill1Name;
     [SerializeField] TextMeshProUGUI m_textSelectedPetSkill1Value;
     [SerializeField] TextMeshProUGUI m_textSelectedPetSkill2Name;
@@ -31,18 +32,26 @@ public class UI_PetBoxController : MonoBehaviour
     [SerializeField] TextMeshProUGUI m_textSelectedPetSkill3Name;
     [SerializeField] TextMeshProUGUI m_textSelectedPetSkill3Value;
     [SerializeField] Image[] m_boxNumImage;
+    [SerializeField] Image m_imageSelectedPetSkill1;
+    [SerializeField] Image m_imageSelectedPetSkill2;
+    [SerializeField] Image m_imageSelectedPetSkill3;
+    [SerializeField] Sprite m_imageRangeSkill;
+    [SerializeField] Sprite m_imageBuff;
+    [SerializeField] Sprite m_imageAttackBuff;
+    [SerializeField] Sprite m_imageHealBuff;
 
+    [HideInInspector] public GameObject m_currentPetPortrait;
     [SerializeField] GameObject m_petBoxUI;
     [SerializeField] GameObject m_selectedPetInfoBox;
     [SerializeField] GameObject m_noDataObj;
 
-
+    bool m_isUIOpen;
     #endregion [Component]
 
     private void Awake()
     {
         m_petBoxUI.SetActive(false);
-
+        m_isUIOpen = false;
     }
     private void Update()
     {
@@ -92,7 +101,7 @@ public class UI_PetBoxController : MonoBehaviour
             InitPetBox();
         InitPetInven();
     }
-    void InitPetInven()
+    public void InitPetInven()
     {
         m_listEntrySlots = new List<UI_PetInvenSlot>();
         UI_PetInvenSlot[] invenSlots = m_entrySlotsRoot.GetComponentsInChildren<UI_PetInvenSlot>();
@@ -102,7 +111,7 @@ public class UI_PetBoxController : MonoBehaviour
             if (i < PetEntryManager._inst.m_listPetEntryCtrl.Count)
                 m_listEntrySlots[i].InitSlot(i, this, PetEntryManager._inst.m_listPetEntryCtrl[i]);
             else
-                m_listEntrySlots[i].InitSlot(i);
+                m_listEntrySlots[i].InitSlot(i, this);
         }
     }
 
@@ -122,17 +131,17 @@ public class UI_PetBoxController : MonoBehaviour
             if (i < 25)
             {
                 m_listPetBoxSlots1.Add(petBoxSlots[i]);
-                m_listPetBoxSlots1[i].InitSlot(i);
+                m_listPetBoxSlots1[i].InitSlot(i, this);
             }
             else if (i >= 25 && i < 50)
             {
                 m_listPetBoxSlots2.Add(petBoxSlots[i]);
-                m_listPetBoxSlots2[i - 25].InitSlot(i);
+                m_listPetBoxSlots2[i - 25].InitSlot(i, this);
             }
             else if (i >= 50 && i < 75)
             {
                 m_listPetBoxSlots3.Add(petBoxSlots[i]);
-                m_listPetBoxSlots3[i - 50].InitSlot(i);
+                m_listPetBoxSlots3[i - 50].InitSlot(i, this);
 
             }
         }
@@ -149,6 +158,7 @@ public class UI_PetBoxController : MonoBehaviour
     }
     void OpenPetBox(int boxNum)
     {
+        m_isUIOpen = true;
         m_petBoxUI.SetActive(true);
         for (int i = 1; i < 4; i++)
         {
@@ -161,14 +171,23 @@ public class UI_PetBoxController : MonoBehaviour
         {
             m_dicPetboxSlotLists[boxNum][i].ActiveSlot(true);
         }
+        if(m_currentPetPortrait != null)
+        m_currentPetPortrait.SetActive(false);
+        GameManagerEx._inst.ControlUI(m_isUIOpen, true);
     }
     void ClosePetBox()
     {
+        m_isUIOpen = false;
         m_petBoxUI.SetActive(false);
+        m_noDataObj.SetActive(true);
+        m_selectedPetInfoBox.SetActive(false);
         m_boxNumImage[0].enabled = true;
         m_boxNumImage[1].enabled = false;
         m_boxNumImage[2].enabled = false;
         m_boxNum = 1;
+        if(m_currentPetPortrait != null)
+        m_currentPetPortrait.SetActive(false);
+        GameManagerEx._inst.ControlUI(m_isUIOpen, true);
     }
 
 
@@ -180,7 +199,7 @@ public class UI_PetBoxController : MonoBehaviour
             {
                 if (m_dicPetboxSlotLists[i + 1][j].Pet == null)
                 {
-                    m_dicPetboxSlotLists[i + 1][j].InitSlot(m_dicPetboxSlotLists[i + 1][j].SlotNum, pet);
+                    m_dicPetboxSlotLists[i + 1][j].InitSlot(m_dicPetboxSlotLists[i + 1][j].SlotNum,this, pet);
                     return true;
                 }
             }
@@ -190,8 +209,78 @@ public class UI_PetBoxController : MonoBehaviour
     public void ShowSelectedInfo(PetController pet)
     {
         m_noDataObj.SetActive(false);
+        m_selectedPetInfoBox.SetActive(true);
         m_selectedPetInfoSlot.InitSlot(0, this, pet);
-        m_textSelectedPetAttack.text = pet.Stat.AttackDamage.ToString();
+        m_textSelectedPetAttack.text = pet.PetInfo.Damage.ToString();
         m_textSelectedPetWorkAbility.text = pet.PetInfo.WorkAbility.ToString();
+        ShowPetSkills(pet.PetInfo.Index);
+    }
+    void ShowPetSkills(int index) // 스킬 인포창 
+    {
+        List<SkillInfo> skills = Managers._data.Dict_MonsterSkill[index];
+        int skillsCount = skills.Count;
+        switch (skillsCount)
+        {
+            case 1:
+                m_imageSelectedPetSkill1.sprite = SetSkillType(skills, 0);
+                m_textSelectedPetSkill1Name.text = skills[0].NameKr;
+                m_textSelectedPetSkill1Value.text = skills[0].DamageTimes.ToString();
+                m_imageSelectedPetSkill2.enabled = false;
+                m_textSelectedPetSkill2Name.text = NoneSKill();
+                m_textSelectedPetSkill2Value.enabled = false;
+                m_imageSelectedPetSkill3.enabled = false;
+                m_textSelectedPetSkill3Name.text = NoneSKill();
+                m_textSelectedPetSkill3Value.enabled = false;
+                break;
+            case 2:
+                m_imageSelectedPetSkill1.sprite = SetSkillType(skills, 0);
+                m_textSelectedPetSkill1Name.text = skills[0].NameKr;
+                m_textSelectedPetSkill1Value.text = skills[0].DamageTimes.ToString();
+                m_imageSelectedPetSkill2.enabled = true;
+                m_imageSelectedPetSkill2.sprite = SetSkillType(skills, 1);
+                m_textSelectedPetSkill2Name.text = skills[1].NameKr;
+                m_textSelectedPetSkill2Value.text = skills[1].DamageTimes.ToString();
+                m_imageSelectedPetSkill3.enabled = false;
+                m_textSelectedPetSkill3Name.text = NoneSKill();
+                m_textSelectedPetSkill3Value.enabled = false;
+                break;
+            case 3:
+                m_imageSelectedPetSkill1.sprite = SetSkillType(skills, 0);
+                m_textSelectedPetSkill1Name.text = skills[0].NameKr;
+                m_textSelectedPetSkill1Value.text = skills[0].DamageTimes.ToString();
+                m_imageSelectedPetSkill2.enabled = true;
+                m_imageSelectedPetSkill2.sprite = SetSkillType(skills, 1);
+                m_textSelectedPetSkill2Name.text = skills[1].NameKr;
+                m_textSelectedPetSkill2Value.text = skills[1].DamageTimes.ToString();
+                m_imageSelectedPetSkill3.enabled = true;
+                m_imageSelectedPetSkill3.sprite = SetSkillType(skills, 2);
+                m_textSelectedPetSkill3Name.text = skills[2].NameKr;
+                m_textSelectedPetSkill3Value.text = skills[2].DamageTimes.ToString();
+                break;
+        }
+    }
+    Sprite SetSkillType(List<SkillInfo> skills, int index) // 스킬 타입 셋
+    {
+        eAttackType type = skills[index].Type;
+        switch (type)
+        {
+            case eAttackType.RangeAttack:
+                return m_imageRangeSkill;
+
+            case eAttackType.Buff:
+                return m_imageBuff;
+
+            case eAttackType.AttackBuff:
+                return m_imageAttackBuff;
+
+            case eAttackType.HealBuff:
+                return m_imageHealBuff;
+
+        }
+        return null;
+    }
+    string NoneSKill()
+    {
+        return "스킬 없음";
     }
 }
