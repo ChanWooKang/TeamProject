@@ -14,12 +14,15 @@ public class FlameCtrl : BaseSkill
     Vector3 direction;
     bool isOn = false;
 
+    float fixedYAngle = 0;
+
     private void FixedUpdate()
     {
         if (isOn && direction != Vector3.zero && _target != null)
         {
             transform.position = _parent.position;
-            direction = GetDirection(_parent, _target);
+            direction = GetDirection();
+            //direction = _parent.right * -1;
             SetRotaion(direction);
         }
     }
@@ -42,17 +45,26 @@ public class FlameCtrl : BaseSkill
             Init();
         _parent = firePos;
         _target = target;
-        direction = GetDirection(_parent,_target);
+        fixedYAngle = GetyValue(_parent.position, _target.position);
+        direction = GetDirection();        
+        //direction = _parent.right * -1;
         isOn = true;
         Damage = damage;
         PlayParticle();
     }
 
-    Vector3 GetDirection(Transform start, Transform end)
+    Vector3 GetDirection()
+    {        
+        //이놈이 대가리따라 움직이니 
+        Vector3 vec = _parent.right * -1;        
+        return new Vector3(vec.x, fixedYAngle, vec.z);
+    }
+
+    float GetyValue(Vector3 start, Vector3 end)
     {
-        Vector3 dir = (end.position - start.position);
-        dir = dir.normalized;
-        return dir;
+        Vector3 xVec = end - start;
+        xVec = xVec.normalized;
+        return xVec.y;
     }
 
     public void OffFlameEvent()

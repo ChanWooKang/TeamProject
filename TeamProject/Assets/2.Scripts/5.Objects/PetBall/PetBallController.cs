@@ -57,9 +57,8 @@ public class PetBallController : MonoBehaviour
 
     public void ShootEvent(int petBallIndex = 500)
     {
-        Init(petBallIndex);
-        Vector3 dir = Camera.main.transform.forward;
-        dir = dir * _shootPower;
+        Init(petBallIndex);        
+        Vector3 dir = transform.forward * _shootPower;
         m_rigidbdy.AddForce(dir, ForceMode.Impulse);
     }
 

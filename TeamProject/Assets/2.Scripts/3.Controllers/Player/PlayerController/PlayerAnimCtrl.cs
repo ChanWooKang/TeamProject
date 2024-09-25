@@ -98,6 +98,7 @@ public class PlayerAnimCtrl : MonoBehaviour
 
     public void ReadyToThrow()
     {
+        SetAnimation(ePlayerAnimParams.AttackEnd, false);
         _manager._equip.GeneratePetBall();
     }
 

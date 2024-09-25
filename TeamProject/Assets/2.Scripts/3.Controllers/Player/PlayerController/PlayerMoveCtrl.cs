@@ -185,7 +185,7 @@ public class PlayerMoveCtrl : MonoBehaviour
     //Aim 상태 시 플레이어 회전값 고정
     void LookAtAim()
     {
-        if (_input.aim)
+        if (_input.aim || _input.throws)
         {
             Transform target = _mainCam.transform;
             transform.rotation = Quaternion.Lerp(transform.rotation,

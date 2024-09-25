@@ -77,8 +77,7 @@ public class Dragon : BossAnimCtrl
                 else
                     Invoke("GetHitEnd", 0.5f);
                 break;
-            case eBossState.ATTACK:
-                Debug.Log(_manager.attackRange);
+            case eBossState.ATTACK:                
                 AttackAction();
                 break;
             case eBossState.DIE:
@@ -125,7 +124,7 @@ public class Dragon : BossAnimCtrl
     public void GrowlEnd()
     {
         //플레이어 인식 후 날건지 걸을건지 선택
-        int randValue = Random.Range(0, 2);
+        int randValue = Random.Range(0, 5);
         bool checkFly = randValue > 0 ? true : false;
         Sleep(false);
         if (checkFly)

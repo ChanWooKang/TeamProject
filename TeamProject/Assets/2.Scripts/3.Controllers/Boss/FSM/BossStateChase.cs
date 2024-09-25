@@ -9,9 +9,8 @@ public class BossStateChase : TSingleton<BossStateChase>, IFSMState<BossCtrl>
     {
         m.Agent.speed = m.Stat.RunSpeed;
         m.Agent.avoidancePriority = 50;
-        m.State = eBossState.CHASE;
-        if (m._attackType == eAttackType.None)
-            m.GetRangeByAttackType();
+        m.State = eBossState.CHASE;        
+        m.GetRangeByAttackType();
 
         
     }

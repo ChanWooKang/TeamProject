@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DefineDatas;
 
+
 public abstract class BossAnimCtrl : BaseAnimCtrl
 {
     protected BossCtrl _manager;
@@ -77,7 +78,7 @@ public abstract class BossAnimCtrl : BaseAnimCtrl
         if(go.TryGetComponent(out FireBall fireBall))
         {
             float damageTime = GetDamageTime(fireBall.skillID);
-            fireBall.ShootEvent(_firePos.right * -1, _manager.Stat.Damage * damageTime);
+            fireBall.ShootEvent(GetDirection(_firePos.position,_manager.target.position), _manager.Stat.Damage * damageTime);
         }
         else
         {
@@ -86,9 +87,18 @@ public abstract class BossAnimCtrl : BaseAnimCtrl
         
     }
 
+    Vector3 GetDirection(Vector3 strat, Vector3 end)
+    {
+        Vector3 xzVec = _firePos.right * -1;
+        Vector3 yVec = end - strat;
+        yVec = yVec.normalized;
+        return new Vector3(xzVec.x,yVec.y,xzVec.z);
+    }
+   
+
     //È­¿° ¹æ»ç
     public void FlameAction()
-    {
+    {        
         if(_flame == null)
         {
             GameObject go = PoolingManager._inst.InstantiateAPS("Flame",transform);

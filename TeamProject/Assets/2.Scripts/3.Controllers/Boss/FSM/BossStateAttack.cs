@@ -10,6 +10,7 @@ public class BossStateAttack : TSingleton<BossStateAttack>, IFSMState<BossCtrl>
     {
         m._move.AttackNavSetting();
         m.State = eBossState.IDLE;
+        cntTime = m.Stat.AttackDelay;
     }
 
     public void Execute(BossCtrl m)

@@ -273,8 +273,16 @@ public class PlayerEquipCtrl : MonoBehaviour
 
     public void ThrowBall()
     {
-        GameObject go = PoolingManager._inst.InstantiateAPS("PetBall", BallPos.position, BallPos.rotation, Vector3.one * 0.2f);
+        BallPos.rotation = Quaternion.LookRotation(GetDirection());
+        GameObject go = PoolingManager._inst.InstantiateAPS("PetBall", BallPos.position, BallPos.rotation, Vector3.one * 0.2f);        
         go.GetComponent<PetBallController>().ShootEvent();
+    }
+
+    Vector3 GetDirection()
+    {
+        Vector3 xzVec = BallPos.forward * -1;
+        float y = Camera.main.transform.forward.y;
+        return new Vector3(xzVec.x, y, xzVec.z);
     }
 
     public void ThrowEnd()
