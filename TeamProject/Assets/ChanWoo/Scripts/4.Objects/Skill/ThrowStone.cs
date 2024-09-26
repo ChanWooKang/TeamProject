@@ -56,9 +56,20 @@ public class ThrowStone : BaseSkill
         yield return new WaitForSeconds(3.0f);
         if (gameObject.activeSelf)
         {
-            gameObject.DestroyAPS();
+            DestoryObject();
         }
     }
 
+
+    public override void DestoryObject()
+    {
+        if(ShootCoroutine != null)
+        {
+            StopCoroutine(ShootCoroutine);
+        }        
+
+
+        base.DestoryObject();
+    }
 
 }

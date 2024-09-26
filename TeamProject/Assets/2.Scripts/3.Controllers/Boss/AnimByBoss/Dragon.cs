@@ -75,7 +75,7 @@ public class Dragon : BossAnimCtrl
                 if (isFlying == false)
                     _animator.SetTrigger(_animIDGetHit);
                 else
-                    Invoke("GetHitEnd", 0.5f);
+                    Invoke("GetHitEnd", 0.25f);
                 break;
             case eBossState.ATTACK:                
                 AttackAction();
@@ -103,6 +103,7 @@ public class Dragon : BossAnimCtrl
             {
                 isActing = true;
                 _animator.SetTrigger(_animIDLanding);
+                _manager._collider.MoveTransformByTakeOff(false);
             }            
         }
         else
@@ -133,6 +134,7 @@ public class Dragon : BossAnimCtrl
             {
                 isActing = true;
                 _animator.SetTrigger(_animIDTakeOff);
+                _manager._collider.MoveTransformByTakeOff(true);
             }            
         }
         else

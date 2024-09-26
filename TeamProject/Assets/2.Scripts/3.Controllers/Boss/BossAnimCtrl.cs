@@ -12,6 +12,7 @@ public abstract class BossAnimCtrl : BaseAnimCtrl
     public eBossType _bossType;
 
     FlameCtrl _flame;
+    
 
     public virtual void Init(BossCtrl manager)
     {
@@ -61,12 +62,7 @@ public abstract class BossAnimCtrl : BaseAnimCtrl
 
     public void GetHitEnd()
     {
-        if(_manager.isAttack == true)
-        {
-            _manager.Agent.avoidancePriority = 50;
-            _manager.isAttack = false;
-        }        
-
+        _manager._move.BaseNavSetting();   
         if (_manager.isDead == false)
             _manager.ChangeState(BossStateIdle._inst);
     }

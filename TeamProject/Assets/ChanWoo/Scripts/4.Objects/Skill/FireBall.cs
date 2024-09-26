@@ -34,7 +34,7 @@ public class FireBall : BaseSkill
         SetInformation();
     }
 
-    public void DestoryObject()
+    public override void DestoryObject()
     {
         if (ShootCoroutine != null)
             StopCoroutine(ShootCoroutine);
@@ -42,7 +42,7 @@ public class FireBall : BaseSkill
         SetEnable(false);
         _rigidbody.velocity = Vector3.zero;
         _rigidbody.inertiaTensor = Vector3.zero;
-        gameObject.DestroyAPS();
+        base.DestoryObject();
     }
 
     void SetEnable(bool isEnable)
