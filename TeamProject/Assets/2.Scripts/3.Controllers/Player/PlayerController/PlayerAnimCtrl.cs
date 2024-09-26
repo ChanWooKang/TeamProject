@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DefineDatas;
+using static UnityEditor.Progress;
 
 public class PlayerAnimCtrl : MonoBehaviour
 {
@@ -63,6 +64,19 @@ public class PlayerAnimCtrl : MonoBehaviour
     public void OnAttackEnd()
     {
         SetAnimation(ePlayerAnimParams.AttackEnd, true);
+    }
+
+    public void OnRootEvent()
+    {
+        if(_manager.RecognizeObject != null)
+        {
+            if(_manager.RecognizeObject.TryGetComponent(out ItemCtrl item))
+            {
+                if (item.Root())
+                    _manager.SetRecognizeObject();
+            }
+        }
+        
     }
 
     public void OnEquip()

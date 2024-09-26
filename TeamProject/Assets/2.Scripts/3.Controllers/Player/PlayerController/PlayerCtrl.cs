@@ -13,6 +13,7 @@ public class PlayerCtrl : MonoBehaviour
     public PlayerAnimCtrl _anim;
     public PlayerRenderCtrl _render;
     public PlayerEquipCtrl _equip;
+    public PlayerColliderCtrl _collider;
 
     //Player Components
     //Animator _animator;
@@ -77,6 +78,7 @@ public class PlayerCtrl : MonoBehaviour
         _anim = GetComponent<PlayerAnimCtrl>();
         _render = GetComponent<PlayerRenderCtrl>();
         _equip = GetComponent<PlayerEquipCtrl>();
+        _collider = GetComponent<PlayerColliderCtrl>();
 
         LoadStat();
         _input.Init(this, _assetInput);
@@ -84,6 +86,7 @@ public class PlayerCtrl : MonoBehaviour
         _anim.Init(this);
         _render.Init(this);
         _equip.Init(this, _assetInput);
+        _collider.Init(this);
     }
 
     void LoadStat()
@@ -120,18 +123,5 @@ public class PlayerCtrl : MonoBehaviour
         _render.ChangeColor(Color.red);
         yield return new WaitForSeconds(0.3f);
         _render.ReturnColor();
-    }
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("MonsterSkill"))
-        {
-            if(other.TryGetComponent(out BaseSkill skill))
-            {
-                OnDamage(skill.Damage);
-                other.gameObject.DestroyAPS();
-            }
-        }
-    }
+    }    
 }

@@ -6,13 +6,7 @@ using DefineDatas;
 public class ItemCtrl : MonoBehaviour
 {
     public int itemIndex;
-    BaseItem item = null;
-
-    private void Start()
-    {
-
-        
-    }
+    BaseItem item = null;    
 
     public bool Root()
     {
@@ -28,10 +22,7 @@ public class ItemCtrl : MonoBehaviour
         }
         return false;
     }
-
-
-    
-    
+      
     void Despawn()
     {
         Destroy(gameObject);

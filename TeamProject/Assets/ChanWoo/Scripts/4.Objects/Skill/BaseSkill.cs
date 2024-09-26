@@ -20,4 +20,7 @@ public class BaseSkill : MonoBehaviour
             Info = null;
         }
     }
+
+    public virtual void DestoryObject() { gameObject.DestroyAPS(); }
+    
 }

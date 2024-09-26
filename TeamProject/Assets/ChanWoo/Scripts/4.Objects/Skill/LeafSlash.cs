@@ -80,4 +80,15 @@ public class LeafSlash : BaseSkill
         SetEnable(false);
         gameObject.DestroyAPS();
     }
+
+    public override void DestoryObject()
+    {
+        if (SlashCoroutine != null)
+            StopCoroutine(SlashCoroutine);
+        _particle.Stop();
+        SetEnable(false);
+        _rigid.velocity = Vector3.zero;
+        _rigid.inertiaTensor = Vector3.zero;
+        base.DestoryObject();
+    }
 }

@@ -102,7 +102,11 @@ public class PlayerInputCtrl : MonoBehaviour
             {
                 //Recognize Object Setting
                 if (_manager.RecognizeObject != rhit.transform.gameObject)
+                {
+                    Debug.Log("Recoge Item");
                     _manager.SetRecognizeObject(rhit.transform.gameObject);
+                }
+                    
             }
         }
         else
@@ -149,15 +153,7 @@ public class PlayerInputCtrl : MonoBehaviour
 
     //Left Mouse Button
     void FireAction()
-    {
-        if (_input.fire)
-        {
-
-        }
-        else
-        {
-
-        }
+    {        
         _manager._anim.SetAnimation(ePlayerAnimParams.Fire, _input.fire);
     }
 
@@ -203,8 +199,7 @@ public class PlayerInputCtrl : MonoBehaviour
                     {
                         if (go.TryGetComponent(out ItemCtrl item))
                         {
-                            if (item.Root())
-                                _manager.SetRecognizeObject();
+                            _manager._anim.SetAnimation(ePlayerAnimParams.Root);                            
                         }
                     }
                 }

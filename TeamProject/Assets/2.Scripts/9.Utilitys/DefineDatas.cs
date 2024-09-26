@@ -152,7 +152,8 @@ namespace DefineDatas
         Disarm,
         Charge,
         AttackEnd,
-        Throw
+        Throw,
+        Root
     }
     public enum InteractionType
     {

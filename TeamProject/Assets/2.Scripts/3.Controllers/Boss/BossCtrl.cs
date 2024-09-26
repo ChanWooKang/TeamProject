@@ -16,6 +16,7 @@ public class BossCtrl : FSM<BossCtrl>
     public BossMoveCtrl _move;
     public BossAnimCtrl _anim;
     public BossRenderCtrl _render;
+    public BossColliderCtrl _collider;
     public HudController _hudCtrl;
 
     Rigidbody _rigid;
@@ -91,13 +92,14 @@ public class BossCtrl : FSM<BossCtrl>
         _move = GetComponent<BossMoveCtrl>();
         _anim = GetComponent<BossAnimCtrl>();
         _render = GetComponent<BossRenderCtrl>();
-
+        _collider = GetComponent<BossColliderCtrl>();
         _rigid = GetComponent<Rigidbody>();
 
         Stat.Init(Index);
         _move.Init();
         _anim.Init(this);
         _render.Init();
+        _collider.Init(this);
     }
 
     public void SetHud(HudController hud, Transform hudRoot)
@@ -179,18 +181,11 @@ public class BossCtrl : FSM<BossCtrl>
                 attackRange = Stat.AttackRange;
                 break;
         }
-    }
-
-    public void OnDamage()
-    {
-        if (DamageCoroutine != null)
-            StopCoroutine(DamageCoroutine);
-        DamageCoroutine = StartCoroutine(OnDamageEvent());
-    }
+    }    
 
     public void OnDamage(float damage, Transform attacker, Vector3 hitPoint)
     {
-        if(isDead) return;
+        if (isDead) return;
 
         if (target == null)
             SetTarget();
@@ -201,7 +196,10 @@ public class BossCtrl : FSM<BossCtrl>
         State = eBossState.GETHIT;
         isDead = Stat.CalculateDamage(damage);
         DamageTextManager._inst.ShowDamageText(hitPoint, damage);
-        OnDamage();
+
+        if (DamageCoroutine != null)
+            StopCoroutine(DamageCoroutine);
+        DamageCoroutine = StartCoroutine(OnDamageEvent());
     }
 
     IEnumerator OnDamageEvent()
@@ -258,17 +256,5 @@ public class BossCtrl : FSM<BossCtrl>
     {
         _render.ChangeLayer(eLayer.Monster);
         ChangeState(BossStateInit._inst);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Arrow"))
-        {
-            if(other.TryGetComponent(out ArrowCtrl arrow))
-            {
-                OnDamage(arrow.Damage, arrow.Shooter, other.ClosestPoint(transform.position));
-                arrow.ClearRigidBody();
-            }
-        }
-    }
+    }   
 }
