@@ -45,7 +45,7 @@ public class ObjectPreview : MonoBehaviour
         m_isDone = false;
         m_collider = GetComponent<BoxCollider>();
         m_navObstacle = GetComponent<NavMeshObstacle>();
-        m_navObstacle.enabled = false;
+        m_navObstacle.enabled = false;  
     }
 
     void Update()
@@ -62,7 +62,8 @@ public class ObjectPreview : MonoBehaviour
                 m_isDone = true;
                 m_collider.size = new Vector3(1.5f, 1f, 1.5f);
                 gameObject.transform.parent.gameObject.isStatic = true;
-                m_PetCtrl.JobDone();
+                if (m_PetCtrl != null)
+                    m_PetCtrl.JobDone();
             }
             if (Input.GetKeyUp(KeyCode.F))
                 m_uiWorkload.UpFKey();
@@ -82,6 +83,7 @@ public class ObjectPreview : MonoBehaviour
             SetColor(red);
         else
             SetColor(green);
+        transform.parent.LookAt(GameManagerEx._inst.playerManager.transform);
     }
 
     public void SetColor(Material mat)
@@ -174,7 +176,7 @@ public class ObjectPreview : MonoBehaviour
     {
         m_isFixed = true;
         m_detectiveAreaObj.layer = LayerMask.NameToLayer("Default");
-        m_collider.size = new Vector3(5f, 1f, 5f);
+        
         m_PetCtrl = null;
         m_navObstacle.enabled = true;
         SetColor(blue);

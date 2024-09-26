@@ -44,7 +44,7 @@ public class UI_PetBoxSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (m_manager == null)
+        if (!m_petIcon.enabled)
             return;
         m_manager.ShowSelectedInfo(m_petCtrl);
         m_manager.m_currentPetPortrait = PetEntryManager._inst.m_dicPetPortraitObject[m_petCtrl.PetInfo.Index];

@@ -41,7 +41,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
             }
         }
         else if (m_weaponIndex != 0 & !m_isCraftDone) // 무기를 제작 중
-        {            
+        {
             if (m_progressCraft.value < m_progressCraft.maxValue)
             {
                 StartCoroutine(SetProgress());
@@ -49,7 +49,8 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
             else
             {
                 //데스크 위에 무기 생성
-                m_petCtrl.JobDone();
+                if (m_petCtrl != null)
+                    m_petCtrl.JobDone();
                 m_isCraftDone = true;
                 m_weaponIndex = 0;
                 OpenInteractionCraftTable(m_tableCtrl);
@@ -159,5 +160,5 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
         }
     }
 
-    
+
 }

@@ -27,6 +27,8 @@ public class UI_Craft : MonoBehaviour
         {
             if (i == 0)
                 m_listCraftSlot[i].InitSlot(1, this);
+            else if(i == 1)
+                m_listCraftSlot[i].InitSlot(2, this);
             else if (i == 4)
                 m_listCraftSlot[i].InitSlot(5, this);
             else
@@ -85,7 +87,7 @@ public class UI_Craft : MonoBehaviour
     {
         if (m_isPreviewActivated && m_previewObj.GetComponentInChildren<ObjectPreview>().isBuildable())
         {
-            GameObject go = Instantiate(m_craftingObj, m_hitInfo.point, Quaternion.identity);            
+            GameObject go = Instantiate(m_craftingObj, m_hitInfo.point, m_previewObj.transform.rotation);            
             Destroy(m_previewObj);  
             ObjectPreview op = go.GetComponentInChildren<ObjectPreview>();
             op.SetArchitectureInfo(m_architectureInfo);

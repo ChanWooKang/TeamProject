@@ -47,26 +47,9 @@ public class UI_PetBoxController : MonoBehaviour
 
     bool m_isUIOpen;
     #endregion [Component]
-
-    private void Awake()
-    {
-        m_petBoxUI.SetActive(false);
-        m_isUIOpen = false;
-    }
+  
     private void Update()
-    {
-        //юс╫ц 
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            if (!m_petBoxUI.activeSelf)
-            {                
-                    InitUI();
-                OpenPetBox(m_boxNum);
-            }
-            else
-                ClosePetBox();
-        }
-
+    {               
         if (m_petBoxUI.activeSelf)
         {
             if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E))
@@ -95,10 +78,24 @@ public class UI_PetBoxController : MonoBehaviour
             }
         }
     }
+    public void PetBoxInteraction()
+    {
+        if (!m_petBoxUI.activeSelf)
+        {
+            InitUI();
+            OpenPetBox(m_boxNum);
+        }
+        else
+            ClosePetBox();
+    }
     public void InitUI()
     {
         if (m_dicPetboxSlotLists == null)
+        {
             InitPetBox();
+            Canvas canvas = gameObject.GetComponent<Canvas>();
+            canvas.worldCamera = GameObject.FindGameObjectWithTag("UICamera").GetComponent<Camera>();
+        }
         InitPetInven();
     }
     public void InitPetInven()
@@ -175,7 +172,7 @@ public class UI_PetBoxController : MonoBehaviour
         m_currentPetPortrait.SetActive(false);
         GameManagerEx._inst.ControlUI(m_isUIOpen, true);
     }
-    void ClosePetBox()
+    public void ClosePetBox()
     {
         m_isUIOpen = false;
         m_petBoxUI.SetActive(false);
@@ -187,7 +184,7 @@ public class UI_PetBoxController : MonoBehaviour
         m_boxNum = 1;
         if(m_currentPetPortrait != null)
         m_currentPetPortrait.SetActive(false);
-        GameManagerEx._inst.ControlUI(m_isUIOpen, true);
+        GameManagerEx._inst.ControlUI(m_isUIOpen, true);    
     }
 
 

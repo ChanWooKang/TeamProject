@@ -10,6 +10,7 @@ public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     [SerializeField] GameObject m_craftBoxObj;
     [SerializeField] GameObject m_enforceAnvil;
     [SerializeField] GameObject m_craftDesk;
+    [SerializeField] GameObject m_petBox;
     GameObject m_prefabObj;
     #endregion [임시 참조]
 
@@ -48,6 +49,8 @@ public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             //임시
             if (m_architectureInfo.Index == 1)
                 m_prefabObj = m_craftDesk;
+            else if (m_architectureInfo.Index == 2)
+                m_prefabObj = m_petBox;
             else if (m_architectureInfo.Index == 5)
                 m_prefabObj = m_enforceAnvil;
         }
