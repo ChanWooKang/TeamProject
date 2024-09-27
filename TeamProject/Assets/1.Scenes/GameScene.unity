@@ -5126,7 +5126,7 @@ MonoBehaviour:
   - index: 1003
     name: Dragon
     type: 0
-    prefab: {fileID: 6065367594065599206, guid: 2fb7d7b65802fe64ebc226326696dd83, type: 3}
+    prefab: {fileID: 402435411959595447, guid: 2fb7d7b65802fe64ebc226326696dd83, type: 3}
     amount: 1
   - index: 1
     name: MushBomb
@@ -5175,6 +5175,15 @@ MonoBehaviour:
     amount: 4
   _defPoolAmount: 0
   _canPoolExpand: 1
+  _poolingIcons:
+  - index: 1000
+    name: MushBoy
+    type: 0
+    prefab: {fileID: 21300000, guid: fcc00073d2727cb43bb80ddf839fbba1, type: 3}
+  - index: 1001
+    name: Cactus
+    type: 0
+    prefab: {fileID: 21300000, guid: af4aac8eecf22164090587b65445b50c, type: 3}
   _hudRootTransform: {fileID: 418621264}
 --- !u!4 &1646067151
 Transform:
@@ -12847,6 +12856,7 @@ GameObject:
   - component: {fileID: 2922039459949640605}
   - component: {fileID: 2922039459949640600}
   - component: {fileID: 2922039459949640577}
+  - component: {fileID: 2922039459949640608}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -12952,6 +12962,7 @@ MonoBehaviour:
   _anim: {fileID: 0}
   _render: {fileID: 0}
   _equip: {fileID: 0}
+  _collider: {fileID: 0}
   CameraRoot: {fileID: 3915148192612396208}
   isDead: 0
 --- !u!114 &2922039459949640607
@@ -12978,6 +12989,19 @@ MonoBehaviour:
   GroundLayers:
     serializedVersion: 2
     m_Bits: 65
+--- !u!114 &2922039459949640608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2922039459949640601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a24d04b0bbbb83d428e82d2f87799322, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitRateTime: 0
 --- !u!1 &2922039459962880121
 GameObject:
   m_ObjectHideFlags: 0
@@ -42966,6 +42990,7 @@ MonoBehaviour:
   craft: 0
   scrollY: 0
   throws: 0
+  reload: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLock: 1
