@@ -12810,6 +12810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5fc2d60e0e4ae1478867a72c4aa8375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInput: {fileID: 1297143371587892521}
   WeaponLists:
   - {fileID: 3915148193076726118}
   - {fileID: 3915148193178702132}
