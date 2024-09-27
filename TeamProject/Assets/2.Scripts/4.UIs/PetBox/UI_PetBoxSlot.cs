@@ -25,6 +25,7 @@ public class UI_PetBoxSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         if (pet != null)
         {
             m_petCtrl = pet;
+            m_petIcon.sprite = PoolingManager._inst._poolingIconByIndex[m_petCtrl.PetInfo.Index].prefab;
             m_petIcon.enabled = true;
         }
         else
@@ -47,6 +48,8 @@ public class UI_PetBoxSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         if (!m_petIcon.enabled)
             return;
         m_manager.ShowSelectedInfo(m_petCtrl);
+        if (m_manager.m_currentPetPortrait != null)
+            m_manager.m_currentPetPortrait.SetActive(false);
         m_manager.m_currentPetPortrait = PetEntryManager._inst.m_dicPetPortraitObject[m_petCtrl.PetInfo.Index];
         m_manager.m_currentPetPortrait.SetActive(true);
     }
@@ -62,10 +65,12 @@ public class UI_PetBoxSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     {
         if (eventData.pointerDrag.transform.TryGetComponent(out UI_PetBoxSlot slot))
         {
-            m_petCtrl = slot.Pet;
+            PetController tempCtrl = slot.Pet;
+
             slot.SwapSlot(this);
+            m_petCtrl = tempCtrl;
             m_petIcon.enabled = true;
-            m_petIcon.sprite = slot.Icon.sprite;
+            m_petIcon.sprite = PoolingManager._inst._poolingIconByIndex[m_petCtrl.PetInfo.Index].prefab ;
         }
         else if (eventData.pointerDrag.transform.TryGetComponent(out UI_PetInvenSlot Islot))
         {
@@ -129,7 +134,7 @@ public class UI_PetBoxSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         {
             m_petIcon.enabled = true;
             m_petCtrl = slot.Pet;
-            m_petIcon.sprite = slot.Icon.sprite;
+            m_petIcon.sprite = PoolingManager._inst._poolingIconByIndex[m_petCtrl.PetInfo.Index].prefab;
         }
     }
     public void SwapSlot(UI_PetInvenSlot slot)
@@ -143,7 +148,7 @@ public class UI_PetBoxSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         {
             m_petIcon.enabled = true;
             m_petCtrl = slot.Pet;
-            m_petIcon.sprite = slot.Icon.sprite;
+            m_petIcon.sprite = PoolingManager._inst._poolingIconByIndex[m_petCtrl.PetInfo.Index].prefab;
         }
     }
     void UpdateDraggingObjectPos(PointerEventData eventData)

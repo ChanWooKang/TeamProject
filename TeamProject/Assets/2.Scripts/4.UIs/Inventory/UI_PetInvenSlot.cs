@@ -57,6 +57,7 @@ public class UI_PetInvenSlot : MonoBehaviour, IPointerClickHandler, IPointerEnte
             m_txtName.enabled = true;
             m_txtHp.enabled = true;
             m_icon.enabled = true;
+            m_icon.sprite = PoolingManager._inst._poolingIconByIndex[pet.PetInfo.Index].prefab;
             m_hpBar.gameObject.SetActive(true);
             m_petCtrl = pet;
             m_txtLevel.text = pet.PetLevel.ToString();
@@ -86,6 +87,7 @@ public class UI_PetInvenSlot : MonoBehaviour, IPointerClickHandler, IPointerEnte
             m_txtName.enabled = true;
             m_txtHp.enabled = true;
             m_icon.enabled = true;
+            m_icon.sprite = PoolingManager._inst._poolingIconByIndex[pet.PetInfo.Index].prefab;
             m_hpBar.gameObject.SetActive(true);
             m_petCtrl = pet;
             m_txtLevel.text = pet.PetLevel.ToString();
@@ -119,6 +121,8 @@ public class UI_PetInvenSlot : MonoBehaviour, IPointerClickHandler, IPointerEnte
         else if (m_managerPetbox != null)
         {
             m_managerPetbox.ShowSelectedInfo(m_petCtrl);
+            if (m_managerInven.m_currentPortrait != null)
+                m_managerInven.m_currentPortrait.SetActive(false);
             m_managerPetbox.m_currentPetPortrait = PetEntryManager._inst.m_dicPetPortraitObject[m_petCtrl.PetInfo.Index];
             m_managerPetbox.m_currentPetPortrait.SetActive(true);
         }
@@ -135,12 +139,15 @@ public class UI_PetInvenSlot : MonoBehaviour, IPointerClickHandler, IPointerEnte
     {
         if (eventData.pointerDrag.transform.TryGetComponent(out UI_PetBoxSlot slot))
         {
-            m_petCtrl = slot.Pet;
+            PetController tempCtrl = slot.Pet;
+
             slot.SwapSlot(this);
+            m_petCtrl = tempCtrl;
             m_icon.enabled = true;
             m_icon.sprite = slot.Icon.sprite;
             PetEntryManager._inst.m_listPetEntryCtrl.Add(m_petCtrl);
             m_managerPetbox.InitPetInven();
+           
         }
         else
             return;

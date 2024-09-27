@@ -9,6 +9,7 @@ public class PetEntryManager : TSingleton<PetEntryManager>
     public List<GameObject> m_listPetEntryPrefab;
     public List<GameObject> m_listPetPortraitPrefab;
     [HideInInspector] public List<PetController> m_listPetEntryCtrl;
+    Dictionary<int, GameObject> m_dicPetPortraitPrefab;
     public Dictionary<int, GameObject> m_dicPetPortraitObject;
     public Dictionary<int, GameObject> m_dicPetObject;
     List<int> m_listPetIndex;
@@ -23,10 +24,12 @@ public class PetEntryManager : TSingleton<PetEntryManager>
     {
         m_dicPetObject = new Dictionary<int, GameObject>();
         m_dicPetPortraitObject = new Dictionary<int, GameObject>();
+        m_dicPetPortraitPrefab = new Dictionary<int, GameObject>();
         for (int i = 0; i < m_listPetEntryPrefab.Count; i++)
         {
             int index = 1000 + i;
             m_dicPetObject.Add(index, m_listPetEntryPrefab[i]);
+            m_dicPetPortraitPrefab.Add(index, m_listPetPortraitPrefab[i]);
         }
     }
     private void Start()
@@ -67,7 +70,7 @@ public class PetEntryManager : TSingleton<PetEntryManager>
             m_listPetIndex.Add(UniqueId);
             PetController pet = m_dicPetObject[index].GetComponent<PetController>();
             pet.InitPet(index);
-            if (m_listPetEntryCtrl.Count < MaxEntryCount)
+            if (m_listPetEntryCtrl.Count < MaxEntryCount - 1)
             {
                 InitPetEntry(pet, UniqueId);
             }
@@ -102,8 +105,8 @@ public class PetEntryManager : TSingleton<PetEntryManager>
         m_uiPetEntryInfoBox.SetHudInfoBox(pet);
         m_uiPetEntryInfoBox.InitCurrentPetIndex(pet.PetInfo.Index);
         if (!m_dicPetPortraitObject.ContainsKey(pet.PetInfo.Index))
-        {           
-            GameObject portrait = Instantiate(m_listPetPortraitPrefab[0], m_petPortraitRoot, false);
+        {
+            GameObject portrait = Instantiate(m_dicPetPortraitPrefab[pet.PetInfo.Index], m_petPortraitRoot, false);
             m_dicPetPortraitObject.Add(pet.PetInfo.Index, portrait);
             portrait.SetActive(false);
         }

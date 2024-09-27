@@ -39,6 +39,12 @@ namespace DefineDatas
         Effect,
         UI
     }
+    public enum IconType
+    {
+        Pet,
+        Item,
+
+    }
 
     public enum eInteractType
     {
@@ -271,6 +277,13 @@ namespace DefineDatas
         public int CurAmount { get { return curAmount; } set { curAmount = value; } }
     }
 
-
+    [System.Serializable]
+    public class PoolIcon
+    {
+        public int index;
+        public string name;
+        public IconType type;
+        public Sprite prefab;              
+    }
    
 }

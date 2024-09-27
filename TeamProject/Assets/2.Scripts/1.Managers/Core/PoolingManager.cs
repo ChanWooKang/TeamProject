@@ -7,7 +7,9 @@ using DefineDatas;
 [AddComponentMenu("Custom/PoolingManager")]
 public class PoolingManager : TSingleton<PoolingManager>
 {
+    #region [UnitPool]
     public PoolUnit[] _poolingUnits;
+    
     //public List<GameObject>[] _pooledUnitList;
     public int _defPoolAmount;
     public bool _canPoolExpand = true;
@@ -16,8 +18,15 @@ public class PoolingManager : TSingleton<PoolingManager>
     public Dictionary<int, PoolUnit> _poolingUnitByIndex;
     public Dictionary<string, Dictionary<int, GameObject>> _pooledUnitsByName;
     public Dictionary<int, Dictionary<int, GameObject>> _pooledUnitsByIndex;
+    #endregion [UnitPool]
 
+    #region [IconPool]
+    public PoolIcon[] _poolingIcons;
 
+    public Dictionary<string, PoolIcon> _poolingIconByName;
+    public Dictionary<int, PoolIcon> _poolingIconByIndex;
+    
+    #endregion [IconPool]
     public Transform _hudRootTransform;
 
 
@@ -27,6 +36,9 @@ public class PoolingManager : TSingleton<PoolingManager>
         _pooledUnitsByName = new Dictionary<string, Dictionary<int, GameObject>>();
         _poolingUnitByIndex = new Dictionary<int, PoolUnit>();
         _poolingUnitByName = new Dictionary<string, PoolUnit>();
+        _poolingIconByIndex = new Dictionary<int, PoolIcon>();
+        _poolingIconByName = new Dictionary<string, PoolIcon>();
+
         for (int i = 0; i < _poolingUnits.Length; i++)
         {
             Dictionary<int, GameObject> objDatas = new Dictionary<int, GameObject>();
@@ -39,7 +51,14 @@ public class PoolingManager : TSingleton<PoolingManager>
             _pooledUnitsByIndex.Add(_poolingUnits[i].index, objDatas);
             _pooledUnitsByName.Add(_poolingUnits[i].name, objDatas);
         }
+
+        for(int i = 0; i < _poolingIcons.Length; i++)
+        {
+            _poolingIconByIndex.Add(_poolingIcons[i].index, _poolingIcons[i]);
+            _poolingIconByName.Add(_poolingIcons[i].name, _poolingIcons[i]);
+        }
     }
+    
     public void AddPetPool(PetController pet)
     {
         int offsetNum = 100;
@@ -81,7 +100,10 @@ public class PoolingManager : TSingleton<PoolingManager>
         if (_poolingUnitByIndex.ContainsKey(_poolingUnits[index].index) == false)
             _poolingUnitByIndex.Add(_poolingUnits[index].index, _poolingUnits[index]);
     }
+    void SettingPoolingIcons(int index)
+    {
 
+    }
     GameObject MakeObject(GameObject prefab, Transform parent = null)
     {
         GameObject newItem = Instantiate(prefab);
@@ -89,6 +111,7 @@ public class PoolingManager : TSingleton<PoolingManager>
         SetActiveAndParent(newItem, parent);
         return newItem;
     }
+    
 
     void SetActiveAndParent(GameObject newItem, Transform parent = null)
     {
