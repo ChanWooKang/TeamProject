@@ -9,10 +9,10 @@ public class MonsterStateDie : TSingleton<MonsterStateDie>, IFSMState<MonsterCon
     public void Enter(MonsterController m)
     {
         cntTime = 0;
-        m.AttackNavSetting();
+        //m.AttackNavSetting();
         m.State = eMonsterState.DIE;
         m.ChangeLayer(eLayer.DisableObject);        
-        m.Agent.destination = transform.position;
+        //m.Agent.destination = transform.position;
     }
 
     public void Execute(MonsterController m)

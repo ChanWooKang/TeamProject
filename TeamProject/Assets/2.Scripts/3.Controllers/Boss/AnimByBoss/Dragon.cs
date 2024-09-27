@@ -55,6 +55,11 @@ public class Dragon : BossAnimCtrl
             case eBossState.IDLE:
                 _animator.SetBool(_animIDWalk, false);
                 _animator.SetBool(_animIDChase, false);
+
+                if (isFlying)
+                    _animator.CrossFade("FlyIdle", 0.1f);
+                else
+                    _animator.CrossFade("Idle", 0.1f);
                 break;
             case eBossState.SLEEP:
 
@@ -71,16 +76,12 @@ public class Dragon : BossAnimCtrl
                 _animator.SetBool(_animIDChase, true);
                 break;
             case eBossState.GETHIT:
-                _manager._move.AttackNavSetting();
-                if (isFlying == false)
-                    _animator.SetTrigger(_animIDGetHit);
-                else
-                    Invoke("GetHitEnd", 0.25f);
+                
                 break;
             case eBossState.ATTACK:                
                 AttackAction();
                 break;
-            case eBossState.DIE:
+            case eBossState.DIE:                
                 DieAction();                                
                 break;
         }
@@ -92,7 +93,10 @@ public class Dragon : BossAnimCtrl
         _animator.SetBool(_animIDChase, false);
         _animator.SetBool(_animIDFlying, false);
         isFlying = false;
+        _manager._anim.FlameEnd();
         _animator.SetTrigger(_animIDDie);
+
+
     }
 
     public override void SleepAction()

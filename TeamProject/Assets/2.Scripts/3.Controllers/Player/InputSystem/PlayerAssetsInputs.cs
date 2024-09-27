@@ -17,6 +17,7 @@ public class PlayerAssetsInputs : MonoBehaviour
     public bool craft;
     public float scrollY;
     public bool throws;
+    public bool reload;
 
     [Header("Movement Settings")]
     public bool analogMovement;
@@ -84,6 +85,10 @@ public class PlayerAssetsInputs : MonoBehaviour
         ThrowInput(value.isPressed);
     }
 
+    public void OnReload(InputValue value)
+    {
+        ReloadInput(value.isPressed);
+    }
 #endif
     public void MoveInput(Vector2 newMoveDirection)
     {        
@@ -139,6 +144,10 @@ public class PlayerAssetsInputs : MonoBehaviour
         throws = newThrowState;
     }
 
+    public void ReloadInput(bool newReloadState)
+    {
+        reload = newReloadState;
+    }
     private void OnApplicationFocus(bool hasFocus)
     {
         SetCursorState(cursorLocked);

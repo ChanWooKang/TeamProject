@@ -51,6 +51,6 @@ public class BossStateAttack : TSingleton<BossStateAttack>, IFSMState<BossCtrl>
 
     public void Exit(BossCtrl m)
     {
-        m._move.BaseNavSetting();
+        
     }
 }

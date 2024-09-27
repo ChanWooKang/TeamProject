@@ -62,6 +62,7 @@ public class InventoryManager : TSingleton<InventoryManager>
         AddInvenItem(Dict_Item[200]);
         AddInvenItem(Dict_Item[201]);
         AddInvenItem(Dict_Item[202]);
+        AddInvenItem(Dict_Item[203]);
 
     }
 
@@ -370,7 +371,7 @@ public class InventoryManager : TSingleton<InventoryManager>
         if (data == null)
         {
             // 비 무장으로 전환
-            Debug.Log("인벤토리매니저 : 비무장");
+            //Debug.Log("인벤토리매니저 : 비무장");
             return 0;
         }
         else

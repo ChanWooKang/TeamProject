@@ -11,6 +11,7 @@ public abstract class BossAnimCtrl : BaseAnimCtrl
     [SerializeField] protected Transform _firePos;
     public eBossType _bossType;
 
+    protected Coroutine DamagedCoroutine = null;
     FlameCtrl _flame;
     
 
@@ -62,9 +63,15 @@ public abstract class BossAnimCtrl : BaseAnimCtrl
 
     public void GetHitEnd()
     {
-        _manager._move.BaseNavSetting();   
+        _manager._move.BaseNavSetting();
         if (_manager.isDead == false)
             _manager.ChangeState(BossStateIdle._inst);
+    }
+
+    protected IEnumerator GetHitCoroutine()
+    {
+        yield return new WaitForSeconds(0.25f);
+        GetHitEnd();
     }
 
     //ºÒ¶Ë ¹ß»ç

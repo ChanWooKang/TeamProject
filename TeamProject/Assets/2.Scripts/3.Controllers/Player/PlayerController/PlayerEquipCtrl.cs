@@ -146,6 +146,7 @@ public class PlayerEquipCtrl : MonoBehaviour
             }
             else
             {
+                Debug.Log("1");
                 isAniEnd = true;
             }
         }
@@ -205,6 +206,13 @@ public class PlayerEquipCtrl : MonoBehaviour
             _weapons[nowWeaponIndex].gameObject.SetActive(isDone);
     }
 
+    public bool CheckAttackAble()
+    {
+        bool isAble = _weapons[nowWeaponIndex].CheckAttackAble();
+        _manager._anim.SetAnimation(ePlayerAnimParams.AttackAble, isAble);
+        return isAble;
+    }
+
     //공격
     public void AttackAction()
     {
@@ -222,7 +230,7 @@ public class PlayerEquipCtrl : MonoBehaviour
         //다르면 진행해줘야함
         if (nextWeaponIndex > 0)
         {
-            nowWeaponIndex = nextWeaponIndex;
+            nowWeaponIndex = nextWeaponIndex;            
             nextWeaponIndex = 0;
             _manager._anim.SetAnimation(ePlayerAnimParams.WeaponType, (int)currWeaponType);
             _manager._anim.SetAnimation(ePlayerAnimParams.Equip);
@@ -238,6 +246,9 @@ public class PlayerEquipCtrl : MonoBehaviour
 
     public void SetOnOffWeapon(bool isOn)
     {
+        Debug.Log(isOn);
+        Debug.Log(nowWeaponIndex);
+        Debug.Log(_weapons[nowWeaponIndex].gameObject);
         _weapons[nowWeaponIndex].gameObject.SetActive(isOn);
     }
 

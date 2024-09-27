@@ -153,7 +153,10 @@ namespace DefineDatas
         Charge,
         AttackEnd,
         Throw,
-        Root
+        Root,
+        Reload,
+        AttackAble,
+        AcivateAnimation
     }
     public enum InteractionType
     {

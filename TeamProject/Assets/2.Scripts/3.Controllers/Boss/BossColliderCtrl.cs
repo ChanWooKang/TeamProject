@@ -19,7 +19,12 @@ public class BossColliderCtrl : MonoBehaviour
         _manager = manager;
         _bodyColider = _colidersParent.GetComponentInChildren<Collider>();
         _moveCoroutine = null;
-    }    
+    }
+    
+    public void ManageColider(bool isOn)
+    {
+        _bodyColider.enabled = isOn;
+    }
 
     public void MoveTransformByTakeOff(bool isTakeOff)
     {

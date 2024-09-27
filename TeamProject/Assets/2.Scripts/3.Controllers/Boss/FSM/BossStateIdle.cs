@@ -8,7 +8,7 @@ public class BossStateIdle : TSingleton<BossStateIdle>, IFSMState<BossCtrl>
     float cntTime;
     public void Enter(BossCtrl m)
     {
-        m._move.AttackNavSetting();
+        m.Agent.speed = m.Stat.MoveSpeed;
         m.State = eBossState.IDLE;
         cntTime = 0;
     }
@@ -36,6 +36,6 @@ public class BossStateIdle : TSingleton<BossStateIdle>, IFSMState<BossCtrl>
 
     public void Exit(BossCtrl m)
     {
-        m._move.BaseNavSetting();
+        
     }
 }

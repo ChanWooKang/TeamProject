@@ -35,7 +35,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Fly Float
+  m_Name: FlyIdle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -824,16 +824,16 @@ AnimatorStateMachine:
     m_Position: {x: 460, y: -60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1880015771175482800}
-    m_Position: {x: 1110, y: 100, z: 0}
+    m_Position: {x: 1120, y: 280, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8067913765449787143}
-    m_Position: {x: 270, y: 140, z: 0}
+    m_Position: {x: 220, y: 130, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7316217957311076323}
     m_Position: {x: 1110, y: 220, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8854848887188451613}
-    m_Position: {x: 1120, y: -240, z: 0}
+    m_Position: {x: 1110, y: -240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1770331224170007560}
     m_Position: {x: 1110, y: 160, z: 0}

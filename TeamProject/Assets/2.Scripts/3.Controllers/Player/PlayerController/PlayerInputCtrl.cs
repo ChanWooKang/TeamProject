@@ -71,6 +71,8 @@ public class PlayerInputCtrl : MonoBehaviour
             FireAction();
 
             ThrowAction();
+
+            ReloadAction();
         }
 
         InventoryAction();
@@ -154,7 +156,10 @@ public class PlayerInputCtrl : MonoBehaviour
     //Left Mouse Button
     void FireAction()
     {        
-        _manager._anim.SetAnimation(ePlayerAnimParams.Fire, _input.fire);
+        if(_manager._equip.CheckAttackAble())
+        {
+            _manager._anim.SetAnimation(ePlayerAnimParams.Fire, _input.fire);
+        }        
     }
 
     void ThrowAction()
@@ -206,6 +211,16 @@ public class PlayerInputCtrl : MonoBehaviour
             }
 
             _input.interact = false;
+        }
+    }
+
+    void ReloadAction()
+    {
+        if (_input.reload)
+        {
+            if(_manager._anim.GetAnimation(ePlayerAnimParams.AcivateAnimation) == false)
+                _manager._anim.SetAnimation(ePlayerAnimParams.Reload);
+            _input.reload = false;
         }
     }
 

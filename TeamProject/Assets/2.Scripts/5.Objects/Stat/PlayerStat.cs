@@ -67,7 +67,7 @@ public class PlayerStat : BaseStat
     public void LevelUp(int level)
     {
         //레벨업 작용 (이펙트 , 보너스 스탯 획득 등등, HP회복);
-        Debug.Log("LevelUP");
+        //Debug.Log("LevelUP");
         _level = level;
         _hp = MaxHP;
         _bonusStat += 5;

@@ -5489,11 +5489,11 @@ GameObject:
   - component: {fileID: 402435411959595444}
   - component: {fileID: 402435411959595404}
   - component: {fileID: 402435411959595406}
+  - component: {fileID: 402435411959595407}
   - component: {fileID: 402435411959595441}
   - component: {fileID: 402435411959595440}
   - component: {fileID: 402435411959595443}
   - component: {fileID: 402435411959595442}
-  - component: {fileID: 402435411959595407}
   - component: {fileID: 402435411959595452}
   m_Layer: 10
   m_Name: Dragon
@@ -5597,6 +5597,22 @@ MonoBehaviour:
   isSettingTarget: 0
   _patrolCount: 0
   _maxPatrolCount: 5
+--- !u!54 &402435411959595407
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402435411959595447}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!114 &402435411959595441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5660,22 +5676,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _model: {fileID: 402435410405566742}
   _captureModel: {fileID: 402435409846082226}
---- !u!54 &402435411959595407
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 402435411959595447}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!114 &402435411959595452
 MonoBehaviour:
   m_ObjectHideFlags: 0

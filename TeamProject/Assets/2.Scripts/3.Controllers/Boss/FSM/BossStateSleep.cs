@@ -7,7 +7,7 @@ public class BossStateSleep : TSingleton<BossStateSleep>, IFSMState<BossCtrl>
 {
     public void Enter(BossCtrl m)
     {               
-        m._move.AttackNavSetting();
+       
         m.State = eBossState.SLEEP;
         m.OnRegenerate();
     }
@@ -19,6 +19,6 @@ public class BossStateSleep : TSingleton<BossStateSleep>, IFSMState<BossCtrl>
 
     public void Exit(BossCtrl m)
     {
-        m._move.BaseNavSetting();
+       
     }
 }

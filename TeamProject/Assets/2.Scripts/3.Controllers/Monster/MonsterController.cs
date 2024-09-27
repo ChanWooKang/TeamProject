@@ -328,6 +328,8 @@ public class MonsterController : FSM<MonsterController>
         //FloatText.Create("FloatText", transform.position, (int)Stat.AttackDamage);        
         if (isDead)
         {
+            _agent.SetDestination(transform.position);
+            AttackNavSetting();
             yield return new WaitForSeconds(0.20f);
             //죽을 때 작업
             _collider.enabled = false;

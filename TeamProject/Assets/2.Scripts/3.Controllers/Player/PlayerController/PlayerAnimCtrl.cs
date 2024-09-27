@@ -54,6 +54,12 @@ public class PlayerAnimCtrl : MonoBehaviour
         _animator.SetLayerWeight(layerIndex, value);
     }
 
+    public bool GetAnimation(ePlayerAnimParams parmas)
+    {
+        int ID = GetAnimationID(parmas);        
+        return _animator.GetBool(ID);
+    }
+
     //Animation Trigger Event
     public void OnAttack()
     {
@@ -80,19 +86,21 @@ public class PlayerAnimCtrl : MonoBehaviour
     }
 
     public void OnEquip()
-    {
+    {        
         _manager._equip.EquipEvent();
+        AnimationEnd();
     }
 
     public void OnDisarm()
     {
         _manager._equip.DisarmEvent();
-
+        AnimationEnd();
     }
 
     public void OnActiveObject(int value)
     {
-        _manager._equip.SetOnOffWeapon(value > 0);
+        bool isAble = value > 0;       
+        _manager._equip.SetOnOffWeapon(isAble);
     }
 
     public void ChargeStart()
@@ -105,9 +113,20 @@ public class PlayerAnimCtrl : MonoBehaviour
         _manager._equip.ChargeEnd();
     }
 
-    public void Reload()
+    public void AnimationStart()
     {
+        SetAnimation(ePlayerAnimParams.AcivateAnimation, true);
+    }
+
+    public void AnimationEnd()
+    {
+        SetAnimation(ePlayerAnimParams.AcivateAnimation, false);
+    }
+
+    public void Reload()
+    {        
         _manager._equip.Reload();
+        AnimationEnd();
     }
 
     public void ReadyToThrow()
@@ -125,5 +144,6 @@ public class PlayerAnimCtrl : MonoBehaviour
     {
         _manager._equip.ThrowEnd();
         SetAnimation(ePlayerAnimParams.AttackEnd, true);
+        AnimationEnd();
     }
 }

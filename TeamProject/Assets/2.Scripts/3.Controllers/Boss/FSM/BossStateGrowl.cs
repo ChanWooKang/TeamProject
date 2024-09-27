@@ -18,6 +18,6 @@ public class BossStateGrowl : TSingleton<BossStateGrowl>, IFSMState<BossCtrl>
 
     public void Exit(BossCtrl m)
     {
-        m._move.BaseNavSetting();
+        
     }
 }

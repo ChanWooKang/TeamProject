@@ -8,11 +8,9 @@ public class BossStateDie : TSingleton<BossStateDie> ,IFSMState<BossCtrl>
     float cntTime;
     public void Enter(BossCtrl m)
     {
-        cntTime = 0;
-        m._move.AttackNavSetting();
+        cntTime = 0;        
         m.State = eBossState.DIE;
-        m._render.ChangeLayer(eLayer.DisableObject);
-        m.Agent.destination = transform.position;
+        m._render.ChangeLayer(eLayer.DisableObject);       
 
     }
 
@@ -21,7 +19,7 @@ public class BossStateDie : TSingleton<BossStateDie> ,IFSMState<BossCtrl>
         if(m.isActiveAndEnabled)
         {
             cntTime += Time.deltaTime;
-            if(cntTime > m.delayTime)
+            if(cntTime > 2.0f)
             {
                 m.OnDeadEvent();
             }
@@ -29,7 +27,6 @@ public class BossStateDie : TSingleton<BossStateDie> ,IFSMState<BossCtrl>
     }
 
     public void Exit(BossCtrl m)
-    {
-        m._move.BaseNavSetting();
+    {        
     }
 }

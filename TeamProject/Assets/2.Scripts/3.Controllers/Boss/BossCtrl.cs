@@ -76,8 +76,8 @@ public class BossCtrl : FSM<BossCtrl>
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-            OnDamage(5, GameManagerEx._inst.playerManager.transform, transform.position);
-        }
+            State = eBossState.DIE;
+        }        
         FSMUpdate();
     }
 
@@ -96,7 +96,7 @@ public class BossCtrl : FSM<BossCtrl>
         _rigid = GetComponent<Rigidbody>();
 
         Stat.Init(Index);
-        _move.Init();
+        _move.Init(this);
         _anim.Init(this);
         _render.Init();
         _collider.Init(this);
@@ -206,8 +206,11 @@ public class BossCtrl : FSM<BossCtrl>
     {
         if (isDead)
         {
+            Agent.SetDestination(transform.position);
+            _move.AttackNavSetting();            
             yield return new WaitForSeconds(0.2f);
-            
+
+            _collider.ManageColider(false);
             Stat.DeadFunc(player._stat);
             _render.ChangeColor(Color.gray);
             ChangeState(BossStateDie._inst);
@@ -254,6 +257,7 @@ public class BossCtrl : FSM<BossCtrl>
 
     public void OnResurrectEvent()
     {
+        _collider.ManageColider(true);
         _render.ChangeLayer(eLayer.Monster);
         ChangeState(BossStateInit._inst);
     }   

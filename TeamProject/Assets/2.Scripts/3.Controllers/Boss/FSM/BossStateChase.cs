@@ -7,6 +7,7 @@ public class BossStateChase : TSingleton<BossStateChase>, IFSMState<BossCtrl>
 {
     public void Enter(BossCtrl m)
     {
+        m._move.BaseNavSetting();
         m.Agent.speed = m.Stat.RunSpeed;
         m.Agent.avoidancePriority = 50;
         m.State = eBossState.CHASE;        

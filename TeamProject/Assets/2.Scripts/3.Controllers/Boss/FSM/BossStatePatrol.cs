@@ -7,7 +7,8 @@ public class BossStatePatrol : TSingleton<BossStatePatrol>, IFSMState<BossCtrl>
 {
     Transform target;
     public void Enter(BossCtrl m)
-    {        
+    {
+        m._move.BaseNavSetting();
         m.Agent.speed = m.Stat.MoveSpeed;
         m.Agent.avoidancePriority = 47;
         m.State = eBossState.PATROL;        

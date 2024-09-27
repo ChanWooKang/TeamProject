@@ -72,6 +72,11 @@ public abstract class BaseWeaponCtrl : MonoBehaviour
 
         }
     }
+
+    public virtual bool CheckAttackAble()
+    {
+        return true;
+    }
     
     public virtual void ChargeStart()
     {
