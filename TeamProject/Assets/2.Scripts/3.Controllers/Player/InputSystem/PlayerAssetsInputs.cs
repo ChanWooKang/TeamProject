@@ -76,7 +76,7 @@ public class PlayerAssetsInputs : MonoBehaviour
     }
 
     public void OnWeaponSelect(InputValue value)
-    {
+    {        
         WeaponSelectInput(value.Get<float>());
     }
 
@@ -148,6 +148,7 @@ public class PlayerAssetsInputs : MonoBehaviour
     {
         reload = newReloadState;
     }
+
     private void OnApplicationFocus(bool hasFocus)
     {
         SetCursorState(cursorLocked);

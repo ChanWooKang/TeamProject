@@ -87,13 +87,13 @@ public class PlayerAnimCtrl : MonoBehaviour
 
     public void OnEquip()
     {        
-        _manager._equip.EquipEvent();
+        //_manager._equip.EquipEvent();
         AnimationEnd();
     }
 
     public void OnDisarm()
     {
-        _manager._equip.DisarmEvent();
+        //_manager._equip.DisarmEvent();
         AnimationEnd();
     }
 

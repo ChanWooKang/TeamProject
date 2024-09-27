@@ -48,6 +48,7 @@ public class RifleCtrl : BaseWeaponCtrl
         //∏”¡Ò ¿Ã∆Â∆Æ,
         if (CheckAttackAble() == false)
             return;
+
         _muzzle.Play(true);
         ShootRay();
         _nowBulletCnt--;

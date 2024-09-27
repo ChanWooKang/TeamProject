@@ -387,7 +387,5 @@ public class InventoryManager : TSingleton<InventoryManager>
             }
 
         }
-
-
     }
 }
