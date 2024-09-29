@@ -14,17 +14,17 @@ public class PlayerAssetsInputs : MonoBehaviour
     public bool interact;
     public bool inventory;
     public bool aim;
-    public bool craft;
-    public float scrollY;
+    public bool craft;    
     public bool throws;
     public bool reload;
+    public float scrollY;
 
     [Header("Movement Settings")]
     public bool analogMovement;
 
     [Header("Mouse Cursor Settings")]
     public bool cursorLocked = true;
-    public bool cursorInputForLock = true;
+    public bool cursorInputForLock = true;    
 
 #if ENABLE_INPUT_SYSTEM
     public void OnMove(InputValue value)
@@ -75,11 +75,6 @@ public class PlayerAssetsInputs : MonoBehaviour
         FireInput(value.isPressed);
     }
 
-    public void OnWeaponSelect(InputValue value)
-    {        
-        WeaponSelectInput(value.Get<float>());
-    }
-
     public void OnThrow(InputValue value)
     {
         ThrowInput(value.isPressed);
@@ -88,7 +83,13 @@ public class PlayerAssetsInputs : MonoBehaviour
     public void OnReload(InputValue value)
     {
         ReloadInput(value.isPressed);
+    }    
+
+    public void OnScroll(InputValue value)
+    {        
+        ScrollInput(value.Get<float>());
     }
+    
 #endif
     public void MoveInput(Vector2 newMoveDirection)
     {        
@@ -134,11 +135,6 @@ public class PlayerAssetsInputs : MonoBehaviour
         fire = newFireState;
     }
 
-    public void WeaponSelectInput(float newSelectState)
-    {
-        scrollY = newSelectState;
-    }
-
     public void ThrowInput(bool newThrowState)
     {
         throws = newThrowState;
@@ -147,6 +143,11 @@ public class PlayerAssetsInputs : MonoBehaviour
     public void ReloadInput(bool newReloadState)
     {
         reload = newReloadState;
+    }
+
+    public void ScrollInput(float newScrollState)
+    {
+        scrollY = newScrollState;
     }
 
     private void OnApplicationFocus(bool hasFocus)

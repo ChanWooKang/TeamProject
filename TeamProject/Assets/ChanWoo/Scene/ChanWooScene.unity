@@ -407,6 +407,7 @@ MonoBehaviour:
     amount: 1
   _defPoolAmount: 0
   _canPoolExpand: 1
+  _poolingIcons: []
   _hudRootTransform: {fileID: 0}
 --- !u!4 &198866764
 Transform:
@@ -29315,7 +29316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5fc2d60e0e4ae1478867a72c4aa8375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: {fileID: 2618007071932611512}
+  _assets: {fileID: -944628639613478452, guid: a40a34f1148978643aabfeba21df6d4b, type: 3}
   WeaponLists:
   - {fileID: 1818170}
   - {fileID: 1936099319}
@@ -29324,11 +29325,14 @@ MonoBehaviour:
   - {fileID: 451939523}
   nowWeaponIndex: 0
   nextWeaponIndex: 0
-  currWeaponType: 1
-  prevWeaponType: 1
   nowActiveLayer: 0
   PetBallModel: {fileID: 5254799122028270174}
   BallPos: {fileID: 407831138}
+  isProgress: 0
+  changeSlotIndex: 0
+  currSlotIndex: 0
+  currWeaponIndex: 0
+  changeWeaponIndex: 0
 --- !u!114 &2222612047114777873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82434,9 +82438,9 @@ MonoBehaviour:
   inventory: 0
   aim: 0
   craft: 0
-  scrollY: 0
   throws: 0
   reload: 0
+  scrollY: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLock: 1

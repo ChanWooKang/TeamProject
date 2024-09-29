@@ -471,6 +471,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: WeaponType
     m_EventTreshold: 4
+  - m_ConditionMode: 2
+    m_ConditionEvent: AcivateAnimation
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5560628307740455870}
   m_Solo: 0
@@ -1928,6 +1931,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: WeaponType
     m_EventTreshold: 2
+  - m_ConditionMode: 2
+    m_ConditionEvent: AcivateAnimation
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7941445907670364152}
   m_Solo: 0
@@ -2980,6 +2986,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: WeaponType
     m_EventTreshold: 2
+  - m_ConditionMode: 1
+    m_ConditionEvent: AcivateAnimation
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1196078039669515654}
   m_Solo: 0
@@ -3030,6 +3039,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: WeaponType
     m_EventTreshold: 2
+  - m_ConditionMode: 2
+    m_ConditionEvent: AcivateAnimation
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2961808474373482884}
   m_Solo: 0
@@ -3153,6 +3165,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Root
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: AcivateAnimation
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 741029329795703161}
@@ -4295,6 +4310,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: WeaponType
     m_EventTreshold: 4
+  - m_ConditionMode: 2
+    m_ConditionEvent: AcivateAnimation
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1204194237915903132}
   m_Solo: 0
@@ -4562,6 +4580,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Root
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: AcivateAnimation
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3096528751706589228}
@@ -5059,6 +5080,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: WeaponType
     m_EventTreshold: 3
+  - m_ConditionMode: 2
+    m_ConditionEvent: AcivateAnimation
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6964427943279755277}
   m_Solo: 0
@@ -5324,6 +5348,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: WeaponType
     m_EventTreshold: 4
+  - m_ConditionMode: 2
+    m_ConditionEvent: AcivateAnimation
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8200777500007349502}
   m_Solo: 0
@@ -5911,6 +5938,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: WeaponType
     m_EventTreshold: 3
+  - m_ConditionMode: 2
+    m_ConditionEvent: AcivateAnimation
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8774714095146264665}
   m_Solo: 0
@@ -6210,6 +6240,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: WeaponType
     m_EventTreshold: 4
+  - m_ConditionMode: 2
+    m_ConditionEvent: AcivateAnimation
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5133948811256590880}
   m_Solo: 0
@@ -6238,6 +6271,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: WeaponType
     m_EventTreshold: 3
+  - m_ConditionMode: 2
+    m_ConditionEvent: AcivateAnimation
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6584373316959501298}
   m_Solo: 0
@@ -6293,6 +6329,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: WeaponType
     m_EventTreshold: 3
+  - m_ConditionMode: 2
+    m_ConditionEvent: AcivateAnimation
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4261439371574552631}
   m_Solo: 0
@@ -6594,6 +6633,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Root
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: AcivateAnimation
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -887289425007405055}
@@ -7042,6 +7084,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: WeaponType
     m_EventTreshold: 2
+  - m_ConditionMode: 2
+    m_ConditionEvent: AcivateAnimation
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5348093677850809333}
   m_Solo: 0
@@ -7113,6 +7158,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Root
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: AcivateAnimation
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6264656847836440049}

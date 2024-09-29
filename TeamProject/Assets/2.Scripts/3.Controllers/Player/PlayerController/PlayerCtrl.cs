@@ -48,7 +48,8 @@ public class PlayerCtrl : MonoBehaviour
     private void Update()
     {
         _move.OnUpdate();
-        _input.OnUpdate();        
+        _input.OnUpdate();
+        _equip.OnUpdate();
     }
 
     private void LateUpdate()

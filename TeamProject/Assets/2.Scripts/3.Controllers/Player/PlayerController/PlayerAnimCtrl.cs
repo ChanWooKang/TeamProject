@@ -87,20 +87,22 @@ public class PlayerAnimCtrl : MonoBehaviour
 
     public void OnEquip()
     {        
-        //_manager._equip.EquipEvent();
-        AnimationEnd();
+        _manager._equip.EquipChangeEnd();        
     }
 
     public void OnDisarm()
     {
-        //_manager._equip.DisarmEvent();
-        AnimationEnd();
+        _manager._equip.DisarmEvent();        
+    }
+    
+    public void OnActiveEquipObject()
+    {
+        _manager._equip.ChangeNextWeaponActive(true);
     }
 
-    public void OnActiveObject(int value)
+    public void OnActiveDisarmObject()
     {
-        bool isAble = value > 0;       
-        _manager._equip.SetOnOffWeapon(isAble);
+        _manager._equip.ChangeNowWeaponActive(false);
     }
 
     public void ChargeStart()
@@ -119,7 +121,7 @@ public class PlayerAnimCtrl : MonoBehaviour
     }
 
     public void AnimationEnd()
-    {
+    {        
         SetAnimation(ePlayerAnimParams.AcivateAnimation, false);
     }
 

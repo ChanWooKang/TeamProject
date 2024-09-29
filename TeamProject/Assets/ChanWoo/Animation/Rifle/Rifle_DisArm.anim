@@ -66209,13 +66209,20 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 1.3333334
-    functionName: OnActiveObject
+    functionName: OnActiveDisarmObject
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.9333333
+  - time: 1.8
+    functionName: AnimationEnd
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.8333334
     functionName: OnDisarm
     data: 
     objectReferenceParameter: {fileID: 0}

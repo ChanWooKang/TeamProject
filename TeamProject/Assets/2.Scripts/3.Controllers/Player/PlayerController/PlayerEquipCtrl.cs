@@ -6,71 +6,38 @@ using UnityEngine.InputSystem;
 
 public class PlayerEquipCtrl : MonoBehaviour
 {
+    InputActionAsset _assets;
+    InputAction scrollActions;
+
     PlayerCtrl _manager;
     PlayerAssetsInputs _input;    
     BowCtrl _myBow;
 
-    public PlayerInput playerInput;
-    InputAction scrollAction;
-
     public List<BaseWeaponCtrl> WeaponLists;
+    // Key = WeaponIndex , Value BaseWeaponCtrl
     Dictionary<int, BaseWeaponCtrl> _weapons;
-
     // Key  = SlotIndex,  Value = WeaponIndex
-    Dictionary<int, int> _slotWeapons;
-
-    public int nowWeaponIndex;
-    public int nextWeaponIndex;
-    public WeaponType currWeaponType;
-    public WeaponType prevWeaponType;
-
-    int _currentSlotIndex;
-    int _activeSlotIndex;
-    int maxSlotCount = 0;
-
-    bool isProgress = false;
-
-    public int nowActiveLayer;
+    Dictionary<int, int> _slotWeapons;           
 
     public GameObject PetBallModel;
-    public Transform BallPos;    
-
-    public int MaxSlotCount
-    {
-        get { return maxSlotCount; }
-        set
-        {
-            if (value >= 0)
-                maxSlotCount = ++maxSlotCount > 4 ? 4 : maxSlotCount;
-            else
-                maxSlotCount = --maxSlotCount < 0 ? 0 : maxSlotCount;
-        }
-    }
+    public Transform BallPos;       
 
     public PlayerAssetsInputs InputAsset { get { return _input; } }
 
-
+    #region [ Init ]
     public void Init(PlayerCtrl manager, PlayerAssetsInputs input)
-    {
-        scrollAction = playerInput.actions.FindAction("WeaponSelect");
+    {        
         _manager = manager;
         _input = input;
 
         SettingWeapons();
         SettingSlotWeapons();
         isProgress = false;
-        InitData();
-        _currentSlotIndex = 0;
+        InitData();        
     }
 
     void InitData()
-    {
-        nowWeaponIndex = 0;
-        nextWeaponIndex = 0;
-        currWeaponType = WeaponType.None;
-        prevWeaponType = currWeaponType;
-        nowActiveLayer = 1;
-        SetOnOffWeapon(true);
+    {        
         _manager._anim.SetAnimation(ePlayerAnimParams.WeaponType, (int)WeaponType.None);
     }
 
@@ -101,6 +68,13 @@ public class PlayerEquipCtrl : MonoBehaviour
         _slotWeapons.Add(0, 0);
     }
 
+    #endregion [ Init ]
+
+    public void OnUpdate()
+    {
+        //ScrollAction();
+    }
+
     public void ChangeSlotWeapon(int slotIndex, int weaponIndex)
     {
         if (_slotWeapons.ContainsKey(slotIndex))
@@ -109,93 +83,189 @@ public class PlayerEquipCtrl : MonoBehaviour
         }
     }
 
-    void OnScroll(InputAction.CallbackContext context)
-    {
-        float scrollValue = context.ReadValue<float>();
+   
 
-        if(scrollValue > 0)
+    [SerializeField] bool isProgress;
+    // 슬롯 변경 인덱스 값
+    [SerializeField] int changeSlotIndex = 0;
+    // 현재 적용중인 슬롯 인덱스 값
+    [SerializeField] int currSlotIndex = 0;
+    // 현재 적용중인 무기 인덱스 값
+    [SerializeField] int currWeaponIndex = 0;
+    // 변경 할 무기 인덱스 값
+    [SerializeField] int changeWeaponIndex = 0;
+
+
+    private void Awake()
+    {
+        _assets = GetComponent<PlayerInput>().actions;
+        scrollActions = _assets.FindAction("Scroll");
+    }
+
+    private void OnEnable()
+    {
+        scrollActions.performed += ScrollAction;
+        scrollActions.Enable();
+    }
+
+    private void OnDisable()
+    {
+        scrollActions.performed -= ScrollAction;
+        scrollActions.Disable();
+    }
+
+    public void ScrollAction(InputAction.CallbackContext context)
+    {      
+        float scrollValue = context.ReadValue<float>();        
+
+        if (scrollValue > 0)
         {
-            _currentSlotIndex = (_currentSlotIndex + 1) % _slotWeapons.Count;
+            changeSlotIndex = (changeSlotIndex + 1) % _slotWeapons.Count;
         }
         else if (scrollValue < 0)
         {
-            _currentSlotIndex = (_currentSlotIndex - 1 + _slotWeapons.Count) % _slotWeapons.Count;
+            changeSlotIndex = (changeSlotIndex - 1 + _slotWeapons.Count) % _slotWeapons.Count;
         }
 
-        if(!isProgress)
-            ChangeWeapon(_currentSlotIndex);
+
+
+        if (isProgress == false && !_manager._anim.GetAnimation(ePlayerAnimParams.AcivateAnimation))
+        {            
+            ChangeWeapon(changeSlotIndex);
+        }        
+            
     }
+    
 
     void ChangeWeapon(int slotIndex)
     {
         isProgress = true;
-
-        
-        if(_slotWeapons.ContainsKey(slotIndex))
+        if (_slotWeapons.ContainsKey(slotIndex))
         {
-            if (_slotWeapons[slotIndex] == _slotWeapons[_activeSlotIndex])
+            if(slotIndex == currSlotIndex)
             {
-                //변경하려는 인덱스와 현재 적용 중인 인덱스가 동일할경우 패스
                 isProgress = false;
                 return;
             }
 
-            //현재 적용되고 있는 ActiveSlotIndex 내용물 확인 비무장 , 장비 착용 확인해서 Disarm / Equip 구분
-            // 값이 0 일경우 비무장
-            if (_slotWeapons[_activeSlotIndex] == 0)
+            //변경하려는 인덱스와 현재 적용 중인 인덱스가 동일할경우 패스
+            if (_slotWeapons[slotIndex] == _slotWeapons[currSlotIndex])
             {
-                //장착
-                Debug.Log("장착");
-                _activeSlotIndex = slotIndex;
+                isProgress = false;                
+                Debug.Log("동일");
+                return;
+            }
+
+
+            //변경 할려는 슬롯에 WeaponIndex가 저장이 안되어있으면 패스 *오류*
+            if (!_weapons.ContainsKey(_slotWeapons[slotIndex]))
+            {
+                Debug.Log("오류");
                 isProgress = false;
                 return;
+            }
+
+
+            //현재 무기 정보 재 확인
+            currWeaponIndex = _slotWeapons[currSlotIndex];
+            //변경할 무기 정보 기입
+            changeWeaponIndex = _slotWeapons[slotIndex];            
+
+            if (_weapons[currWeaponIndex].weaponType == WeaponType.None)
+            {
+                //현재 장착 무기 상태가 비 무장 일때 장착 진행
+                ChangeAnimation(true);
             }
             else
-            {                
-                if (_slotWeapons[slotIndex] == 0) 
-                {
-                    //해제
-                    Debug.Log("해제");
-                    _activeSlotIndex = 0;
-                    isProgress = false;
-                    return;
-                }
-                else
-                {
-                    //장착 및 해제
-                    Debug.Log("장착 및 해제");
-                    _activeSlotIndex = slotIndex;
-                    isProgress = false;
-                    return;
-                }
+            {
+                //현재 장착 무기 상태가 무장 상태 일때 해제 진행
+                ChangeAnimation(false);
             }
         }
-
-        isProgress = false;
+        else
+            isProgress = false;
     }
 
-
-
-
-
-    
-
-    
-
-    public void SetOnOffWeapon(bool isOn)
+    public void EquipChangeEnd()
     {        
-        _weapons[nowWeaponIndex].gameObject.SetActive(isOn);
+        if(changeWeaponIndex == _slotWeapons[changeSlotIndex])
+        {
+            SetLayerWeight();
+            currWeaponIndex = changeWeaponIndex;
+            currSlotIndex = changeSlotIndex;
+
+            for (int i = 0; i < _weapons.Count; i++)
+            {
+                WeaponLists[i].gameObject.SetActive(WeaponLists[i].Index == currWeaponIndex);
+            }
+
+            isProgress = false;
+        }
+        else
+        {
+            ChangeWeapon(changeSlotIndex);
+        }
     }
+
+    public void DisarmEvent()
+    {
+        if(changeWeaponIndex > 0)
+        {
+            //해제 후 장착
+            ChangeAnimation(true);
+        }
+        else
+        {            
+            //해제 후 정리 작업            
+            EquipChangeEnd();            
+        }
+    }
+
+    void ChangeAnimation(bool isEquip)
+    {
+        if (isEquip)
+        {            
+            _manager._anim.SetAnimation(ePlayerAnimParams.WeaponType, (int)_weapons[changeWeaponIndex].weaponType);            
+            _manager._anim.SetAnimation(ePlayerAnimParams.Equip);
+        }
+        else
+        {
+            _manager._anim.SetAnimation(ePlayerAnimParams.WeaponType, (int)_weapons[currWeaponIndex].weaponType);
+            _manager._anim.SetAnimation(ePlayerAnimParams.Disarm);
+        }
+    }
+    
+    void SetLayerWeight()
+    {
+        WeaponType nowType = _weapons[currWeaponIndex].weaponType;
+        WeaponType changeType = _weapons[changeWeaponIndex].weaponType;
+
+        if(nowType != changeType)
+        {
+            _manager._anim.SetAniLayerWeight((int)nowType, 0);
+            _manager._anim.SetAniLayerWeight((int)changeType, 1);
+        }        
+    }
+
+    public void ChangeNextWeaponActive(bool isOn)
+    {
+        _weapons[changeWeaponIndex].gameObject.SetActive(isOn);
+    }
+
+    public void ChangeNowWeaponActive(bool isOn)
+    {
+        _weapons[currWeaponIndex].gameObject.SetActive(isOn);
+    }    
 
     public void ReadyToGottcha(bool isDone)
     {
-        if (_weapons[nowWeaponIndex].gameObject.activeSelf != isDone)
-            _weapons[nowWeaponIndex].gameObject.SetActive(isDone);
+        if (_weapons[currWeaponIndex].gameObject.activeSelf != isDone)
+            _weapons[currWeaponIndex].gameObject.SetActive(isDone);
     }
 
     public bool CheckAttackAble()
     {
-        bool isAble = _weapons[nowWeaponIndex].CheckAttackAble();
+        bool isAble = _weapons[currWeaponIndex].CheckAttackAble();
         _manager._anim.SetAnimation(ePlayerAnimParams.AttackAble, isAble);
         return isAble;
     }
@@ -203,19 +273,19 @@ public class PlayerEquipCtrl : MonoBehaviour
     //공격
     public void AttackAction()
     {
-        _weapons[nowWeaponIndex].AttackAction();
+        _weapons[currWeaponIndex].AttackAction();
     }    
 
     public void ChargeStart()
     {
-        _weapons[nowWeaponIndex].ChargeStart();
+        _weapons[currWeaponIndex].ChargeStart();
         _manager._anim.SetAnimation(ePlayerAnimParams.Charge, true);
         _manager._anim.SetAnimation(ePlayerAnimParams.AttackEnd, false);
     }
 
     public void ChargeEnd()
     {
-        _weapons[nowWeaponIndex].ChargeEnd();
+        _weapons[currWeaponIndex].ChargeEnd();
         _manager._anim.SetAnimation(ePlayerAnimParams.Charge, false);
     }
 
@@ -227,7 +297,7 @@ public class PlayerEquipCtrl : MonoBehaviour
 
     public void Reload()
     {
-        _weapons[nowWeaponIndex].Reload();
+        _weapons[currWeaponIndex].Reload();
     }
 
 
@@ -256,21 +326,5 @@ public class PlayerEquipCtrl : MonoBehaviour
         ReadyToGottcha(true);
     }
 
-    private void OnEnable()
-    {
-        if(scrollAction != null)
-        {
-            scrollAction.performed += OnScroll;
-            scrollAction.Enable();
-        }
-    }
 
-    private void OnDisable()
-    {
-        if(scrollAction != null)
-        {
-            scrollAction.performed -= OnScroll;
-            scrollAction.Disable();
-        }        
-    }
 }

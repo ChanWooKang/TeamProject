@@ -46,7 +46,6 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
         {
             if (_item.EquipType == eEquipType.Weapon)
             {
-                GameManagerEx._inst.playerManager._equip.MaxSlotCount = 1;
                 GameManagerEx._inst.playerManager._equip.ChangeSlotWeapon(SlotIndex, _item.Index);
             }
                 
@@ -67,8 +66,7 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
         if (item != null)
         {
             if(item.EquipType == eEquipType.Weapon)
-            {                
-                GameManagerEx._inst.playerManager._equip.MaxSlotCount = -1;
+            {                                
                 GameManagerEx._inst.playerManager._equip.ChangeSlotWeapon(SlotIndex, 0);
             }                
         }
@@ -160,8 +158,7 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
     {
         if(item != null)
         {
-            UI_ItemInfo._info.SetInformation(item, transform.position, item.Type, 1, eventData);
-            Debug.Log(transform.position);
+            UI_ItemInfo._info.SetInformation(item, transform.position, item.Type, 1, eventData);            
         }
     }
 

@@ -87,15 +87,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "WeaponSelect",
-                    "type": "PassThrough",
-                    "id": "532b4a18-5125-4f74-8940-2e27399a6516",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Throw",
                     "type": "PassThrough",
                     "id": "02cfb596-495f-407c-a237-fd6887fdef42",
@@ -109,6 +100,15 @@
                     "type": "Button",
                     "id": "da4b012e-66f3-41a4-8e68-936305c949d9",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Scroll",
+                    "type": "PassThrough",
+                    "id": "212630ba-f4bb-4246-a541-5850cdd836b7",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -260,17 +260,6 @@
                 },
                 {
                     "name": "",
-                    "id": "16fa4b36-57d0-4773-8b2c-9f75f1c5c60d",
-                    "path": "<Mouse>/scroll/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyBoardMouse",
-                    "action": "WeaponSelect",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "de5b4213-5389-4a64-b28e-0f92c8d2d3ff",
                     "path": "<Keyboard>/q",
                     "interactions": "",
@@ -288,6 +277,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "48d1ac82-efb7-43aa-8d1f-67b61793ff61",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyBoardMouse",
+                    "action": "Scroll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
