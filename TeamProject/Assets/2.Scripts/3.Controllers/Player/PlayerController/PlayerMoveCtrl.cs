@@ -65,7 +65,8 @@ public class PlayerMoveCtrl : MonoBehaviour
         {
             JumpInGravity();
             GroundedCheck();
-            MoveAcion();
+            CheckStaminaUse();
+            MoveAcion();            
             LookAtAim();
         }
         else
@@ -98,12 +99,16 @@ public class PlayerMoveCtrl : MonoBehaviour
             if (_verticalVelocity < 0)
                 _verticalVelocity = -2.0f;
 
-            if (_input.jump && _jumpTimeOutDelta <= 0.0f)
+            if (_input.jump && _jumpTimeOutDelta <= 0.0f && _manager._stat.CanUseStamina(_jumpUseStamina))
             {
                 _verticalVelocity = Mathf.Sqrt(JumpHeight * -2.0f * Gravity);
 
                 //애니메이션 Jump Bool Set
                 _manager._anim.SetAnimation(ePlayerAnimParams.Jump, true);
+            }
+            else
+            {
+                _input.jump = false;
             }
 
             if (_jumpTimeOutDelta >= 0.0f)
@@ -138,14 +143,23 @@ public class PlayerMoveCtrl : MonoBehaviour
         }
     }
 
+    float GetSpeed()
+    {
+        float targetSpeed;
+
+        if (_input.aim) targetSpeed = _manager._stat.MoveSpeed;
+        else targetSpeed = _input.sprint ? _manager._stat.RunSpeed : _manager._stat.MoveSpeed;
+        if (_input.move == Vector2.zero) targetSpeed = 0;
+        else if (!_canUseStamina) targetSpeed = _manager._stat.MoveSpeed;
+        
+        return targetSpeed;
+    }    
+
     //움직임 작업
     void MoveAcion()
     {
-        float targetSpeed;
-        if (_input.aim) targetSpeed = _manager._stat.MoveSpeed;
-        else targetSpeed = _input.sprint ? _manager._stat.RunSpeed : _manager._stat.MoveSpeed;
-        if (_input.move == Vector2.zero) targetSpeed = 0.0f;
-
+        float targetSpeed = GetSpeed();
+        
         float currHorzonSpeed = new Vector3(_control.velocity.x, 0.0f, _control.velocity.z).magnitude;
         float speedOffset = 0.1f;
         float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1.0f;
@@ -173,8 +187,7 @@ public class PlayerMoveCtrl : MonoBehaviour
 
         Vector3 targetDir = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
         _control.Move(targetDir.normalized * (_speed * Time.deltaTime)
-                        + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
-
+                        + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);        
         //애니메이션 xDir, yDir, Speed, MotionSpeed Float
         _manager._anim.SetAnimation(ePlayerAnimParams.xDir, _input.move.x);
         _manager._anim.SetAnimation(ePlayerAnimParams.yDir, _input.move.y);
@@ -193,10 +206,54 @@ public class PlayerMoveCtrl : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
+    //Stamina 사용 가능 여부
+    bool _canUseStamina = true;
+    bool _isRegenStamina = false;
+    float _regenDelay = 2.0f;
+    float _staminaDrainRate = 10.0f;
+    float _staminaRegenRate = 5.0f;
+    float _jumpUseStamina = 10.0f;
+    Coroutine _regenCoroutine = null;
+
+    void CheckStaminaUse()
     {
-        Vector3 spherePos = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
-        Gizmos.DrawSphere(spherePos, GroundedRadius);
-        Gizmos.color = Color.red;                    
+        if (_input.move != Vector2.zero)
+        {
+            if (_input.sprint)
+            {
+                _canUseStamina = _manager._stat.UseStaminaByTime(_staminaDrainRate);
+                _isRegenStamina = false;
+                if (_regenCoroutine != null)
+                    StopCoroutine(_regenCoroutine);
+            }
+            else
+            {
+                if (!_isRegenStamina && _manager._stat.Stamina < _manager._stat.MaxStamina)
+                {
+                    _regenCoroutine = StartCoroutine(RegenStaminaEvent());
+                }
+            }            
+        }
+        else
+        {
+            if (!_isRegenStamina && _manager._stat.Stamina < _manager._stat.MaxStamina)
+            {
+                _regenCoroutine = StartCoroutine(RegenStaminaEvent());
+            }
+        }
+
+    }
+
+    IEnumerator RegenStaminaEvent()
+    {
+        _isRegenStamina = true;
+        yield return new WaitForSeconds(_regenDelay);
+
+        while(_manager._stat.Stamina < _manager._stat.MaxStamina)
+        {
+            _manager._stat.RegenStaminaByTime(_staminaRegenRate);
+            yield return null;
+        }
+        _isRegenStamina = false;
     }
 }

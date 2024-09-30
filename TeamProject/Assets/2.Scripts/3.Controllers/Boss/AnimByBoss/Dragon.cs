@@ -161,12 +161,6 @@ public class Dragon : BossAnimCtrl
         {
             Sleep(true);
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;        
-        Gizmos.DrawRay(_firePos.position, _firePos.right * -5f);        
-    }
+    }   
 
 }
