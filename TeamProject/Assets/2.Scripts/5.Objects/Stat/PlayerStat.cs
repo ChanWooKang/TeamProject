@@ -146,6 +146,10 @@ public class PlayerStat : BaseStat
         }
     }    
 
+    public bool CheckUseStamina(float value)
+    {
+        return _stamina >= value;
+    }
 
     public bool CanUseStamina(float value)
     {

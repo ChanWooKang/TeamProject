@@ -159,7 +159,11 @@ public class PlayerInputCtrl : MonoBehaviour
         if(_manager._equip.CheckAttackAble())
         {
             _manager._anim.SetAnimation(ePlayerAnimParams.Fire, _input.fire);
-        }        
+        }
+        else
+        {
+            _manager._anim.SetAnimation(ePlayerAnimParams.Fire, false);
+        }
     }
 
     void ThrowAction()

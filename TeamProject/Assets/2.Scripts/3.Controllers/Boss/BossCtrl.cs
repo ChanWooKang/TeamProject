@@ -5,7 +5,7 @@ using UnityEngine.AI;
 using DefineDatas;
 
 
-public class BossCtrl : FSM<BossCtrl>
+public class BossCtrl : FSM<BossCtrl>, IHitAble
 {
     [Header("Boss Data")]
     public int Index;
@@ -36,6 +36,8 @@ public class BossCtrl : FSM<BossCtrl>
     public List<SkillInfo> _mySkills;
     [HideInInspector] public Transform target;
     [HideInInspector] public Vector3 targetPos;
+    
+    public Vector3 _offSetHitPoint;
 
     public bool isDead;
     public bool isAttack;
@@ -181,7 +183,13 @@ public class BossCtrl : FSM<BossCtrl>
                 attackRange = Stat.AttackRange;
                 break;
         }
-    }    
+    }
+
+    public void OnDamage(float damage, Transform attacker)
+    {
+        Vector3 hitPoint = transform.position + _offSetHitPoint;
+        OnDamage(damage, attacker, hitPoint);
+    }
 
     public void OnDamage(float damage, Transform attacker, Vector3 hitPoint)
     {

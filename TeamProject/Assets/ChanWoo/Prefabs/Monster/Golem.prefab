@@ -1046,6 +1046,7 @@ MonoBehaviour:
   _attackType: 0
   target: {fileID: 0}
   targetPos: {x: 0, y: 0, z: 0}
+  _offSetHitPoint: {x: 1.5, y: 1.5, z: 2.5}
   delayTime: 2
   attackRange: 0
   dizzyRate: 0.05

@@ -219,7 +219,7 @@ public class PlayerMoveCtrl : MonoBehaviour
     {
         if (_input.move != Vector2.zero)
         {
-            if (_input.sprint)
+            if (_input.sprint && _input.aim == false)
             {
                 _canUseStamina = _manager._stat.UseStaminaByTime(_staminaDrainRate);
                 _isRegenStamina = false;
@@ -251,7 +251,10 @@ public class PlayerMoveCtrl : MonoBehaviour
 
         while(_manager._stat.Stamina < _manager._stat.MaxStamina)
         {
-            _manager._stat.RegenStaminaByTime(_staminaRegenRate);
+            if(_input.move != Vector2.zero)
+                _manager._stat.RegenStaminaByTime(_staminaRegenRate);
+            else
+                _manager._stat.RegenStaminaByTime(_staminaRegenRate * 3);
             yield return null;
         }
         _isRegenStamina = false;
