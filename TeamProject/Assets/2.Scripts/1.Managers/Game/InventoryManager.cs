@@ -25,11 +25,12 @@ public class InventoryManager : TSingleton<InventoryManager>
 
     public static bool ActiveChangeEquip = false;
     public int itemCount;
-    public float MaxItemWeights;
+    //public float MaxItemWeights;
 
     Coroutine EquipCoroutine = null;
 
-    public float InvenWeight { get { return invenUI.GetItemWeights(); } }
+    public float MaxItemWeights { get { return GameManagerEx._inst.playerManager._stat.CarryWeight; } set { GameManagerEx._inst.playerManager._stat.CarryWeight = value; } }
+    public float InvenWeight { get { return invenUI.GetItemWeights(); } }    
     public UI_Slot[] InventoryItems { get { return invenUI.GetInvenSlots; } }
 
     private void Awake()

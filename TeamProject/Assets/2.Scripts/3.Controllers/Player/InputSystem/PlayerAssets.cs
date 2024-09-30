@@ -239,7 +239,7 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""72bbd3a5-17ca-457c-bac4-ad92cb2111f4"",
-                    ""path"": ""<Keyboard>/i"",
+                    ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyBoardMouse"",

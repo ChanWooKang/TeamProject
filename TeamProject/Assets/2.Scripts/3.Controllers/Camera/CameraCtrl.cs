@@ -9,6 +9,6 @@ public class CameraCtrl : MonoBehaviour
 
     void LateUpdate()
     {
-        transform.position = target.position + offSetPos;
+        transform.position = target.position + offSetPos;        
     }
 }

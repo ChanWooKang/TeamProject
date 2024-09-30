@@ -15,6 +15,7 @@ public class UI_StatInfo : UI_Base
     {
         LevelText,        
         RequiredEXP,
+        BonusTitle,
         BonusStat,
         HP_Text
     }
@@ -32,12 +33,25 @@ public class UI_StatInfo : UI_Base
     Text _hp;
     Image _fillEXP;
     Image _fillHP;
+    Text _bonusTitle;
     Text _bonusStat;    
 
     string _format;
+    string _unActiveFormat;
+    bool _isSetting = false;
+    private void Update()
+    {
+        if (_isSetting && InventoryManager._inst.invenUI.isOnUI)
+        {
+            SetUI();
+            InventoryManager._inst.invenUI.SettingInvenWeight();
+        }
+    }
+
     public override void Init()
     {                
-        _format = "{0:N0}";
+        _format = "<color=white>{0:N0}</color>";
+        _unActiveFormat = "<color=grey>{0:N0}</color>";
         Bind<GameObject>(typeof(GameObjects));
         Bind<Text>(typeof(Texts));
         Bind<Image>(typeof(Images));
@@ -46,10 +60,12 @@ public class UI_StatInfo : UI_Base
         _level = GetText((int)Texts.LevelText);
         _requireEXP = GetText((int)Texts.RequiredEXP);
         _hp = GetText((int)Texts.HP_Text);
+        _bonusTitle = GetText((int)Texts.BonusTitle);
         _bonusStat = GetText((int)Texts.BonusStat);
         _fillEXP = GetImage((int)Images.EXP_Fill);
         _fillHP = GetImage((int)Images.HP_Fill);
-        SettingStat();        
+        SettingStat();
+        _isSetting = true;
     }
 
     void SettingStat()
@@ -80,7 +96,18 @@ public class UI_StatInfo : UI_Base
     void SetUIsByBonusStat()
     {
         int bonusStat = _stat.BonusStat;
-        _bonusStat.text = string.Format(_format, bonusStat);
+        string title = "스테이터스 포인트";
+        if(bonusStat > 0)
+        {
+            _bonusTitle.text = string.Format(_format, title);
+            _bonusStat.text = string.Format(_format, bonusStat);
+        }
+        else
+        {
+            _bonusTitle.text = string.Format(_unActiveFormat, title);
+            _bonusStat.text = string.Format(_unActiveFormat, bonusStat);
+        }
+        
         for (int i = 0; i < _stats.Length; i++)
         {
             _stats[i].SetUI(bonusStat > 0);
@@ -92,8 +119,9 @@ public class UI_StatInfo : UI_Base
         float HP = _stat.HP;
         float MaxHP = _stat.MaxHP;
 
-        string format = $"{0} / <color = gray> {1} </color>";
+        string format = "{0:N0} / <color=grey>{1:N0}</color>";
         _hp.text = string.Format(format, HP,MaxHP);
+        _fillHP.fillAmount = HP / MaxHP;    
     }
 
     public float GiveData(eStatType type)
