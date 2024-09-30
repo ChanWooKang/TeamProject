@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 1453543781633100715}
   - component: {fileID: 1629628527571464391}
   - component: {fileID: 1648824308904758039}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MuzzleBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4997,7 +4997,7 @@ GameObject:
   - component: {fileID: 1453744517648458357}
   - component: {fileID: 1629606232876084907}
   - component: {fileID: 1650482738514404607}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9871,7 +9871,7 @@ GameObject:
   - component: {fileID: 1453915190189011067}
   - component: {fileID: 1649111969666802613}
   - component: {fileID: 1650450149336915505}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MuzzleNarrowVertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14754,7 +14754,7 @@ GameObject:
   - component: {fileID: 1453783637777005063}
   - component: {fileID: 1649118230790548913}
   - component: {fileID: 1648838239706926041}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19628,7 +19628,7 @@ GameObject:
   - component: {fileID: 1453791814761783431}
   - component: {fileID: 1649369598919461537}
   - component: {fileID: 1648632722384172977}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MuzzleAddNarrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24511,7 +24511,7 @@ GameObject:
   - component: {fileID: 1454072186567494893}
   - component: {fileID: 1629682536408985477}
   - component: {fileID: 1648868806947479669}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MuzzleBase (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29385,7 +29385,7 @@ GameObject:
   - component: {fileID: 1455295269250136023}
   - component: {fileID: 1648322143793233235}
   - component: {fileID: 1648622024931785671}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MuzzleParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29416,7 +29416,7 @@ Transform:
 --- !u!198 &1648322143793233235
 ParticleSystem:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 198792769130808804, guid: 4543ab5e3d405ec40a8d4e9aa5165030, type: 3}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1452124229428414717}
@@ -34266,7 +34266,7 @@ GameObject:
   - component: {fileID: 1455451678788667265}
   - component: {fileID: 1629603635518955971}
   - component: {fileID: 1648722361960610157}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46010,7 +46010,7 @@ GameObject:
   - component: {fileID: 3546825698897565326}
   - component: {fileID: 474849089424136491}
   - component: {fileID: 2410542847735098849}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46091,7 +46091,7 @@ GameObject:
   - component: {fileID: 5240316284561707165}
   - component: {fileID: 9157661306007969592}
   - component: {fileID: 6409320708066847730}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sword1_Silver
   m_TagString: Untagged
   m_Icon: {fileID: 0}

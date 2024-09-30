@@ -10,7 +10,7 @@ using DefineDatas;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(MonsterStat))]
 [RequireComponent(typeof(MonsterMovement))]
-public class MonsterController : FSM<MonsterController>
+public class MonsterController : FSM<MonsterController>, IHitAble
 {
     [Header("Monster Data")]
     public int Index;
@@ -46,6 +46,8 @@ public class MonsterController : FSM<MonsterController>
     //타겟 관련
     [HideInInspector] public Transform target;
     [HideInInspector] public Vector3 targetPos;
+    
+    public Vector3 _offSetHitPoint;
 
     [Header("Datas")]
     //floats
@@ -277,21 +279,8 @@ public class MonsterController : FSM<MonsterController>
 
     public void OnDamage(float damage, Transform attacker)
     {
-        if (isDead)
-            return;
-
-        isStatic = false;
-
-        if (target != attacker)
-            SetTarget(attacker);
-
-        if (_hudCtrl != null)
-            _hudCtrl.DisPlay(Stat.HP / Stat.MaxHP);
-
-        State = eMonsterState.GETHIT;
-        isDead = Stat.CalculateDamage(damage);
-
-        OnDamage();
+        Vector3 hitPoint = transform.position + _offSetHitPoint;
+        OnDamage(damage,attacker,hitPoint);
     }
 
     public void OnDamage(float damage, Transform attacker, Vector3 hitPoint)

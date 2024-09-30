@@ -192,6 +192,13 @@ namespace DefineDatas
     {
         Dictionary<Key, Value> Make();
     }
+    
+    public interface IHitAble
+    {
+        public void OnDamage(float damage, Transform attacker);
+        public void OnDamage(float damage, Transform attacker, Vector3 hitPoint);
+        
+    }
 
     public enum LowDataType
     {

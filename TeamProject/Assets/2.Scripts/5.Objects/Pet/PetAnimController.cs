@@ -78,7 +78,7 @@ public abstract class PetAnimController : MonoBehaviour
             {
                 if (_manager.target.CompareTag("Monster"))
                 {
-                    _manager.target.GetComponent<MonsterController>().OnDamage(_manager.Stat.Damage, _manager.target);
+                    _manager.target.GetComponent<MonsterController>().OnDamage(_manager.Stat.Damage, _manager.transform);
                 }
             }
         }

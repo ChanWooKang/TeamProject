@@ -15,26 +15,28 @@ public class UI_StatInfo : UI_Base
     {
         LevelText,        
         RequiredEXP,
-        BonusStat
+        BonusStat,
+        HP_Text
     }
 
     enum Images
     {
         EXP_Fill,
+        HP_Fill
     }
     public PlayerStat _stat;
     GameObject _statParent;
     UI_Stat[] _stats;
     Text _level;
     Text _requireEXP;
+    Text _hp;
     Image _fillEXP;
+    Image _fillHP;
     Text _bonusStat;    
 
     string _format;
     public override void Init()
-    {
-        
-        
+    {                
         _format = "{0:N0}";
         Bind<GameObject>(typeof(GameObjects));
         Bind<Text>(typeof(Texts));
@@ -43,10 +45,11 @@ public class UI_StatInfo : UI_Base
         _stats = _statParent.GetComponentsInChildren<UI_Stat>();
         _level = GetText((int)Texts.LevelText);
         _requireEXP = GetText((int)Texts.RequiredEXP);
+        _hp = GetText((int)Texts.HP_Text);
         _bonusStat = GetText((int)Texts.BonusStat);
         _fillEXP = GetImage((int)Images.EXP_Fill);
-        SettingStat();
-        Debug.Log(1);
+        _fillHP = GetImage((int)Images.HP_Fill);
+        SettingStat();        
     }
 
     void SettingStat()
@@ -60,7 +63,6 @@ public class UI_StatInfo : UI_Base
 
     public void SetUI()
     {
-
         //Level
         int level = _stat.Level;
         _level.text = string.Format(_format, level);
@@ -69,8 +71,9 @@ public class UI_StatInfo : UI_Base
         _requireEXP.text = string.Format(_format, requiredEXP);
         //Fill EXP         
         float rateEXP = _stat.ConvertEXP / _stat.ConvertTotalEXP;
-        _fillEXP.fillAmount = rateEXP;
+        _fillEXP.fillAmount = rateEXP;        
         //BonusStat       
+        SetHPUI();
         SetUIsByBonusStat();
     }
 
@@ -82,6 +85,15 @@ public class UI_StatInfo : UI_Base
         {
             _stats[i].SetUI(bonusStat > 0);
         }
+    }
+
+    void SetHPUI()
+    {
+        float HP = _stat.HP;
+        float MaxHP = _stat.MaxHP;
+
+        string format = $"{0} / <color = gray> {1} </color>";
+        _hp.text = string.Format(format, HP,MaxHP);
     }
 
     public float GiveData(eStatType type)

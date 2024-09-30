@@ -32,14 +32,10 @@ public class RifleCtrl : BaseWeaponCtrl
         if (Physics.Raycast(FirePos.position, Camera.main.transform.forward,
             out RaycastHit rhit, _weaponRange, AcceptLayer)) 
         {
-            if(rhit.transform.TryGetComponent(out MonsterController monster))
+            if(rhit.transform.TryGetComponent(out IHitAble hit))
             {
-                monster.OnDamage(TotalDamage, _playerEquip.transform, rhit.point);
-            }
-            else if(rhit.transform.TryGetComponent(out BossCtrl boss))
-            {
-                boss.OnDamage(TotalDamage, _playerEquip.transform, rhit.point);
-            }
+                hit.OnDamage(TotalDamage, _playerEquip.transform, rhit.point);
+            }            
         }
     }
 

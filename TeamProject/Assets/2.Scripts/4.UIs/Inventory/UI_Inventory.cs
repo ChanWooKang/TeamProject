@@ -59,7 +59,7 @@ public class UI_Inventory : MonoBehaviour
             slots[i].Init();
         }
         UI_ItemInfo._info.Init();
-        //_statInfo.Init();
+        _statInfo.Init();
         CloseUI();
 
     }
@@ -84,7 +84,7 @@ public class UI_Inventory : MonoBehaviour
         {
             m_tags[i].SetActive(true);
         }
-        //_statInfo.SetUI();
+        _statInfo.SetUI();
         m_petEntryBox.CloseUI();
     }
 

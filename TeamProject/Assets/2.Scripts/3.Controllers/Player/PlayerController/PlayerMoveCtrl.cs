@@ -219,7 +219,7 @@ public class PlayerMoveCtrl : MonoBehaviour
     {
         if (_input.move != Vector2.zero)
         {
-            if (_input.sprint)
+            if (_input.sprint && _input.aim == false)
             {
                 _canUseStamina = _manager._stat.UseStaminaByTime(_staminaDrainRate);
                 _isRegenStamina = false;
