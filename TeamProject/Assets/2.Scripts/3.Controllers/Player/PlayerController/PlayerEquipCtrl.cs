@@ -160,7 +160,7 @@ public class PlayerEquipCtrl : MonoBehaviour
             //변경 할려는 슬롯에 WeaponIndex가 저장이 안되어있으면 패스 *오류*
             if (!_weapons.ContainsKey(_slotWeapons[slotIndex]))
             {
-                Debug.Log("오류");
+                Debug.Log("오류");    
                 isProgress = false;
                 return;
             }

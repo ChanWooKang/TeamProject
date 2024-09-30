@@ -33,7 +33,7 @@ public class UI_StatInfo : UI_Base
     string _format;
     public override void Init()
     {
-        _stat = GameManagerEx._inst.playerManager._stat;
+        
         
         _format = "{0:N0}";
         Bind<GameObject>(typeof(GameObjects));
@@ -46,6 +46,7 @@ public class UI_StatInfo : UI_Base
         _bonusStat = GetText((int)Texts.BonusStat);
         _fillEXP = GetImage((int)Images.EXP_Fill);
         SettingStat();
+        Debug.Log(1);
     }
 
     void SettingStat()
@@ -59,6 +60,7 @@ public class UI_StatInfo : UI_Base
 
     public void SetUI()
     {
+
         //Level
         int level = _stat.Level;
         _level.text = string.Format(_format, level);
