@@ -144,5 +144,33 @@ public class PlayerStat : BaseStat
                 CarryWeight += 50;
                 break;
         }
+    }    
+
+
+    public bool CanUseStamina(float value)
+    {
+        float tempStamina = _stamina - value;
+        if(tempStamina >= 0)
+        {
+            _stamina = tempStamina;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool UseStaminaByTime(float value)
+    {
+        _stamina -= value * Time.deltaTime;
+        _stamina = Mathf.Clamp(_stamina, 0, _maxStamina);
+        return _stamina > 0;
+    }
+
+    public void RegenStaminaByTime(float value)
+    {
+        _stamina += value * Time.deltaTime;
+        _stamina = Mathf.Clamp(_stamina, 0, _maxStamina);
     }
 }
