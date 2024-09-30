@@ -62,7 +62,7 @@ public class PlayerMoveCtrl : MonoBehaviour
     public void OnUpdate()
     {
         if (GameManagerEx._inst.CheckIsMoveAble())
-        {
+        {            
             JumpInGravity();
             GroundedCheck();
             CheckStaminaUse();
@@ -228,10 +228,19 @@ public class PlayerMoveCtrl : MonoBehaviour
             }
             else
             {
-                if (!_isRegenStamina && _manager._stat.Stamina < _manager._stat.MaxStamina)
+                if (_input.fire)
                 {
-                    _regenCoroutine = StartCoroutine(RegenStaminaEvent());
+                    _isRegenStamina = false;
+                    if (_regenCoroutine != null)
+                        StopCoroutine(_regenCoroutine);
                 }
+                else
+                {
+                    if (!_isRegenStamina && _manager._stat.Stamina < _manager._stat.MaxStamina)
+                    {
+                        _regenCoroutine = StartCoroutine(RegenStaminaEvent());
+                    }
+                }                
             }            
         }
         else

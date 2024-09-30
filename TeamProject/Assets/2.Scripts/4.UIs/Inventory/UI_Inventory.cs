@@ -6,15 +6,18 @@ using TMPro;
 using DefineDatas;
 
 public class UI_Inventory : MonoBehaviour
-{
+{    
+
     #region [Main Component & Param]
     public GameObject main;
     public GameObject Slot_Parent;
     public Text InvenWeightText;
+    public Image InvenWeightFill;
     public UI_StatInfo _statInfo;
     [SerializeField] GameObject[] m_tags;
     UI_Slot[] slots;    
     #endregion [Main Component & Param]
+
 
     #region [PetInven Component & Param]
     public GameObject petInven;
@@ -47,8 +50,7 @@ public class UI_Inventory : MonoBehaviour
 
 
 
-    bool isOnUI;
-
+    public bool isOnUI;
     public UI_Slot[] GetInvenSlots { get { return slots; } }
 
     public void Init()
@@ -76,8 +78,7 @@ public class UI_Inventory : MonoBehaviour
 
     void OpenUI()
     {
-        isOnUI = true;
-        SettingInvenWeight();
+        isOnUI = true;        
         main.SetActive(isOnUI);
         petInven.SetActive(false);
         for (int i = 0; i < m_tags.Length; i++)
@@ -107,11 +108,12 @@ public class UI_Inventory : MonoBehaviour
     }
 
     #region [Main]
-    void SettingInvenWeight()
+    public void SettingInvenWeight()
     {
         float weight = GetItemWeights();
-        float maxWeight = InventoryManager._inst.MaxItemWeights;
+        float maxWeight = GameManagerEx._inst.playerManager._stat.CarryWeight;
 
+        InvenWeightFill.fillAmount = weight / maxWeight;
         InvenWeightText.text = string.Format("{0:D2} / {1:D2}", (int)weight, (int)maxWeight);
     }
 
