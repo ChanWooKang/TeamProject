@@ -18,10 +18,12 @@ public class ObjectPreview : MonoBehaviour
     [SerializeField]
     int layerGround; // 지형 레이어 (무시하게 할 것)
     const int IGNORE_RAYCAST_LAYER = 2;  // ignore_raycast (무시하게 할 것)
+    float m_progress;
 
     bool m_isFixed;
     bool m_isDone;
     public bool IsDone { get { return m_isDone; } }
+    public float Progress { get { return m_progress; } set { m_progress = value; } }
 
     #region[Prefab & Material]
     [SerializeField]
@@ -63,10 +65,10 @@ public class ObjectPreview : MonoBehaviour
                 m_collider.size = new Vector3(1.5f, 1f, 1.5f);
                 gameObject.transform.parent.gameObject.isStatic = true;
                 if (m_PetCtrl != null)
-                    m_PetCtrl.JobDone();
+                    m_PetCtrl.JobDone();                
             }
-            if (Input.GetKeyUp(KeyCode.F))
-                m_uiWorkload.UpFKey();
+            if (Input.GetKeyUp(KeyCode.F))            
+                m_uiWorkload.UpFKey();                            
             if (Input.GetKey(KeyCode.C))
                 if (m_uiWorkload.PressCKey())
                     Destroy(gameObject.transform.parent.gameObject);
@@ -74,7 +76,14 @@ public class ObjectPreview : MonoBehaviour
                 m_uiWorkload.UpCKey();
         }
     }
-
+    private void LateUpdate()
+    {
+        if(!m_isFixed && m_PetCtrl != null && !m_PetCtrl.isActiveAndEnabled)
+        {
+            m_uiWorkload.SetNoWorkEntry();
+            m_PetCtrl = null;
+        }
+    }
     private void ChangeColor()
     {
         if (m_isFixed)
@@ -115,11 +124,12 @@ public class ObjectPreview : MonoBehaviour
                 canvas.worldCamera = GameObject.FindGameObjectWithTag("UICamera").GetComponent<Camera>();
                 ui.transform.position = gameObject.transform.position + gameObject.transform.up * 1.5f + gameObject.transform.right * 1.5f;
                 m_uiWorkload = ui.GetComponentInChildren<UI_Workload>();
-                m_uiWorkload.OpenUI();
+                m_uiWorkload.OpenUI(this, m_progress);
                 m_uiWorkload.SetProgressValue(m_architectureInfo.Progress);
+                m_progress = m_architectureInfo.Progress;
             }
             else
-                m_uiWorkload.OpenUI();
+                m_uiWorkload.OpenUI(this, m_progress);
             switch (other.tag)
             {
                 case "Player":
@@ -141,7 +151,7 @@ public class ObjectPreview : MonoBehaviour
         {
             if (m_uiWorkload != null && !m_uiWorkload.IsOpen())
             {
-                m_uiWorkload.OpenUI();
+                m_uiWorkload.OpenUI(this, m_progress);
             }
         }
     }
@@ -181,5 +191,17 @@ public class ObjectPreview : MonoBehaviour
         m_navObstacle.enabled = true;
         SetColor(blue);
     }
+    public void MovePlayerFarfromObject()
+    {
+        
+        Transform playerT = GameManagerEx._inst.playerManager.transform;
+        playerT.LookAt(transform);
+        Vector3 forward = playerT.forward;
 
+        forward.y = 0;
+
+        Vector3 moveDir = -forward.normalized;
+
+        transform.Translate(moveDir * 1, Space.World);
+    }
 }

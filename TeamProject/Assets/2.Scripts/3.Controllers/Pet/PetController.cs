@@ -185,7 +185,14 @@ public class PetController : FSM<PetController>
         m_agent.updateRotation = false;
         m_agent.velocity = Vector3.zero;
     }
+    public void ReCall()
+    {
+        InitState(this, PetStateInit._inst);
+    }
+    public void Call()
+    {
 
+    }
     void FreezeRotation()
     {
         m_rigid.velocity = Vector3.zero;

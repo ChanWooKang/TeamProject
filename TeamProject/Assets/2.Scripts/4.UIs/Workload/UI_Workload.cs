@@ -8,6 +8,8 @@ using DefineDatas;
 public class UI_Workload : MonoBehaviour
 {
     #region [ÂüÁ¶]
+    ObjectPreview m_ObjManager;
+
     [SerializeField]
     GameObject m_workloadBox;
     [SerializeField]
@@ -43,8 +45,10 @@ public class UI_Workload : MonoBehaviour
             return true;
         return false;
     }
-    public void OpenUI()
+    public void OpenUI(ObjectPreview manager, float progress)
     {
+        m_ObjManager = manager;
+        m_fSlider.value = progress;
         m_workloadBox.SetActive(true);       
     }
     public void CloseUI()
@@ -54,8 +58,12 @@ public class UI_Workload : MonoBehaviour
     }
     public bool PressFkey()
     {
-        if (Input.GetKey(KeyCode.F))
+        if (m_workloadBox.activeSelf && Input.GetKey(KeyCode.F))
+        {
             m_playerAbilityWeight = m_playerAbility;
+            m_ObjManager.MovePlayerFarfromObject();
+        }
+        
 
         if (m_fSlider.value >= m_fSlider.maxValue)
         {
@@ -118,6 +126,7 @@ public class UI_Workload : MonoBehaviour
             m_leftTimetxt.text = Mathf.CeilToInt((m_fSlider.maxValue - m_fSlider.value) / (m_playerAbilityWeight + m_petAbilityWeight)).ToString();
         else
             m_leftTimetxt.text = Mathf.CeilToInt((m_fSlider.maxValue - m_fSlider.value) / (m_playerAbility)).ToString();
+        m_ObjManager.Progress = m_fSlider.value;
         yield return null;
     }
     

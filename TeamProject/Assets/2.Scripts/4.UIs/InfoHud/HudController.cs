@@ -37,6 +37,7 @@ public class HudController : MonoBehaviour
                 m_infoBox.SetActive(false);
             }
         }
+       
     }
     private void LateUpdate()
     {
@@ -74,7 +75,7 @@ public class HudController : MonoBehaviour
     {
         Vector3 screenPos = Camera.main.WorldToScreenPoint(m_targetPos.position);
         transform.position = screenPos;
-        m_isDetected = true;
+        m_isDetected = true;        
         m_infoBox.SetActive(true);
 
 
@@ -89,6 +90,7 @@ public class HudController : MonoBehaviour
         m_infoBox.SetActive(false);
         m_isDetected = false;
     }
+   
     bool IsObjectFront(Vector3? obj)
     {
         Vector3 relativePos = obj.Value - Camera.main.transform.position;

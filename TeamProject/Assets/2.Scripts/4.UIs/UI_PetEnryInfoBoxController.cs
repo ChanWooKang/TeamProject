@@ -16,6 +16,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
     #region [펫 관련]
     bool m_isPetOut;
     GameObject m_recalledPet;
+    PetController m_petCtrl;
     HudController m_recalledPetsHud;
     #endregion [펫 관련]
 
@@ -24,17 +25,17 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
     #endregion [UI 관련]
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            //우측 스왑            
-            RightSwap();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            //좌측 스왑
-            LeftSwap();
-        }
-        else if (Input.GetKeyDown(KeyCode.E))
+        //if (Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    //우측 스왑            
+        //    RightSwap();
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    //좌측 스왑
+        //    LeftSwap();
+        //}
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if (!m_isPetOut)
             {
@@ -54,7 +55,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
         m_currentPetIndex = 1100;
         //임시
         m_currentPetNum = 0;
-        
+        m_hudInfo.gameObject.SetActive(false);
         // m_listPetIcon = new List<Image>(m_maxEntryCount);
     }
     public void InitEntryIcon()
@@ -69,7 +70,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-   public void InitCurrentPetIndex(int index)
+    public void InitCurrentPetIndex(int index)
     {
         m_currentPetIndex = index + offset;
     }
@@ -103,26 +104,26 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
         if (PetEntryManager._inst.m_listPetEntryCtrl.Count == 0)
             return;
         m_recalledPet = PoolingManager._inst.InstantiateAPS(m_currentPetIndex, GameManagerEx._inst.playerManager.transform.position + (Vector3.forward * 0.5f) + (Vector3.right * 0.8f), PetEntryManager._inst.m_listPetEntryPrefab[1].transform.rotation, Vector3.one);
+        m_petCtrl = m_recalledPet.GetComponent<PetController>();
+        m_petCtrl.ReCall();
+        PetController pet = m_recalledPet.GetComponent<PetController>();
         if (m_recalledPetsHud == null)
         {
-            GameObject hud = PoolingManager._inst.InstantiateAPS(1000000);
-            hud.SetActive(true);
-            m_recalledPetsHud = hud.GetComponent<HudController>();
+            m_recalledPetsHud = pet._hudCtrl;
         }
-        PetController pet = m_recalledPet.GetComponent<PetController>();
-        pet.SetHud(m_recalledPetsHud, PoolingManager._inst._hudRootTransform);
-        
+
     }
     void PutIn()
     {
         if (m_recalledPet == null)
             return;
-        PoolingManager.DestroyAPS(m_recalledPet);
         m_recalledPetsHud.HideHud();
+        PoolingManager.DestroyAPS(m_recalledPet);
     }
     public void SetHudInfoBox(PetController pet)
     {
-        m_hudInfo.InitHud(pet.PetInfo.NameKr, pet.PetLevel, null, Color.white, true, null);        
+        m_hudInfo.gameObject.SetActive(true);
+        m_hudInfo.InitHud(pet.PetInfo.NameKr, pet.PetLevel, null, Color.white, true, null);
     }
     public void ShowPetPortrait()
     {
