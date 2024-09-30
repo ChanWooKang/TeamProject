@@ -7,8 +7,8 @@ public abstract class BaseWeaponCtrl : MonoBehaviour
 {
     //Components
     [SerializeField] protected Transform FirePos;
-    
-    protected PlayerEquipCtrl _playerEquip;   
+
+    protected PlayerEquipCtrl _playerEquip;
     protected WeaponItemInfo _weaponStat;
 
     //Ray
@@ -19,18 +19,18 @@ public abstract class BaseWeaponCtrl : MonoBehaviour
     [SerializeField] int index;
     [SerializeField] protected WeaponType _type;
     protected float _weaponDamage;
-    protected float _playerBaseDamage;            
     protected float _minDist = 1.0f;
     [SerializeField] protected float _weaponRange = 0f;
 
     public int Index { get { return index; } }
     public WeaponType weaponType { get { return _type; } }
-    protected float TotalDamage { get { return _weaponDamage + _playerBaseDamage; } }
+
+    protected float PlayerDamage { get { return GameManagerEx._inst.playerManager._stat.Damage; } }
+    protected float TotalDamage { get { return _weaponDamage + PlayerDamage; } }
 
     public virtual void Init(PlayerEquipCtrl player, float damage)
     {
-        _playerEquip = player;
-        SetPlayerDamage(damage);
+        _playerEquip = player;        
         GetWeaponData();
         
         gameObject.SetActive(false);
@@ -49,10 +49,6 @@ public abstract class BaseWeaponCtrl : MonoBehaviour
             _weaponDamage = 0;
     }
 
-    public void SetPlayerDamage(float damage)
-    {
-        _playerBaseDamage = damage;
-    }
 
     public abstract void AttackAction();
 
