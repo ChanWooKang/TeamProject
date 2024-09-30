@@ -47,7 +47,7 @@ public class ObjectPreview : MonoBehaviour
         m_isDone = false;
         m_collider = GetComponent<BoxCollider>();
         m_navObstacle = GetComponent<NavMeshObstacle>();
-        m_navObstacle.enabled = false;  
+        m_navObstacle.enabled = false;
     }
 
     void Update()
@@ -65,10 +65,10 @@ public class ObjectPreview : MonoBehaviour
                 m_collider.size = new Vector3(1.5f, 1f, 1.5f);
                 gameObject.transform.parent.gameObject.isStatic = true;
                 if (m_PetCtrl != null)
-                    m_PetCtrl.JobDone();                
+                    m_PetCtrl.JobDone();
             }
-            if (Input.GetKeyUp(KeyCode.F))            
-                m_uiWorkload.UpFKey();                            
+            if (Input.GetKeyUp(KeyCode.F))
+                m_uiWorkload.UpFKey();
             if (Input.GetKey(KeyCode.C))
                 if (m_uiWorkload.PressCKey())
                     Destroy(gameObject.transform.parent.gameObject);
@@ -78,7 +78,7 @@ public class ObjectPreview : MonoBehaviour
     }
     private void LateUpdate()
     {
-        if(!m_isFixed && m_PetCtrl != null && !m_PetCtrl.isActiveAndEnabled)
+        if (!m_isFixed && m_PetCtrl != null && !m_PetCtrl.isActiveAndEnabled)
         {
             m_uiWorkload.SetNoWorkEntry();
             m_PetCtrl = null;
@@ -186,22 +186,23 @@ public class ObjectPreview : MonoBehaviour
     {
         m_isFixed = true;
         m_detectiveAreaObj.layer = LayerMask.NameToLayer("Default");
-        
+
         m_PetCtrl = null;
         m_navObstacle.enabled = true;
         SetColor(blue);
     }
     public void MovePlayerFarfromObject()
     {
-        
         Transform playerT = GameManagerEx._inst.playerManager.transform;
+        if (Vector3.Distance(transform.position, playerT.position) >= 2)
+            return;
         playerT.LookAt(transform);
-        Vector3 forward = playerT.forward;
+        //Vector3 forward = playerT.forward;
 
-        forward.y = 0;
+        //forward.y = 0;
 
-        Vector3 moveDir = -forward.normalized;
+        //Vector3 moveDir = -forward.normalized;
 
-        transform.Translate(moveDir * 1, Space.World);
+        //transform.Translate(moveDir * 1, Space.World);
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class UI_PetEnryInfoBoxController : MonoBehaviour
 {
@@ -11,7 +12,6 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
     int m_currentPetNum;
 
     List<Image> m_listPetIcon;
-
 
     #region [펫 관련]
     bool m_isPetOut;
@@ -55,9 +55,12 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
         m_currentPetIndex = 1100;
         //임시
         m_currentPetNum = 0;
+
         m_hudInfo.gameObject.SetActive(false);
         // m_listPetIcon = new List<Image>(m_maxEntryCount);
+        // m_listPetIcon = new List<Image>(m_maxEntryCount);        
     }
+
     public void InitEntryIcon()
     {
         // 풀에서 이미지를 받아옴
