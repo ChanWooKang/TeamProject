@@ -49,19 +49,19 @@ public class UI_Craft : MonoBehaviour
     }
     public void OpenUI()
     {
-        if (m_isPreviewActivated)
+        if (m_isPreviewActivated || gameObject.activeSelf)
             return;
         gameObject.SetActive(true);
 
         m_craftBoxObj.SetActive(true);
         
-        m_craftBoxObj.SetActive(true);
-
+        m_craftBoxObj.SetActive(true);        
         GameManagerEx._inst.ControlUI(true, true);
     }
     public void CloseUI()
     {      
         gameObject.SetActive(false);
+        GameManagerEx._inst.ControlUI(false, true);
     }
 
     public void IsPreviewActivated(bool isPreviwActivated, GameObject previewObj, GameObject craftignObj, Architecture arc)

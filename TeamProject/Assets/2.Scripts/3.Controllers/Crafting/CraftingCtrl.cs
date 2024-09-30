@@ -14,24 +14,7 @@ public class CraftingCtrl : MonoBehaviour
 
     void OpenCraftingMenu()
     {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            if (m_UICrafting == null)
-            {
-                GameObject ui = Instantiate(m_UICraftingPrefab);
-                Canvas canvas = ui.GetComponent<Canvas>();
-                canvas.worldCamera = GameObject.FindGameObjectWithTag("UICamera").GetComponent<Camera>();
-                m_UICrafting = ui.GetComponent<UI_Craft>();
-                m_UICrafting.OpenUI();
-            }
-            else
-            {
-                if (m_UICrafting.isActiveAndEnabled)
-                    return;
-                m_UICrafting.OpenUI();
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (m_UICrafting != null)
                 m_UICrafting.CloseUI();
