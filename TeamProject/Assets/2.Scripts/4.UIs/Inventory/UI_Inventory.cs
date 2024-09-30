@@ -11,8 +11,9 @@ public class UI_Inventory : MonoBehaviour
     public GameObject main;
     public GameObject Slot_Parent;
     public Text InvenWeightText;
+    public UI_StatInfo _statInfo;
     [SerializeField] GameObject[] m_tags;
-    UI_Slot[] slots;
+    UI_Slot[] slots;    
     #endregion [Main Component & Param]
 
     #region [PetInven Component & Param]
@@ -58,6 +59,7 @@ public class UI_Inventory : MonoBehaviour
             slots[i].Init();
         }
         UI_ItemInfo._info.Init();
+        _statInfo.Init();
         CloseUI();
 
     }
@@ -82,6 +84,7 @@ public class UI_Inventory : MonoBehaviour
         {
             m_tags[i].SetActive(true);
         }
+        _statInfo.SetUI();
         m_petEntryBox.CloseUI();
     }
 

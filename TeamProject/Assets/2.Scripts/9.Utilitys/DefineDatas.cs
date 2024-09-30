@@ -87,6 +87,16 @@ namespace DefineDatas
         Rifle,
     }
 
+    public enum eStatType
+    {
+        HP,
+        Statmina,
+        Attack,
+        Defense,
+        WorkAblity,
+        CarryWeight
+    }
+
     public enum eMonsterCharacterType
     {
         PASSIVE = 0,
