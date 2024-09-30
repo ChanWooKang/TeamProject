@@ -12,6 +12,7 @@ public class PlayerStat : BaseStat
     protected float _runSpeed;
     protected int _gold;
     protected float _carryWeight;
+    protected float _workAbility;
     [SerializeField] protected int _bonusStat;
 
     #region [ Property ]
@@ -44,8 +45,52 @@ public class PlayerStat : BaseStat
     public float MaxStamina { get { return _maxStamina; } set { _maxStamina = value; } }
     public float RunSpeed { get { return _runSpeed; } set { _runSpeed = value; } }
     public float CarryWeight { get { return _carryWeight; } set { _carryWeight = value; } }
+    public float WorkAbility { get { return _workAbility; } set { _workAbility = value; } }
     public int Gold { get { return _gold; } set { _gold = value; } }
     public int BonusStat { get { return _bonusStat; } }
+    public float ConvertEXP
+    {
+        get
+        {
+            float exp = _exp;
+
+            if (_level > 1)
+            {
+                if (Managers._data.Dict_RequiredExp.TryGetValue(_level, out RequiredEXPByLevel stat))
+                {
+                    exp = _exp - stat.exp;
+                }
+            }
+
+            return exp;
+        }
+    }
+
+    public float ConvertTotalEXP
+    {
+        get
+        {
+            float exp = _exp;
+
+            if (Managers._data.Dict_RequiredExp.TryGetValue(_level, out RequiredEXPByLevel nowStat))
+            {
+                if (Managers._data.Dict_RequiredExp.TryGetValue(_level + 1, out RequiredEXPByLevel nextStat))
+                {
+                    exp = nextStat.exp - nowStat.exp;
+                }
+            }
+
+            return exp;
+        }
+    }
+
+    public float ConvertRequiredEXP
+    {
+        get
+        {                        
+            return ConvertTotalEXP - ConvertEXP;
+        }
+    }
     #endregion [ Property ]
 
 
@@ -61,17 +106,43 @@ public class PlayerStat : BaseStat
         _moveSpeed = 5;
         _runSpeed = 10;
         _bonusStat = 0;
-        _carryWeight = 9999999;
+        _carryWeight = 100;
+        _workAbility = 50;
     }
 
     public void LevelUp(int level)
     {
         //∑π∫ßæ˜ ¿€øÎ (¿Ã∆Â∆Æ , ∫∏≥ Ω∫ Ω∫≈» »πµÊ µÓµÓ, HP»∏∫π);
-        //Debug.Log("LevelUP");
+        Debug.Log("LevelUP");
         _level = level;
         _hp = MaxHP;
         _bonusStat += 5;
         
     }
 
+    public void AddStat(eStatType type)
+    {
+        _bonusStat = --_bonusStat <= 0 ? 0 : _bonusStat;
+        switch (type)
+        {
+            case eStatType.HP:
+                MaxHP += 50;                
+                break;
+            case eStatType.Statmina:
+                MaxStamina += 50;
+                break;
+            case eStatType.Attack:
+                Damage += 5;
+                break;
+            case eStatType.Defense:
+                Defense += 5;
+                break;
+            case eStatType.WorkAblity:
+                WorkAbility += 10;
+                break;
+            case eStatType.CarryWeight:
+                CarryWeight += 50;
+                break;
+        }
+    }
 }
