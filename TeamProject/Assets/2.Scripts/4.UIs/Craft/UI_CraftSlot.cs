@@ -62,7 +62,7 @@ public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         m_previewObj = Instantiate(m_prefabObj);
         m_craftingObj = m_prefabObj;       
         m_uiCraft.IsPreviewActivated(true, m_previewObj, m_craftingObj, m_architectureInfo);
-        
+        m_highlightBG.enabled = false;
 
         m_craftBoxObj.SetActive(false);        
 

@@ -78,7 +78,7 @@ public class ObjectPreview : MonoBehaviour
     }
     private void LateUpdate()
     {
-        if (!m_isFixed && m_PetCtrl != null && !m_PetCtrl.isActiveAndEnabled)
+        if (!m_isDone && m_PetCtrl != null && !m_PetCtrl.isActiveAndEnabled)
         {
             m_uiWorkload.SetNoWorkEntry();
             m_PetCtrl = null;
@@ -167,7 +167,7 @@ public class ObjectPreview : MonoBehaviour
                 m_uiWorkload.CloseUI();
             }
         }
-        if (m_isFixed && other.CompareTag("Pet"))
+        if (!m_isDone && m_isFixed && other.CompareTag("Pet"))
         {
             if (m_uiWorkload != null)
             {
@@ -204,5 +204,5 @@ public class ObjectPreview : MonoBehaviour
         //Vector3 moveDir = -forward.normalized;
 
         //transform.Translate(moveDir * 1, Space.World);
-    }
+    }    
 }

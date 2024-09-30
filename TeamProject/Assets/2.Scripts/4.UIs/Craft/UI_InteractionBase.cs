@@ -11,6 +11,7 @@ public abstract class UI_InteractionBase : MonoBehaviour
     //юс╫ц
     [SerializeField] public GameObject m_uiMenuSlotPrefab;
     [SerializeField] public GameObject m_uiWorkloadPrefab;
+    public GameObject UIMenu { get { return m_uiMenuObj; } }
     #region [ChildComponent]
     protected GameObject m_uiCraftObj;
     protected GameObject m_uiMenuObj;

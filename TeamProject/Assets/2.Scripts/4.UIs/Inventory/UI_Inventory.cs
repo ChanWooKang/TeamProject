@@ -8,15 +8,17 @@ using DefineDatas;
 public class UI_Inventory : MonoBehaviour
 {
     #region [Main Component & Param]
+    [Header("Main")]
     public GameObject main;
     public GameObject Slot_Parent;
     public Text InvenWeightText;
     public UI_StatInfo _statInfo;
     [SerializeField] GameObject[] m_tags;
-    UI_Slot[] slots;    
+    UI_Slot[] slots;
     #endregion [Main Component & Param]
 
     #region [PetInven Component & Param]
+    [Header("PetInven")]
     public GameObject petInven;
     public GameObject petSlot_Parent;
     [HideInInspector] public GameObject m_currentPortrait;
@@ -45,7 +47,10 @@ public class UI_Inventory : MonoBehaviour
     [SerializeField] Sprite m_imageHealBuff;
     #endregion [PetInven Component & Param]
 
-
+    #region [Technology Component & Param]
+    [Header("Technology")]
+    [SerializeField] public GameObject TechnologyBox;
+    #endregion [Technology Component & Param]
 
     bool isOnUI;
 
@@ -228,12 +233,20 @@ public class UI_Inventory : MonoBehaviour
     {
         main.SetActive(true);
         petInven.SetActive(false);
+        TechnologyBox.SetActive(false);
     }
     public void PetInvenTagBtn()
     {
         main.SetActive(false);
         petInven.SetActive(true);
+        TechnologyBox.SetActive(false);
         InitPetInven();
+    }
+    public void TechnologyTabBtn()
+    {
+        main.SetActive(false);
+        petInven.SetActive(true);
+        TechnologyBox.SetActive(true);
     }
     public void ClickPetSlot(PetController pet)
     {

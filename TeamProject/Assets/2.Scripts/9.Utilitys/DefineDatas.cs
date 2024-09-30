@@ -43,7 +43,7 @@ namespace DefineDatas
     {
         Pet,
         Item,
-
+        Craft
     }
 
     public enum eInteractType

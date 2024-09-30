@@ -43,7 +43,7 @@ public class PetBoxController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             m_isDetected = true;
-           
+
         }
     }
     private void OnTriggerExit(Collider other)

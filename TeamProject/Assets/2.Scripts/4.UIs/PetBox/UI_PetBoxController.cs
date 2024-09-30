@@ -24,7 +24,7 @@ public class UI_PetBoxController : MonoBehaviour
     [SerializeField] TextMeshProUGUI m_textBoxNum;
 
     [SerializeField] TextMeshProUGUI m_textSelectedPetAttack;
-    [SerializeField] TextMeshProUGUI m_textSelectedPetWorkAbility;    
+    [SerializeField] TextMeshProUGUI m_textSelectedPetWorkAbility;
     [SerializeField] TextMeshProUGUI m_textSelectedPetSkill1Name;
     [SerializeField] TextMeshProUGUI m_textSelectedPetSkill1Value;
     [SerializeField] TextMeshProUGUI m_textSelectedPetSkill2Name;
@@ -47,9 +47,9 @@ public class UI_PetBoxController : MonoBehaviour
 
     bool m_isUIOpen;
     #endregion [Component]
-  
+
     private void Update()
-    {               
+    {
         if (m_petBoxUI.activeSelf)
         {
             if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E))
@@ -168,9 +168,10 @@ public class UI_PetBoxController : MonoBehaviour
         {
             m_dicPetboxSlotLists[boxNum][i].ActiveSlot(true);
         }
-        if(m_currentPetPortrait != null)
-        m_currentPetPortrait.SetActive(false);
-        GameManagerEx._inst.ControlUI(m_isUIOpen, true);
+        if (m_currentPetPortrait != null)
+            m_currentPetPortrait.SetActive(false);
+
+        
     }
     public void ClosePetBox()
     {
@@ -182,9 +183,9 @@ public class UI_PetBoxController : MonoBehaviour
         m_boxNumImage[1].enabled = false;
         m_boxNumImage[2].enabled = false;
         m_boxNum = 1;
-        if(m_currentPetPortrait != null)
-        m_currentPetPortrait.SetActive(false);
-        GameManagerEx._inst.ControlUI(m_isUIOpen, true);    
+        if (m_currentPetPortrait != null)
+            m_currentPetPortrait.SetActive(false);
+       
     }
 
 
@@ -196,7 +197,7 @@ public class UI_PetBoxController : MonoBehaviour
             {
                 if (m_dicPetboxSlotLists[i + 1][j].Pet == null)
                 {
-                    m_dicPetboxSlotLists[i + 1][j].InitSlot(m_dicPetboxSlotLists[i + 1][j].SlotNum,this, pet);
+                    m_dicPetboxSlotLists[i + 1][j].InitSlot(m_dicPetboxSlotLists[i + 1][j].SlotNum, this, pet);
                     return true;
                 }
             }
