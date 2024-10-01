@@ -170,15 +170,14 @@ public class PlayerInputCtrl : MonoBehaviour
     {
         if (_input.throws)
         {
-            _manager._equip.ReadyToGottcha(false);
+            _manager._equip.ReadyToAnimAction(false);
             if (AimCam.gameObject.activeSelf == false)
             {
                 AimCam.gameObject.SetActive(true);
             }
         }
         else
-        {
-            _manager._equip.ReadyToGottcha(true);
+        {            
             if (AimCam.gameObject.activeSelf == true)
             {
                 AimCam.gameObject.SetActive(false);
@@ -209,13 +208,12 @@ public class PlayerInputCtrl : MonoBehaviour
                         if (go.TryGetComponent(out ItemCtrl item))
                         {
                             _manager._anim.SetAnimation(ePlayerAnimParams.Root);                            
-                        }
+                        }                        
                     }
                 }
-            }
-
-            _input.interact = false;
+            }           
         }
+        
     }
 
     void ReloadAction()

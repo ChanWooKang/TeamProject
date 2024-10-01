@@ -17,7 +17,8 @@ public class PlayerAssetsInputs : MonoBehaviour
     public bool craft;    
     public bool throws;
     public bool reload;
-    public float scrollY;
+    public float scrollY;    
+    
 
     [Header("Movement Settings")]
     public bool analogMovement;
@@ -89,7 +90,7 @@ public class PlayerAssetsInputs : MonoBehaviour
     {        
         ScrollInput(value.Get<float>());
     }
-    
+
 #endif
     public void MoveInput(Vector2 newMoveDirection)
     {        

@@ -134,6 +134,15 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NumberInput"",
+                    ""type"": ""Button"",
+                    ""id"": ""30ba3358-483e-410c-823a-73c4d80309aa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -312,6 +321,50 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
                     ""action"": ""Scroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""66c7d46c-9e26-42d8-ba9d-88a846140719"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyBoardMouse"",
+                    ""action"": ""NumberInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a8fa8e9-be09-408b-8518-d57da4e10263"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyBoardMouse"",
+                    ""action"": ""NumberInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c9b6824b-ff37-4e69-9d89-e949ab5fe9c9"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyBoardMouse"",
+                    ""action"": ""NumberInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9bbc90c1-1ab7-4602-8227-cb05cd02aca2"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyBoardMouse"",
+                    ""action"": ""NumberInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -349,6 +402,7 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
         m_Player_Throw = m_Player.FindAction("Throw", throwIfNotFound: true);
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
         m_Player_Scroll = m_Player.FindAction("Scroll", throwIfNotFound: true);
+        m_Player_NumberInput = m_Player.FindAction("NumberInput", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -422,6 +476,7 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Throw;
     private readonly InputAction m_Player_Reload;
     private readonly InputAction m_Player_Scroll;
+    private readonly InputAction m_Player_NumberInput;
     public struct PlayerActions
     {
         private @PlayerAssets m_Wrapper;
@@ -438,6 +493,7 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
         public InputAction @Throw => m_Wrapper.m_Player_Throw;
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
         public InputAction @Scroll => m_Wrapper.m_Player_Scroll;
+        public InputAction @NumberInput => m_Wrapper.m_Player_NumberInput;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -483,6 +539,9 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
             @Scroll.started += instance.OnScroll;
             @Scroll.performed += instance.OnScroll;
             @Scroll.canceled += instance.OnScroll;
+            @NumberInput.started += instance.OnNumberInput;
+            @NumberInput.performed += instance.OnNumberInput;
+            @NumberInput.canceled += instance.OnNumberInput;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -523,6 +582,9 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
             @Scroll.started -= instance.OnScroll;
             @Scroll.performed -= instance.OnScroll;
             @Scroll.canceled -= instance.OnScroll;
+            @NumberInput.started -= instance.OnNumberInput;
+            @NumberInput.performed -= instance.OnNumberInput;
+            @NumberInput.canceled -= instance.OnNumberInput;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -563,5 +625,6 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
         void OnThrow(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnScroll(InputAction.CallbackContext context);
+        void OnNumberInput(InputAction.CallbackContext context);
     }
 }
