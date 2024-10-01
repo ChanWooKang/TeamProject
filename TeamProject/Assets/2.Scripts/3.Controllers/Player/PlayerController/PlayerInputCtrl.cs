@@ -249,10 +249,11 @@ public class PlayerInputCtrl : MonoBehaviour
                 Canvas canvas = ui.GetComponent<Canvas>();
                 canvas.worldCamera = GameObject.FindGameObjectWithTag("UICamera").GetComponent<Camera>();
                 m_UICrafting = ui.GetComponent<UI_Craft>();
-                m_UICrafting.OpenUI();
+                ui.SetActive(false);
+                m_UICrafting.OpenUI(TechnologyManager._inst.TechLevel);
             }
             else
-                m_UICrafting.OpenUI();
+                m_UICrafting.OpenUI(TechnologyManager._inst.TechLevel);
 
             _input.craft = false;
         }

@@ -13,6 +13,7 @@ public class UI_Craft : MonoBehaviour
     GameObject m_craftingObj;
     Architecture m_architectureInfo;
     [SerializeField] List<UI_CraftSlot> m_listCraftSlot;
+    Dictionary<int, UI_CraftSlot> m_dicCraftSlots;
     
     RaycastHit m_hitInfo;
     [SerializeField] LayerMask m_layerMask;
@@ -20,19 +21,14 @@ public class UI_Craft : MonoBehaviour
 
     bool m_isPreviewActivated;
     int m_tech;
-    private void Start()
+    private void Awake()
     {
+        m_dicCraftSlots = new Dictionary<int, UI_CraftSlot>();
+
         //юс╫ц
-        for(int i = 0; i< m_listCraftSlot.Count; i++)
+        for (int i = 0; i < m_listCraftSlot.Count; i++)
         {
-            if (i == 0)
-                m_listCraftSlot[i].InitSlot(1, this);
-            else if(i == 1)
-                m_listCraftSlot[i].InitSlot(2, this);
-            else if (i == 4)
-                m_listCraftSlot[i].InitSlot(5, this);
-            else
-                m_listCraftSlot[i].InitSlot(0, this);
+            m_dicCraftSlots.Add(i + 1, m_listCraftSlot[i]);
         }
         //
     }
@@ -47,8 +43,9 @@ public class UI_Craft : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
             CancleCraft();
     }
-    public void OpenUI()
+    public void OpenUI(int techLevel = 0)
     {
+       
         if (m_isPreviewActivated || gameObject.activeSelf)
             return;
         gameObject.SetActive(true);
@@ -57,13 +54,28 @@ public class UI_Craft : MonoBehaviour
         
         m_craftBoxObj.SetActive(true);        
         GameManagerEx._inst.ControlUI(true, true);
+
+        if(techLevel != 0)
+        {
+            for(int i = 1; i < m_listCraftSlot.Count + 1; i++)
+            {
+                int levle = 0;
+                levle = i;
+                if (i > techLevel)
+                    levle = 0;
+                InitSlots(i, levle);
+            }
+        }
     }
     public void CloseUI()
     {      
         gameObject.SetActive(false);
         GameManagerEx._inst.ControlUI(false, true);
     }
-
+    public void InitSlots(int index, int techLevel)
+    {        
+        m_dicCraftSlots[index].InitSlot(techLevel, this);
+    }
     public void IsPreviewActivated(bool isPreviwActivated, GameObject previewObj, GameObject craftignObj, Architecture arc)
     {
         m_isPreviewActivated = isPreviwActivated;

@@ -68,6 +68,7 @@ public class UI_Workload : MonoBehaviour
         if (m_fSlider.value >= m_fSlider.maxValue)
         {
             StopCoroutine(SetProgress());
+            TechnologyManager._inst.TechPointUp();
             Destroy(gameObject);
             return true;
         }

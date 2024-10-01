@@ -7,10 +7,7 @@ using UnityEngine.EventSystems;
 public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     #region [임시 참조]
-    [SerializeField] GameObject m_craftBoxObj;
-    [SerializeField] GameObject m_enforceAnvil;
-    [SerializeField] GameObject m_craftDesk;
-    [SerializeField] GameObject m_petBox;
+    [SerializeField] GameObject m_uiCraftBoxObj;   
     GameObject m_prefabObj;
     #endregion [임시 참조]
 
@@ -31,9 +28,9 @@ public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     #endregion [param]
 
 
-    public void InitSlot(int index, UI_Craft uiCraft)
+    public void InitSlot(int techLevel, UI_Craft uiCraft)
     {
-        if (index == 0)
+        if (techLevel == 0)
         {
             m_architectureInfo = null;
             m_uiCraft = null;
@@ -42,29 +39,28 @@ public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         }
         else
         {
-            m_architectureInfo = new Architecture(index);
+            m_architectureInfo = new Architecture(techLevel);
             m_uiCraft = uiCraft;
             m_highlightBG.enabled = false;
             m_icon.enabled = true;
-            //임시
-            if (m_architectureInfo.Index == 1)
-                m_prefabObj = m_craftDesk;
-            else if (m_architectureInfo.Index == 2)
-                m_prefabObj = m_petBox;
-            else if (m_architectureInfo.Index == 5)
-                m_prefabObj = m_enforceAnvil;
+            m_icon.sprite = PoolingManager._inst._poolingIconByName[m_architectureInfo.NameEn].prefab;
+            
+            m_prefabObj = TechnologyManager._inst.CraftObjPrefabs[techLevel - 1];
+            
         }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         // 재료가 충분하면 프리뷰 오브젝트 생성
+        if (m_architectureInfo == null)
+            return;
         m_previewObj = Instantiate(m_prefabObj);
         m_craftingObj = m_prefabObj;       
         m_uiCraft.IsPreviewActivated(true, m_previewObj, m_craftingObj, m_architectureInfo);
         m_highlightBG.enabled = false;
 
-        m_craftBoxObj.SetActive(false);        
+        m_uiCraftBoxObj.SetActive(false);        
 
         //UI클릭시 커서 잠금
         GameManagerEx._inst.ControlUI(false, true);
@@ -73,6 +69,8 @@ public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (m_architectureInfo == null)
+            return;
         // 재료가 충분하면 배경색을 파란색 충분하지 못하면 빨간색
         m_highlightBG.enabled = true;
         m_highlightBG.color = m_highlightColor[0];

@@ -53,9 +53,15 @@ public class UI_Inventory : MonoBehaviour
     #region [Technology Component & Param]
     [Header("Technology")]
     [SerializeField] public GameObject TechnologyBox;
+    [SerializeField] GameObject m_techSlotParent;
+    [SerializeField] TextMeshProUGUI m_textTechLevel;
+    [SerializeField] TextMeshProUGUI m_textTechPoint;
+    [SerializeField] TextMeshProUGUI m_textTechPointStr;
+    [SerializeField] Image m_imgArrow;
+    UI_TechnolotySlot[] m_techSlots;
     #endregion [Technology Component & Param]
 
-    public bool isOnUI;
+    public bool isOnUI;    
     public UI_Slot[] GetInvenSlots { get { return slots; } }
 
     public void Init()
@@ -86,6 +92,7 @@ public class UI_Inventory : MonoBehaviour
         isOnUI = true;        
         main.SetActive(isOnUI);
         petInven.SetActive(false);
+        TechnologyBox.SetActive(false);
         for (int i = 0; i < m_tags.Length; i++)
         {
             m_tags[i].SetActive(true);
@@ -100,6 +107,7 @@ public class UI_Inventory : MonoBehaviour
         m_petEntryBox.OpenUI();
         main.SetActive(isOnUI);
         petInven.SetActive(false);
+        TechnologyBox.SetActive(false);
         m_DescBox.SetActive(false);
         m_StatusBox.SetActive(false);
         m_SkillBox.SetActive(false);
@@ -229,6 +237,31 @@ public class UI_Inventory : MonoBehaviour
 
     }
     #endregion [PetInven]
+    void InitTechnologyBox()
+    {
+        m_techSlots = m_techSlotParent.GetComponentsInChildren<UI_TechnolotySlot>();
+        m_textTechLevel.text = TechnologyManager._inst.TechLevel.ToString();
+        m_textTechPoint.text = TechnologyManager._inst.TechPoint.ToString() + " /" + "5";
+        if(TechnologyManager._inst.TechPoint >= TechnologyManager._inst.LevelUpPoint)
+        {
+            m_textTechPoint.color = Color.green;
+            m_textTechPointStr.color = Color.green;
+            m_imgArrow.color = new Color(1, 1, 1, 1);
+        }    
+        else
+        {
+            m_textTechPoint.color = Color.white;
+            m_textTechPointStr.color = Color.white;
+            m_imgArrow.color = new Color(1, 1, 1, 0.1f);
+        }
+        for(int i = 0; i < m_techSlots.Length; i++)
+        {
+            m_techSlots[i].InitSlot(i);
+        }
+    }
+    #region [Technology]
+
+    #endregion [Technology]
 
     #region [Button]
     public void MainInvenTagBnt()
@@ -247,8 +280,9 @@ public class UI_Inventory : MonoBehaviour
     public void TechnologyTabBtn()
     {
         main.SetActive(false);
-        petInven.SetActive(true);
+        petInven.SetActive(false);
         TechnologyBox.SetActive(true);
+        InitTechnologyBox();
     }
     public void ClickPetSlot(PetController pet)
     {
@@ -260,6 +294,15 @@ public class UI_Inventory : MonoBehaviour
         m_StatusBox.SetActive(true);
         m_SkillBox.SetActive(true);
 
+    }
+    public void ClickArrow()
+    {
+        if(TechnologyManager._inst.TechPoint >= TechnologyManager._inst.LevelUpPoint)
+        {
+            TechnologyManager._inst.TechLevelUp();
+            m_textTechPoint.text = TechnologyManager._inst.TechPoint.ToString();
+            InitTechnologyBox();
+        }
     }
     void ShowPetSkills(int index) // 스킬 인포창 
     {

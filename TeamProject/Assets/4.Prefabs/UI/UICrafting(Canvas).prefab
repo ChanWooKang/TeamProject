@@ -91,10 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e18e6e47df6ef46863e1d711a74cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_craftBoxObj: {fileID: 5948367567978815219}
-  m_enforceAnvil: {fileID: 815222051355591729, guid: 8b39ba1b6ba96ce4a81e692dfb0883a3, type: 3}
-  m_craftDesk: {fileID: 1436622280055881262, guid: 66b37126fb869894fa5b5a80a0ef4b5c, type: 3}
-  m_petBox: {fileID: 0}
+  m_uiCraftBoxObj: {fileID: 5948367567978815219}
   m_icon: {fileID: 9054189235397980414}
   m_highlightBG: {fileID: 6060178139715196067}
   m_highlightColor:
@@ -584,10 +581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e18e6e47df6ef46863e1d711a74cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_craftBoxObj: {fileID: 5948367567978815219}
-  m_enforceAnvil: {fileID: 815222051355591729, guid: 8b39ba1b6ba96ce4a81e692dfb0883a3, type: 3}
-  m_craftDesk: {fileID: 1436622280055881262, guid: 66b37126fb869894fa5b5a80a0ef4b5c, type: 3}
-  m_petBox: {fileID: 0}
+  m_uiCraftBoxObj: {fileID: 5948367567978815219}
   m_icon: {fileID: 2102549087308854679}
   m_highlightBG: {fileID: 5611048461668229681}
   m_highlightColor:
@@ -772,10 +766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e18e6e47df6ef46863e1d711a74cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_craftBoxObj: {fileID: 5948367567978815219}
-  m_enforceAnvil: {fileID: 815222051355591729, guid: 8b39ba1b6ba96ce4a81e692dfb0883a3, type: 3}
-  m_craftDesk: {fileID: 1436622280055881262, guid: 66b37126fb869894fa5b5a80a0ef4b5c, type: 3}
-  m_petBox: {fileID: 0}
+  m_uiCraftBoxObj: {fileID: 5948367567978815219}
   m_icon: {fileID: 5455195078465754694}
   m_highlightBG: {fileID: 3000461792463292136}
   m_highlightColor:
@@ -1035,10 +1026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e18e6e47df6ef46863e1d711a74cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_craftBoxObj: {fileID: 5948367567978815219}
-  m_enforceAnvil: {fileID: 815222051355591729, guid: 8b39ba1b6ba96ce4a81e692dfb0883a3, type: 3}
-  m_craftDesk: {fileID: 1436622280055881262, guid: 66b37126fb869894fa5b5a80a0ef4b5c, type: 3}
-  m_petBox: {fileID: 0}
+  m_uiCraftBoxObj: {fileID: 5948367567978815219}
   m_icon: {fileID: 8485876495001559147}
   m_highlightBG: {fileID: 5659373550884235333}
   m_highlightColor:
@@ -1423,10 +1411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e18e6e47df6ef46863e1d711a74cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_craftBoxObj: {fileID: 5948367567978815219}
-  m_enforceAnvil: {fileID: 815222051355591729, guid: 8b39ba1b6ba96ce4a81e692dfb0883a3, type: 3}
-  m_craftDesk: {fileID: 1436622280055881262, guid: 66b37126fb869894fa5b5a80a0ef4b5c, type: 3}
-  m_petBox: {fileID: 6524018716616789628, guid: 91b9db28c3f0a144192858e77c910b12, type: 3}
+  m_uiCraftBoxObj: {fileID: 5948367567978815219}
   m_icon: {fileID: 3472343730722871547}
   m_highlightBG: {fileID: 1013373875795847287}
   m_highlightColor:
