@@ -84,6 +84,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                 OpenInteractionCraftTable(m_tableCtrl);
                 CloseMenu();
                 InventoryManager._inst.AddEquipItem(eEquipType.Weapon, new BaseItem());
+                TechnologyManager._inst.TechPointUp();
             }
         }
     }
