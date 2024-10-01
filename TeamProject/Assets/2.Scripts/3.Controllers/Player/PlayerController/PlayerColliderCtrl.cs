@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DefineDatas;
 
 public class PlayerColliderCtrl : MonoBehaviour
 {
@@ -21,16 +22,29 @@ public class PlayerColliderCtrl : MonoBehaviour
     public void OnDamage(float damage)
     {
         _manager.OnDamage(damage);
-    }
-
-
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        
-    }    
+    } 
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Interact"))
+        {
+            if(other.TryGetComponent(out ObjectData data))
+            {
+                if(data.type == eInteractType.Item)
+                {
+                    _manager.SetRecognizeObject(other.gameObject);
+                    if(other.TryGetComponent(out ItemCtrl item))
+                    {
+                        if (item.isRootAble)
+                        {
+                            if (item.Root())
+                                _manager.SetRecognizeObject();
+                        }                        
+                    }                    
+                }
+            }
+        }
+
         if (other.CompareTag("MonsterSkill"))
         {
             if (other.TryGetComponent(out BaseSkill skill))
@@ -71,6 +85,14 @@ public class PlayerColliderCtrl : MonoBehaviour
         {
             hitCntTime = 0;
             hitDamage = 0;
+        }
+
+        if(_manager.RecognizeObject != null)
+        {
+            if(other.gameObject == _manager.RecognizeObject)
+            {
+                _manager.SetRecognizeObject();
+            }
         }
     }
 }

@@ -122,7 +122,7 @@ public class MonsterController : FSM<MonsterController>, IHitAble
     {
         _hudCtrl = hud;
         _hudCtrl.gameObject.transform.SetParent(hudRoot);
-        _hudCtrl.InitHud(Stat.MonsterInfo.NameKr, Stat.Level, _hudTransform, Color.red,false );
+        _hudCtrl.InitHud(Stat.MonsterInfo.NameKr, MonsterLevel, _hudTransform, Color.red, false);
     }
     public void ShowHud()
     {       
@@ -337,7 +337,11 @@ public class MonsterController : FSM<MonsterController>, IHitAble
 
     public void OnDeadEvent()
     {
+        _hudCtrl.HideHud();
         SpawnManager._inst.MonsterDespawn(gameObject);
+        int[] rewards = Stat.MonsterInfo.Rewards;
+        int rewardCount = Stat.MonsterInfo.RewardCounts;        
+        SpawnManager._inst.SpawnItemWithRate(rewards,rewardCount,transform);
         ChangeColor(Color.white);
         ChangeState(MonsterStateDisable._inst);
     }

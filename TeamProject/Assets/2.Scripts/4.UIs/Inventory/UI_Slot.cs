@@ -162,7 +162,7 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
     }
 
     public void OnEndDrag(PointerEventData eventData)
-    {
+    {       
         DragSlot._inst.SetAlpha(0);
         DragSlot._inst.SetCanvas(true);
         DragSlot._inst.SlotInven = null;

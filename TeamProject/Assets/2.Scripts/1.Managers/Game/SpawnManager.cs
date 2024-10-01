@@ -80,4 +80,84 @@ public class SpawnManager : TSingleton<SpawnManager>
         OnSpawnEvent?.Invoke(index, -1);
         go.DestroyAPS();
     }
+
+    
+
+    GameObject SpawnObject(int index, Transform spawnTr)
+    {
+        Vector3 pos = spawnTr.position;
+        pos.y += 0.5f;
+        Quaternion rot = Quaternion.Euler(Vector3.zero);
+        GameObject go = pool.InstantiateAPS(index, pos, rot, Vector3.one);
+        return go;
+    }
+
+    public void SpawnItem(int index, Transform parent ,int count = 1)
+    {
+        GameObject go = SpawnObject(index, parent);
+        if (go != null)
+        {
+            if(go.TryGetComponent(out ItemCtrl item))
+            {
+                item.Spawn(count);
+            }
+            else
+            {
+                Destroy(go);
+            }
+        }        
+    }
+
+
+    public void SpawnItemWithRate(int[] itemIndexs, int rewardCount, Transform parent)
+    {
+        int[] rates = new int[itemIndexs.Length];
+        int maxWeight = 0;        
+
+        if(rates.Length > 0)
+        {
+            for (int i = 0; i < rates.Length; i++)
+            {
+                int rate = 0;
+                if (InventoryManager._inst.Dict_Material.ContainsKey(itemIndexs[i]))
+                {
+                    rate = InventoryManager._inst.Dict_Material[itemIndexs[i]].Rate;
+                }
+                else
+                {
+                    //오류
+                    rate = 0;
+                    Debug.Log("저장 되어 있지 않은 인덱스가 들어갔습니다.");
+                }
+                rates[i] = rate;
+                maxWeight += rate;
+            }
+
+            for(int i = 0; i < rewardCount; i++)
+            {
+                int index = RandomPickMaterial(rates, maxWeight);
+                SpawnItem(itemIndexs[index], parent);
+            }            
+        }
+
+    }
+
+    int RandomPickMaterial(int[] rates, int maxWeight)
+    {
+        int pivot = UnityEngine.Random.Range(0, maxWeight);
+        int cumulativeWeight = 0;
+        int index = 0;
+
+        for (int i = 0; i < rates.Length; i++)
+        {
+            cumulativeWeight += rates[i];
+            if (pivot <= cumulativeWeight)
+            {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
 }

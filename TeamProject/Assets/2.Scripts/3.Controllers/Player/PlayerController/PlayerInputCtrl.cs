@@ -104,8 +104,7 @@ public class PlayerInputCtrl : MonoBehaviour
             {
                 //Recognize Object Setting
                 if (_manager.RecognizeObject != rhit.transform.gameObject)
-                {
-                    Debug.Log("Recoge Item");
+                {                    
                     _manager.SetRecognizeObject(rhit.transform.gameObject);
                 }
                     
@@ -135,18 +134,18 @@ public class PlayerInputCtrl : MonoBehaviour
             {
                 if (AimCam.gameObject.activeSelf == false)
                 {
-                    AimCam.gameObject.SetActive(true);
-                    ChangeAlpha(1.0f);
+                    AimCam.gameObject.SetActive(true);                    
                 }
+                ChangeAlpha(1.0f);
             }
         }
         else
         {
             if (AimCam.gameObject.activeSelf == true)
             {
-                AimCam.gameObject.SetActive(false);
-                ChangeAlpha(0.3f);
+                AimCam.gameObject.SetActive(false);                
             }
+            ChangeAlpha(0.3f);
         }
 
         //애니메이션 SetAnimation Bool Aim
@@ -203,15 +202,18 @@ public class PlayerInputCtrl : MonoBehaviour
                     {
                         TalkManager._inst.ShowText(go, data.objID, data.name);
                     }
-                    else
-                    {
-                        if (go.TryGetComponent(out ItemCtrl item))
-                        {
-                            _manager._anim.SetAnimation(ePlayerAnimParams.Root);                            
-                        }                        
-                    }
+                    //else
+                    //{
+                    //    if (go.TryGetComponent(out ItemCtrl item))
+                    //    {
+                    //        _manager._anim.SetAnimation(ePlayerAnimParams.Root);                            
+                    //    }                        
+                    //}
                 }
-            }           
+                
+            }
+
+            _input.interact = false;
         }
         
     }

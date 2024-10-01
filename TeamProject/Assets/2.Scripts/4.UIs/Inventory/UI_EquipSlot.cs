@@ -48,9 +48,7 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
             {
                 GameManagerEx._inst.playerManager._equip.ChangeSlotWeapon(SlotIndex, _item.Index);
                 
-            }
-                
-
+            }                
             item = _item;
             Item_Image.sprite = InventoryManager._inst.GetItemSprite(item.Index) ;
             itemWeight = item.Weight;
@@ -70,15 +68,14 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
             {                                
                 GameManagerEx._inst.playerManager._equip.ChangeSlotWeapon(SlotIndex, 0);
             }                
-        }
-            
-
-
+        }            
         item = null;
         Item_Image.sprite = null;
+        itemWeight = 0;
         Weight_Text.text = "";
         Weight_Parent.SetActive(false);
-        SetAlpha(0);        
+        SetAlpha(0);
+        UI_ItemInfo._info.OffInformation();
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -86,9 +83,7 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
         if (eventData.button == PointerEventData.InputButton.Right)
         {            
             if (item != null)
-            {
-                
-
+            {                
                 if (InventoryManager.ActiveChangeEquip == false)
                 {
                     if (InventoryManager._inst.CheckSlot(item) == false)

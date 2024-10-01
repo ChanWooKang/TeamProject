@@ -89,6 +89,17 @@ public class UI_Equipment : UI_Base
         return dict;
     }
 
+    public float GetItemWeights()
+    {
+        float weight = 0;
+        foreach(UI_EquipSlot slot in Equip_Slots)
+        {
+            weight += slot.itemWeight;
+        }
+        Debug.Log(weight);
+        return weight;
+    }
+
     public void AcquireItem(eEquipType type, BaseItem item, int slotIndex = 0)
     {               
         if(item == null)

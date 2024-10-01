@@ -9,6 +9,8 @@ public class DataManager
     public Dictionary<int, MonsterInfo> Dict_Monster;
     public Dictionary<int, MonsterLevelInfo> Dict_MonsterLevel;
     public Dictionary<int, SkillInfo> Dict_Skill;
+    public Dictionary<int, HitObjectInfo> Dict_HitObject;
+    
     public Dictionary<int, List<SkillInfo>> Dict_MonsterSkill;
     public Dictionary<int, int> Dict_UniqueID;
     const string DRE = "RequiredEXPByLevel";
@@ -45,6 +47,8 @@ public class DataManager
         Dict_MonsterSkill = new Dictionary<int, List<SkillInfo>>();
         AddMonsterSkill();
         Dict_UniqueID = new Dictionary<int, int>();
+        Dict_HitObject = new Dictionary<int, HitObjectInfo>();
+        AddHitObject();
     }
 
     public bool AddUniqueID(int uniqueID, int index)
@@ -70,7 +74,7 @@ public class DataManager
         {
             MakeMonsterClass(table, i, offSetNum);
         }
-    }
+    }    
 
     void MakeMonsterClass(LowBase table, int num, int offSetNumber)
     {
@@ -98,16 +102,7 @@ public class DataManager
                 rewards[i] = number;
         }
 
-        string countsIndexStr = table.ToStr(index, "RewardCount");
-        strArray = countsIndexStr.Split('/');
-        int[] counts = new int[strArray.Length];
-        for(int i = 0; i < counts.Length; i++)
-        {
-            if(int.TryParse(strArray[i],out int number))
-            {
-                counts[i] = number;
-            }
-        }
+        int rewardCount = table.ToInt(index, "RewardCount");        
 
         string skillsIndexStr = table.ToStr(index, "Skill");
         strArray = skillsIndexStr.Split('/');
@@ -121,7 +116,7 @@ public class DataManager
         }
         
         MonsterInfo monster = new MonsterInfo(index, nameEn, nameKr, desc, hp, speed, runSpeed,
-            range, damage, attackDelay, sight, workAbility, type, rate, rewards,chaseRange,counts,skills);
+            range, damage, attackDelay, sight, workAbility, type, rate, rewards,chaseRange,rewardCount,skills);
         if (Dict_Monster.ContainsKey(index) == false)
             Dict_Monster.Add(index, monster);
         
@@ -204,5 +199,27 @@ public class DataManager
             }
         }
         return skills;
+    }
+
+    void AddHitObject()
+    {
+        LowBase table = Managers._table.Get(LowDataType.HitObjectTable);
+        int maxCount = table.MaxCount();
+        int offSetNum = 900;
+        for (int i = 0; i < maxCount; i++)
+            MakeHitObjectClass(table, i, offSetNum);
+    }
+
+    void MakeHitObjectClass(LowBase table, int num, int offSetNumber)
+    {
+        int index = offSetNumber + num;
+        string nameEn = table.ToStr(index, "NameEN");
+        string nameKr = table.ToStr(index, "NameKr");
+        float hp = table.ToFloat(index, "HP");
+        int reward = table.ToInt(index, "Reward");
+        int rewardCount = table.ToInt(index, "RewardCount");
+        HitObjectInfo info = new HitObjectInfo(index, nameKr, nameEn, hp, reward, rewardCount);
+        if (Dict_HitObject.ContainsKey(index) == false)
+            Dict_HitObject.Add(index, info);
     }
 }

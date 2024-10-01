@@ -36,6 +36,15 @@ public class PlayerMoveCtrl : MonoBehaviour
     float _rotationVelocity;
     float _verticalVelocity;
     float _terminalVelocity = 53.0f;
+    
+    //Stamina 사용 가능 여부
+    bool _canUseStamina = true;
+    bool _isRegenStamina = false;
+    float _regenDelay = 1.0f;
+    float _staminaDrainRate = 10.0f;
+    float _staminaRegenRate = 10.0f;
+    float _jumpUseStamina = 10.0f;
+    Coroutine _regenCoroutine = null;
 
     //Timeout deltaTime
     float _jumpTimeOutDelta;
@@ -99,12 +108,14 @@ public class PlayerMoveCtrl : MonoBehaviour
             if (_verticalVelocity < 0)
                 _verticalVelocity = -2.0f;
 
-            if (_input.jump && _jumpTimeOutDelta <= 0.0f && _manager._stat.CanUseStamina(_jumpUseStamina))
+            if (_input.jump && _jumpTimeOutDelta <= 0.0f && _manager._stat.CheckUseStamina(_jumpUseStamina))
             {
+                _manager._stat.CanUseStamina(_jumpUseStamina);
                 _verticalVelocity = Mathf.Sqrt(JumpHeight * -2.0f * Gravity);
 
                 //애니메이션 Jump Bool Set
                 _manager._anim.SetAnimation(ePlayerAnimParams.Jump, true);
+                _input.jump = false;
             }
             else
             {
@@ -206,14 +217,7 @@ public class PlayerMoveCtrl : MonoBehaviour
         }
     }
 
-    //Stamina 사용 가능 여부
-    bool _canUseStamina = true;
-    bool _isRegenStamina = false;
-    float _regenDelay = 2.0f;
-    float _staminaDrainRate = 10.0f;
-    float _staminaRegenRate = 5.0f;
-    float _jumpUseStamina = 10.0f;
-    Coroutine _regenCoroutine = null;
+    
 
     void CheckStaminaUse()
     {

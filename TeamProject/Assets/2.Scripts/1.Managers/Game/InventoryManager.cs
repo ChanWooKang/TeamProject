@@ -15,6 +15,7 @@ public class InventoryManager : TSingleton<InventoryManager>
 
     public List<BaseItem> Items;
     public Dictionary<int, BaseItem> Dict_Item;
+    public Dictionary<int, MaterialItemInfo> Dict_Material;
     public Dictionary<int, WeaponItemInfo> Dict_Weapon;
     public Dictionary<int, PetBallInfo> Dict_Petball;
     public Dictionary<int, Sprite> Dict_itemSprite;
@@ -30,12 +31,13 @@ public class InventoryManager : TSingleton<InventoryManager>
     Coroutine EquipCoroutine = null;
 
     public float MaxItemWeights { get { return GameManagerEx._inst.playerManager._stat.CarryWeight; } set { GameManagerEx._inst.playerManager._stat.CarryWeight = value; } }
-    public float InvenWeight { get { return invenUI.GetItemWeights(); } }    
+    public float InvenWeight { get { return invenUI.GetItemWeights() + equipUI.GetItemWeights(); } }    
     public UI_Slot[] InventoryItems { get { return invenUI.GetInvenSlots; } }
 
     private void Awake()
     {
         Items = new List<BaseItem>();
+        Dict_Material = new Dictionary<int, MaterialItemInfo>();
         Dict_Weapon = new Dictionary<int, WeaponItemInfo>();
         Dict_Petball = new Dictionary<int, PetBallInfo>();
         
@@ -135,8 +137,10 @@ public class InventoryManager : TSingleton<InventoryManager>
                 }
                 break;
             case eItemType.Material:
-                MaterialItemInfo material = new MaterialItemInfo(index, nameEn, desc, spriteName, nameKr, weight);
+                int rate = Table.ToInt(index, "Rate");
+                MaterialItemInfo material = new MaterialItemInfo(index, nameEn, desc, spriteName, nameKr, weight,rate);
                 Items.Add(material);
+                Dict_Material.Add(index, material);
                 break;
             case eItemType.PetBall:
                 string pmaterialsIndexStr = Table.ToStr(index, "Materials");
@@ -304,8 +308,13 @@ public class InventoryManager : TSingleton<InventoryManager>
             else
                 return false;
         }
-
-        return false;
+        else
+        {
+            if (MaxItemWeights < InvenWeight + (newItem.Weight * cnt))
+                return true;
+            else
+                return false;
+        }        
     }
 
     public void AddInvenItem(BaseItem newItem, int cnt = 1)

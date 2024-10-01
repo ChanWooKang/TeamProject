@@ -209,7 +209,8 @@ namespace DefineDatas
         PetTable,
         WeaponTable,
         PetBallTable,
-        SkillTable
+        SkillTable,
+        HitObjectTable
     }
 
     [System.Serializable]
@@ -258,14 +259,7 @@ namespace DefineDatas
 
 //아이템 관련 클래스 정리
 namespace DefineDatas
-{
-    [System.Serializable]
-    public class RequiredItem
-    {
-        public SOItems items;
-        public int cnt;
-    }
-
+{   
     public class ItemSlotAndCount
     {
         public List<int> slotNumbers = new List<int>();

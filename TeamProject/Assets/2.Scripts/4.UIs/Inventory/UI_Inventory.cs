@@ -115,7 +115,7 @@ public class UI_Inventory : MonoBehaviour
     #region [Main]
     public void SettingInvenWeight()
     {
-        float weight = GetItemWeights();
+        float weight = InventoryManager._inst.InvenWeight;
         float maxWeight = GameManagerEx._inst.playerManager._stat.CarryWeight;
 
         InvenWeightFill.fillAmount = weight / maxWeight;
