@@ -81,13 +81,19 @@ public class PlayerAnimCtrl : MonoBehaviour
                 if (item.Root())
                     _manager.SetRecognizeObject();
             }
-        }
-        
+        }        
+    }
+
+    public void FixAnimation(bool isOn)
+    {
+        _manager._equip.ReadyToAnimAction(isOn);
+        _manager._equip.HammerModel.SetActive(isOn);
+        SetAnimation(ePlayerAnimParams.Fix, isOn);
     }
 
     public void OnEquip()
     {        
-        _manager._equip.EquipChangeEnd();        
+        _manager._equip.EquipEvent();
     }
 
     public void OnDisarm()
@@ -96,13 +102,13 @@ public class PlayerAnimCtrl : MonoBehaviour
     }
     
     public void OnActiveEquipObject()
-    {
-        _manager._equip.ChangeNextWeaponActive(true);
+    {        
+        _manager._equip.EquipActiveWeapon();
     }
 
     public void OnActiveDisarmObject()
-    {
-        _manager._equip.ChangeNowWeaponActive(false);
+    {        
+        _manager._equip.DisarmActiveWeapon();
     }
 
     public void ChargeStart()

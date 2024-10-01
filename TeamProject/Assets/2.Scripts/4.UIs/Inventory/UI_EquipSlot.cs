@@ -47,6 +47,7 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
             if (_item.EquipType == eEquipType.Weapon)
             {
                 GameManagerEx._inst.playerManager._equip.ChangeSlotWeapon(SlotIndex, _item.Index);
+                
             }
                 
 

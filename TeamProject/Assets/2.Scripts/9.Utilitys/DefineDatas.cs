@@ -172,7 +172,8 @@ namespace DefineDatas
         Root,
         Reload,
         AttackAble,
-        AcivateAnimation
+        AcivateAnimation,
+        Fix
     }
     public enum InteractionType
     {
