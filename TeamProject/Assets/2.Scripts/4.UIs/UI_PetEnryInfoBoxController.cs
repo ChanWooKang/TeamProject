@@ -12,7 +12,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
     int m_currentPetNum;
 
     [SerializeField] List<Image> m_listPetIcon;
-
+    List<Sprite> m_listAllPetIcon;
     #region [펫 관련]
     bool m_isPetOut;
     GameObject m_recalledPet;
@@ -22,19 +22,20 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
 
     #region [UI 관련]
     [SerializeField] HudController m_hudInfo;
+    Animator m_animCtrl;
     #endregion [UI 관련]
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Alpha2))
-        //{
-        //    //우측 스왑            
-        //    RightSwap();
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Alpha1))
-        //{
-        //    //좌측 스왑
-        //    LeftSwap();
-        //}
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            //우측 스왑            
+            RightSwap();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            //좌측 스왑
+            LeftSwap();
+        }
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (!m_isPetOut)
@@ -52,26 +53,82 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
     private void Awake()
     {
         m_maxEntryCount = PetEntryManager._inst.MaxEntryCount;
-        m_currentPetIndex = 1100;
+        m_animCtrl = GetComponent<Animator>();
+        m_listAllPetIcon = new List<Sprite>();
+        for (int i = 0; i < PetEntryManager._inst.MaxEntryCount; i++)
+            m_listAllPetIcon.Add(null);
+
         //임시
         m_currentPetNum = 0;
 
         m_hudInfo.gameObject.SetActive(false);
         InitEntryIcon();
     }
-
-    public void InitEntryIcon()
+    public void Anim_SwapStop()
     {
-        for (int i = 0; i < m_listPetIcon.Count; i++)
+        m_animCtrl.SetTrigger("SwapStop");
+        InitEntryIcon();
+    }
+    void InitEntryIcon()
+    {
+        int Pidx = m_currentPetNum;
+        if (m_listAllPetIcon[Pidx] != null)
         {
-            if (PetEntryManager._inst.m_listPetEntryCtrl.Count > i)
-            {
-                m_listPetIcon[i].enabled = true;
-                m_listPetIcon[i].sprite = PoolingManager._inst._poolingIconByIndex[PetEntryManager._inst.m_listPetEntryCtrl[i].PetInfo.Index].prefab;
-            }
-            else
-                m_listPetIcon[i].enabled = false;
+            m_listPetIcon[0].enabled = true;
+            m_listPetIcon[0].sprite = m_listAllPetIcon[Pidx];
         }
+        else
+            m_listPetIcon[0].enabled = false;
+        Pidx = m_currentPetNum - 1;
+        if (Pidx < 0)
+            Pidx = (PetEntryManager._inst.m_listPetEntryCtrl.Count - 1);
+        if (Pidx < 0)
+            Pidx = 0;
+        if (m_listAllPetIcon[Pidx] != null)
+        {
+            m_listPetIcon[1].enabled = true;
+            m_listPetIcon[1].sprite = m_listAllPetIcon[Pidx];
+        }
+        else
+            m_listPetIcon[1].enabled = false;
+        Pidx = m_currentPetNum + 1;
+        if (Pidx > PetEntryManager._inst.m_listPetEntryCtrl.Count - 1)
+            Pidx -= (PetEntryManager._inst.m_listPetEntryCtrl.Count);
+        if (m_listAllPetIcon[Pidx] != null)
+        {
+            m_listPetIcon[2].enabled = true;
+            m_listPetIcon[2].sprite = m_listAllPetIcon[Pidx];
+        }
+        else
+            m_listPetIcon[2].enabled = false;
+
+        if (PetEntryManager._inst.m_listPetEntryCtrl.Count == 1)
+        {
+            m_listPetIcon[1].enabled = false;
+            m_listPetIcon[2].enabled = false;
+        }
+        else if (PetEntryManager._inst.m_listPetEntryCtrl.Count == 2)
+        {
+            m_listPetIcon[1].enabled = false;
+        }
+        Debug.Log(m_currentPetNum);
+    }
+    public void InitAllEntryIcon()
+    {
+
+        int entryCount = PetEntryManager._inst.m_listPetEntryCtrl.Count;
+        for (int i = 0; i < entryCount; i++)
+        {
+            m_listAllPetIcon[i] = PoolingManager._inst._poolingIconByIndex[PetEntryManager._inst.m_listPetEntryCtrl[i].PetInfo.Index].prefab;
+        }
+        if (entryCount < 6)
+        {
+            for (int i = m_listAllPetIcon.Count; i < PetEntryManager._inst.MaxEntryCount; i++)
+            {
+                m_listPetIcon.Add(null);
+            }
+        }
+        InitEntryIcon();
     }
     public void OpenUI()
     {
@@ -82,31 +139,36 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-    public void InitCurrentPetIndex(int index)
+    public void InitCurrentPetIndex(int index, int count)
     {
         m_currentPetIndex = index + offset;
+        m_currentPetNum = count - 1;
+        InitEntryIcon();
     }
     void RightSwap()
     {
-        //for (int i = 0; i < m_listPetIcon.Count; i++)
-        //{
-
-        //}
+        if (PetEntryManager._inst.m_listPetEntryCtrl.Count < 2)
+            return;
+        m_animCtrl.SetTrigger("SwapRight");
         if (++m_currentPetNum >= PetEntryManager._inst.m_listPetEntryCtrl.Count)
             m_currentPetNum = 0;
 
+
+       
         m_currentPetIndex = offset + PetEntryManager._inst.m_listPetEntryCtrl[m_currentPetNum].PetInfo.Index;
         SetHudInfoBox(PetEntryManager._inst.m_listPetEntryCtrl[m_currentPetNum]);
     }
     void LeftSwap()
     {
-        //for (int i = 0; i < m_listPetIcon.Count; i++)
-        //{
-
-        //}
+        if (PetEntryManager._inst.m_listPetEntryCtrl.Count < 2)
+            return;
+        if(PetEntryManager._inst.m_listPetEntryCtrl.Count == 2)
+            m_animCtrl.SetTrigger("SwapRight");
+        else
+            m_animCtrl.SetTrigger("SwapLeft");
         if (--m_currentPetNum < 0)
             m_currentPetNum = PetEntryManager._inst.m_listPetEntryCtrl.Count - 1;
-
+        
         m_currentPetIndex = offset + PetEntryManager._inst.m_listPetEntryCtrl[m_currentPetNum].PetInfo.Index;
         SetHudInfoBox(PetEntryManager._inst.m_listPetEntryCtrl[m_currentPetNum]);
     }
