@@ -18,7 +18,7 @@ public class PetEntryManager : TSingleton<PetEntryManager>
     [SerializeField] Transform m_petPortraitRoot;
 
 
-    int m_tempOffset = 10;
+    int m_tempOffset;
     [HideInInspector] public UI_PetBoxController m_petBoxCtrl;
     private void Awake()
     {
@@ -37,12 +37,17 @@ public class PetEntryManager : TSingleton<PetEntryManager>
         m_listPetEntryCtrl = new List<PetController>(m_maxEntryCount);
         m_listPetIndex = new List<int>();
     }
+    int i = 0;
     private void Update()
     {
         // юс╫ц
         if (Input.GetKeyDown(KeyCode.F12))
         {
-            int i = Random.Range(0, 2);
+            m_tempOffset = Random.Range(0, 10000);
+            if (i == 0)
+                i = 1;
+            else
+                i = 0;
             PetController petCtrl = m_listPetEntryPrefab[i].GetComponent<PetController>();
             int index = 0;
             if (i == 0)
@@ -51,9 +56,7 @@ public class PetEntryManager : TSingleton<PetEntryManager>
                 index = 1001;
 
             petCtrl.InitPet(index);
-            AddEntry(index, index + ++m_tempOffset);
-            m_uiPetEntryInfoBox.SetHudInfoBox(m_listPetEntryCtrl[0]);
-            
+            AddEntry(index, index + (++m_tempOffset));            
         }
     }
     public void InitEntry()
@@ -64,19 +67,17 @@ public class PetEntryManager : TSingleton<PetEntryManager>
     }
 
     public void AddEntry(int index, int UniqueId)
-    {        
+    {
         if (!m_listPetIndex.Contains(UniqueId))
         {
             m_listPetIndex.Add(UniqueId);
             PetController pet = m_dicPetObject[index].GetComponent<PetController>();
             pet.InitPet(index);
-            
+
             if (m_listPetEntryCtrl.Count < MaxEntryCount)
             {
                 InitPetEntry(pet, UniqueId);
-                if(m_listPetEntryCtrl.Count < 4)
-                m_uiPetEntryInfoBox.InitEntryIcon();
-               
+                m_uiPetEntryInfoBox.InitAllEntryIcon();
             }
             else
             {
@@ -107,7 +108,7 @@ public class PetEntryManager : TSingleton<PetEntryManager>
         m_listPetEntryCtrl.Add(pet);
         PoolingManager._inst.AddPetPool(pet);
         m_uiPetEntryInfoBox.SetHudInfoBox(pet);
-        m_uiPetEntryInfoBox.InitCurrentPetIndex(pet.PetInfo.Index);
+        m_uiPetEntryInfoBox.InitCurrentPetIndex(pet.PetInfo.Index, m_listPetEntryCtrl.Count);
         if (!m_dicPetPortraitObject.ContainsKey(pet.PetInfo.Index))
         {
             GameObject portrait = Instantiate(m_dicPetPortraitPrefab[pet.PetInfo.Index], m_petPortraitRoot, false);
