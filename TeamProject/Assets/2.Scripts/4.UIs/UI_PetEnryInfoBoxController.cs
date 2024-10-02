@@ -11,7 +11,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
     int m_maxEntryCount;
     int m_currentPetNum;
 
-    List<Image> m_listPetIcon;
+    [SerializeField] List<Image> m_listPetIcon;
 
     #region [펫 관련]
     bool m_isPetOut;
@@ -57,17 +57,26 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
         m_currentPetNum = 0;
 
         m_hudInfo.gameObject.SetActive(false);
-        // m_listPetIcon = new List<Image>(m_maxEntryCount);
-        // m_listPetIcon = new List<Image>(m_maxEntryCount);        
+        InitEntryIcon();
     }
 
     public void InitEntryIcon()
     {
-        // 풀에서 이미지를 받아옴
+        for (int i = 0; i < m_listPetIcon.Count; i++)
+        {
+            if (PetEntryManager._inst.m_listPetEntryCtrl.Count > i)
+            {
+                m_listPetIcon[i].enabled = true;
+                m_listPetIcon[i].sprite = PoolingManager._inst._poolingIconByIndex[PetEntryManager._inst.m_listPetEntryCtrl[i].PetInfo.Index].prefab;
+            }
+            else
+                m_listPetIcon[i].enabled = false;
+        }
     }
     public void OpenUI()
     {
         gameObject.SetActive(true);
+        InitEntryIcon();
     }
     public void CloseUI()
     {

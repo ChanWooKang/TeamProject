@@ -25,7 +25,7 @@ public class PetBoxController : MonoBehaviour
     {
         if (m_isDetected)
         {
-            if (Input.GetKeyDown(KeyCode.P))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 SetBool();
             }

@@ -61,7 +61,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                 if (m_petCtrl != null)
                     m_petCtrl.MoveToObject(m_tableCtrl.transform.position);
             }
-            if (Input.GetKeyUp(KeyCode.F))
+            else 
             {
                 UpFKey();
             }

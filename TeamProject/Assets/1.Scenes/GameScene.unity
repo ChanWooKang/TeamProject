@@ -968,6 +968,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_currentPetIndex: 0
+  m_listPetIcon:
+  - {fileID: 1490842646}
+  - {fileID: 1801904109}
+  - {fileID: 359363282}
   m_hudInfo: {fileID: 1998646846684143733}
 --- !u!1 &606745135
 GameObject:
@@ -6647,8 +6651,8 @@ MonoBehaviour:
   - {fileID: 3915148192754495659}
   - {fileID: 3915148193264308485}
   PetBallModel: {fileID: 5254799121361199108, guid: 816530791354e104a9053b0623c3e58a, type: 3}
+  HammerModel: {fileID: 0}
   BallPos: {fileID: 0}
-  isProgress: 0
   changeSlotIndex: 0
   currSlotIndex: 0
   currWeaponIndex: 0

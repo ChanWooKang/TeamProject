@@ -141,10 +141,7 @@ public abstract class UI_InteractionBase : MonoBehaviour
         m_progressCancel.value = 0;
     }
 
-    public void PetWork()
-    {
-        StartCoroutine(SetProgress());
-    }
+   
     public IEnumerator SetProgress()
     {
         m_progressCraft.value += ((m_playerWorkWeight + m_petWorkWeight) * Time.deltaTime);

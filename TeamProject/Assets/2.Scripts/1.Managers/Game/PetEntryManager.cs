@@ -18,7 +18,7 @@ public class PetEntryManager : TSingleton<PetEntryManager>
     [SerializeField] Transform m_petPortraitRoot;
 
 
-    int m_tempOffset;
+    int m_tempOffset = 10;
     [HideInInspector] public UI_PetBoxController m_petBoxCtrl;
     private void Awake()
     {
@@ -52,7 +52,8 @@ public class PetEntryManager : TSingleton<PetEntryManager>
 
             petCtrl.InitPet(index);
             AddEntry(index, index + ++m_tempOffset);
-            m_uiPetEntryInfoBox.SetHudInfoBox(m_listPetEntryCtrl[0]);   
+            m_uiPetEntryInfoBox.SetHudInfoBox(m_listPetEntryCtrl[0]);
+            
         }
     }
     public void InitEntry()
@@ -63,16 +64,19 @@ public class PetEntryManager : TSingleton<PetEntryManager>
     }
 
     public void AddEntry(int index, int UniqueId)
-    {
-
+    {        
         if (!m_listPetIndex.Contains(UniqueId))
         {
             m_listPetIndex.Add(UniqueId);
             PetController pet = m_dicPetObject[index].GetComponent<PetController>();
             pet.InitPet(index);
-            if (m_listPetEntryCtrl.Count < MaxEntryCount - 1)
+            
+            if (m_listPetEntryCtrl.Count < MaxEntryCount)
             {
                 InitPetEntry(pet, UniqueId);
+                if(m_listPetEntryCtrl.Count < 4)
+                m_uiPetEntryInfoBox.InitEntryIcon();
+               
             }
             else
             {
