@@ -6,19 +6,13 @@ using DefineDatas;
 public class HitObjectCtrl : MonoBehaviour, IHitAble
 {
     public int Index;
-    HitObjectInfo _info;
+    protected HitObjectInfo _info;
     [SerializeField] Transform baseHitPoint;    
-    [SerializeField] float _hp;
+    [SerializeField] protected float _hp;
 
-    bool isDead;
+    protected bool isDead;
 
     Coroutine DamageCoroutine = null;
-
-
-    void Start()
-    {
-        Init();
-    }
 
     public void Init()
     {
@@ -62,6 +56,13 @@ public class HitObjectCtrl : MonoBehaviour, IHitAble
         }
     }
 
+    public virtual void OnDamage()
+    {
+        if (DamageCoroutine != null)
+            StopCoroutine(DamageCoroutine);
+        DamageCoroutine = StartCoroutine(OnDamageEvent());
+    }
+
     public void OnDamage(float damage, Transform attacker)
     {
         Vector3 hitPoint = transform.position + baseHitPoint.position;
@@ -76,9 +77,7 @@ public class HitObjectCtrl : MonoBehaviour, IHitAble
         isDead = GetHitDamage(damage);
         DamageTextManager._inst.ShowDamageText(hitPoint, damage);
         GetItemByRandom();
-        if (DamageCoroutine != null)
-            StopCoroutine(DamageCoroutine);
-        DamageCoroutine = StartCoroutine(OnDamageEvent());
+        OnDamage();
     }
 
     IEnumerator OnDamageEvent()
@@ -93,14 +92,9 @@ public class HitObjectCtrl : MonoBehaviour, IHitAble
         yield return new WaitForSeconds(0.3f);
     }
 
-    void OnDeadEvent()
+    public virtual void OnDeadEvent()
     {
         int spawnCount = _info.RewardCount;
-        SpawnManager._inst.SpawnItem(_info.RewardIndex, transform,spawnCount);
-        //for (int i = 0; i < spawnCount; i++) 
-        //{
-        //    SpawnManager._inst.SpawnItem(_info.RewardIndex, transform);
-        //}
-        gameObject.SetActive(false);
+        SpawnManager._inst.SpawnItem(_info.RewardIndex, transform,spawnCount);        
     }
 }

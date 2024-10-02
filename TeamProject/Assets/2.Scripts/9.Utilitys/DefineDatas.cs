@@ -196,9 +196,8 @@ namespace DefineDatas
     
     public interface IHitAble
     {
-        public void OnDamage(float damage, Transform attacker);
-        public void OnDamage(float damage, Transform attacker, Vector3 hitPoint);
-        
+        void OnDamage(float damage, Transform attacker);
+        void OnDamage(float damage, Transform attacker, Vector3 hitPoint);        
     }
 
     public enum LowDataType
