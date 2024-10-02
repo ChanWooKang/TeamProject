@@ -28,12 +28,14 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            //우측 스왑            
+            //우측 스왑
+            InitEntryIcon();
             RightSwap();
         }
         else if (Input.GetKeyDown(KeyCode.C))
         {
             //좌측 스왑
+            InitEntryIcon();
             LeftSwap();
         }
         if (Input.GetKeyDown(KeyCode.E))
