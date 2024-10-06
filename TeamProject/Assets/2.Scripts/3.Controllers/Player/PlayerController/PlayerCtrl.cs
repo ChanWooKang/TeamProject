@@ -14,7 +14,7 @@ public class PlayerCtrl : MonoBehaviour
     public PlayerRenderCtrl _render;
     public PlayerEquipCtrl _equip;
     public PlayerColliderCtrl _collider;
-
+    PetController m_recalledPet;    
     //Player Components
     //Animator _animator;
     PlayerInput _playerInput;
@@ -98,14 +98,18 @@ public class PlayerCtrl : MonoBehaviour
     {
         _recogObject = go;
     }
-   
-    public void OnDamage(float damage)
+   public void SetCorrentRecallPet(PetController pet)
+    {
+        m_recalledPet = pet;
+    }
+    public void OnDamage(float damage, Transform attackerT = null)
     {
         if (isDead && gameObject.activeSelf)
             return;
 
         isDead = _stat.GetHit(damage);
-
+        if(m_recalledPet != null)
+        m_recalledPet.SetTarget(attackerT);
         if (_damagedCoroutine != null)
             StopCoroutine(_damagedCoroutine);
         _damagedCoroutine = StartCoroutine(OnDamageEvent());

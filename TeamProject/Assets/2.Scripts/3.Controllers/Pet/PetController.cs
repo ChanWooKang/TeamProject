@@ -9,7 +9,7 @@ public class PetController : FSM<PetController>
     [Header("Monster Data")]
 
     public int PetLevel = 1;
-
+    int Index;
 
     #region [Component]
     [SerializeField] PetStat m_stat;
@@ -97,6 +97,7 @@ public class PetController : FSM<PetController>
 
     public void InitPet(int index)
     {
+        Index = index;
         m_petInfo = Managers._data.Dict_Monster[index];
         m_agent = GetComponent<NavMeshAgent>();
         m_animator = GetComponent<Animator>();
@@ -120,7 +121,7 @@ public class PetController : FSM<PetController>
     }
     public void GetRangeByAttackType()
     {
-        _attackType = m_animCtrl.GetAttackTypeByWeight();
+        _attackType = m_animCtrl.ChooseAttackType(Index);
         switch (_attackType)
         {
             case eAttackType.MeleeAttack:
@@ -154,8 +155,8 @@ public class PetController : FSM<PetController>
     public void AttackFunc()
     {
         //플레이어 상태 확인 
-        if (_player.isDead)
-            return;
+        //if (_player.isDead)
+        //    return;
 
 
 

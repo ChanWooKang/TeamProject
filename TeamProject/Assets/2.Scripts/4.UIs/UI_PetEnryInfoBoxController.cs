@@ -181,6 +181,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
             return;
         m_recalledPet = PoolingManager._inst.InstantiateAPS(m_currentPetIndex, GameManagerEx._inst.playerManager.transform.position + (Vector3.forward * 0.5f) + (Vector3.right * 0.8f), PetEntryManager._inst.m_listPetEntryPrefab[1].transform.rotation, Vector3.one);
         m_petCtrl = m_recalledPet.GetComponent<PetController>();
+        GameManagerEx._inst.playerManager.SetCorrentRecallPet(m_petCtrl);
         m_petCtrl.ReCall();
         PetController pet = m_recalledPet.GetComponent<PetController>();
         if (m_recalledPetsHud == null)
@@ -194,6 +195,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
         if (m_recalledPet == null)
             return;
         m_recalledPetsHud.HideHud();
+        m_recalledPetsHud = null;
         PoolingManager.DestroyAPS(m_recalledPet);
     }
     public void SetHudInfoBox(PetController pet)

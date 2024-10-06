@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DefineDatas;
 
-public abstract class PetAnimController : MonoBehaviour
+public abstract class PetAnimController : BaseAnimCtrl
 {
     protected PetController _manager;
     protected Animator _animator;
@@ -12,7 +12,7 @@ public abstract class PetAnimController : MonoBehaviour
     //공격 방식간 가중치
     public float[] AttackTypeWeight;
     //근접 공격 개수 및 버프
-    public float[] _meleeWeightProbs;
+    //public float[] _meleeWeightProbs;
     //원거리 공격 개수 및 버프
     public float[] _rangeWeightProbs;
 
@@ -20,6 +20,7 @@ public abstract class PetAnimController : MonoBehaviour
     {
         _manager = manager;
         _animator = animator;
+        InitAnimData();
     }
 
     public abstract void ChangeAnimation(eMonsterState type);
@@ -91,7 +92,23 @@ public abstract class PetAnimController : MonoBehaviour
         _manager.GetRangeByAttackType();
         _manager.isAttack = false;
     }
-
+    public void AttackAction()
+    {
+        // nextSkill이 0이상일 경우 스킬 실행
+        if (nextSkill > 0)
+        {
+            if (Managers._data.Dict_Skill.ContainsKey(nextSkill))
+            {
+                string trigger = Managers._data.Dict_Skill[nextSkill].NameEn;
+                _animator.SetTrigger(trigger);
+                nextSkill = 0;
+                return;
+            }
+        }
+        int pattern = PickBaseAttackPattern();
+        _animator.SetInteger(_animIDAttackPattern, pattern);
+        _animator.SetTrigger(_animIDAttack);
+    }
     //피격 애니메이션 종료 시 호출
     public void GetHitEnd()
     {

@@ -44,7 +44,7 @@ public abstract class MonsterAnimCtrl : BaseAnimCtrl
         {
             if (_manager.target.CompareTag("Player"))
             {
-                _manager._player.OnDamage(_manager.Stat.Damage);
+                _manager._player.OnDamage(_manager.Stat.Damage, transform);
             }
             //else if (_manager.target.CompareTag("Monster"))
             //{
