@@ -441,7 +441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7123a162871300f4880bf9cc8bd2f26b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHp: 0
+  baseHp: 40
 --- !u!114 &4587429688639979632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,8 +503,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7d9aec13ea6371489e89aa55a0f2adf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextSkill: 0
+  AttackWeights:
+  - 0.1
+  - 1
+  _meleeWeightProbs:
+  - 0.5
+  - 1
   AttackTypeWeight: []
-  _meleeWeightProbs: []
   _rangeWeightProbs: []
 --- !u!1 &3149505970878433303
 GameObject:

@@ -137,6 +137,8 @@ public class PetController : FSM<PetController>
     }
     public void SetTarget(Transform attacker)
     {
+        if (target != null)
+            return;
         target = attacker;
         if (target != null)
             _targetMon = target.GetComponent<MonsterController>();
