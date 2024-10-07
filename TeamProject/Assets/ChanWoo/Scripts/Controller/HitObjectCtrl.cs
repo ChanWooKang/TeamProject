@@ -7,6 +7,7 @@ public class HitObjectCtrl : MonoBehaviour, IHitAble
 {
     public int Index;
     protected HitObjectInfo _info;
+    public List<WeaponType> AttackTypes;
     [SerializeField] Transform baseHitPoint;    
     [SerializeField] protected float _hp;
 
@@ -14,13 +15,12 @@ public class HitObjectCtrl : MonoBehaviour, IHitAble
 
     Coroutine DamageCoroutine = null;
 
-    public void Init()
+    public virtual void Init()
     {
         _info = Managers._data.Dict_HitObject[Index];
         _hp = _info.HP;
 
-        isDead = false;
-        DamageCoroutine = null;
+        isDead = false;        
     }
 
     void GetItemByRandom()
@@ -56,11 +56,13 @@ public class HitObjectCtrl : MonoBehaviour, IHitAble
         }
     }
 
-    public virtual void OnDamage()
+    public bool CheckAttackType(WeaponType type)
     {
-        if (DamageCoroutine != null)
-            StopCoroutine(DamageCoroutine);
-        DamageCoroutine = StartCoroutine(OnDamageEvent());
+        return AttackTypes.Contains(type);
+    }
+
+    public virtual void OnDamage()
+    {       
     }
 
     public void OnDamage(float damage, Transform attacker)
@@ -69,7 +71,7 @@ public class HitObjectCtrl : MonoBehaviour, IHitAble
         OnDamage(damage, attacker, hitPoint);
     }
 
-    public void OnDamage(float damage, Transform attacker, Vector3 hitPoint)
+    public virtual void OnDamage(float damage, Transform attacker, Vector3 hitPoint)
     {
         if (isDead)
             return;
@@ -80,17 +82,17 @@ public class HitObjectCtrl : MonoBehaviour, IHitAble
         OnDamage();
     }
 
-    IEnumerator OnDamageEvent()
-    {
-        if (isDead)
-        {
-            yield return new WaitForSeconds(0.2f);
-            OnDeadEvent();
-            yield break;
-        }
+    //IEnumerator OnDamageEvent()
+    //{
+    //    if (isDead)
+    //    {
+    //        yield return new WaitForSeconds(0.2f);
+    //        OnDeadEvent();
+    //        yield break;
+    //    }
 
-        yield return new WaitForSeconds(0.3f);
-    }
+    //    yield return new WaitForSeconds(0.3f);
+    //}
 
     public virtual void OnDeadEvent()
     {

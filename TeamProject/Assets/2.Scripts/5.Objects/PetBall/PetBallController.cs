@@ -46,7 +46,7 @@ public class PetBallController : MonoBehaviour
     void Init(int index = 500)
     {
         InitBall(index);
-        m_rigidbdy = GetComponent<Rigidbody>();
+        m_rigidbdy = GetComponent<Rigidbody>();        
     }
 
     public void InitBall(int index)
@@ -55,10 +55,10 @@ public class PetBallController : MonoBehaviour
         m_animator = GetComponent<Animator>();
     }
 
-    public void ShootEvent(int petBallIndex = 500)
+    public void ShootEvent(Vector3 direction, int petBallIndex = 500)
     {
         Init(petBallIndex);        
-        Vector3 dir = transform.forward * _shootPower;
+        Vector3 dir = direction * _shootPower;
         m_rigidbdy.AddForce(dir, ForceMode.Impulse);
     }
 

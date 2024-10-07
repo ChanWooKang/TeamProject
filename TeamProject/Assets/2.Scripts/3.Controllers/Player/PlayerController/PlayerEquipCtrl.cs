@@ -307,7 +307,7 @@ public class PlayerEquipCtrl : MonoBehaviour
     {
         BallPos.rotation = Quaternion.LookRotation(GetDirection());
         GameObject go = PoolingManager._inst.InstantiateAPS("PetBall", BallPos.position, BallPos.rotation, Vector3.one * 0.2f);        
-        go.GetComponent<PetBallController>().ShootEvent();
+        go.GetComponent<PetBallController>().ShootEvent(Camera.main.transform.forward);
     }
 
     Vector3 GetDirection()

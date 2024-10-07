@@ -34,7 +34,8 @@ public class RifleCtrl : BaseWeaponCtrl
         {
             if(rhit.transform.TryGetComponent(out IHitAble hit))
             {
-                hit.OnDamage(TotalDamage, _playerEquip.transform, rhit.point);
+                if(hit.CheckAttackType(_type))
+                    hit.OnDamage(TotalDamage, _playerEquip.transform, rhit.point);
             }            
         }
     }

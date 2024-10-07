@@ -95,8 +95,7 @@ public class UI_Equipment : UI_Base
         foreach(UI_EquipSlot slot in Equip_Slots)
         {
             weight += slot.itemWeight;
-        }
-        Debug.Log(weight);
+        }        
         return weight;
     }
 

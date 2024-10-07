@@ -51,15 +51,7 @@ public class ParticleCallBack : MonoBehaviour
                         parent.BuffEffectEnd();
                         break;
                 }
-            }
-            else
-            {
-                Debug.Log(3);
-            }
-        }
-        else
-        {
-            Debug.Log(4);
-        }
+            }            
+        }        
     }
 }

@@ -202,13 +202,13 @@ public class PlayerInputCtrl : MonoBehaviour
                     {
                         TalkManager._inst.ShowText(go, data.objID, data.name);
                     }
-                    //else
-                    //{
-                    //    if (go.TryGetComponent(out ItemCtrl item))
-                    //    {
-                    //        _manager._anim.SetAnimation(ePlayerAnimParams.Root);                            
-                    //    }                        
-                    //}
+                    else
+                    {
+                        if (go.TryGetComponent(out ItemCtrl item))
+                        {
+                            _manager._anim.SetAnimation(ePlayerAnimParams.Root);
+                        }
+                    }
                 }
                 
             }

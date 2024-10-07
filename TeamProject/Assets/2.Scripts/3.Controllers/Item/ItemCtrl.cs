@@ -88,8 +88,7 @@ public class ItemCtrl : MonoBehaviour
 
 
         if (InventoryManager._inst.CheckSlot(item, itemCount) == false)
-        {
-            Debug.Log(InventoryManager._inst.InvenWeight);
+        {            
             InventoryManager._inst.AddInvenItem(item, itemCount);
             Despawn();
             return true;

@@ -78,8 +78,11 @@ public class PlayerAnimCtrl : MonoBehaviour
         {
             if(_manager.RecognizeObject.TryGetComponent(out ItemCtrl item))
             {
-                if (item.Root())
-                    _manager.SetRecognizeObject();
+                if (item.isRootAble)
+                {
+                    if (item.Root())
+                        _manager.SetRecognizeObject();
+                }
             }
         }        
     }

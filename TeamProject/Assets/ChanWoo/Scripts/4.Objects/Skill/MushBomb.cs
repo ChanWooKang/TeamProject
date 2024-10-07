@@ -133,6 +133,7 @@ public class MushBomb : ObjectInParticle
 
     public override void DestoryObject()
     {
-        gameObject.DestroyAPS();
+        _particle.StopParticle();
+        base.DestoryObject();
     }
 }

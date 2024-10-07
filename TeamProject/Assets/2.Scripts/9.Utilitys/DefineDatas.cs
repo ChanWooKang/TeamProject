@@ -196,6 +196,7 @@ namespace DefineDatas
     
     public interface IHitAble
     {
+        bool CheckAttackType(WeaponType type);
         void OnDamage(float damage, Transform attacker);
         void OnDamage(float damage, Transform attacker, Vector3 hitPoint);        
     }

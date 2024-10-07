@@ -41662,7 +41662,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &1362169410095825236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41881,7 +41881,7 @@ CapsuleCollider:
   m_Radius: 0.4
   m_Height: 1.8
   m_Direction: 1
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &2912192553455200119
 GameObject:
   m_ObjectHideFlags: 0
@@ -44947,7 +44947,7 @@ MonoBehaviour:
   RayRadius: 0.25
   AcceptLayer:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 17408
   index: 0
   _type: 1
   _weaponRange: 1.5
@@ -45030,7 +45030,7 @@ MonoBehaviour:
   RayRadius: 0.5
   AcceptLayer:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 17408
   index: 203
   _type: 4
   _weaponRange: 50
@@ -45177,7 +45177,7 @@ MonoBehaviour:
   RayRadius: 0.5
   AcceptLayer:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 17408
   index: 201
   _type: 2
   _weaponRange: 4
@@ -45229,7 +45229,7 @@ MonoBehaviour:
   RayRadius: 0.5
   AcceptLayer:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 17408
   index: 200
   _type: 2
   _weaponRange: 5

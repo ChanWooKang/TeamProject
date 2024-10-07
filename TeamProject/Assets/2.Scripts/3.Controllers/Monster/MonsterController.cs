@@ -417,4 +417,9 @@ public class MonsterController : FSM<MonsterController>, IHitAble
             }
         }
     }
+
+    public bool CheckAttackType(WeaponType type)
+    {
+        return true;
+    }
 }

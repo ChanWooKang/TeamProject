@@ -268,5 +268,10 @@ public class BossCtrl : FSM<BossCtrl>, IHitAble
         _collider.ManageColider(true);
         _render.ChangeLayer(eLayer.Monster);
         ChangeState(BossStateInit._inst);
-    }   
+    }
+
+    public bool CheckAttackType(WeaponType type)
+    {
+        return true;
+    }
 }

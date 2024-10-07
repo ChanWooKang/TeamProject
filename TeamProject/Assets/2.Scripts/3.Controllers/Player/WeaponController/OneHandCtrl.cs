@@ -6,7 +6,7 @@ public class OneHandCtrl : BaseWeaponCtrl
 {
     public override void AttackAction()
     {
-        if(GameManagerEx._inst.playerManager._stat.CanUseStamina(5))
+        if (GameManagerEx._inst.playerManager._stat.CanUseStamina(5))
             ShootRay();
     }
 
