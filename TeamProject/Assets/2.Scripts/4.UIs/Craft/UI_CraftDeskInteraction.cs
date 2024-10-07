@@ -10,12 +10,16 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
     #region [참조]   
     [HideInInspector] public CraftTableController m_tableCtrl;
 
-    #endregion[참조]    
+    #endregion[참조]   
+
+    #region [자료형]
+    List<UI_MenuSlot> m_listUIPetBallSlot;
+    #endregion [자료형]
 
 
     private void Update()
     {
-        if (m_weaponIndex == 0 && !m_isCraftDone) // 제작중인 무기가 없음
+        if (m_itemIndex == 0 && !m_isCraftDone) // 제작중인 무기가 없음
         {
             if (m_uiCraftObj.activeSelf)
             {
@@ -40,7 +44,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                 }
             }
         }
-        else if (m_weaponIndex != 0 & !m_isCraftDone) // 무기를 제작 중
+        else if (m_itemIndex != 0 & !m_isCraftDone) // 무기를 제작 중
         {
             if (m_progressCraft.value < m_progressCraft.maxValue)
             {
@@ -52,7 +56,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                 if (m_petCtrl != null)
                     m_petCtrl.JobDone();
                 m_isCraftDone = true;
-                m_weaponIndex = 0;
+                m_itemIndex = 0;
                 OpenInteractionCraftTable(m_tableCtrl);
             }
             if (Input.GetKey(KeyCode.F))
@@ -74,11 +78,11 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                 UpCKey();
             }
         }
-        else if (m_weaponIndex == 0 & m_isCraftDone) // 무기가 다 제작 됨
+        else if (m_itemIndex == 0 & m_isCraftDone) // 무기가 다 제작 됨
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
-                m_weaponIndex = 0;
+                m_itemIndex = 0;
                 m_isCraftDone = false;
                 m_progressCraft.value = 0;
                 OpenInteractionCraftTable(m_tableCtrl);
@@ -93,7 +97,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
     {
         if (ctrl != null)
             m_tableCtrl = ctrl;
-        base.OpenInteractionCraftTable(ctrl);
+        base.OpenInteractionTable(ctrl);
     }
     public override void CloseInteraction()
     {
@@ -108,7 +112,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
         m_CancelObj.SetActive(false);
         if (m_isNew)
         {
-            DecideSlotCount();
+            DecideSlotCount(LowDataType.WeaponTable);
             int num = 0;
             for (int i = 0; i < m_maxMenuVolAmount.y; i++)
             {
@@ -148,7 +152,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
             if (isWeapon)
             {
 
-                m_weaponIndex = 0;
+                m_itemIndex = 0;
                 UpCKey();
                 OpenInteractionCraftTable(m_tableCtrl);
 
@@ -160,6 +164,8 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
             }
         }
     }
+
+   
 
 
 }

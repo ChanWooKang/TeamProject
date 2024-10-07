@@ -169,7 +169,9 @@ MonoBehaviour:
   m_listCraftObjPrefabs:
   - {fileID: 1436622280055881262, guid: 66b37126fb869894fa5b5a80a0ef4b5c, type: 3}
   - {fileID: 6524018716616789628, guid: 91b9db28c3f0a144192858e77c910b12, type: 3}
+  - {fileID: 3607407808013769607, guid: 96e4501c080535744be452d1bd2abf30, type: 3}
   - {fileID: 815222051355591729, guid: 8b39ba1b6ba96ce4a81e692dfb0883a3, type: 3}
+  - {fileID: 1336065365414074174, guid: da923c810ad6bc54dbdb1101a644a1c8, type: 3}
 --- !u!1 &61076024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1974,6 +1976,14 @@ MonoBehaviour:
     type: 2
     prefab: {fileID: 21300000, guid: a79d2958df75c43408b10e75789ad208, type: 3}
   - index: 3
+    name: BallDesk
+    type: 2
+    prefab: {fileID: 21300000, guid: 02c079c25fe25144094222f586ce6ae9, type: 3}
+  - index: 4
+    name: Brazier
+    type: 2
+    prefab: {fileID: 21300000, guid: 9fdf08668d6b6104caf3fd3565a86f5b, type: 3}
+  - index: 5
     name: EnforceAnvil
     type: 2
     prefab: {fileID: 21300000, guid: 12d006c5833d0164a91724059cdd6754, type: 3}

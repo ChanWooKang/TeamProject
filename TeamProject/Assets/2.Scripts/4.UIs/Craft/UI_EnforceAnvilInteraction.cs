@@ -13,11 +13,11 @@ public class UI_EnforceAnvilInteraction : UI_InteractionBase
         
     }
 
-   new public void OpenInteractionCraftTable(EnforceAnvilController ctrl)
+   public void OpenInteractionAnvilTable(EnforceAnvilController ctrl)
     {
         if (m_anvilCtrl == null)
             m_anvilCtrl = ctrl;
-        base.OpenInteractionCraftTable(ctrl);
+        base.OpenInteractionTable(ctrl);
     }
 
     public override void CloseInteraction()
@@ -40,9 +40,9 @@ public class UI_EnforceAnvilInteraction : UI_InteractionBase
             if (isWeapon)
             {
 
-                m_weaponIndex = 0;
+                m_itemIndex = 0;
                 UpCKey();
-                OpenInteractionCraftTable(m_anvilCtrl);
+                OpenInteractionAnvilTable(m_anvilCtrl);
 
             }
             else

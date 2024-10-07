@@ -6,25 +6,34 @@ using UnityEngine.EventSystems;
 
 public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    const int weaponOffset = 200;
+    const int petballOffset = 500;
     [SerializeField] Image m_icon;
     [SerializeField] RectTransform[] m_infoBoxPoses;
     [SerializeField] GameObject m_infoBoxPrefab;
     UI_InfoBox m_uiInfoBox;
     UI_CraftDeskInteraction m_uiInteraction;
-    
+    UI_PetBallCraftInteraction m_uiPetballInteraction;
 
     int m_x;
     int m_y;
-    int m_weaponIndex;
+    int m_itemIndex;
     public void InitSlot(int num, int x, int y, UI_CraftDeskInteraction interation)
     {
         m_uiInteraction = interation;
 
-        m_weaponIndex = 200 + num;
+        m_itemIndex = 200 + num;
         m_x = x;
         m_y = y;
     }
+    public void InitSlot(int num, int x, int y, UI_PetBallCraftInteraction interaction)
+    {
+        m_uiPetballInteraction = interaction;
 
+        m_itemIndex = 500 + num;
+        m_x = x;
+        m_y = y;
+    }
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (m_uiInfoBox == null)
@@ -64,12 +73,26 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         m_uiInfoBox.transform.SetAsLastSibling();
         RectTransform rect = m_uiInfoBox.GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(650, 300);
-        string wNameKr = InventoryManager._inst.Dict_Weapon[m_weaponIndex].NameKr;
-        string wDesc = InventoryManager._inst.Dict_Weapon[m_weaponIndex].Desc;
-        int[] wMaterialsIndex = InventoryManager._inst.Dict_Weapon[m_weaponIndex].MaterialsIndex;
-        int[] wMaterialsCost = InventoryManager._inst.Dict_Weapon[m_weaponIndex].MaterialsCost;
-        m_uiInfoBox.OpenBox(wNameKr, wDesc);
-        m_uiInfoBox.OpenMaterialsSlots(wMaterialsIndex, wMaterialsCost);
+        if (m_itemIndex < 500)
+        {
+            string wNameKr = InventoryManager._inst.Dict_Weapon[m_itemIndex].NameKr;
+            string wDesc = InventoryManager._inst.Dict_Weapon[m_itemIndex].Desc;
+            int[] wMaterialsIndex = InventoryManager._inst.Dict_Weapon[m_itemIndex].MaterialsIndex;
+            int[] wMaterialsCost = InventoryManager._inst.Dict_Weapon[m_itemIndex].MaterialsCost;
+
+            m_uiInfoBox.OpenBox(wNameKr, wDesc);
+            m_uiInfoBox.OpenMaterialsSlots(wMaterialsIndex, wMaterialsCost);
+        }
+        else
+        {
+            string wNameKr = InventoryManager._inst.Dict_Petball[m_itemIndex].NameKr;
+            string wDesc = InventoryManager._inst.Dict_Petball[m_itemIndex].Desc;
+            int[] wMaterialsIndex = InventoryManager._inst.Dict_Petball[m_itemIndex].MaterialsIndex;
+            int[] wMaterialsCost = InventoryManager._inst.Dict_Petball[m_itemIndex].MaterialsCost;
+
+            m_uiInfoBox.OpenBox(wNameKr, wDesc);
+            m_uiInfoBox.OpenMaterialsSlots(wMaterialsIndex, wMaterialsCost);
+        }
     }
     public void OnPointerExit(PointerEventData eventData)
     {
@@ -78,7 +101,7 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        m_uiInteraction.ReadyToCraftSometing(m_weaponIndex);
+        m_uiInteraction.ReadyToCraftSometing(m_itemIndex);
         m_uiInteraction.OpenInteractionCraftTable();
         m_uiInfoBox.CloseBox();
         m_uiInteraction.SetPetWork(m_uiInteraction.m_tableCtrl);

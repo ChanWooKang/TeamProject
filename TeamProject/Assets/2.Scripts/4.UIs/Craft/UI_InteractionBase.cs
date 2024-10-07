@@ -41,13 +41,13 @@ public abstract class UI_InteractionBase : MonoBehaviour
     protected bool m_isNew = true;
     protected bool m_isCraftDone;
 
-    protected int m_weaponIndex = 0;
+    protected int m_itemIndex = 0;
     protected float m_petWorkWeight;
     protected float m_playerWorkWeight;
    
-    public void OpenInteractionCraftTable(CraftTableController ctrl)
+    public void OpenInteractionTable(CraftTableController ctrl)
     {
-        if (m_weaponIndex == 0 && !m_isCraftDone)
+        if (m_itemIndex == 0 && !m_isCraftDone)
         {
             m_txtPressOrHold.text = "Press";
             m_txtMenuOrCraft.text = "Craft Menu";
@@ -55,15 +55,15 @@ public abstract class UI_InteractionBase : MonoBehaviour
             m_CancelObj.SetActive(true);
             m_isCraftDone = false;
         }
-        else if (m_weaponIndex != 0 && !m_isCraftDone)
+        else if (m_itemIndex != 0 && !m_isCraftDone)
         {
             m_txtPressOrHold.text = "Press and Hold";
             m_txtMenuOrCraft.text = "Craft";
-            m_txtWeaponName.text = InventoryManager._inst.Dict_Weapon[m_weaponIndex].NameKr;
+            m_txtWeaponName.text = InventoryManager._inst.Dict_Weapon[m_itemIndex].NameKr;
             m_weaponInfoBoxObj.SetActive(true);
             m_CancelObj.SetActive(true);
         }
-        else if (m_weaponIndex == 0 && m_isCraftDone)
+        else if (m_itemIndex == 0 && m_isCraftDone)
         {
             m_txtPressOrHold.text = "Press";
             m_txtMenuOrCraft.text = "Get Weapon";
@@ -74,14 +74,68 @@ public abstract class UI_InteractionBase : MonoBehaviour
 
         CloseMenu();
     }
-    public void OpenInteractionCraftTable(EnforceAnvilController ctrl)
+    public void OpenInteractionTable(EnforceAnvilController ctrl)
     {
+        if (m_itemIndex == 0 && !m_isCraftDone)
+        {
+            m_txtPressOrHold.text = "Press";
+            m_txtMenuOrCraft.text = "Enfroce Menu";
+            m_weaponInfoBoxObj.SetActive(false);
+            m_CancelObj.SetActive(true);
+            m_isCraftDone = false;
+        }
+        else if (m_itemIndex != 0 && !m_isCraftDone)
+        {
+            m_txtPressOrHold.text = "Press and Hold";
+            m_txtMenuOrCraft.text = "Enfroce";
+            m_txtWeaponName.text = InventoryManager._inst.Dict_Weapon[m_itemIndex].NameKr;
+            m_weaponInfoBoxObj.SetActive(true);
+            m_CancelObj.SetActive(true);
+        }
+        else if (m_itemIndex == 0 && m_isCraftDone)
+        {
+            m_txtPressOrHold.text = "Press";
+            m_txtMenuOrCraft.text = "Done";
+            m_CancelObj.SetActive(false);
+        }
+        gameObject.SetActive(true);
+        m_uiCraftObj.SetActive(true);
 
+        CloseMenu();
+    }
+    public void OpenInteractionTable(PetBallCraftTableConotroller ctrl)
+    {
+        if (m_itemIndex == 0 && !m_isCraftDone)
+        {
+            m_txtPressOrHold.text = "Press";
+            m_txtMenuOrCraft.text = "Craft Menu";
+            m_weaponInfoBoxObj.SetActive(false);
+            m_CancelObj.SetActive(true);
+            m_isCraftDone = false;
+        }
+        else if (m_itemIndex != 0 && !m_isCraftDone)
+        {
+            m_txtPressOrHold.text = "Press and Hold";
+            m_txtMenuOrCraft.text = "Craft";
+            m_txtWeaponName.text = InventoryManager._inst.Dict_Weapon[m_itemIndex].NameKr;
+            m_weaponInfoBoxObj.SetActive(true);
+            m_CancelObj.SetActive(true);
+        }
+        else if (m_itemIndex == 0 && m_isCraftDone)
+        {
+            m_txtPressOrHold.text = "Press";
+            m_txtMenuOrCraft.text = "Get Weapon";
+            m_CancelObj.SetActive(false);
+        }
+        gameObject.SetActive(true);
+        m_uiCraftObj.SetActive(true);
+
+        CloseMenu();
     }
     public abstract void CloseInteraction();
     public void ReadyToCraftSometing(int weaponindex)
     {
-        m_weaponIndex = weaponindex;
+        m_itemIndex = weaponindex;
     }
     public void SetPetEntry(PetController pet, CraftTableController ctCtrl)
     {
@@ -90,7 +144,7 @@ public abstract class UI_InteractionBase : MonoBehaviour
         m_petIcon.enabled = true;
         m_petWorkWeight = 1f;
         m_petCtrl = pet;
-        if (m_weaponIndex != 0 && !m_isCraftDone)
+        if (m_itemIndex != 0 && !m_isCraftDone)
             pet.MoveToObject(ctCtrl.transform.position);
         //¿ÃπÃ¡ˆ
     }
@@ -108,7 +162,7 @@ public abstract class UI_InteractionBase : MonoBehaviour
     }
     public abstract void OpenMenu();
     public abstract void CloseMenu();
-    public void DecideSlotCount()
+    public void DecideSlotCount(LowDataType type)
     {
         LowBase weaponTable = Managers._table.Get(LowDataType.WeaponTable);
         int count = weaponTable.MaxCount();
