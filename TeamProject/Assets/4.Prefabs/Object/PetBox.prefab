@@ -77,6 +77,7 @@ MonoBehaviour:
   m_uiPetBoxPrefab: {fileID: 8188796596267107870, guid: e6efdf5e3f50651419bec9b96fa6b06a, type: 3}
   m_animCtrl: {fileID: 6524018716607315384}
   m_animEventCtrl: {fileID: 5884943959217780742}
+  m_objPreview: {fileID: 5730792653402882309}
 --- !u!1 &6524018716616789608
 GameObject:
   m_ObjectHideFlags: 0

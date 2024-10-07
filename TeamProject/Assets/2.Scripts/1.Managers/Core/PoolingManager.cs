@@ -59,7 +59,7 @@ public class PoolingManager : TSingleton<PoolingManager>
         }
     }
     
-    public void AddPetPool(PetController pet)
+    public void AddPetPool(PetController pet, float uniqueID)
     {
         int offsetNum = 100;
         Array.Resize(ref _poolingUnits, _poolingUnits.Length + 1);
@@ -79,6 +79,7 @@ public class PoolingManager : TSingleton<PoolingManager>
         objDatas.Add(0, makePet);
         PetController petCtrl = makePet.GetComponent<PetController>();
         petCtrl.InitPet(petIndex);
+        petCtrl.Stat.UniqueID = uniqueID;
         if (!_pooledUnitsByIndex.ContainsKey(petIndex + offsetNum))
             _pooledUnitsByIndex.Add(petIndex + offsetNum, objDatas);
         GameObject hud = InstantiateAPS(1000000);

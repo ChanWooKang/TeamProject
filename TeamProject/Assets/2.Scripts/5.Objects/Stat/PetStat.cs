@@ -10,18 +10,19 @@ public class PetStat : BaseStat
     protected float _attackrange;
     protected float _attackDelay;
     protected float _sight;
-
+    protected float _uniqueID;
     [SerializeField] float baseHp;
     float baseDamage;
 
     #region [ Property ]    
     public int Index { get { return _index; } }
-   
+
     public float RunSpeed { get { return _runSpeed; } }
     public float ChaseRange { get { return _chaseRange; } }
     public float AttackRange { get { return _attackrange; } }
     public float Sight { get { return _sight; } }
     public float AttackDelay { get { return _attackDelay; } }
+    public float UniqueID { get { return _uniqueID; } set { _uniqueID = value; } }
     #endregion [ Property ] 
 
 
@@ -54,12 +55,12 @@ public class PetStat : BaseStat
             _exp = 60;
 
             //레벨과 관계없이 저장될 변수        
-            _moveSpeed = 6;           
+            _moveSpeed = 6;
             _runSpeed = 8;
             _attackrange = 4;
             _chaseRange = 10;
             _attackDelay = 2;
-            _sight = 80;            
+            _sight = 80;
 
             //레벨 변경시 추가 가중치 들어갈 변수
             _hp = 200;
@@ -76,13 +77,13 @@ public class PetStat : BaseStat
         //레벨과 관계없이 저장될 변수        
         _moveSpeed = _monster.Speed;
         _chaseRange = _monster.ChaseRange;
-        
+
         _runSpeed = _monster.RunSpeed;
         _attackrange = _monster.Range;
         _attackDelay = _monster.AttackDelay;
         _sight = _monster.Sight;
         //_characterType = _monster.CharacterType;
- 
+
 
         //SetConvertibleStat(info.Index,level);
     }
@@ -105,7 +106,7 @@ public class PetStat : BaseStat
             MonsterLevelInfo info = Managers._data.Dict_MonsterLevel[_level];
             // 레벨이 1일때
             _maxHp = _hp = monster.HP;
-            _exp = 0;            
+            _exp = 0;
         }
     }
 
@@ -113,7 +114,7 @@ public class PetStat : BaseStat
     {
         _hp = baseHp * value;
         _damage = baseDamage * value;
-        _maxHp = _hp;        
+        _maxHp = _hp;
     }
 
     void SetBaseStat()
@@ -123,7 +124,7 @@ public class PetStat : BaseStat
         if (Managers._data.Dict_MonsterLevel.TryGetValue(level, out MonsterLevelInfo info))
         {
             baseHp = _monster.HP;
-            baseDamage = _monster.Damage;               
+            baseDamage = _monster.Damage;
         }
         else
         {
