@@ -73,10 +73,10 @@ public class PetEntryManager : TSingleton<PetEntryManager>
             m_listPetIndex.Add(UniqueId);
             PetController pet = m_dicPetObject[index].GetComponent<PetController>();
             pet.InitPet(index);
-
+            pet.Stat.UniqueID = UniqueId;
             if (m_listPetEntryCtrl.Count < MaxEntryCount)
             {
-                InitPetEntry(pet, UniqueId);
+                InitPetEntry(pet);
                 m_uiPetEntryInfoBox.InitAllEntryIcon();
             }
             else
@@ -103,10 +103,10 @@ public class PetEntryManager : TSingleton<PetEntryManager>
     {
         m_petBoxCtrl = petbox;
     }
-    public void InitPetEntry(PetController pet, int UniqueID)
+    public void InitPetEntry(PetController pet)
     {
         m_listPetEntryCtrl.Add(pet);
-        PoolingManager._inst.AddPetPool(pet);
+        PoolingManager._inst.AddPetPool(pet, pet.Stat.UniqueID);
         m_uiPetEntryInfoBox.SetHudInfoBox(pet);
         m_uiPetEntryInfoBox.InitCurrentPetIndex(pet.PetInfo.Index, m_listPetEntryCtrl.Count);
         if (!m_dicPetPortraitObject.ContainsKey(pet.PetInfo.Index))

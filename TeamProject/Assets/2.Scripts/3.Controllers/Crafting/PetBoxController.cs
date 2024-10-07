@@ -11,6 +11,7 @@ public class PetBoxController : MonoBehaviour
     [SerializeField] Animator m_animCtrl;
     [SerializeField]
     PetBoxAnimEventController m_animEventCtrl;
+    [SerializeField] ObjectPreview m_objPreview;
     UI_PetBoxController m_uiPetBoxCtrl;
     #endregion [Component]
     #region [Param]
@@ -58,6 +59,8 @@ public class PetBoxController : MonoBehaviour
 
     void SetBool()
     {
+        if (!m_objPreview.IsDone)
+            return;
         if (m_uiPetBoxCtrl == null)
         {
             GameObject ui = Instantiate(m_uiPetBoxPrefab);

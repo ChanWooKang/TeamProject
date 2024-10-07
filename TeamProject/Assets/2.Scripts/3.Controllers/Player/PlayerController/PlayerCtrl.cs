@@ -39,7 +39,7 @@ public class PlayerCtrl : MonoBehaviour
         }
     }
     public GameObject RecognizeObject { get { return _recogObject; } }
-
+    public PetController PetController { get { return m_recalledPet; } }
     private void Start()
     {
         Init();
