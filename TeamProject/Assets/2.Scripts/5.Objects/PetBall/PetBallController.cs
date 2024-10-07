@@ -12,6 +12,9 @@ public class PetBallController : MonoBehaviour
     #endregion [고정값]
 
     #region [참조]
+    [SerializeField]
+    Material[] m_Mball;
+    Material m_material;
     MonsterController m_targetMonsterCtrl;
     PetBallInfo m_petBallInfo;
     [SerializeField]
@@ -50,14 +53,18 @@ public class PetBallController : MonoBehaviour
     }
 
     public void InitBall(int index)
-    {
+    {   
         m_petBallInfo = InventoryManager._inst.Dict_Petball[index];
+        SetMaterial(m_petBallInfo.NameEn);
+        m_material = GetComponent<Material>();
         m_animator = GetComponent<Animator>();
     }
 
     public void ShootEvent(Vector3 direction, int petBallIndex = 500)
     {
+        // 임시
         Init(petBallIndex);        
+        //
         Vector3 dir = direction * _shootPower;
         m_rigidbdy.AddForce(dir, ForceMode.Impulse);
     }
@@ -68,7 +75,21 @@ public class PetBallController : MonoBehaviour
         m_rigidbdy.inertiaTensor = Vector3.zero;
         gameObject.DestroyAPS();
     }
-
+    void SetMaterial(string Name)
+    {
+        switch(Name)
+        {
+            case "PetBall":
+                m_material = m_Mball[0];
+                break;
+            case "GreatBall":
+                m_material = m_Mball[1];
+                break;
+            case "SuperBall":
+                m_material = m_Mball[2];
+                break;
+        }
+    }
     IEnumerator CaptureStart()
     {
         Vector3 targetPos = m_capturePos + Vector3.up * 4;

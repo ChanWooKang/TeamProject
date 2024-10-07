@@ -180,6 +180,7 @@ namespace DefineDatas
     {
         Craft,
         EnforceAnvil,
+        PetBall,
 
     }
 
