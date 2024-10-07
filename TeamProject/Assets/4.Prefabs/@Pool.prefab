@@ -165,41 +165,41 @@ MonoBehaviour:
   - index: 100
     name: Branch
     type: 1
-    prefab: {fileID: 21300000, guid: f8a9cfc721a20ce409c3d743e9b251bc, type: 3}
+    prefab: {fileID: 21300000, guid: f736b2d05080e184fae20b1acba074e0, type: 3}
   - index: 101
     name: Stone
     type: 1
-    prefab: {fileID: 21300000, guid: b9a847102a75c8c429a8f749008df6c2, type: 3}
+    prefab: {fileID: 21300000, guid: bbd8df98b3496f347811b13f8d2a3c53, type: 3}
   - index: 102
     name: Iron
     type: 1
-    prefab: {fileID: 21300000, guid: e504bf3779bda9c40ba6d311e0611951, type: 3}
+    prefab: {fileID: 21300000, guid: d3a595ec5d3140a41bd88028a45365bd, type: 3}
   - index: 103
     name: Petium
     type: 1
-    prefab: {fileID: 21300000, guid: b6da46610f2e67c47ab4f5011422203a, type: 3}
+    prefab: {fileID: 21300000, guid: ed1ea3392cd89f146bc46e4c6bd61714, type: 3}
   - index: 104
     name: BlackPowder
     type: 1
-    prefab: {fileID: 21300000, guid: 7d58fd33da0c1714e83ed3c55ae05bb9, type: 3}
+    prefab: {fileID: 21300000, guid: e87e04cf40ef9e34580aff48e7c52079, type: 3}
   - index: 200
     name: WoodBat
     type: 1
-    prefab: {fileID: 21300000, guid: 02ff976d39577774bb44b83610e61dec, type: 3}
+    prefab: {fileID: 21300000, guid: 19fc81bb9fe7d5149873fdba9d7c5bdb, type: 3}
   - index: 201
     name: StoneAx
     type: 1
-    prefab: {fileID: 21300000, guid: 6a08ec4b334ea1c46b8171679417a74f, type: 3}
+    prefab: {fileID: 21300000, guid: 7d70eb4613cf01647bd4602c463971dd, type: 3}
   - index: 202
     name: Bow
     type: 1
-    prefab: {fileID: 21300000, guid: bbf8638a8a75d9c42b93639213c92c9b, type: 3}
+    prefab: {fileID: 21300000, guid: be693727efc8b9b4ab323bfca4690cd9, type: 3}
   - index: 203
     name: Rifle
     type: 1
-    prefab: {fileID: 21300000, guid: 49416ae29f27d0f4691bd4224faf839a, type: 3}
+    prefab: {fileID: 21300000, guid: 046df0d447ca17149a6ac4f8c4d1c72a, type: 3}
   - index: 204
     name: PickAxe
     type: 1
-    prefab: {fileID: 21300000, guid: 1fb46228a3bcb5042a763829cc07f9e5, type: 3}
+    prefab: {fileID: 21300000, guid: 2be0e75b84d62814ab36a4b2dabb3b04, type: 3}
   _hudRootTransform: {fileID: 0}
