@@ -21,6 +21,7 @@ public abstract class BaseWeaponCtrl : MonoBehaviour
     protected float _weaponDamage;
     protected float _minDist = 1.0f;
     [SerializeField] protected float _weaponRange = 0f;
+    [SerializeField] protected float _useStamina = 5.0f;
 
     public int Index { get { return index; } }
     public WeaponType weaponType { get { return _type; } }

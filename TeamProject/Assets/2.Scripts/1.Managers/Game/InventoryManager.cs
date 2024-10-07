@@ -18,10 +18,10 @@ public class InventoryManager : TSingleton<InventoryManager>
     public Dictionary<int, MaterialItemInfo> Dict_Material;
     public Dictionary<int, WeaponItemInfo> Dict_Weapon;
     public Dictionary<int, PetBallInfo> Dict_Petball;
-    public Dictionary<int, Sprite> Dict_itemSprite;
-    
-    public List<ItemSprite> itemSprites;
-    public List<int> itemNames;
+
+    //public Dictionary<int, Sprite> Dict_itemSprite;
+    //public List<ItemSprite> itemSprites;
+    //public List<int> itemNames;
     //PlayerManager playerManager;
 
     public static bool ActiveChangeEquip = false;
@@ -66,6 +66,7 @@ public class InventoryManager : TSingleton<InventoryManager>
         AddInvenItem(Dict_Item[201]);
         AddInvenItem(Dict_Item[202]);
         AddInvenItem(Dict_Item[203]);
+        AddInvenItem(Dict_Item[204]);
 
     }
 
@@ -187,10 +188,12 @@ public class InventoryManager : TSingleton<InventoryManager>
 
     public Sprite GetItemSprite(int index)
     {
-        if (Dict_itemSprite.ContainsKey(index))
+        Dictionary<int, PoolIcon> icon = PoolingManager._inst._poolingIconByIndex;
+
+        if (icon.ContainsKey(index))
         {
-            return Dict_itemSprite[index];
-        }
+            return icon[index].prefab;
+        }        
 
         return null;
     }
@@ -203,17 +206,9 @@ public class InventoryManager : TSingleton<InventoryManager>
         for (int i = 0; i < Items.Count; i++)
         {
             Dict_Item.Add(Items[i].Index, Items[i]);
-            itemNames.Add(Items[i].Index);
+            //itemNames.Add(Items[i].Index);
         }
-
-        Dict_itemSprite = new Dictionary<int, Sprite>();
-        for (int i = 0; i < itemSprites.Count; i++)
-        {
-            if (Dict_itemSprite.ContainsKey(itemSprites[i].index) == false)
-                Dict_itemSprite.Add(itemSprites[i].index, itemSprites[i].icon);
-            else
-                Dict_itemSprite[itemSprites[i].index] = itemSprites[i].icon;
-        }
+        
     }
 
     void ChangeEquipment(eEquipType type, BaseItem item, int slotIndex = 0, bool isWear = true)

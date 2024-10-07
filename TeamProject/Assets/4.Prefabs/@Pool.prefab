@@ -1,0 +1,205 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &795888134428289010
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 795888134428289012}
+  - component: {fileID: 795888134428289011}
+  m_Layer: 0
+  m_Name: '@Pool'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &795888134428289012
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795888134428289010}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &795888134428289011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795888134428289010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5935637c7e830540accc87626e0aabf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolingUnits:
+  - index: 1000
+    name: MushBoy
+    type: 0
+    prefab: {fileID: 3682731050503340021, guid: 2733c62e82ac0e24db83a7a70c83e0e0, type: 3}
+    amount: 3
+  - index: 1001
+    name: Cactus
+    type: 0
+    prefab: {fileID: 557949092437620620, guid: 7aaa7759085beb44aaf1c1b31c1f8fc7, type: 3}
+    amount: 1
+  - index: 1
+    name: LeafSlash
+    type: 2
+    prefab: {fileID: 3434068320904704015, guid: 8c1e6840987db3e4195c3e3772388e6f, type: 3}
+    amount: 3
+  - index: 2
+    name: MushBomb
+    type: 2
+    prefab: {fileID: 1098059996598783514, guid: 6a3a7c546834ee3429ef9b8a4c28dc6c, type: 3}
+    amount: 3
+  - index: 3
+    name: AuraBuff
+    type: 2
+    prefab: {fileID: 6403343203915336968, guid: ddcb7e5c3915f784a981edfe25b06c39, type: 3}
+    amount: 3
+  - index: 4
+    name: DuringBuff
+    type: 2
+    prefab: {fileID: 3637309620053123747, guid: 6ced8b328db98b645abd4496aa047aeb, type: 3}
+    amount: 3
+  - index: 5
+    name: FloatText
+    type: 3
+    prefab: {fileID: 7782484737688278767, guid: 8bd3666af22ad80488cc1a09139474fe, type: 3}
+    amount: 3
+  - index: 1000000
+    name: HudInfoBox
+    type: 3
+    prefab: {fileID: 4746197707204577379, guid: a0c11ace034710e4ea9a99126ce9b80c, type: 3}
+    amount: 3
+  - index: 9
+    name: Arrow
+    type: 3
+    prefab: {fileID: 2854222906997527015, guid: d02f6ff2712ecef4c8119e71c9b12354, type: 3}
+    amount: 3
+  - index: 10
+    name: ThrowStone
+    type: 3
+    prefab: {fileID: 1047425503770677770, guid: 22f04273b3ae29741b772b1531812729, type: 3}
+    amount: 1
+  - index: 11
+    name: DamageText
+    type: 4
+    prefab: {fileID: 2367886167358245700, guid: fea75d84831fb9745a9553f145007461, type: 3}
+    amount: 10
+  - index: 12
+    name: PetBall
+    type: 1
+    prefab: {fileID: 5254799121361199108, guid: 816530791354e104a9053b0623c3e58a, type: 3}
+    amount: 2
+  - index: 13
+    name: FireBall
+    type: 3
+    prefab: {fileID: 365758230055039730, guid: 172585b65045d13408503ac14c6dc68d, type: 3}
+    amount: 3
+  - index: 14
+    name: Flame
+    type: 3
+    prefab: {fileID: 8378684242159414958, guid: 91927872617c01a4ca9993df2c810b5c, type: 3}
+    amount: 1
+  - index: 100
+    name: Item100
+    type: 2
+    prefab: {fileID: 7415919451420172075, guid: 4bcd362acf76652408a1ac466fbe4b7e, type: 3}
+    amount: 1
+  - index: 101
+    name: Item101
+    type: 2
+    prefab: {fileID: 7415919451420172075, guid: db5f48e5758f7034991f7e2a0fc7b3a1, type: 3}
+    amount: 1
+  - index: 1003
+    name: Dragon
+    type: 0
+    prefab: {fileID: 402435411959595447, guid: 2fb7d7b65802fe64ebc226326696dd83, type: 3}
+    amount: 1
+  - index: 1002
+    name: Golem
+    type: 0
+    prefab: {fileID: 7652724478705488456, guid: 2c1f43db1e559114ba770a2bb809e36e, type: 3}
+    amount: 1
+  - index: 15
+    name: StoneHitEffect
+    type: 3
+    prefab: {fileID: 6408609454296478051, guid: 53f5de2cf2a9e3c48b4f56e9771923f4, type: 3}
+    amount: 1
+  _defPoolAmount: 0
+  _canPoolExpand: 1
+  _poolingIcons:
+  - index: 1
+    name: CraftDesk
+    type: 2
+    prefab: {fileID: 21300000, guid: 89f77f2f17c9e0e4085212af9e1d5dbe, type: 3}
+  - index: 2
+    name: PetBox
+    type: 2
+    prefab: {fileID: 21300000, guid: a79d2958df75c43408b10e75789ad208, type: 3}
+  - index: 3
+    name: EnforceAnvil
+    type: 2
+    prefab: {fileID: 21300000, guid: 12d006c5833d0164a91724059cdd6754, type: 3}
+  - index: 1000
+    name: MushBoy
+    type: 0
+    prefab: {fileID: 21300000, guid: fcc00073d2727cb43bb80ddf839fbba1, type: 3}
+  - index: 1001
+    name: Cactus
+    type: 0
+    prefab: {fileID: 21300000, guid: af4aac8eecf22164090587b65445b50c, type: 3}
+  - index: 100
+    name: Branch
+    type: 1
+    prefab: {fileID: 21300000, guid: f736b2d05080e184fae20b1acba074e0, type: 3}
+  - index: 101
+    name: Stone
+    type: 1
+    prefab: {fileID: 21300000, guid: bbd8df98b3496f347811b13f8d2a3c53, type: 3}
+  - index: 102
+    name: Iron
+    type: 1
+    prefab: {fileID: 21300000, guid: d3a595ec5d3140a41bd88028a45365bd, type: 3}
+  - index: 103
+    name: Petium
+    type: 1
+    prefab: {fileID: 21300000, guid: ed1ea3392cd89f146bc46e4c6bd61714, type: 3}
+  - index: 104
+    name: BlackPowder
+    type: 1
+    prefab: {fileID: 21300000, guid: e87e04cf40ef9e34580aff48e7c52079, type: 3}
+  - index: 200
+    name: WoodBat
+    type: 1
+    prefab: {fileID: 21300000, guid: 19fc81bb9fe7d5149873fdba9d7c5bdb, type: 3}
+  - index: 201
+    name: StoneAx
+    type: 1
+    prefab: {fileID: 21300000, guid: 7d70eb4613cf01647bd4602c463971dd, type: 3}
+  - index: 202
+    name: Bow
+    type: 1
+    prefab: {fileID: 21300000, guid: be693727efc8b9b4ab323bfca4690cd9, type: 3}
+  - index: 203
+    name: Rifle
+    type: 1
+    prefab: {fileID: 21300000, guid: 046df0d447ca17149a6ac4f8c4d1c72a, type: 3}
+  - index: 204
+    name: PickAxe
+    type: 1
+    prefab: {fileID: 21300000, guid: 2be0e75b84d62814ab36a4b2dabb3b04, type: 3}
+  _hudRootTransform: {fileID: 0}
