@@ -168,169 +168,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &198866762
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 198866764}
-  - component: {fileID: 198866763}
-  m_Layer: 0
-  m_Name: '@Pool'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &198866763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 198866762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5935637c7e830540accc87626e0aabf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _poolingUnits:
-  - index: 1000
-    name: MushBoy
-    type: 0
-    prefab: {fileID: 3682731050503340021, guid: 2733c62e82ac0e24db83a7a70c83e0e0, type: 3}
-    amount: 3
-  - index: 1001
-    name: Cactus
-    type: 0
-    prefab: {fileID: 557949092437620620, guid: 7aaa7759085beb44aaf1c1b31c1f8fc7, type: 3}
-    amount: 1
-  - index: 1
-    name: LeafSlash
-    type: 2
-    prefab: {fileID: 3434068320904704015, guid: 8c1e6840987db3e4195c3e3772388e6f, type: 3}
-    amount: 3
-  - index: 2
-    name: MushBomb
-    type: 2
-    prefab: {fileID: 1098059996598783514, guid: 6a3a7c546834ee3429ef9b8a4c28dc6c, type: 3}
-    amount: 3
-  - index: 3
-    name: AuraBuff
-    type: 2
-    prefab: {fileID: 6403343203915336968, guid: ddcb7e5c3915f784a981edfe25b06c39, type: 3}
-    amount: 3
-  - index: 4
-    name: DuringBuff
-    type: 2
-    prefab: {fileID: 3637309620053123747, guid: 6ced8b328db98b645abd4496aa047aeb, type: 3}
-    amount: 3
-  - index: 5
-    name: FloatText
-    type: 3
-    prefab: {fileID: 7782484737688278767, guid: 8bd3666af22ad80488cc1a09139474fe, type: 3}
-    amount: 3
-  - index: 1000000
-    name: HudInfoBox
-    type: 3
-    prefab: {fileID: 4746197707204577379, guid: a0c11ace034710e4ea9a99126ce9b80c, type: 3}
-    amount: 3
-  - index: 9
-    name: Arrow
-    type: 3
-    prefab: {fileID: 2854222906997527015, guid: d02f6ff2712ecef4c8119e71c9b12354, type: 3}
-    amount: 3
-  - index: 10
-    name: ThrowStone
-    type: 3
-    prefab: {fileID: 1047425503770677770, guid: 22f04273b3ae29741b772b1531812729, type: 3}
-    amount: 1
-  - index: 11
-    name: DamageText
-    type: 4
-    prefab: {fileID: 2367886167358245700, guid: fea75d84831fb9745a9553f145007461, type: 3}
-    amount: 10
-  - index: 12
-    name: PetBall
-    type: 1
-    prefab: {fileID: 5254799121361199108, guid: 816530791354e104a9053b0623c3e58a, type: 3}
-    amount: 2
-  - index: 13
-    name: FireBall
-    type: 3
-    prefab: {fileID: 365758230055039730, guid: 172585b65045d13408503ac14c6dc68d, type: 3}
-    amount: 3
-  - index: 14
-    name: Flame
-    type: 3
-    prefab: {fileID: 8378684242159414958, guid: 91927872617c01a4ca9993df2c810b5c, type: 3}
-    amount: 1
-  - index: 100
-    name: Item100
-    type: 2
-    prefab: {fileID: 7415919451420172075, guid: 4bcd362acf76652408a1ac466fbe4b7e, type: 3}
-    amount: 1
-  - index: 101
-    name: Item101
-    type: 2
-    prefab: {fileID: 7415919451420172075, guid: db5f48e5758f7034991f7e2a0fc7b3a1, type: 3}
-    amount: 1
-  - index: 1003
-    name: Dragon
-    type: 0
-    prefab: {fileID: 402435411959595447, guid: 2fb7d7b65802fe64ebc226326696dd83, type: 3}
-    amount: 1
-  - index: 1002
-    name: Golem
-    type: 0
-    prefab: {fileID: 7652724478705488456, guid: 2c1f43db1e559114ba770a2bb809e36e, type: 3}
-    amount: 1
-  - index: 15
-    name: StoneHitEffect
-    type: 3
-    prefab: {fileID: 6408609454296478051, guid: 53f5de2cf2a9e3c48b4f56e9771923f4, type: 3}
-    amount: 1
-  _defPoolAmount: 0
-  _canPoolExpand: 1
-  _poolingIcons:
-  - index: 1
-    name: CraftDesk
-    type: 2
-    prefab: {fileID: 21300000, guid: 89f77f2f17c9e0e4085212af9e1d5dbe, type: 3}
-  - index: 2
-    name: PetBox
-    type: 2
-    prefab: {fileID: 21300000, guid: a79d2958df75c43408b10e75789ad208, type: 3}
-  - index: 3
-    name: EnforceAnvil
-    type: 2
-    prefab: {fileID: 21300000, guid: 12d006c5833d0164a91724059cdd6754, type: 3}
-  - index: 1000
-    name: MushBoy
-    type: 0
-    prefab: {fileID: 21300000, guid: fcc00073d2727cb43bb80ddf839fbba1, type: 3}
-  - index: 1001
-    name: Cactus
-    type: 0
-    prefab: {fileID: 21300000, guid: af4aac8eecf22164090587b65445b50c, type: 3}
-  _hudRootTransform: {fileID: 580256942}
---- !u!4 &198866764
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 198866762}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &237095740
 GameObject:
   m_ObjectHideFlags: 0
@@ -2264,6 +2101,67 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 5}
   m_SizeDelta: {x: 70, y: 30}
   m_Pivot: {x: 1, y: 0}
+--- !u!1001 &795888134307025080
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 795888134428289010, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: m_Name
+      value: '@Pool'
+      objectReference: {fileID: 0}
+    - target: {fileID: 795888134428289011, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: _hudRootTransform
+      value: 
+      objectReference: {fileID: 580256942}
+    - target: {fileID: 795888134428289012, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 795888134428289012, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 795888134428289012, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 795888134428289012, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 795888134428289012, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 795888134428289012, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 795888134428289012, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 795888134428289012, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 795888134428289012, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 795888134428289012, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 795888134428289012, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
 --- !u!114 &1276448957858079656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4398,6 +4296,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9105902031183095986, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
 --- !u!1 &4174565169601335791
@@ -4649,28 +4551,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   invenUI: {fileID: 359017692}
   equipUI: {fileID: 1670524082}
-  itemSprites:
-  - index: 100
-    icon: {fileID: 21300000, guid: f8a9cfc721a20ce409c3d743e9b251bc, type: 3}
-  - index: 101
-    icon: {fileID: 21300000, guid: b9a847102a75c8c429a8f749008df6c2, type: 3}
-  - index: 102
-    icon: {fileID: 21300000, guid: d5d7f95582604484a87a97c246803bc7, type: 3}
-  - index: 103
-    icon: {fileID: 21300000, guid: ff4e2a40a0a91494a873149252b1aaaf, type: 3}
-  - index: 104
-    icon: {fileID: 21300000, guid: 7d58fd33da0c1714e83ed3c55ae05bb9, type: 3}
-  - index: 200
-    icon: {fileID: 21300000, guid: 2ddf0348701148a4d8a7c6a0f7f146b3, type: 3}
-  - index: 201
-    icon: {fileID: 21300000, guid: 6a08ec4b334ea1c46b8171679417a74f, type: 3}
-  - index: 202
-    icon: {fileID: 21300000, guid: bbf8638a8a75d9c42b93639213c92c9b, type: 3}
-  - index: 203
-    icon: {fileID: 21300000, guid: 90e99a7fde056a4418b9fe16084adb5c, type: 3}
-  - index: 204
-    icon: {fileID: 21300000, guid: 1fb46228a3bcb5042a763829cc07f9e5, type: 3}
-  itemNames: 
   itemCount: 0
 --- !u!1 &4993226954971137651
 GameObject:

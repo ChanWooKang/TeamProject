@@ -15,7 +15,7 @@ GameObject:
   m_Layer: 10
   m_Name: LeafSlash
   m_TagString: MonsterSkill
-  m_Icon: {fileID: 2800000, guid: 3faa68d4e2f05f04786133598667ac36, type: 3}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

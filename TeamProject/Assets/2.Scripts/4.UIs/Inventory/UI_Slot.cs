@@ -75,6 +75,7 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
 
     public void AddItem(BaseItem newItem, int cnt = 1)
     {
+        Debug.Log(newItem.NameEn);
         itemData = newItem;
         itemCount = cnt;
         itemWeight = newItem.Weight;
