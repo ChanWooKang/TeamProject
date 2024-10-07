@@ -3,20 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using DefineDatas;
 public class PetCactus : PetAnimController
-{
-    enum MeleeAttack
-    {
-        PunchAttack = 0,
-        HeadAttack,
+{   
 
-    }
-
-    enum RangeAttack
-    {
-        LeafAttack,
-    }
-
-    int _animIDGetHit;
+   // int _animIDGetHit;
     int _animIDDizzy;
     int _animIDBuff;
 
@@ -70,27 +59,7 @@ public class PetCactus : PetAnimController
         }
     }
 
-    public void AttackAction()
-    {
-        string trigger = "";
-        switch (_manager._attackType)
-        {
-            case eAttackType.MeleeAttack:
-                trigger = Utilitys.ConvertEnum(
-                    (MeleeAttack)PickPattern(_manager._attackType));
-                _animator.SetTrigger(trigger);
-
-                break;
-            case eAttackType.RangeAttack:
-                trigger = Utilitys.ConvertEnum(
-                    (RangeAttack)PickPattern(_manager._attackType));
-                _animator.SetTrigger(trigger);
-                break;
-            case eAttackType.Buff:
-                _animator.SetTrigger(_animIDBuff);
-                break;
-        }
-    }
+   
 
     
 }

@@ -15,7 +15,7 @@ public class PetStateAttack : TSingleton<PetStateAttack>, IFSMState<PetControlle
     {
         if (m.target == null)
         {
-            m.ChangeState(PetStateReturn._inst);
+            m.ChangeState(PetStateInit._inst);
         }
         else
         {

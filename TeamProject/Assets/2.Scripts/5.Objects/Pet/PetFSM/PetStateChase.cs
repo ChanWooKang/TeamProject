@@ -16,30 +16,23 @@ public class PetStateChase : TSingleton<PetStateChase>, IFSMState<PetController>
 
     public void Execute(PetController m)
     {
-        if (m.Movement.CheckFarOffset())
-        {
-            m.ChangeState(PetStateReturn._inst);
-            return;
-        }
+        //if (m.Movement.CheckFarOffset())
+        //{
+        //    m.ChangeState(PetStateReturn._inst);
+        //    return;
+        //}
 
         if (m.target != null)
         {
-            if (m.Movement.CheckCloseTarget(m.target.position, m.Stat.ChaseRange))
+            m.Movement.MoveFunc(m.target.position);
+            if (m.Movement.CheckCloseTarget(m.target.position, m.attackRange))
             {
-                m.Movement.MoveFunc(m.target.position);
-                if (m.Movement.CheckCloseTarget(m.target.position, m.attackRange))
-                {
-                    m.ChangeState(PetStateAttack._inst);
-                }
-            }
-            else
-            {
-                m.ChangeState(PetStateReturn._inst);
+                m.ChangeState(PetStateAttack._inst);
             }
         }
         else
         {
-            m.ChangeState(PetStateReturn._inst);
+            m.ChangeState(PetStateIdle._inst);
         }
     }
     public void Exit(PetController m)
