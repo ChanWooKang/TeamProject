@@ -56,22 +56,22 @@ MonoBehaviour:
     amount: 1
   - index: 1
     name: LeafSlash
-    type: 2
+    type: 3
     prefab: {fileID: 3434068320904704015, guid: 8c1e6840987db3e4195c3e3772388e6f, type: 3}
     amount: 3
   - index: 2
     name: MushBomb
-    type: 2
+    type: 3
     prefab: {fileID: 1098059996598783514, guid: 6a3a7c546834ee3429ef9b8a4c28dc6c, type: 3}
     amount: 3
   - index: 3
     name: AuraBuff
-    type: 2
+    type: 3
     prefab: {fileID: 6403343203915336968, guid: ddcb7e5c3915f784a981edfe25b06c39, type: 3}
     amount: 3
   - index: 4
     name: DuringBuff
-    type: 2
+    type: 3
     prefab: {fileID: 3637309620053123747, guid: 6ced8b328db98b645abd4496aa047aeb, type: 3}
     amount: 3
   - index: 5
@@ -114,16 +114,6 @@ MonoBehaviour:
     type: 3
     prefab: {fileID: 8378684242159414958, guid: 91927872617c01a4ca9993df2c810b5c, type: 3}
     amount: 1
-  - index: 100
-    name: Item100
-    type: 2
-    prefab: {fileID: 7415919451420172075, guid: 4bcd362acf76652408a1ac466fbe4b7e, type: 3}
-    amount: 1
-  - index: 101
-    name: Item101
-    type: 2
-    prefab: {fileID: 7415919451420172075, guid: db5f48e5758f7034991f7e2a0fc7b3a1, type: 3}
-    amount: 1
   - index: 1003
     name: Dragon
     type: 0
@@ -138,6 +128,36 @@ MonoBehaviour:
     name: StoneHitEffect
     type: 3
     prefab: {fileID: 6408609454296478051, guid: 53f5de2cf2a9e3c48b4f56e9771923f4, type: 3}
+    amount: 1
+  - index: 100
+    name: Item100
+    type: 2
+    prefab: {fileID: 7415919451420172075, guid: 4bcd362acf76652408a1ac466fbe4b7e, type: 3}
+    amount: 1
+  - index: 101
+    name: Item101
+    type: 2
+    prefab: {fileID: 7415919451420172075, guid: db5f48e5758f7034991f7e2a0fc7b3a1, type: 3}
+    amount: 1
+  - index: 102
+    name: Item102
+    type: 2
+    prefab: {fileID: 5018838811873960009, guid: 1094d7f3abd14a94f8b1ea54d8393192, type: 3}
+    amount: 1
+  - index: 103
+    name: Item103
+    type: 2
+    prefab: {fileID: 7415919451420172075, guid: 3aab22307cc1b914eac0c8c35f12ecb6, type: 3}
+    amount: 1
+  - index: 104
+    name: Item104
+    type: 2
+    prefab: {fileID: 7415919451420172075, guid: 610df14c54d645242be53e6016e06a3a, type: 3}
+    amount: 1
+  - index: 105
+    name: Item105
+    type: 2
+    prefab: {fileID: 5018838811873960009, guid: e391a7a09f96a0742a9b5123e007db6c, type: 3}
     amount: 1
   _defPoolAmount: 0
   _canPoolExpand: 1
