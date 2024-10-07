@@ -6,12 +6,12 @@ public class UnArmedCtrl : BaseWeaponCtrl
 {
     public override bool CheckAttackAble()
     {
-        return GameManagerEx._inst.playerManager._stat.CheckUseStamina(5);
+        return GameManagerEx._inst.playerManager._stat.CheckUseStamina(_useStamina);
     }
 
     public override void AttackAction()
     {
-        if (GameManagerEx._inst.playerManager._stat.CanUseStamina(5))
+        if (GameManagerEx._inst.playerManager._stat.CanUseStamina(_useStamina))
             ShootRay();
     }    
 }

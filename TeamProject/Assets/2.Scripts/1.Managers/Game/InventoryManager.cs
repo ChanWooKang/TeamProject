@@ -66,6 +66,7 @@ public class InventoryManager : TSingleton<InventoryManager>
         AddInvenItem(Dict_Item[201]);
         AddInvenItem(Dict_Item[202]);
         AddInvenItem(Dict_Item[203]);
+        AddInvenItem(Dict_Item[204]);
 
     }
 
