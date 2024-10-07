@@ -85,6 +85,7 @@ namespace DefineDatas
         OneHand,
         Bow,
         Rifle,
+        Pickaxe
     }
 
     public enum eStatType

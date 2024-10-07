@@ -55,8 +55,7 @@ public abstract class BaseWeaponCtrl : MonoBehaviour
     protected virtual void ShootRay()
     {
         if (Physics.SphereCast(FirePos.position, RayRadius, FirePos.forward, out RaycastHit rhit, _minDist+_weaponRange, AcceptLayer))
-        {
-            Debug.Log("cc");
+        {            
             if(rhit.transform.TryGetComponent(out IHitAble hit))
             {
                 if(hit.CheckAttackType(_type))
