@@ -102,9 +102,16 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        m_uiInteraction.ReadyToCraftSometing(m_itemIndex);
-        m_uiInteraction.OpenInteractionCraftTable();
-        m_uiInfoBox.CloseBox();
-        m_uiInteraction.SetPetWork(m_uiInteraction.m_tableCtrl);
+        if (InventoryManager._inst.UseItem(m_itemIndex))
+        {
+            m_uiInteraction.ReadyToCraftSometing(m_itemIndex);
+            m_uiInteraction.OpenInteractionCraftTable();
+            m_uiInfoBox.CloseBox();
+            m_uiInteraction.SetPetWork(m_uiInteraction.m_tableCtrl);
+        }
+        else
+        {
+
+        }
     }
 }

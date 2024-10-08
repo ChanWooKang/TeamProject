@@ -42,7 +42,7 @@ public class UI_InfoBox : MonoBehaviour
             string NameEn = matTable.ToStr(materials[i], "NameEn");
             string NameKr = matTable.ToStr(materials[i], "NameKr");
             int index = matTable.Find("NameEn", NameEn);
-            slot.InitSlot(PoolingManager._inst._poolingIconByName[NameEn].prefab, NameKr, matCosts[i], InventoryManager._inst.Dict_SlotItem[index].count);
+            slot.InitSlot(PoolingManager._inst._poolingIconByName[NameEn].prefab, NameKr, matCosts[i], InventoryManager._inst.GetItemCount(index));
             if (i > 0)
             {
                 m_parentRT.sizeDelta += m_startSlot.sizeDelta;
