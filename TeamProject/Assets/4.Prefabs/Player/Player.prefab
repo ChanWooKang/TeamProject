@@ -41929,7 +41929,7 @@ MonoBehaviour:
   _recogMaskRange: 2.5
   _recogLayer:
     serializedVersion: 2
-    m_Bits: 2049
+    m_Bits: 34817
   _hairImage: {fileID: 0}
   AimCam: {fileID: 0}
   CamTarget: {fileID: 3941320733417363660}
@@ -46631,7 +46631,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9105902031183095991
 Transform:
   m_ObjectHideFlags: 0

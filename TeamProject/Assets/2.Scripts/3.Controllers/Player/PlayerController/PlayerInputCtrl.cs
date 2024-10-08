@@ -195,6 +195,7 @@ public class PlayerInputCtrl : MonoBehaviour
         {
             if (_manager.RecognizeObject != null)
             {
+                Debug.Log("Check");
                 GameObject go = _manager.RecognizeObject;
                 if (go.TryGetComponent(out ObjectData data))
                 {

@@ -56,4 +56,14 @@ public class TutorialNPC : BaseNPC
 
 
     }
+
+    public override void TalkStart()
+    {
+        
+    }
+
+    public override void TalkEnd()
+    {
+        
+    }
 }
