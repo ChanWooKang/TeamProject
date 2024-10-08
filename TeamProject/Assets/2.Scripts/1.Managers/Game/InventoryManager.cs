@@ -294,6 +294,7 @@ public class InventoryManager : TSingleton<InventoryManager>
         ActiveChangeEquip = false;
     }
 
+    // False = 인벤토리 공간 여유로움, True = 인벤토리 공간 or 무게 가득 참 
     public bool CheckSlot(BaseItem newItem, int cnt = 1)
     {
         if (invenUI.CheckSlotFull(newItem, cnt))

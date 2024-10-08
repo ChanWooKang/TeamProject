@@ -45,6 +45,7 @@ public class TalkManager : TSingleton<TalkManager>
 
         for (int i = 0; i < dialogues.Length; i++)
         {
+            Debug.Log(dialogues[i].npcId);
             talkData.Add(dialogues[i].npcId, dialogues[i]);
         }
     }
@@ -64,8 +65,8 @@ public class TalkManager : TSingleton<TalkManager>
             dialogue.krName = row[1];            
             List<string> contextList = new List<string>();
             do
-            {
-                contextList.Add(row[2]);                
+            {                
+                contextList.Add(row[2]);
                 if (++i < data.Length)
                     row = data[i].Split(new char[] { ',' });
                 else

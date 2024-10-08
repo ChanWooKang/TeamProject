@@ -9,7 +9,9 @@ public abstract class BaseNPC : MonoBehaviour
     public ObjectData objData;
     public eNPCType npcType;
 
-    //NPC 행동 메소드
+
+    public abstract void TalkStart();    
+    public abstract void TalkEnd();        
     public abstract void ActiveAction();
 
     protected int GetAnimationID<T>(T data)
@@ -28,5 +30,10 @@ public abstract class BaseNPC : MonoBehaviour
     {
         int ID = GetAnimationID(data);
         _animator.SetBool(ID, isOn);
+    }
+
+    protected void LookTarget(Transform target)
+    {
+        transform.LookAt(target);
     }
 }
