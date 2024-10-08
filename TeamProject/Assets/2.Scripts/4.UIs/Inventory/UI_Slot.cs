@@ -71,7 +71,7 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
     {
         itemCount += cnt;
         Count_Text.text = itemCount.ToString();
-        itemWeight = itemData.Weight * itemCount;
+        ChangeWeight(itemData.Weight * itemCount);        
         if (itemCount <= 0)
             ClearSlot();
         else
@@ -82,7 +82,7 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
     {        
         itemData = newItem;
         itemCount = cnt;
-        itemWeight = newItem.Weight;
+        ChangeWeight(newItem.Weight);
         Item_Image.sprite = InventoryManager._inst.GetItemSprite(itemData.Index);
         Weight_Text.text = itemWeight.ToString();
         Weight_Parent.SetActive(true);
@@ -96,8 +96,19 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
             Count_Text.text = itemCount.ToString();
             Count_Parent.SetActive(true);
         }
-        SetAlpha(1);
+        SetAlpha(1);       
         ChangeSlotData();
+    }
+
+    void ChangeWeight(float weight)
+    {
+        float tempWeight = weight - itemWeight;
+        if(tempWeight != 0)
+        {
+            InventoryManager._inst.InventoryWeight += tempWeight;
+            Debug.Log(tempWeight);
+        }
+        itemWeight = weight;
     }
 
     void ChangeSlotData()
@@ -113,7 +124,7 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
     {
         itemData = null;
         itemCount = 0;
-        itemWeight = 0;
+        ChangeWeight(0);
         Item_Image.sprite = null;
         Count_Text.text = "";
         Count_Parent.SetActive(false);

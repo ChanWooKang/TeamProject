@@ -73,19 +73,7 @@ public class PlayerInputCtrl : MonoBehaviour
             ThrowAction();
 
             ReloadAction();
-        }
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            if (InventoryManager._inst.UseItem(201))
-            {
-                Debug.Log("제거 완료");
-            }
-            else
-            {
-                Debug.Log("일치 하는 아이템이 없습니다.");
-            }
-        }
+        }        
 
         InventoryAction();
     }

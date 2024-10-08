@@ -71,7 +71,7 @@ public class ItemCtrl : MonoBehaviour
 
     IEnumerator TurnObject()
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.0f);
         isRootAble = true;
         while (!isStop)
         {
@@ -93,6 +93,11 @@ public class ItemCtrl : MonoBehaviour
             Despawn();
             return true;
         }
+        else
+        {
+            Debug.Log("¿À·ù");
+        }
+
         return false;
     }
       

@@ -40,6 +40,17 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
         Item_Image.color = color;
     }
 
+    void ChangeWeight(float weight)
+    {
+        float tempWeight = weight - itemWeight;
+        if (tempWeight != 0)
+        {
+            InventoryManager._inst.InventoryWeight += tempWeight;
+            Debug.Log(tempWeight);
+        }
+        itemWeight = weight;
+    }
+
     public void SetItem(BaseItem _item = null)
     {
         if (_item != null)
@@ -51,7 +62,7 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
             }                
             item = _item;
             Item_Image.sprite = InventoryManager._inst.GetItemSprite(item.Index) ;
-            itemWeight = item.Weight;
+            ChangeWeight(item.Weight);
             Weight_Text.text = itemWeight.ToString();
             Weight_Parent.SetActive(true);
             SetAlpha(1);
@@ -71,7 +82,7 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
         }            
         item = null;
         Item_Image.sprite = null;
-        itemWeight = 0;
+        ChangeWeight(0);
         Weight_Text.text = "";
         Weight_Parent.SetActive(false);
         SetAlpha(0);

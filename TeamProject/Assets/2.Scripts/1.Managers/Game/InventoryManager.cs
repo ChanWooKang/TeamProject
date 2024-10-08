@@ -30,9 +30,10 @@ public class InventoryManager : TSingleton<InventoryManager>
 
     Coroutine EquipCoroutine = null;
 
-    public float MaxItemWeights { get { return GameManagerEx._inst.playerManager._stat.CarryWeight; } set { GameManagerEx._inst.playerManager._stat.CarryWeight = value; } }
-    public float InvenWeight { get { return invenUI.GetItemWeights() + equipUI.GetItemWeights(); } }    
+    public float MaxItemWeights { get { return GameManagerEx._inst.playerManager._stat.CarryWeight; } }    
     public UI_Slot[] InventoryItems { get { return invenUI.GetInvenSlots; } }
+
+    public float InventoryWeight;
 
     private void Awake()
     {
@@ -58,6 +59,7 @@ public class InventoryManager : TSingleton<InventoryManager>
     public void InitData()
     {
         itemCount = Items.Count;
+        InventoryWeight = 0;
         invenUI.Init();
         equipUI.Init();
         SetDictionary();
@@ -117,7 +119,7 @@ public class InventoryManager : TSingleton<InventoryManager>
     {
         if (Dict_SlotItem.ContainsKey(slotIndex))
         {
-            Dict_SlotItem[slotIndex] = datas;
+            Dict_SlotItem[slotIndex] = datas;            
         }
     }
 
@@ -316,20 +318,16 @@ public class InventoryManager : TSingleton<InventoryManager>
     // True = 인벤토리 공간 여유로움, False = 인벤토리 공간 or 무게 가득 참 
     public bool CheckSlot(BaseItem newItem, int cnt = 1)
     {
-        if (invenUI.CheckSlotFull(newItem, cnt))
+        if (invenUI.CheckSlot(newItem, cnt))
         {
-            if (MaxItemWeights < InvenWeight + (newItem.Weight * cnt))
-                return false;
-            else
+            if (MaxItemWeights >= InventoryWeight + (newItem.Weight * cnt))
                 return true;
+            else
+                return false;
         }
-        else
-        {
-            if (MaxItemWeights < InvenWeight + (newItem.Weight * cnt))
-                return false;
-            else
-                return true;
-        }        
+        else        
+            return false;
+                
     }
 
     public bool CheckSlotAndAddItem(List<ItemDatas> datas)
@@ -390,6 +388,18 @@ public class InventoryManager : TSingleton<InventoryManager>
         invenUI.AcquireItem(newItem, cnt);
     }
 
+    public int GetItemCount(int itemIndex)
+    {
+        int count = 0;
+
+        foreach(var Data in Dict_SlotItem)
+        {
+            if (Data.Value.index == itemIndex)
+                count += Data.Value.count;
+        }
+
+        return count;
+    }
     public bool UseItem(int itemIndex, int count = 1)
     {
         bool isOk = false;
@@ -405,7 +415,7 @@ public class InventoryManager : TSingleton<InventoryManager>
         return isOk;
     }
 
-    public bool UseItem(BaseItem item, int count)
+    public bool UseItem(BaseItem item, int count = 1)
     {
         return UseItem(item.Index, count);
     }
@@ -418,52 +428,7 @@ public class InventoryManager : TSingleton<InventoryManager>
     public void AddEquipItem(eEquipType type, BaseItem newItem, int slotIndex = 0)
     {
         equipUI.AcquireItem(type, newItem, slotIndex);
-    }
-
-    public ItemSlotAndCount CheckEnoughItem(int[] indexs, int[] costs)
-    {
-        UI_Slot[] slots = InventoryItems;
-        int slotNum;
-        int costValue;
-        bool isEnough;
-        List<int> slotNumbers = new List<int>();
-        List<int> itemCosts = new List<int>();
-
-        for (int i = 0; i < indexs.Length; i++)
-        {
-            slotNum = 0;
-            costValue = 0;
-            isEnough = false;
-            for (int j = 0; j < slots.Length; j++)
-            {
-                if (slots[j].itemData != null)
-                {
-                    if (slots[j].itemData.Index == slotNumbers[i]
-                        && slots[j].itemCount >= itemCosts[i])
-                    {
-                        slotNum = j;
-                        costValue = itemCosts[i];
-                        isEnough = true;
-                        break;
-                    }
-                }
-                if (isEnough == false)
-                    return null;
-                else
-                {
-                    slotNumbers.Add(slotNum);
-                    itemCosts.Add(costValue);
-                }
-            }
-        }
-        return new ItemSlotAndCount(slotNumbers, itemCosts);
-    }
-
-    public void UseItemForBuild(int slotNumber, int itemCost)
-    {
-        invenUI.UseItemAtSlot(slotNumber, itemCost);
-    }
-
+    }       
     
     public int GetActiveWeaponIndex(int slotIndex)
     {

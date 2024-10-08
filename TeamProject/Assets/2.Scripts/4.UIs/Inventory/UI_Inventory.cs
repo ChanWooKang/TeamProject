@@ -124,37 +124,20 @@ public class UI_Inventory : MonoBehaviour
     #region [Main]
     public void SettingInvenWeight()
     {
-        float weight = InventoryManager._inst.InvenWeight;
+        float weight = InventoryManager._inst.InventoryWeight;
         float maxWeight = GameManagerEx._inst.playerManager._stat.CarryWeight;
 
         InvenWeightFill.fillAmount = weight / maxWeight;
         InvenWeightText.text = string.Format("{0:D2} / {1:D2}", (int)weight, (int)maxWeight);
     }
-
-    public float GetItemWeights()
-    {
-        float weights = 0;
-        foreach (UI_Slot slot in slots)
-        {
-            weights += slot.itemWeight;
-        }
-        return weights;
-    }
-
-    public void UseItemAtSlot(int slotNumber, int count)
-    {
-        if (slotNumber >= slots.Length)
-            return;
-
-        slots[slotNumber].SetSlotCount(-count);
-    }
+    
 
     public void AcquireItem(BaseItem newItem, int count = 1)
     {
         if (newItem.Type == eItemType.Gold)
             return;
 
-        if (newItem.Type != eItemType.Equipment)
+        if (newItem.Type != eItemType.Equipment && newItem.Type != eItemType.Weapon)
         {
             for (int i = 0; i < slots.Length; i++)
             {
@@ -221,6 +204,35 @@ public class UI_Inventory : MonoBehaviour
         }
 
         return true;
+    }
+    
+    public bool CheckSlot(BaseItem newItem, int count = 1)
+    {
+        int i = 0;
+        //장비 아이템 , 무기아이템이 아닐 경우 (개수를 추가 할수 있어 확인)
+        if(newItem.Type != eItemType.Equipment && newItem.Type != eItemType.Weapon)
+        {
+            for(; i < slots.Length; i++)
+            {
+                if(slots[i].itemData != null)
+                {
+                    if (slots[i].itemData.Index == newItem.Index)
+                    {
+                        if (slots[i].itemCount + count <= slots[i].itemData.MaxStack)                        
+                            return true;                        
+                        else
+                            continue;
+                    }
+                }
+            }            
+        }
+
+        for (i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].itemData == null)
+                return true;
+        }
+        return false;
     }
     #endregion [Main]
 

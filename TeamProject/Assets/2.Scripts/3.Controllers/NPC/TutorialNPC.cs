@@ -46,14 +46,12 @@ public class TutorialNPC : BaseNPC
             case State.Heavy:
                 NPCState = State.Before;
                 objData.index += (int)NPCState;
-                TalkManager._inst.talkUI.SetOnOff(false);
+                TalkManager._inst.TalkingEnd();
                 break;
             case State.Finish:
                 TalkManager._inst.talkUI.SetOnOff(false);
                 break;
-        }
-
-
+        }        
 
     }
 

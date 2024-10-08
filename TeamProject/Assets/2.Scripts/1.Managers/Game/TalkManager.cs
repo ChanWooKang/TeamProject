@@ -136,7 +136,19 @@ public class TalkManager : TSingleton<TalkManager>
 
     public void ShowText(GameObject scanObject, int index)
     {
-        bool isTalkEnd = !OnTalk(index);   
+        bool isTalk = OnTalk(index);
+        talkUI.SetOnOff(isTalk);
+
+        if (scanObject.TryGetComponent(out ObjectData data))
+        {
+            if(data.isNPC && scanObject.TryGetComponent(out BaseNPC npc))
+            {
+                if (isTalk)
+                    npc.Talking();
+                else
+                    npc.ActiveAction();
+            }
+        }        
     }
 
     public void TalkingEnd()
