@@ -6,10 +6,11 @@ using TMPro;
 using DefineDatas;
 
 public class UI_Inventory : MonoBehaviour
-{    
+{
 
     #region [Main Component & Param]
     [Header("Main")]
+    public GameObject dropUI;
     public GameObject main;
     public GameObject Slot_Parent;
     public Text InvenWeightText;
@@ -90,7 +91,8 @@ public class UI_Inventory : MonoBehaviour
 
     void OpenUI()
     {
-        isOnUI = true;        
+        isOnUI = true;
+        dropUI.SetActive(true);
         main.SetActive(isOnUI);
         petInven.SetActive(false);
         TechnologyBox.SetActive(false);
@@ -105,6 +107,7 @@ public class UI_Inventory : MonoBehaviour
     void CloseUI()
     {
         isOnUI = false;
+        dropUI.SetActive(false);
         m_petEntryBox.OpenUI();
         main.SetActive(isOnUI);
         petInven.SetActive(false);

@@ -26,6 +26,7 @@ public class PlayerCtrl : MonoBehaviour
     
     Coroutine _damagedCoroutine;
     public bool isDead;
+    public bool StopMove = false;
 
     public bool IsCurrentDeviceMouse
     {

@@ -60,7 +60,7 @@ public class PlayerInputCtrl : MonoBehaviour
     {
         CheckCrossHair();
 
-        if (GameManagerEx._inst.CheckIsMoveAble() && GameManagerEx._inst.isOnBuild == false)
+        if (GameManagerEx._inst.CheckIsMoveAble() && GameManagerEx._inst.isOnBuild == false && _manager.StopMove == false)
         {
             AimAction();
 

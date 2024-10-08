@@ -94,6 +94,16 @@ public class PlayerAnimCtrl : MonoBehaviour
         SetAnimation(ePlayerAnimParams.Fix, isOn);
     }
 
+    public void OnStopMove()
+    {
+        _manager.StopMove = true;
+    }
+
+    public void OffStopMove()
+    {
+        _manager.StopMove = false;
+    }
+
     public void OnEquip()
     {        
         _manager._equip.EquipEvent();
