@@ -30,7 +30,10 @@ public class PetStatePatrol : TSingleton<PetStatePatrol>, IFSMState<PetControlle
         }
         else
         {
-            m.Movement.MoveFunc(m.player.position);
+            if (m.Movement.CheckCloseTarget(m.player.position, m.Stat.AttackRange))
+                m.Movement.MoveFunc(m.player.position);
+            else
+                m.ChangeState(PetStateIdle._inst);
         }
     }
 
