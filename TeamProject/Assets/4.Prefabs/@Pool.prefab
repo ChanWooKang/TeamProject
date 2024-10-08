@@ -171,6 +171,14 @@ MonoBehaviour:
     type: 2
     prefab: {fileID: 21300000, guid: a79d2958df75c43408b10e75789ad208, type: 3}
   - index: 3
+    name: BallDesk
+    type: 2
+    prefab: {fileID: 21300000, guid: 02c079c25fe25144094222f586ce6ae9, type: 3}
+  - index: 4
+    name: Brazier
+    type: 2
+    prefab: {fileID: 21300000, guid: 9fdf08668d6b6104caf3fd3565a86f5b, type: 3}
+  - index: 5
     name: EnforceAnvil
     type: 2
     prefab: {fileID: 21300000, guid: 12d006c5833d0164a91724059cdd6754, type: 3}
@@ -202,6 +210,10 @@ MonoBehaviour:
     name: BlackPowder
     type: 1
     prefab: {fileID: 21300000, guid: e87e04cf40ef9e34580aff48e7c52079, type: 3}
+  - index: 105
+    name: Ironingot
+    type: 1
+    prefab: {fileID: 21300000, guid: 6245120e1a364e246abea18001c71de8, type: 3}
   - index: 200
     name: WoodBat
     type: 1
@@ -219,7 +231,7 @@ MonoBehaviour:
     type: 1
     prefab: {fileID: 21300000, guid: 046df0d447ca17149a6ac4f8c4d1c72a, type: 3}
   - index: 204
-    name: PickAxe
+    name: Pickaxe
     type: 1
     prefab: {fileID: 21300000, guid: 2be0e75b84d62814ab36a4b2dabb3b04, type: 3}
   _hudRootTransform: {fileID: 0}

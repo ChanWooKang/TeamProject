@@ -39,7 +39,10 @@ public class UI_InfoBox : MonoBehaviour
             RectTransform rect = m_matSlotObj.GetComponent<RectTransform>();
             float y = (m_startSlot.sizeDelta.y + 1) * i;
             rect.anchoredPosition = new Vector2(0, y);
-            slot.InitSlot(null, matTable.ToStr(materials[i], "NameKr"), matCosts[i], 0);
+            string NameEn = matTable.ToStr(materials[i], "NameEn");
+            string NameKr = matTable.ToStr(materials[i], "NameKr");
+            int index = matTable.Find("NameEn", NameEn);
+            slot.InitSlot(PoolingManager._inst._poolingIconByName[NameEn].prefab, NameKr, matCosts[i], InventoryManager._inst.GetItemCount(index));
             if (i > 0)
             {
                 m_parentRT.sizeDelta += m_startSlot.sizeDelta;
