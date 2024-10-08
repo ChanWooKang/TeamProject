@@ -58,8 +58,7 @@ public class TutorialNPCCtrl : BaseNPC
                 {
                     _state = NPCStates.NotAble;
                     plusIndex = (int)_state;
-                    SetObjectDataIndex();
-                    TalkManager._inst.isTalking = false;
+                    SetObjectDataIndex();                    
                     TalkManager._inst.ShowText(gameObject, objData.index);
                 }
                 break;
@@ -75,7 +74,7 @@ public class TutorialNPCCtrl : BaseNPC
                 break;              
         }
 
-        TalkEnd();
+        
     }
     
     

@@ -90,8 +90,7 @@ public class PlayerCtrl : MonoBehaviour
 
     void LoadStat()
     {
-        _stat.Init();
-        InventoryManager._inst.MaxItemWeights = _stat.CarryWeight;
+        _stat.Init();        
     }
 
     public void SetRecognizeObject(GameObject go = null)
