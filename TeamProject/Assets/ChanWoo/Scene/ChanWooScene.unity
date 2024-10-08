@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.15575309, g: 0.23584393, b: 0.33611047, a: 1}
+  m_IndirectSpecularColor: {r: 0.1557526, g: 0.23584321, b: 0.33610904, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -324,9 +324,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25478309541e5294d914f6cc57d0d73e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objID: 10000
+  index: 10000
   type: 1
-  isNPC: 0
+  isNPC: 1
 --- !u!114 &307250489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,6 +342,11 @@ MonoBehaviour:
   _animator: {fileID: 307250487}
   objData: {fileID: 307250488}
   npcType: 1
+  giveItems:
+  - index: 100
+    count: 1
+  - index: 101
+    count: 1000
 --- !u!1 &324577835
 GameObject:
   m_ObjectHideFlags: 0
@@ -4926,7 +4931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &2748145412254448790
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5789,8 +5794,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   talkUI: {fileID: 2748145411640255680}
-  fileName: TestDialogue
-  isEndTalk: 0
+  _fileName: TestData
+  isTalking: 0
 --- !u!4 &4879941348152082382
 Transform:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ public class UI_Talk : MonoBehaviour
     {
         SetText(null, null);
         SetOnOff(false);
-    }
+    }   
 
     public void SetText(string speaker, string dialogue)
     {

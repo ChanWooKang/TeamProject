@@ -18,7 +18,7 @@ public class InventoryManager : TSingleton<InventoryManager>
     public Dictionary<int, MaterialItemInfo> Dict_Material;
     public Dictionary<int, WeaponItemInfo> Dict_Weapon;
     public Dictionary<int, PetBallInfo> Dict_Petball;
-
+    public Dictionary<int, ItemDatas> Dict_SlotItem;
     //public Dictionary<int, Sprite> Dict_itemSprite;
     //public List<ItemSprite> itemSprites;
     //public List<int> itemNames;
@@ -57,11 +57,11 @@ public class InventoryManager : TSingleton<InventoryManager>
 
     public void InitData()
     {
-
         itemCount = Items.Count;
         invenUI.Init();
         equipUI.Init();
         SetDictionary();
+        SetInitInventoryData();
         AddInvenItem(Dict_Item[200]);
         AddInvenItem(Dict_Item[201]);
         AddInvenItem(Dict_Item[202]);
@@ -95,6 +95,29 @@ public class InventoryManager : TSingleton<InventoryManager>
         for (int i = 0; i < maxCount; i++)
         {
             MakeItemClass(table, itemType, i, offSetNum);
+        }
+    }
+
+    public void SetInitInventoryData()
+    {
+        // Key = UI_Slot slotIndex, 
+        Dict_SlotItem = new Dictionary<int, ItemDatas>();
+        UI_Slot[] slots = InventoryItems;
+        for(int i = 0; i < slots.Length; i++)
+        {
+            int index = 0;
+            if (slots[i].itemData != null)
+                index = slots[i].itemData.Index;
+            ItemDatas datas = new ItemDatas(index, slots[i].itemCount);
+            Dict_SlotItem.Add(slots[i].slotIndex, datas);
+        }
+    }
+
+    public void ChangeInventoryData(int slotIndex, ItemDatas datas)
+    {
+        if (Dict_SlotItem.ContainsKey(slotIndex))
+        {
+            Dict_SlotItem[slotIndex] = datas;
         }
     }
 
@@ -172,9 +195,6 @@ public class InventoryManager : TSingleton<InventoryManager>
 
     }
 
-
-
-
     public BaseItem GetItemData(int index)
     {
         for (int i = 0; i < Items.Count; i++)
@@ -205,8 +225,7 @@ public class InventoryManager : TSingleton<InventoryManager>
         Dict_Item = new Dictionary<int, BaseItem>();
         for (int i = 0; i < Items.Count; i++)
         {
-            Dict_Item.Add(Items[i].Index, Items[i]);
-            //itemNames.Add(Items[i].Index);
+            Dict_Item.Add(Items[i].Index, Items[i]);            
         }
         
     }
@@ -294,28 +313,106 @@ public class InventoryManager : TSingleton<InventoryManager>
         ActiveChangeEquip = false;
     }
 
-    // False = 인벤토리 공간 여유로움, True = 인벤토리 공간 or 무게 가득 참 
+    // True = 인벤토리 공간 여유로움, False = 인벤토리 공간 or 무게 가득 참 
     public bool CheckSlot(BaseItem newItem, int cnt = 1)
     {
         if (invenUI.CheckSlotFull(newItem, cnt))
         {
             if (MaxItemWeights < InvenWeight + (newItem.Weight * cnt))
-                return true;
-            else
                 return false;
+            else
+                return true;
         }
         else
         {
             if (MaxItemWeights < InvenWeight + (newItem.Weight * cnt))
-                return true;
-            else
                 return false;
+            else
+                return true;
         }        
     }
 
+    public bool CheckSlotAndAddItem(List<ItemDatas> datas)
+    {
+        List<ItemDatas> insideItems = new List<ItemDatas>();
+        bool isOk = false;
+        int i = 0;
+        for(; i < datas.Count; i++)
+        {
+            if (Dict_Item.ContainsKey(datas[i].index))
+            {
+                BaseItem itemData = Dict_Item[datas[i].index];
+                if (CheckSlot(itemData, datas[i].count))
+                {
+                    //Possible                                
+                    AddInvenItem(itemData, datas[i].count);
+                    insideItems.Add(datas[i]);
+                    isOk = true;
+                }
+                else
+                {
+                    //Impossible               
+                    isOk = false;
+                    break;
+                }
+            }
+            else
+            {
+                isOk = false;
+                break;
+            }
+        }
+
+        if (!isOk)
+        {
+            if (insideItems.Count > 0)
+            {
+                //들어간만큼의 아이템을 다시 제거
+                for (i = 0; i < insideItems.Count; i++)
+                {
+                    if(UseItem(insideItems[i]) == false)
+                    {
+                        Debug.Log("오류");
+                    }
+                    else
+                    {
+                        Debug.Log($"{Dict_Item[insideItems[i].index].NameKr}를 삭제했습니다.");
+                    }
+                }
+            }
+        }
+
+        return isOk;
+    }
+        
     public void AddInvenItem(BaseItem newItem, int cnt = 1)
     {
         invenUI.AcquireItem(newItem, cnt);
+    }
+
+    public bool UseItem(int itemIndex, int count = 1)
+    {
+        bool isOk = false;
+        foreach (var Data in Dict_SlotItem)
+        {
+            if (Data.Value.index == itemIndex && Data.Value.count >= count)
+            {
+                isOk = true;
+                InventoryItems[Data.Key].SetSlotCount(-count);
+                break;
+            }
+        }
+        return isOk;
+    }
+
+    public bool UseItem(BaseItem item, int count)
+    {
+        return UseItem(item.Index, count);
+    }
+
+    public bool UseItem(ItemDatas datas)
+    {
+        return UseItem(datas.index, datas.count);
     }
 
     public void AddEquipItem(eEquipType type, BaseItem newItem, int slotIndex = 0)
@@ -367,31 +464,19 @@ public class InventoryManager : TSingleton<InventoryManager>
         invenUI.UseItemAtSlot(slotNumber, itemCost);
     }
 
-
-
-    //SlotIndex 로 무기 핫키 출력 1 2 3 4
+    
     public int GetActiveWeaponIndex(int slotIndex)
     {
 
         UI_EquipSlot data = equipUI.GetEquipData(slotIndex);
-        if (data == null)
+        if (data != null)
         {
-            // 비 무장으로 전환
-            //Debug.Log("인벤토리매니저 : 비무장");
-            return 0;
+            if (data.item == null)                            
+                return 0;            
+            else            
+                return data.item.Index;           
         }
         else
-        {
-            if (data.item == null)
-            {
-                Debug.Log("인벤토리매니저 : 아이템 정보 없음");
-                return 0;
-            }
-            else
-            {
-                return data.item.Index;
-            }
-
-        }
+            return 0;
     }
 }

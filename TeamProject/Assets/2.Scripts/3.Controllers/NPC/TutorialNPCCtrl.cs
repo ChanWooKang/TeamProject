@@ -8,7 +8,7 @@ public class TutorialNPCCtrl : BaseNPC
     {
         Init     = 0,
         TalkEnd,
-        NotAble
+        NotAble                
     }
 
     enum NPCAnimationParams
@@ -17,40 +17,76 @@ public class TutorialNPCCtrl : BaseNPC
         Talking
     }
 
-    Transform target;
-
+    Transform target;    
     bool isInside = false;
     NPCStates _state = NPCStates.Init;
-
-    public override void TalkStart()
+ 
+    public override void Talking()
     {
-        SetAnimation(NPCAnimationParams.Talking, true);
+        if (!isInit)
+            Init();
+
+        NPCAnimationParams talkState = NPCAnimationParams.Talking;
+        if(!GetAnimationBool(talkState))
+            SetAnimation(talkState, true);
     }
 
     public override void TalkEnd()
     {
         SetAnimation(NPCAnimationParams.Talking, false);
+        TalkManager._inst.TalkingEnd();
     }
     public override void ActiveAction()
-    {        
-        if(target != null) 
-            LookTarget(target);        
+    {
+        if (!isInit)
+            Init();
 
+        if (target != null) 
+            LookTarget(target);
+        
         switch (_state)
         {
             case NPCStates.Init:
-                break;
-            case NPCStates.TalkEnd:
+                if (GiveItem())
+                {
+                    _state = NPCStates.TalkEnd;
+                    plusIndex = (int)_state;
+                    SetObjectDataIndex();
+                    TalkEnd();                    
+                }
+                else
+                {
+                    _state = NPCStates.NotAble;
+                    plusIndex = (int)_state;
+                    SetObjectDataIndex();
+                    TalkManager._inst.isTalking = false;
+                    TalkManager._inst.ShowText(gameObject, objData.index);
+                }
                 break;
             case NPCStates.NotAble:
-                break;  
+                _state = NPCStates.Init;
+                plusIndex = (int)_state;
+                SetObjectDataIndex();
+                TalkEnd();
+                break;
+
+            case NPCStates.TalkEnd:
+                TalkEnd();
+                break;              
         }
+
+        TalkEnd();
     }
+    
+    
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            if (!isInit)
+                Init();
+
             if (!isInside) 
             {
                 isInside = true;

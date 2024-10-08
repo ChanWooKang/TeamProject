@@ -173,8 +173,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemIndex: 100
   itemCount: 0
+  itemWeight: 0
   power: 5
   turnSpeed: 30
+  isRootAble: 0
 --- !u!114 &7415919451420172074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25478309541e5294d914f6cc57d0d73e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objID: 100
+  index: 100
   type: 2
   isNPC: 0

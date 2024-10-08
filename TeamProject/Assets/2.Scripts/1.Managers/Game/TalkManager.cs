@@ -3,144 +3,150 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Dialogue
-{    
-    public int npcId;    
-    public string krName;    
+{
+    public int index;
+    public string npcName;
     public string[] contexts;
 }
 
 public class TalkManager : TSingleton<TalkManager>
-{   
-
-    #region [ Component ]
+{
     public UI_Talk talkUI;
-    #endregion [ Component ]
 
-    #region [ 전역변수 ]
-    Dictionary<int, Dialogue> talkData;
-    public string fileName;
-    public bool isEndTalk;
-    int talkCounter;
-    #endregion [ 전역변수 ]
+    Dictionary<int, Dialogue> _talkData;
+    public string _fileName;
+    public bool isTalking;
+    int _talkCounter;
+    Coroutine UICoroutine;
 
-
-    void Start()
+    private void Start()
     {
+        InitData();
+    }
+
+    void InitData()
+    {
+        isTalking = false;
+        _talkCounter = 0;
         LoadTalkData();
-        talkUI.Init();
-    }    
-
-    public void ResetData()
-    {
-        isEndTalk = false;
-        talkUI.SetOnOff(false);
-        talkCounter = 0;
+        UICoroutine = null;
     }
 
-    //CSV파일 로드 후 호출
-    public void LoadTalkData()
+    #region [ Load Data ]
+    void LoadTalkData()
     {
-        talkData = new Dictionary<int, Dialogue>();
-        Dialogue[] dialogues = Parse(fileName);
-
-        for (int i = 0; i < dialogues.Length; i++)
-        {
-            Debug.Log(dialogues[i].npcId);
-            talkData.Add(dialogues[i].npcId, dialogues[i]);
-        }
+        AddData(Parse(_fileName));
     }
 
-    //CSV파일 변환
-    public Dialogue[] Parse(string csvFileName)
+    void AddData(Dialogue[] datas)
     {
-        List<Dialogue> dialogueList = new List<Dialogue>();
-        TextAsset csvData = Resources.Load<TextAsset>($"CSV/{csvFileName}");
+        _talkData = new Dictionary<int, Dialogue>();
+        for (int i = 0; i < datas.Length; i++)
+            _talkData.Add(datas[i].index, datas[i]);
+    }
 
-        string[] data = csvData.text.Split(new char[] {'\n'});
-        for (int i = 1; i < data.Length;)
+    Dialogue[] Parse(string fileName)
+    {
+        List<Dialogue> talkList = new List<Dialogue>();
+        TextAsset fileData = Resources.Load<TextAsset>($"CSV/{fileName}");
+
+        string[] datas = fileData.text.Split(new char[] { '\n' });
+        for (int i = 1; i < datas.Length;)
         {
-            string[] row = data[i].Split(new char[] { ',' });
+            string[] row = datas[i].Split(new char[] { ',' });            
             Dialogue dialogue = new Dialogue();
-            dialogue.npcId = int.Parse(row[0]);
-            dialogue.krName = row[1];            
+            dialogue.index = int.Parse(row[0]);
+            dialogue.npcName = row[1];
             List<string> contextList = new List<string>();
             do
-            {                
+            {
                 contextList.Add(row[2]);
-                if (++i < data.Length)
-                    row = data[i].Split(new char[] { ',' });
+                if (++i < datas.Length)
+                    row = datas[i].Split(new char[] { ',' });
                 else
                     break;
-
             } while (string.IsNullOrEmpty(row[0].ToString()));
-            
             dialogue.contexts = contextList.ToArray();
-            dialogueList.Add(dialogue);
+            talkList.Add(dialogue);
         }
 
-        return dialogueList.ToArray();
+        return talkList.ToArray();
     }
+    #endregion [ Load Data ]
 
-    //Object ID값으로 일치하는 대화 호출   
-    //Index => 대화 Index값
-    string GetTalk(int id, int talkIndex)
+    string GetTalk(int index, int talkIndex)
     {
-        if (talkData.ContainsKey(id) == false)
+        //해당하는 인덱스가 존재 하지 않을 경우
+        if (!_talkData.ContainsKey(index))
             return null;
 
-        if (talkIndex == talkData[id].contexts.Length)
+        //대화 내용을 전부 불러온 이후 일 경우
+        if (talkIndex >= _talkData[index].contexts.Length)
             return null;
-        return talkData[id].contexts[talkIndex];
+
+        return _talkData[index].contexts[talkIndex];
     }
 
-    public bool OnTalk(int objID, string speaker)
+    public bool OnTalk(int index)
     {
-        string talkContext = GetTalk(objID, talkCounter);
+        string context = GetTalk(index, _talkCounter);
 
-        if (string.IsNullOrEmpty(talkContext))
+        //해당하는 데이터가 불러오지 않은 경우
+        if (string.IsNullOrEmpty(context))
         {
-            talkCounter = 0;
+            _talkCounter = 0;
             return false;
         }
 
-        //UI Text Change
-        talkUI.SetText(speaker, talkContext);
-
-        talkCounter++;
+        string speaker = _talkData[index].npcName;
+        //UI Text 변경
+        talkUI.SetText(speaker, context);
+        _talkCounter++;
         return true;
     }
 
-    public void ShowText(GameObject scanObj, int id, string speaker)
-    {
-        if(OnTalk(id,speaker) == false)
-        {
-            if (isEndTalk)
-            {
-                //UI Off
-                talkUI.SetOnOff(false);
-                isEndTalk = false;                
-                return;
-            }
+    //직접적으로 텍스트 호출
+    //public void ShowText(GameObject scanObject, int index)
+    //{
+    //    isTalking = OnTalk(index);
+    //    BaseNPC npc = null;
+    //    bool isNPC = false;
 
-            if (scanObj.TryGetComponent(out ObjectData objData))
-            {
-                //NPC일때 대화 및 행동
-                if (objData.isNPC)
-                {
-                    if (scanObj.TryGetComponent(out BaseNPC npc))
-                    {
-                        npc.ActiveAction();
-                    }                    
-                }                
-            }            
-            isEndTalk = true;
-        }
-        else
-        {
-            //UI On
-            talkUI.SetOnOff(true);
-            
-        }
+    //    if (scanObject.TryGetComponent(out ObjectData data))
+    //    {
+    //        isNPC = data.isNPC && scanObject.TryGetComponent(out npc);            
+    //    }        
+
+    //    if (isTalking)
+    //    {
+    //        talkUI.SetOnOff(true);
+    //        if (isNPC)
+    //            npc.Talking();
+    //    }
+    //    else
+    //    {
+    //        if (UICoroutine != null)
+    //            StopCoroutine(UICoroutine);
+    //        UICoroutine = StartCoroutine(OffUI(0.5f));
+
+    //        if (isNPC)
+    //            npc.ActiveAction();            
+    //    }
+    //}
+
+    public void ShowText(GameObject scanObject, int index)
+    {
+        bool isTalkEnd = !OnTalk(index);   
     }
 
+    public void TalkingEnd()
+    {
+        talkUI.SetOnOff(false);        
+    }
+
+    IEnumerator OffUI(float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        talkUI.SetOnOff(false);
+    }
 }

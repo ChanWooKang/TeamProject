@@ -189,6 +189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25478309541e5294d914f6cc57d0d73e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objID: 105
+  index: 105
   type: 2
   isNPC: 0

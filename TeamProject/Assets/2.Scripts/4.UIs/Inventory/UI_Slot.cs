@@ -23,9 +23,11 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
     GameObject Count_Parent;
     GameObject Weight_Parent;
 
+    public int slotIndex;
     public BaseItem itemData;
     public int itemCount;
     public float itemWeight;
+    bool isSetting = false;
 
     public override void Init()
     {
@@ -36,6 +38,7 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
         Count_Parent = GetObject((int)GameObjects.CountParent);
         Weight_Parent = GetObject((int)GameObjects.WeightParent);        
         ClearSlot();
+        isSetting = true;
     }
 
     void SetAlpha(float alpha)
@@ -71,6 +74,8 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
         itemWeight = itemData.Weight * itemCount;
         if (itemCount <= 0)
             ClearSlot();
+        else
+            ChangeSlotData();
     }
 
     public void AddItem(BaseItem newItem, int cnt = 1)
@@ -92,6 +97,16 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
             Count_Parent.SetActive(true);
         }
         SetAlpha(1);
+        ChangeSlotData();
+    }
+
+    void ChangeSlotData()
+    {
+        int index = 0;
+        if (itemData != null)
+            index = itemData.Index;
+        ItemDatas datas = new ItemDatas(index, itemCount);
+        InventoryManager._inst.ChangeInventoryData(slotIndex, datas);        
     }
 
     public void ClearSlot()
@@ -104,7 +119,12 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
         Count_Parent.SetActive(false);
         Weight_Text.text = "";
         Weight_Parent.SetActive(false);
-        SetAlpha(0);        
+        SetAlpha(0);
+
+        if (isSetting)
+        {
+            ChangeSlotData();
+        }
     }
 
     void ChangeSlot()
@@ -181,7 +201,7 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
             if(InventoryManager.ActiveChangeEquip == false)
             {
                 UI_EquipSlot slot = DragSlot._inst.SlotEquip;
-                if (InventoryManager._inst.CheckSlot(slot.item) == false)
+                if (InventoryManager._inst.CheckSlot(slot.item))
                 {
                     InventoryManager._inst.OnChangeEvent?.Invoke(slot.item.EquipType, slot.item, slot.SlotIndex, false);
                     DragSlot._inst.SlotEquip.ClearSlot();

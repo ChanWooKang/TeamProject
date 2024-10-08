@@ -26,26 +26,26 @@ public class TutorialNPC : BaseNPC
         switch (NPCState)
         {
             case State.Before:
-                if (InventoryManager._inst.CheckSlot(testItem) == false)
+                if (InventoryManager._inst.CheckSlot(testItem))
                 {
                     //가능 
                     Debug.Log("아이템 보상 지급 했습니다.");
                     InventoryManager._inst.AddInvenItem(testItem);
                     NPCState = State.Finish;
-                    objData.objID += (int)NPCState;
+                    objData.index += (int)NPCState;
                     TalkManager._inst.talkUI.SetOnOff(false);
                 }
                 else
                 {
                     //불가
                     NPCState = State.Heavy;
-                    objData.objID += (int)NPCState;
-                    TalkManager._inst.ShowText(this.gameObject, objData.objID, objData.name);
+                    objData.index += (int)NPCState;
+                    //TalkManager._inst.ShowText(this.gameObject, objData.objID, objData.name);
                 }
                 break;
             case State.Heavy:
                 NPCState = State.Before;
-                objData.objID += (int)NPCState;
+                objData.index += (int)NPCState;
                 TalkManager._inst.talkUI.SetOnOff(false);
                 break;
             case State.Finish:
@@ -57,13 +57,15 @@ public class TutorialNPC : BaseNPC
 
     }
 
-    public override void TalkStart()
-    {
-        
-    }
+    
 
     public override void TalkEnd()
     {
         
+    }
+
+    public override void Talking()
+    {
+        throw new System.NotImplementedException();
     }
 }

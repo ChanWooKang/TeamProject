@@ -87,7 +87,7 @@ public class ItemCtrl : MonoBehaviour
             item = InventoryManager._inst.GetItemData(itemIndex);
 
 
-        if (InventoryManager._inst.CheckSlot(item, itemCount) == false)
+        if (InventoryManager._inst.CheckSlot(item, itemCount))
         {            
             InventoryManager._inst.AddInvenItem(item, itemCount);
             Despawn();

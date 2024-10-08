@@ -86,7 +86,7 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
             {                
                 if (InventoryManager.ActiveChangeEquip == false)
                 {
-                    if (InventoryManager._inst.CheckSlot(item) == false)
+                    if (InventoryManager._inst.CheckSlot(item))
                     {
                         InventoryManager._inst.OnChangeEvent?.Invoke(slotType, item, SlotIndex, false);
                         ClearSlot();
@@ -103,7 +103,7 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
         {
             if (InventoryManager.ActiveChangeEquip == false)
             {
-                if (InventoryManager._inst.CheckSlot(item) == false)
+                if (InventoryManager._inst.CheckSlot(item))
                 {
                     UI_ItemInfo._info.OffInformation();
                     DragSlot._inst.isFromInven = false;

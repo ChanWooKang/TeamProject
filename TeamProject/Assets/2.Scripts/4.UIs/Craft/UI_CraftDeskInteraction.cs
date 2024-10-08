@@ -93,7 +93,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
         }
     }
 
-    new public void OpenInteractionCraftTable(CraftTableController ctrl = null)
+    public void OpenInteractionCraftTable(CraftTableController ctrl = null)
     {
         if (ctrl != null)
             m_tableCtrl = ctrl;
@@ -104,7 +104,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
         CloseMenu();
         gameObject.SetActive(false);
     }
-
+        
     public override void OpenMenu()
     {
         m_uiMenuObj.SetActive(true);

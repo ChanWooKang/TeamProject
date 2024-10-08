@@ -113,7 +113,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
         {
             m_listPetIcon[1].enabled = false;
         }
-        Debug.Log(m_currentPetNum);
+        //Debug.Log(m_currentPetNum);
     }
     public void InitAllEntryIcon()
     {

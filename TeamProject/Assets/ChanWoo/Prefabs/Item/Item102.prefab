@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25478309541e5294d914f6cc57d0d73e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objID: 102
+  index: 102
   type: 2
   isNPC: 0
 --- !u!1 &8562586246173497257

@@ -5,7 +5,7 @@ using DefineDatas;
 
 public class ObjectData : MonoBehaviour
 {
-    public int objID;
+    public int index;
     public eInteractType type;
     public bool isNPC;
 }

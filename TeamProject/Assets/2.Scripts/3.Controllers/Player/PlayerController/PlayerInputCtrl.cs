@@ -75,6 +75,18 @@ public class PlayerInputCtrl : MonoBehaviour
             ReloadAction();
         }
 
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            if (InventoryManager._inst.UseItem(201))
+            {
+                Debug.Log("제거 완료");
+            }
+            else
+            {
+                Debug.Log("일치 하는 아이템이 없습니다.");
+            }
+        }
+
         InventoryAction();
     }
 
@@ -194,17 +206,16 @@ public class PlayerInputCtrl : MonoBehaviour
         if (_input.interact)
         {
             if (_manager.RecognizeObject != null)
-            {
-                Debug.Log("Check");
+            {                
                 GameObject go = _manager.RecognizeObject;
                 if (go.TryGetComponent(out ObjectData data))
                 {
                     if (data.isNPC)
                     {
-                        TalkManager._inst.ShowText(go, data.objID, data.name);
+                        TalkManager._inst.ShowText(go, data.index);
                     }
                     else
-                    {
+                    {                        
                         if (go.TryGetComponent(out ItemCtrl item))
                         {
                             _manager._anim.SetAnimation(ePlayerAnimParams.Root);

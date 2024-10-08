@@ -69,6 +69,7 @@ public class UI_Inventory : MonoBehaviour
         slots = Slot_Parent.GetComponentsInChildren<UI_Slot>();
         for (int i = 0; i < slots.Length; i++)
         {
+            slots[i].slotIndex = i;
             slots[i].Init();
         }
         UI_ItemInfo._info.Init();

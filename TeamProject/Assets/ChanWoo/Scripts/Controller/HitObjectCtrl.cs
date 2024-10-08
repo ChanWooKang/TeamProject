@@ -11,9 +11,7 @@ public class HitObjectCtrl : MonoBehaviour, IHitAble
     [SerializeField] Transform baseHitPoint;    
     [SerializeField] protected float _hp;
 
-    protected bool isDead;
-
-    Coroutine DamageCoroutine = null;
+    protected bool isDead;    
 
     public virtual void Init()
     {
@@ -36,7 +34,7 @@ public class HitObjectCtrl : MonoBehaviour, IHitAble
     {
         BaseItem item = InventoryManager._inst.GetItemData(dataIndex);
 
-        if (InventoryManager._inst.CheckSlot(item, cnt) == false)
+        if (InventoryManager._inst.CheckSlot(item, cnt))
         {
             InventoryManager._inst.AddInvenItem(item, cnt);
         }

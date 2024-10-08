@@ -273,6 +273,19 @@ namespace DefineDatas
             itemCounts = items;
         }
     }
+
+    [System.Serializable]
+    public class ItemDatas
+    {
+        public int index;
+        public int count;
+
+        public ItemDatas(int itemIndex, int cnt)
+        {
+            index = itemIndex;
+            count = cnt;
+        }
+    }
 }
 
 
