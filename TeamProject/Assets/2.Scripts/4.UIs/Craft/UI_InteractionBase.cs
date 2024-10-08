@@ -142,6 +142,7 @@ public abstract class UI_InteractionBase : MonoBehaviour
         m_noEntrytextBox.SetActive(false);
 
         m_petIcon.enabled = true;
+        m_petIcon.sprite = PoolingManager._inst._poolingIconByName[pet.PetInfo.NameEn].prefab;
         m_petWorkWeight = 1f;
         m_petCtrl = pet;
         if (m_itemIndex != 0 && !m_isCraftDone)

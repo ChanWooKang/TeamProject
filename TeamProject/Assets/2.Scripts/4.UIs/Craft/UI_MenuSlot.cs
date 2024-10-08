@@ -21,8 +21,8 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void InitSlot(int num, int x, int y, UI_CraftDeskInteraction interation)
     {
         m_uiInteraction = interation;
-
         m_itemIndex = 200 + num;
+        m_icon.sprite = PoolingManager._inst._poolingIconByName[InventoryManager._inst.Dict_Weapon[m_itemIndex].NameEn].prefab;
         m_x = x;
         m_y = y;
     }
@@ -31,6 +31,7 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         m_uiPetballInteraction = interaction;
 
         m_itemIndex = 500 + num;
+        m_icon.sprite = PoolingManager._inst._poolingIconByName[InventoryManager._inst.Dict_Petball[m_itemIndex].NameEn].prefab;
         m_x = x;
         m_y = y;
     }
@@ -79,7 +80,7 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             string wDesc = InventoryManager._inst.Dict_Weapon[m_itemIndex].Desc;
             int[] wMaterialsIndex = InventoryManager._inst.Dict_Weapon[m_itemIndex].MaterialsIndex;
             int[] wMaterialsCost = InventoryManager._inst.Dict_Weapon[m_itemIndex].MaterialsCost;
-
+            
             m_uiInfoBox.OpenBox(wNameKr, wDesc);
             m_uiInfoBox.OpenMaterialsSlots(wMaterialsIndex, wMaterialsCost);
         }
@@ -89,7 +90,7 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             string wDesc = InventoryManager._inst.Dict_Petball[m_itemIndex].Desc;
             int[] wMaterialsIndex = InventoryManager._inst.Dict_Petball[m_itemIndex].MaterialsIndex;
             int[] wMaterialsCost = InventoryManager._inst.Dict_Petball[m_itemIndex].MaterialsCost;
-
+            
             m_uiInfoBox.OpenBox(wNameKr, wDesc);
             m_uiInfoBox.OpenMaterialsSlots(wMaterialsIndex, wMaterialsCost);
         }

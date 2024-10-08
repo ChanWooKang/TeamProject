@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 1336065365411929334}
   - component: {fileID: 1336065365416269212}
   - component: {fileID: 1336065365414112069}
+  - component: {fileID: 7695944570471714207}
   m_Layer: 0
   m_Name: stove
   m_TagString: Untagged
@@ -149,6 +150,22 @@ MonoBehaviour:
   green: {fileID: 2100000, guid: 7533efa71986d1f4f97ce67b850abc7e, type: 2}
   red: {fileID: 2100000, guid: 6dc7d60713187c04cbd3f20020e54720, type: 2}
   blue: {fileID: 2100000, guid: 7533efa71986d1f4f97ce67b850abc7e, type: 2}
+--- !u!208 &7695944570471714207
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336065365414112068}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 2.551, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 2.551, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &2378970781571819642
 GameObject:
   m_ObjectHideFlags: 0
