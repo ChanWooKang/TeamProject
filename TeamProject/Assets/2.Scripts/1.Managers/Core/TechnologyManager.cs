@@ -16,7 +16,7 @@ public class TechnologyManager : TSingleton<TechnologyManager>
 
     private void Awake()
     {
-        m_technologyLevel = 1;
+        m_technologyLevel = 100;
     }
     public void TechLevelUp()
     {

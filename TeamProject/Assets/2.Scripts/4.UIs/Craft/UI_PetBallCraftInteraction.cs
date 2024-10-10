@@ -8,6 +8,81 @@ public class UI_PetBallCraftInteraction : UI_InteractionBase
     #region [참조]
     PetBallCraftTableConotroller m_tableCtrl;
     #endregion [참조]
+    private void Update()
+    {
+        if (m_itemIndex == 0 && !m_isCraftDone) // 제작중인 볼이 없음
+        {
+            if (m_uiCraftObj.activeSelf)
+            {
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    OpenMenu();
+                }
+                if (Input.GetKey(KeyCode.C))
+                {
+                    PressCKey(false);
+                }
+                if (Input.GetKeyUp(KeyCode.C))
+                {
+                    UpCKey();
+                }
+            }
+            if (m_uiMenuObj.activeSelf)
+            {
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    CloseMenu();
+                }
+            }
+        }
+        else if (m_itemIndex != 0 & !m_isCraftDone) // 볼을 제작 중
+        {
+            if (m_progressCraft.value < m_progressCraft.maxValue)
+            {
+                StartCoroutine(SetProgress());
+            }
+            else
+            {
+                //데스크 위에 무기 생성
+                if (m_petCtrl != null)
+                    m_petCtrl.JobDone();
+                m_isCraftDone = true;
+                m_itemIndex = 0;
+                OpenInteractionCraftTable(m_tableCtrl);
+            }
+            if (Input.GetKey(KeyCode.F))
+            {
+                PressFkey();
+                if (m_petCtrl != null)
+                    m_petCtrl.MoveToObject(m_tableCtrl.transform.position);
+            }
+            else
+            {
+                UpFKey();
+            }
+            if (Input.GetKey(KeyCode.C))
+            {
+                PressCKey(true);
+            }
+            if (Input.GetKeyUp(KeyCode.C))
+            {
+                UpCKey();
+            }
+        }
+        else if (m_itemIndex == 0 & m_isCraftDone) // 볼이 다 제작 됨
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                m_itemIndex = 0;
+                m_isCraftDone = false;
+                m_progressCraft.value = 0;
+                OpenInteractionCraftTable(m_tableCtrl);
+                CloseMenu();
+                InventoryManager._inst.AddEquipItem(eEquipType.Weapon, new BaseItem());
+                TechnologyManager._inst.TechPointUp();
+            }
+        }
+    }
     public override void CloseInteraction()
     {
         CloseMenu();
@@ -72,6 +147,12 @@ public class UI_PetBallCraftInteraction : UI_InteractionBase
                 gameObject.SetActive(false);
             }
         }
+    }
+    public void OpenInteractionCraftTable(PetBallCraftTableConotroller ctrl = null)
+    {
+        if (ctrl != null)
+            m_tableCtrl = ctrl;
+        base.OpenInteractionTable(ctrl);
     }
 
 }

@@ -149,6 +149,18 @@ public abstract class UI_InteractionBase : MonoBehaviour
             pet.MoveToObject(ctCtrl.transform.position);
         //이미지
     }
+    public void SetPetEntry(PetController pet, PetBallCraftTableConotroller ctCtrl)
+    {
+        m_noEntrytextBox.SetActive(false);
+
+        m_petIcon.enabled = true;
+        m_petIcon.sprite = PoolingManager._inst._poolingIconByName[pet.PetInfo.NameEn].prefab;
+        m_petWorkWeight = 1f;
+        m_petCtrl = pet;
+        if (m_itemIndex != 0 && !m_isCraftDone)
+            pet.MoveToObject(ctCtrl.transform.position);
+        //이미지
+    }
     public void SetPetWork(CraftTableController ctCtrl)
     {
         if (m_petCtrl != null)
@@ -165,8 +177,8 @@ public abstract class UI_InteractionBase : MonoBehaviour
     public abstract void CloseMenu();
     public void DecideSlotCount(LowDataType type)
     {
-        LowBase weaponTable = Managers._table.Get(LowDataType.WeaponTable);
-        int count = weaponTable.MaxCount();
+        LowBase table = Managers._table.Get(type);
+        int count = table.MaxCount();
         int x = 0;
         int y = 0;
         if (count < 10)

@@ -14,12 +14,17 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     UI_InfoBox m_uiInfoBox;
     UI_CraftDeskInteraction m_uiInteraction;
     UI_PetBallCraftInteraction m_uiPetballInteraction;
+    Image m_imgBg;
 
+    int[] m_materialsIndex;
+    int[] m_materialCosts;
     int m_x;
     int m_y;
     int m_itemIndex;
+    bool m_isAllColstReady;
     public void InitSlot(int num, int x, int y, UI_CraftDeskInteraction interation)
     {
+        m_imgBg = GetComponent<Image>();
         m_uiInteraction = interation;
         m_itemIndex = 200 + num;
         m_icon.sprite = PoolingManager._inst._poolingIconByName[InventoryManager._inst.Dict_Weapon[m_itemIndex].NameEn].prefab;
@@ -28,8 +33,8 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     public void InitSlot(int num, int x, int y, UI_PetBallCraftInteraction interaction)
     {
+        m_imgBg = GetComponent<Image>();
         m_uiPetballInteraction = interaction;
-
         m_itemIndex = 500 + num;
         m_icon.sprite = PoolingManager._inst._poolingIconByName[InventoryManager._inst.Dict_Petball[m_itemIndex].NameEn].prefab;
         m_x = x;
@@ -78,40 +83,57 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             string wNameKr = InventoryManager._inst.Dict_Weapon[m_itemIndex].NameKr;
             string wDesc = InventoryManager._inst.Dict_Weapon[m_itemIndex].Desc;
-            int[] wMaterialsIndex = InventoryManager._inst.Dict_Weapon[m_itemIndex].MaterialsIndex;
-            int[] wMaterialsCost = InventoryManager._inst.Dict_Weapon[m_itemIndex].MaterialsCost;
-            
+            m_materialsIndex = InventoryManager._inst.Dict_Weapon[m_itemIndex].MaterialsIndex;
+            m_materialCosts = InventoryManager._inst.Dict_Weapon[m_itemIndex].MaterialsCost;
+
             m_uiInfoBox.OpenBox(wNameKr, wDesc);
-            m_uiInfoBox.OpenMaterialsSlots(wMaterialsIndex, wMaterialsCost);
+            m_uiInfoBox.OpenMaterialsSlots(m_materialsIndex, m_materialCosts);
         }
         else
         {
             string wNameKr = InventoryManager._inst.Dict_Petball[m_itemIndex].NameKr;
             string wDesc = InventoryManager._inst.Dict_Petball[m_itemIndex].Desc;
-            int[] wMaterialsIndex = InventoryManager._inst.Dict_Petball[m_itemIndex].MaterialsIndex;
-            int[] wMaterialsCost = InventoryManager._inst.Dict_Petball[m_itemIndex].MaterialsCost;
-            
+            m_materialsIndex = InventoryManager._inst.Dict_Petball[m_itemIndex].MaterialsIndex;
+            m_materialCosts = InventoryManager._inst.Dict_Petball[m_itemIndex].MaterialsCost;
+
             m_uiInfoBox.OpenBox(wNameKr, wDesc);
-            m_uiInfoBox.OpenMaterialsSlots(wMaterialsIndex, wMaterialsCost);
+            m_uiInfoBox.OpenMaterialsSlots(m_materialsIndex, m_materialCosts);
         }
+        m_isAllColstReady = true;
+        for (int i = 0; i < m_materialsIndex.Length; i++)
+        {
+            int count = InventoryManager._inst.GetItemCount(m_materialsIndex[i]);
+            if (m_materialCosts[i] > count)
+            {
+                m_isAllColstReady = false;                
+                m_imgBg.color = new Color32(255, 0, 0, 160);
+                break;
+            }
+        }
+        if(m_isAllColstReady)
+            m_imgBg.color = new Color32(0, 255, 0, 160);
     }
     public void OnPointerExit(PointerEventData eventData)
     {
         if (m_uiInfoBox != null)
             m_uiInfoBox.CloseBox();
+        m_imgBg.color = new Color32(0, 0, 0, 160);
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (InventoryManager._inst.UseItem(m_itemIndex))
+        
+        if (m_isAllColstReady)
         {
-            m_uiInteraction.ReadyToCraftSometing(m_itemIndex);
-            m_uiInteraction.OpenInteractionCraftTable();
-            m_uiInfoBox.CloseBox();
-            m_uiInteraction.SetPetWork(m_uiInteraction.m_tableCtrl);
-        }
-        else
-        {
-
+            for (int i = 0; i < m_materialsIndex.Length; i++)
+            {
+                if (InventoryManager._inst.UseItem(m_materialsIndex[i]))
+                {
+                    m_uiInteraction.ReadyToCraftSometing(m_itemIndex);
+                    m_uiInteraction.OpenInteractionCraftTable();
+                    m_uiInfoBox.CloseBox();
+                    m_uiInteraction.SetPetWork(m_uiInteraction.m_tableCtrl);
+                }
+            }
         }
     }
 }

@@ -8,18 +8,19 @@ public class UI_Craft : MonoBehaviour
     [SerializeField] GameObject m_craftBoxObj;
 
     [SerializeField] GameObject m_prefabObj;
-    Button m_slotBtn;    
+    Button m_slotBtn;
     GameObject m_previewObj;
     GameObject m_craftingObj;
     Architecture m_architectureInfo;
     [SerializeField] List<UI_CraftSlot> m_listCraftSlot;
     Dictionary<int, UI_CraftSlot> m_dicCraftSlots;
-    
+
     RaycastHit m_hitInfo;
     [SerializeField] LayerMask m_layerMask;
     [SerializeField] float m_range;
 
     bool m_isPreviewActivated;
+    bool m_isOn = false;
     int m_tech;
     private void Awake()
     {
@@ -31,12 +32,13 @@ public class UI_Craft : MonoBehaviour
             m_dicCraftSlots.Add(i + 1, m_listCraftSlot[i]);
         }
         //
+        
     }
     private void Update()
     {
         if (Input.GetButtonDown("Fire1") && m_previewObj != null)
             Build();
-        
+
         if (m_isPreviewActivated)
             PreviewPositionUpdate();
 
@@ -45,19 +47,26 @@ public class UI_Craft : MonoBehaviour
     }
     public void OpenUI(int techLevel = 0)
     {
-       
-        if (m_isPreviewActivated || gameObject.activeSelf)
-            return;
-        gameObject.SetActive(true);
+        if (m_isPreviewActivated)
+            return;        
 
-        m_craftBoxObj.SetActive(true);
-        
-        m_craftBoxObj.SetActive(true);        
-        GameManagerEx._inst.ControlUI(true, true);
-
-        if(techLevel != 0)
+        if (!m_isOn)
         {
-            for(int i = 1; i < m_listCraftSlot.Count + 1; i++)
+            m_isOn = true;
+            m_craftBoxObj.SetActive(m_isOn);
+            GameManagerEx._inst.ControlUI(m_isOn, true);
+        }
+        else
+        {
+            m_isOn = false;
+            m_craftBoxObj.SetActive(m_isOn);
+            GameManagerEx._inst.ControlUI(m_isOn, true);
+            return;
+        }
+
+        if (techLevel != 0)
+        {
+            for (int i = 1; i < m_listCraftSlot.Count + 1; i++)
             {
                 int levle = 0;
                 levle = i;
@@ -66,14 +75,9 @@ public class UI_Craft : MonoBehaviour
                 InitSlots(i, levle);
             }
         }
-    }
-    public void CloseUI()
-    {      
-        gameObject.SetActive(false);
-        GameManagerEx._inst.ControlUI(false, true);
-    }
+    }   
     public void InitSlots(int index, int techLevel)
-    {        
+    {
         m_dicCraftSlots[index].InitSlot(techLevel, this);
     }
     public void IsPreviewActivated(bool isPreviwActivated, GameObject previewObj, GameObject craftignObj, Architecture arc)
@@ -83,7 +87,7 @@ public class UI_Craft : MonoBehaviour
         m_craftingObj = craftignObj;
         m_architectureInfo = arc;
     }
-    
+
     void PreviewPositionUpdate()
     {
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out m_hitInfo, m_range, m_layerMask))
@@ -99,12 +103,12 @@ public class UI_Craft : MonoBehaviour
     {
         if (m_isPreviewActivated && m_previewObj.GetComponentInChildren<ObjectPreview>().isBuildable())
         {
-            GameObject go = Instantiate(m_craftingObj, m_hitInfo.point, m_previewObj.transform.rotation);            
-            Destroy(m_previewObj);  
+            GameObject go = Instantiate(m_craftingObj, m_hitInfo.point, m_previewObj.transform.rotation);
+            Destroy(m_previewObj);
             ObjectPreview op = go.GetComponentInChildren<ObjectPreview>();
             op.SetArchitectureInfo(m_architectureInfo);
             op.FixedObject();
-            
+
             m_isPreviewActivated = false;
             m_previewObj = null;
             m_architectureInfo = null;
@@ -117,7 +121,7 @@ public class UI_Craft : MonoBehaviour
         if (m_isPreviewActivated)
         {
             Destroy(m_previewObj);
-            
+
             m_isPreviewActivated = false;
             m_previewObj = null;
         }

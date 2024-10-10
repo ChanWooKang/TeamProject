@@ -73,7 +73,7 @@ public class PlayerInputCtrl : MonoBehaviour
             ThrowAction();
 
             ReloadAction();
-        }        
+        }
 
         InventoryAction();
     }
@@ -104,10 +104,10 @@ public class PlayerInputCtrl : MonoBehaviour
             {
                 //Recognize Object Setting
                 if (_manager.RecognizeObject != rhit.transform.gameObject)
-                {                    
+                {
                     _manager.SetRecognizeObject(rhit.transform.gameObject);
                 }
-                    
+
             }
         }
         else
@@ -134,7 +134,7 @@ public class PlayerInputCtrl : MonoBehaviour
             {
                 if (AimCam.gameObject.activeSelf == false)
                 {
-                    AimCam.gameObject.SetActive(true);                    
+                    AimCam.gameObject.SetActive(true);
                 }
                 ChangeAlpha(1.0f);
             }
@@ -143,7 +143,7 @@ public class PlayerInputCtrl : MonoBehaviour
         {
             if (AimCam.gameObject.activeSelf == true)
             {
-                AimCam.gameObject.SetActive(false);                
+                AimCam.gameObject.SetActive(false);
             }
             ChangeAlpha(0.3f);
         }
@@ -154,8 +154,8 @@ public class PlayerInputCtrl : MonoBehaviour
 
     //Left Mouse Button
     void FireAction()
-    {        
-        if(_manager._equip.CheckAttackAble())
+    {
+        if (_manager._equip.CheckAttackAble())
         {
             _manager._anim.SetAnimation(ePlayerAnimParams.Fire, _input.fire);
         }
@@ -176,7 +176,7 @@ public class PlayerInputCtrl : MonoBehaviour
             }
         }
         else
-        {            
+        {
             if (AimCam.gameObject.activeSelf == true)
             {
                 AimCam.gameObject.SetActive(false);
@@ -194,7 +194,7 @@ public class PlayerInputCtrl : MonoBehaviour
         if (_input.interact)
         {
             if (_manager.RecognizeObject != null)
-            {                
+            {
                 GameObject go = _manager.RecognizeObject;
                 if (go.TryGetComponent(out ObjectData data))
                 {
@@ -203,26 +203,26 @@ public class PlayerInputCtrl : MonoBehaviour
                         TalkManager._inst.ShowText(go, data.index);
                     }
                     else
-                    {                        
+                    {
                         if (go.TryGetComponent(out ItemCtrl item))
                         {
                             _manager._anim.SetAnimation(ePlayerAnimParams.Root);
                         }
                     }
                 }
-                
+
             }
 
             _input.interact = false;
         }
-        
+
     }
 
     void ReloadAction()
     {
         if (_input.reload)
         {
-            if(_manager._anim.GetAnimation(ePlayerAnimParams.AcivateAnimation) == false)
+            if (_manager._anim.GetAnimation(ePlayerAnimParams.AcivateAnimation) == false)
                 _manager._anim.SetAnimation(ePlayerAnimParams.Reload);
             _input.reload = false;
         }
@@ -248,12 +248,13 @@ public class PlayerInputCtrl : MonoBehaviour
                 GameObject ui = Instantiate(m_UICraftingPrefab);
                 Canvas canvas = ui.GetComponent<Canvas>();
                 canvas.worldCamera = GameObject.FindGameObjectWithTag("UICamera").GetComponent<Camera>();
-                m_UICrafting = ui.GetComponent<UI_Craft>();
-                ui.SetActive(false);
+                m_UICrafting = ui.GetComponent<UI_Craft>();                
                 m_UICrafting.OpenUI(TechnologyManager._inst.TechLevel);
             }
             else
+            {
                 m_UICrafting.OpenUI(TechnologyManager._inst.TechLevel);
+            }
 
             _input.craft = false;
         }

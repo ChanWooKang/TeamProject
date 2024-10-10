@@ -167,7 +167,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -528,7 +528,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4165053894804526340
 RectTransform:
   m_ObjectHideFlags: 0
@@ -627,6 +627,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_uiMenuSlotPrefab: {fileID: 7379769816501951859, guid: 12b69a34b6dbc7546a43728d4d0e468c, type: 3}
   m_uiWorkloadPrefab: {fileID: 1740737190685172048, guid: 5ef4e9795273f9a4d8f35d6a0d60dc7e, type: 3}
+  m_textUiName: {fileID: 8731474789674016856}
 --- !u!1 &2735885035641394006
 GameObject:
   m_ObjectHideFlags: 0
@@ -1585,7 +1586,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1905,8 +1906,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC81C\uC791\uB300"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b299b0c5e3cf82340a6567618f26378a, type: 2}
-  m_sharedMaterial: {fileID: -4520590470793061761, guid: b299b0c5e3cf82340a6567618f26378a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1c7adec26f26e2a459e1090d42243bc6, type: 2}
+  m_sharedMaterial: {fileID: 6275485647841967568, guid: 1c7adec26f26e2a459e1090d42243bc6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1930,8 +1931,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72.9
-  m_fontSizeBase: 72.9
+  m_fontSize: 65
+  m_fontSizeBase: 65
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1940,7 +1941,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: 10
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0

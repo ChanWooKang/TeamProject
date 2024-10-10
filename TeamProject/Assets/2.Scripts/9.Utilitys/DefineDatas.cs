@@ -181,8 +181,8 @@ namespace DefineDatas
         Craft,
         EnforceAnvil,
         PetBall,
-
-    }
+        Brazier,
+    }    
 
     public interface IFSMState<T>
     {

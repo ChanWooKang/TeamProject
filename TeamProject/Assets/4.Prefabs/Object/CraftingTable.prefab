@@ -89,7 +89,6 @@ GameObject:
   - component: {fileID: 1436622279608546040}
   - component: {fileID: 1436622279608546039}
   - component: {fileID: 1436622279608546043}
-  - component: {fileID: 8264041299077969412}
   - component: {fileID: 6794767923316338059}
   m_Layer: 0
   m_Name: model
@@ -197,21 +196,6 @@ MonoBehaviour:
   green: {fileID: 2100000, guid: 7533efa71986d1f4f97ce67b850abc7e, type: 2}
   red: {fileID: 2100000, guid: 6dc7d60713187c04cbd3f20020e54720, type: 2}
   blue: {fileID: 2100000, guid: f772f1e669cceb84d9f9e288e984582a, type: 2}
---- !u!114 &8264041299077969412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1436622279608546042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25478309541e5294d914f6cc57d0d73e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  index: 0
-  type: 0
-  isNPC: 0
 --- !u!208 &6794767923316338059
 NavMeshObstacle:
   m_ObjectHideFlags: 0

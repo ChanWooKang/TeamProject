@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3607407808013769600}
   m_Layer: 0
   m_Name: PetBallCraftMachine
-  m_TagString: Untagged
+  m_TagString: Interact
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 3621642517720542380}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Interact
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 2093786721184395925}
   m_Layer: 0
   m_Name: Globe
-  m_TagString: Untagged
+  m_TagString: Interact
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -177,6 +177,9 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: f113ab3d815f55c48af359829946b403, type: 2}
+  - {fileID: 2100000, guid: f772f1e669cceb84d9f9e288e984582a, type: 2}
+  - {fileID: 2100000, guid: 6dc7d60713187c04cbd3f20020e54720, type: 2}
+  - {fileID: 2100000, guid: 7533efa71986d1f4f97ce67b850abc7e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -206,11 +209,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3609002571300087314}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.99748623, y: 0.13299845, z: 0.99748623}
-  m_Center: {x: 0, y: 0.06649906, z: 0}
+  m_Size: {x: 1.5, y: 0.47, z: 1.5}
+  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!114 &3609002571300087315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,9 +226,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db30801da7e8144ab13e446c1ea44cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_detectiveAreaObj: {fileID: 0}
+  m_detectiveAreaObj: {fileID: 6448805568786199363}
   colliderList: []
-  layerGround: 0
+  layerGround: 6
   m_uiWorkloadPrefab: {fileID: 1740737190685172048, guid: 5ef4e9795273f9a4d8f35d6a0d60dc7e, type: 3}
   m_originalMaterial: {fileID: 2100000, guid: f113ab3d815f55c48af359829946b403, type: 2}
   green: {fileID: 2100000, guid: 7533efa71986d1f4f97ce67b850abc7e, type: 2}
@@ -243,7 +246,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.4, y: 0.066, z: 0.4}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.066, z: 0}
   m_TimeToStationary: 0.5
@@ -258,9 +261,10 @@ GameObject:
   - component: {fileID: 371238582813258859}
   - component: {fileID: 54789618402973806}
   - component: {fileID: 3197862456301624509}
-  m_Layer: 0
+  - component: {fileID: 1009006893079139152}
+  m_Layer: 2
   m_Name: DetectiveArea
-  m_TagString: Untagged
+  m_TagString: Interact
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -291,6 +295,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c1e05c7816c7ff469cb273aeea292cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_uiInteractionObj: {fileID: 2671872734054659491, guid: df6f02719b63fcf4abcf05ebbc914772, type: 3}
+  m_objPreview: {fileID: 3609002571300087315}
 --- !u!65 &3197862456301624509
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -299,8 +305,24 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6448805568786199363}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 5, y: 0.5, z: 5}
   m_Center: {x: 0, y: 0.3, z: 0}
+--- !u!54 &1009006893079139152
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6448805568786199363}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
