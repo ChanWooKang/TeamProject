@@ -16,7 +16,7 @@ public abstract class UI_Base : MonoBehaviour
     {
         string[] names = Enum.GetNames(type);
         UnityEngine.Object[] objects = new UnityEngine.Object[names.Length];
-        _objects.Add(typeof(T), objects);
+        _objects.Add(typeof(T), objects);   
 
         for (int i = 0; i < names.Length; i++)
         {

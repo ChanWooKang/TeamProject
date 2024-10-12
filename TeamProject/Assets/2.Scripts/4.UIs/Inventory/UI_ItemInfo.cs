@@ -10,30 +10,38 @@ public class UI_ItemInfo : UI_Base
     public static UI_ItemInfo _info { get { return TSingleton<UI_ItemInfo>._inst; } }
     enum GameObjects
     {
-        MainFrame,
-        ItemName,
+        MainFrame,                
+        EffectParent,                
+        AmountParent,        
+        LevelParent        
+    }
+
+    enum Images
+    {
         Icon,
-        EffectParent,
+    }
+
+    enum Texts
+    {
+        ItemName,
         Effect,
         Desc,
-        AmountParent,
-        Amount,        
+        Amount,
         Weight,
-        PriceParent,
-        Price
+        Level
     }
 
     GameObject _main;
     GameObject _effectParent;
     GameObject _amountParent;
-    GameObject _priceParent;
+    GameObject _levelParent;
     Image _icon;
     Text _itemName;
     Text _effect;
     Text _desc;
     Text _amount;
     Text _weight;
-    Text _price;
+    Text _level;
 
     
     RectTransform _rect;
@@ -43,17 +51,19 @@ public class UI_ItemInfo : UI_Base
     public override void Init()
     {        
         Bind<GameObject>(typeof(GameObjects));
+        Bind<Image>(typeof(Images));
+        Bind<Text>(typeof(Texts));
         _main = GetObject((int)GameObjects.MainFrame);
         _effectParent = GetObject((int)GameObjects.EffectParent);
         _amountParent = GetObject((int)GameObjects.AmountParent);
-        _priceParent = GetObject((int)GameObjects.PriceParent);
-        _icon = GetObject((int)GameObjects.Icon).GetComponent<Image>();
-        _itemName = GetObject((int)GameObjects.ItemName).GetComponent<Text>();
-        _effect = GetObject((int)GameObjects.Effect).GetComponent<Text>();
-        _desc = GetObject((int)GameObjects.Desc).GetComponent<Text>();
-        _amount = GetObject((int)GameObjects.Amount).GetComponent<Text>();
-        _weight = GetObject((int)GameObjects.Weight).GetComponent<Text>();
-        _price = GetObject((int)GameObjects.Price).GetComponent<Text>();
+        _levelParent = GetObject((int)GameObjects.LevelParent);
+        _icon = GetImage((int)Images.Icon);
+        _itemName = GetText((int)Texts.ItemName);
+        _effect = GetText((int)Texts.Effect);
+        _desc = GetText((int)Texts.Desc);
+        _amount = GetText((int)Texts.Amount);
+        _weight = GetText((int)Texts.Weight);
+        _level = GetText((int)Texts.Level);
         _rect = GetComponent<RectTransform>();
     }
 
@@ -85,20 +95,16 @@ public class UI_ItemInfo : UI_Base
         switch (type)
         {
             case eItemType.Equipment:
-                //효과 내용 추가 시 쌸라샬라
-                _effectParent.SetActive(false);
-                _effect.text = null;
-
-                _amountParent.SetActive(false);
-                _amount.text = "";                
-                break;
             case eItemType.Weapon:
-                //효과 내용 추가 시 쌸라샬라
+                //효과
                 _effectParent.SetActive(false);
                 _effect.text = null;
-
+                //개수
                 _amountParent.SetActive(false);
                 _amount.text = "";
+                //레벨
+                _level.text = item.Level.ToString();
+                _levelParent.SetActive(true);
                 break;
             default:
                 //효과
@@ -107,6 +113,9 @@ public class UI_ItemInfo : UI_Base
                 //개수
                 _amount.text = cnt.ToString();
                 _amountParent.SetActive(true);
+                //레벨
+                _level.text = "";
+                _levelParent.SetActive(false);
                 break;
         }
 
@@ -115,12 +124,8 @@ public class UI_ItemInfo : UI_Base
 
         //무게        
         int weight = Mathf.FloorToInt(item.Weight * cnt);
-        _weight.text = string.Format(_format, weight);
-
-        //가격 할거면 추가 ( 데이터에는 없음 )
-        //일단 없으니 비활성
-        _price.text = "";
-        _priceParent.SetActive(false);
+        _weight.text = string.Format(_format, weight);                
+        
 
         transform.position = pos;
         _main.SetActive(true);

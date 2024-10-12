@@ -4,15 +4,54 @@ using UnityEngine;
 
 public class GameManagerEx : TSingleton<GameManagerEx>
 {        
+    [Header("Object Script For Connect Other Scripts")]
     public PlayerCtrl playerManager;
+
+    //UI = Update 통제
+    [Header("UIs For Update Controll")]
+    public UI_StatInfo _statInfo;
+    public UI_Information _information;
 
     // 움직임을 제한할 UI가 켜질 때 마다 값이 증가
     public int UIStateValue = 0;
-    
 
-    //
+
+    bool isSetting = false;
     public bool isOnBuild = false;
-    Coroutine OffBuildCoroutine = null;
+    Coroutine OffBuildCoroutine = null;    
+
+    private void Update()
+    {
+        if(isSetting)
+            UIUpdate();
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            InventoryManager._inst.ChangeItemLevel(200, 5);
+        }
+    }    
+
+    public void GameMangerStart()
+    {
+        UIInit();
+        isSetting = true;
+    }
+
+    public void UIInit()
+    {
+        if (_statInfo != null)
+            _statInfo.Init(playerManager._stat);
+        if (_information != null)
+            _information.Init(playerManager._stat);        
+    }
+
+    void UIUpdate()
+    {
+        if (_statInfo != null)
+            _statInfo.OnUpdate();
+        if (_information != null)
+            _information.OnUpdate();
+    }
 
     //인벤토리 , 움직임 체크 UI , 크래프트 UI 떠졌을때 움직임 제한 및 커서 활성화
     public void ChangeCursorLockForUI(bool isOn)

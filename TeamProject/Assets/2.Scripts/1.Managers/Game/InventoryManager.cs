@@ -19,14 +19,9 @@ public class InventoryManager : TSingleton<InventoryManager>
     public Dictionary<int, WeaponItemInfo> Dict_Weapon;
     public Dictionary<int, PetBallInfo> Dict_Petball;
     public Dictionary<int, ItemDatas> Dict_SlotItem;
-    //public Dictionary<int, Sprite> Dict_itemSprite;
-    //public List<ItemSprite> itemSprites;
-    //public List<int> itemNames;
-    //PlayerManager playerManager;
-
+    
     public static bool ActiveChangeEquip = false;
-    public int itemCount;
-    //public float MaxItemWeights;
+    public int itemCount;    
 
     Coroutine EquipCoroutine = null;
 
@@ -69,10 +64,32 @@ public class InventoryManager : TSingleton<InventoryManager>
         AddInvenItem(Dict_Item[202]);
         AddInvenItem(Dict_Item[203]);
         AddInvenItem(Dict_Item[204]);
-
     }
 
     #region [ Item Data Load ]
+    public bool ChangeItemLevel(int itemIndex, int itemLevel)
+    {
+        if (Dict_Item.ContainsKey(itemIndex))
+        {
+            Dict_Item[itemIndex].Level = itemLevel;
+            Debug.Log("Check");
+            int[] itemSlotIndexs = GetSlotIndex(itemIndex);
+            if(itemSlotIndexs.Length > 0)
+            {
+                for(int i = 0; i < itemSlotIndexs.Length; i++)
+                {
+                    ItemDatas datas = Dict_SlotItem[itemSlotIndexs[i]];
+                    ItemDatas changeDatas = new ItemDatas(itemIndex, datas.count, itemLevel);
+                    ChangeInventoryData(itemSlotIndexs[i], changeDatas);
+                }
+                
+            }
+            return true;
+        }
+        Debug.Log("¾Èµé¾î¿È");
+
+        return false;
+    }
     public void AddItems(LowDataType type)
     {
         LowBase table = Managers._table.Get(type);
@@ -110,7 +127,7 @@ public class InventoryManager : TSingleton<InventoryManager>
             int index = 0;
             if (slots[i].itemData != null)
                 index = slots[i].itemData.Index;
-            ItemDatas datas = new ItemDatas(index, slots[i].itemCount);
+            ItemDatas datas = new ItemDatas(index, slots[i].itemCount,slots[i].itemLevel);
             Dict_SlotItem.Add(slots[i].slotIndex, datas);
         }
     }
@@ -399,6 +416,20 @@ public class InventoryManager : TSingleton<InventoryManager>
         }
 
         return count;
+    }
+
+    public int[] GetSlotIndex(int itemIndex)
+    {
+        List<int> slotIndexs = new List<int>();
+        foreach(var Data in Dict_SlotItem)
+        {
+            if(Data.Value.index == itemIndex)
+            {
+                slotIndexs.Add(Data.Key);
+            }
+        }
+
+        return slotIndexs.ToArray();
     }
     public bool UseItem(int itemIndex, int count = 1)
     {

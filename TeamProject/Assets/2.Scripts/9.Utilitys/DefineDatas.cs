@@ -279,11 +279,13 @@ namespace DefineDatas
     {
         public int index;
         public int count;
+        public int level;
 
-        public ItemDatas(int itemIndex, int cnt)
+        public ItemDatas(int itemIndex, int cnt,int itemLevel)
         {
             index = itemIndex;
             count = cnt;
+            level = itemLevel;
         }
     }
 }

@@ -8,10 +8,20 @@ using DefineDatas;
 public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler,IPointerEnterHandler,IPointerExitHandler
 {
     enum GameObjects
-    {
-        ItemIcon,
+    {        
         WeightParent,
-        WeightText
+        LevelParent
+    }
+
+    enum Texts
+    {
+        WeightText,
+        LevelText
+    }
+
+    enum Images
+    {
+        ItemIcon
     }
 
     [Header("Components")]
@@ -20,16 +30,23 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
 
     Image Item_Image;
     GameObject Weight_Parent;
+    GameObject Level_Parent;
     Text Weight_Text;
-    public int SlotIndex;
+    Text Level_Text;
+    public int SlotIndex;    
     public float itemWeight;
+    public int itemLevel;
 
     public override void Init()
     {
         Bind<GameObject>(typeof(GameObjects));
-        Item_Image = GetObject((int)GameObjects.ItemIcon).GetComponent<Image>();
+        Bind<Text>(typeof(Texts));
+        Bind<Image>(typeof(Images));
+        Item_Image = GetImage((int)Images.ItemIcon);
         Weight_Parent = GetObject((int)GameObjects.WeightParent);
-        Weight_Text = GetObject((int)GameObjects.WeightText).GetComponent<Text>();
+        Level_Parent = GetObject((int)GameObjects.LevelParent);
+        Weight_Text = GetText((int)Texts.WeightText);
+        Level_Text = GetText((int)Texts.LevelText);
         ClearSlot();
     }
 
@@ -56,15 +73,25 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
         if (_item != null)
         {
             if (_item.EquipType == eEquipType.Weapon)
-            {
-                GameManagerEx._inst.playerManager._equip.ChangeSlotWeapon(SlotIndex, _item.Index);
-                
-            }                
+                GameManagerEx._inst.playerManager._equip.ChangeSlotWeapon(SlotIndex, _item.Index);                                     
             item = _item;
             Item_Image.sprite = InventoryManager._inst.GetItemSprite(item.Index) ;
             ChangeWeight(item.Weight);
             Weight_Text.text = itemWeight.ToString();
             Weight_Parent.SetActive(true);
+
+            if(item.Level > 0)
+            {
+                itemLevel = item.Level;
+                Level_Text.text = itemLevel.ToString();
+                Level_Parent.SetActive(true);
+            }
+            else
+            {
+                itemLevel = 0;
+                Level_Text.text = "";
+                Level_Parent.SetActive(false);
+            }            
             SetAlpha(1);
         }
         else
@@ -85,6 +112,9 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
         ChangeWeight(0);
         Weight_Text.text = "";
         Weight_Parent.SetActive(false);
+        itemLevel = 0;
+        Level_Text.text = "";
+        Level_Parent.SetActive(false);
         SetAlpha(0);
         UI_ItemInfo._info.OffInformation();
     }

@@ -74,7 +74,7 @@ public class UI_Inventory : MonoBehaviour
             slots[i].Init();
         }
         UI_ItemInfo._info.Init();
-        _statInfo.Init();
+        //_statInfo.Init();
         CloseUI();
 
     }

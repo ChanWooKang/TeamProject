@@ -12,10 +12,9 @@ public class BaseItem
     protected string _desc;
     protected string _spriteName;
     protected string _nameKr;
-    protected float _weight;
-
-    //최대 스택 ( 엑셀 데이터 추가 요청 )
+    protected float _weight;    
     protected int _maxStack;
+    protected int _level;
 
     
 
@@ -27,8 +26,8 @@ public class BaseItem
     public string SpriteName { get { return _spriteName; } }
     public string NameKr { get { return _nameKr; } }
     public float Weight { get { return _weight; } }
-
     public int MaxStack { get { return _maxStack; } }
+    public int Level { get { return _level; } set { _level = value; } }
 
     public virtual void Init(int index, string nameEn, string desc, string spriteName, string nameKr, float weight)
     {
@@ -38,10 +37,9 @@ public class BaseItem
         _spriteName = spriteName;
         _nameKr = nameKr;
         _weight = weight;
-        _maxStack = 999;
-
-        //Test
+        _maxStack = 999;        
         _eType = (eEquipType)((index / 100) - 1);
+        _level = 0;
     }
 
     

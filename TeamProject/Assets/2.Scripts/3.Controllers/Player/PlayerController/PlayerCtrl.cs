@@ -68,6 +68,10 @@ public class PlayerCtrl : MonoBehaviour
         _recogObject = null;
         _damagedCoroutine = null;
         isDead = false;
+
+        //게임매니저보다 먼저 실행되야 하는 스탯이 로드 됬으니 실행 
+        // 차후 변경 ( 스탯을 게임매니저에서 받아오도록 변경
+        GameManagerEx._inst.GameMangerStart();
     }
 
     void InitControls()

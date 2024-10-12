@@ -25,7 +25,7 @@ public class UI_StatInfo : UI_Base
         EXP_Fill,
         HP_Fill
     }
-    public PlayerStat _stat;
+    PlayerStat _stat;
     GameObject _statParent;
     UI_Stat[] _stats;
     Text _level;
@@ -39,13 +39,20 @@ public class UI_StatInfo : UI_Base
     string _format;
     string _unActiveFormat;
     bool _isSetting = false;
-    private void Update()
+    public void OnUpdate()
     {
         if (_isSetting && InventoryManager._inst.invenUI.isOnUI)
         {
             SetUI();
             InventoryManager._inst.invenUI.SettingInvenWeight();
         }
+    }
+
+    public void Init(PlayerStat stat)
+    {
+        Debug.Log(stat);
+        _stat = stat;
+        Init();
     }
 
     public override void Init()

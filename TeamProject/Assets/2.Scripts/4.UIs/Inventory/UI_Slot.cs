@@ -8,35 +8,52 @@ using DefineDatas;
 public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
     enum GameObjects
+    {        
+        CountParent,        
+        WeightParent,
+        LevelParent
+    }
+
+    enum Texts
+    {
+        CountText,
+        WeightText,
+        LevelText
+    }
+
+    enum Images
     {
         ItemIcon,
-        CountParent,
-        CountText,
-        WeightParent,
-        WeightText
+
     }
 
     [Header("Components")]
     Image Item_Image;
     Text Count_Text;
     Text Weight_Text;
+    Text Level_Text;
     GameObject Count_Parent;
     GameObject Weight_Parent;
+    GameObject Level_Parent;
 
     public int slotIndex;
     public BaseItem itemData;
     public int itemCount;
     public float itemWeight;
+    public int itemLevel;
     bool isSetting = false;
-
     public override void Init()
     {
         Bind<GameObject>(typeof(GameObjects));
-        Item_Image = GetObject((int)GameObjects.ItemIcon).GetComponent<Image>();
-        Count_Text = GetObject((int)GameObjects.CountText).GetComponent<Text>();
-        Weight_Text = GetObject((int)GameObjects.WeightText).GetComponent<Text>();
+        Bind<Text>(typeof(Texts));
+        Bind<Image>(typeof(Images));
+        Item_Image = GetImage((int)Images.ItemIcon);
         Count_Parent = GetObject((int)GameObjects.CountParent);
-        Weight_Parent = GetObject((int)GameObjects.WeightParent);        
+        Weight_Parent = GetObject((int)GameObjects.WeightParent);
+        Level_Parent = GetObject((int)GameObjects.LevelParent);
+        Count_Text = GetText((int)Texts.CountText);
+        Weight_Text = GetText((int)Texts.WeightText);
+        Level_Text = GetText((int)Texts.LevelText);        
         ClearSlot();
         isSetting = true;
     }
@@ -86,16 +103,35 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
         Item_Image.sprite = InventoryManager._inst.GetItemSprite(itemData.Index);
         Weight_Text.text = itemWeight.ToString();
         Weight_Parent.SetActive(true);
-        if (itemData.Type == eItemType.Equipment)
+
+        switch (itemData.Type)
         {
-            Count_Text.text = "";
-            Count_Parent.SetActive(false);
-        }
-        else
-        {
-            Count_Text.text = itemCount.ToString();
-            Count_Parent.SetActive(true);
-        }
+            case eItemType.Equipment:
+            case eItemType.Weapon:
+                Count_Text.text = "";
+                Count_Parent.SetActive(false);
+                if (itemData.Level > 0)
+                {
+                    itemLevel = itemData.Level;
+                    Level_Text.text = itemLevel.ToString();
+                    Level_Parent.SetActive(true);
+                }
+                else
+                {
+                    itemLevel = 0;
+                    Level_Text.text = "";
+                    Level_Parent.SetActive(false);
+                }
+                break;
+            default:
+                Count_Text.text = itemCount.ToString();
+                Count_Parent.SetActive(true);
+                itemLevel = 0;
+                Level_Text.text = "";
+                Level_Parent.SetActive(false);
+                break;
+        }              
+
         SetAlpha(1);       
         ChangeSlotData();
     }
@@ -116,7 +152,7 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
         int index = 0;
         if (itemData != null)
             index = itemData.Index;
-        ItemDatas datas = new ItemDatas(index, itemCount);
+        ItemDatas datas = new ItemDatas(index, itemCount,itemLevel);
         InventoryManager._inst.ChangeInventoryData(slotIndex, datas);        
     }
 
@@ -130,8 +166,10 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
         Count_Parent.SetActive(false);
         Weight_Text.text = "";
         Weight_Parent.SetActive(false);
+        itemLevel = 0;
+        Level_Text.text = "";
+        Level_Parent.SetActive(false);
         SetAlpha(0);
-
         if (isSetting)
         {
             ChangeSlotData();
