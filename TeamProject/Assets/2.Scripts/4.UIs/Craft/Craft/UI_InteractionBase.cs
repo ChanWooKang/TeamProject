@@ -8,14 +8,12 @@ using DefineDatas;
 
 public abstract class UI_InteractionBase : MonoBehaviour
 {
-    //юс╫ц
-    [SerializeField] public GameObject m_uiMenuSlotPrefab;
-    [SerializeField] public GameObject m_uiWorkloadPrefab;
+    public GameObject m_uiMenuSlotPrefab;
     public GameObject UIMenu { get { return m_uiMenuObj; } }
     #region [ChildComponent]
     protected GameObject m_uiCraftObj;
     protected GameObject m_uiMenuObj;
-   
+
     protected GameObject m_CancelObj;
     protected GameObject m_weaponInfoBoxObj;
     protected GameObject m_noEntrytextBox;
@@ -44,7 +42,7 @@ public abstract class UI_InteractionBase : MonoBehaviour
     protected int m_itemIndex = 0;
     protected float m_petWorkWeight;
     protected float m_playerWorkWeight;
-   
+
     public void OpenInteractionTable(CraftTableController ctrl)
     {
         if (m_itemIndex == 0 && !m_isCraftDone)
@@ -208,15 +206,15 @@ public abstract class UI_InteractionBase : MonoBehaviour
         m_progressCancel.value = 0;
     }
 
-   
+
     public IEnumerator SetProgress()
     {
         m_progressCraft.value += ((m_playerWorkWeight + m_petWorkWeight) * Time.deltaTime);
 
         yield return null;
     }
-    
-    public void Init(GameObject menuSlot, GameObject workload)
+
+    public void InitCraft(GameObject menuSlot)
     {
         m_weaponInfoBoxObj = transform.GetChild(0).gameObject;
         m_txtWeaponName = transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -236,6 +234,6 @@ public abstract class UI_InteractionBase : MonoBehaviour
         m_txtMenuName = transform.GetChild(3).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
 
         m_uiMenuSlotPrefab = menuSlot;
-        m_uiWorkloadPrefab = workload;
     }
+
 }
