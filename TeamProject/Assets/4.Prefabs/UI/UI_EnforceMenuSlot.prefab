@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6888094496487963907}
   - component: {fileID: 9138700224785238578}
   - component: {fileID: 8020319874550190640}
+  - component: {fileID: 3504794451362969744}
   m_Layer: 5
   m_Name: UI_EnforceMenuSlot
   m_TagString: Untagged
@@ -80,6 +81,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3504794451362969744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334546919909238585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6f78a612df266f4898ae0406b1f679d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_icon: {fileID: 7793691655083820137}
+  m_txtLevel: {fileID: 7900181240231845496}
 --- !u!1 &1899279409493755816
 GameObject:
   m_ObjectHideFlags: 0

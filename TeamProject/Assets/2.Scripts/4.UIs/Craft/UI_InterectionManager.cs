@@ -19,23 +19,26 @@ public class UI_InterectionManager : MonoBehaviour
             case InteractionType.Craft:
                 gameObject.AddComponent<UI_CraftDeskInteraction>();
                 UI_CraftDeskInteraction Cinteraction = GetComponent<UI_CraftDeskInteraction>();
-                Cinteraction.Init(m_uiMenuSlotPrefab, m_uiWorkloadPrefab);
+                Cinteraction.InitCraft(m_uiMenuSlotPrefab);
                 m_sb.Append("제작대");
                 break;
             case InteractionType.EnforceAnvil:
                 gameObject.AddComponent<UI_EnforceAnvilInteraction>();
                 UI_EnforceAnvilInteraction Einteraction = GetComponent<UI_EnforceAnvilInteraction>();
-                Einteraction.Init(m_uiMenuSlotPrefab, m_uiWorkloadPrefab);
+                Einteraction.Init();
                 m_sb.Append("강화모루");
                 break;
             case InteractionType.PetBall:
                 gameObject.AddComponent<UI_PetBallCraftInteraction>();
                 UI_PetBallCraftInteraction Pinteraction = GetComponent<UI_PetBallCraftInteraction>();
-                Pinteraction.Init(m_uiMenuSlotPrefab, m_uiWorkloadPrefab);
+                Pinteraction.InitCraft(m_uiMenuSlotPrefab);
                 m_sb.Append("펫볼제작대");
                 break;
             case InteractionType.Brazier:
-                //gameObject.AddComponent<>();
+                gameObject.AddComponent<UI_BrazierInteraction>();
+                UI_BrazierInteraction BInteraction = GetComponent<UI_BrazierInteraction>();
+                BInteraction.Init();
+                m_sb.Append("화로");
                 break;
         }
         m_textUiName.text = m_sb.ToString();

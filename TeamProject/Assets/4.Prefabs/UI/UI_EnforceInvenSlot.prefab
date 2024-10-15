@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6318690522437982659}
   - component: {fileID: 8571543684693929714}
   - component: {fileID: 7452037436951377648}
+  - component: {fileID: 7359383494770327523}
   m_Layer: 5
   m_Name: UI_EnforceInvenSlot
   m_TagString: Untagged
@@ -80,6 +81,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7359383494770327523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901738455360586745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bebb3857a11434b46b8a80ff3ebcc916, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_icon: {fileID: 7210214325196513449}
+  m_txtLevel: {fileID: 1663170924667429050}
 --- !u!1 &1332091808500491112
 GameObject:
   m_ObjectHideFlags: 0

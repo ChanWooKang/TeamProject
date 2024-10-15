@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1336065365413762068}
   m_Layer: 0
   m_Name: Brazier
-  m_TagString: Untagged
+  m_TagString: Interact
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,12 +43,12 @@ GameObject:
   - component: {fileID: 1336065365413741998}
   - component: {fileID: 1336065365410958108}
   - component: {fileID: 1336065365411929334}
-  - component: {fileID: 1336065365416269212}
   - component: {fileID: 1336065365414112069}
   - component: {fileID: 7695944570471714207}
+  - component: {fileID: 8691816097469238458}
   m_Layer: 0
   m_Name: stove
-  m_TagString: Untagged
+  m_TagString: Interact
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,20 +116,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1336065365416269212
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1336065365414112068}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300002, guid: 5cd8d39a1158d16498902913cf91c5a4, type: 3}
 --- !u!114 &1336065365414112069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,14 +128,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db30801da7e8144ab13e446c1ea44cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_detectiveAreaObj: {fileID: 0}
+  m_detectiveAreaObj: {fileID: 2378970781571819642}
   colliderList: []
-  layerGround: 0
+  layerGround: 6
   m_uiWorkloadPrefab: {fileID: 1740737190685172048, guid: 5ef4e9795273f9a4d8f35d6a0d60dc7e, type: 3}
   m_originalMaterial: {fileID: 2100000, guid: 559fcd0bcd3878844a4383ee408ccabe, type: 2}
   green: {fileID: 2100000, guid: 7533efa71986d1f4f97ce67b850abc7e, type: 2}
   red: {fileID: 2100000, guid: 6dc7d60713187c04cbd3f20020e54720, type: 2}
-  blue: {fileID: 2100000, guid: 7533efa71986d1f4f97ce67b850abc7e, type: 2}
+  blue: {fileID: 2100000, guid: f772f1e669cceb84d9f9e288e984582a, type: 2}
 --- !u!208 &7695944570471714207
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -166,6 +152,19 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 2.551, z: 0}
   m_TimeToStationary: 0.5
+--- !u!65 &8691816097469238458
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336065365414112068}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1575786, y: 5.102968, z: 2.06215}
+  m_Center: {x: -0.00000011920929, y: 2.551484, z: -0.000048279762}
 --- !u!1 &2378970781571819642
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,9 +176,9 @@ GameObject:
   - component: {fileID: 2378970781571819643}
   - component: {fileID: 3088278523994043225}
   - component: {fileID: 4048448032121132369}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: DetectiveArea
-  m_TagString: Untagged
+  m_TagString: Interact
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -206,7 +205,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2378970781571819642}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 5, y: 0.5, z: 5}

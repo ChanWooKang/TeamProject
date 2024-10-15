@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 815222050376046280}
   - component: {fileID: 815222050376046286}
   - component: {fileID: 815222050376046287}
+  - component: {fileID: 2450690599843783999}
   m_Layer: 2
   m_Name: DetectiveArea
   m_TagString: Interact
@@ -61,6 +62,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2450690599843783999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815222050376046281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ca9c159f1840354ba6d17732f8ef9b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_uiInteractionObj: {fileID: 6395454668559097202, guid: 7693f7c9b72100f4a819ba6e8e07efc1, type: 3}
+  m_objPreview: {fileID: 815222051438297330}
 --- !u!1 &815222051355591729
 GameObject:
   m_ObjectHideFlags: 0
