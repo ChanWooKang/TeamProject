@@ -19,37 +19,58 @@ public abstract class BaseWeaponCtrl : MonoBehaviour
     [SerializeField] int index;
     [SerializeField] protected WeaponType _type;
     protected float _weaponDamage;
+    protected int _weaponLevel;
     protected float _minDist = 1.0f;
     [SerializeField] protected float _weaponRange = 0f;
     [SerializeField] protected float _useStamina = 5.0f;
 
+    //Particle Level System
+    [SerializeField] protected LevelEffectCtrl _effectScript;
+
+    #region [ Property ]
     public int Index { get { return index; } }
     public WeaponType weaponType { get { return _type; } }
-
     protected float PlayerDamage { get { return GameManagerEx._inst.playerManager._stat.Damage; } }
     protected float TotalDamage { get { return _weaponDamage + PlayerDamage; } }
+    #endregion [ Property ]
 
     public virtual void Init(PlayerEquipCtrl player, float damage)
     {
-        _playerEquip = player;        
-        GetWeaponData();
+        _playerEquip = player;
+        if(_effectScript != null)
+            _effectScript.Init();
+        ChangeWeaponData();
         
         gameObject.SetActive(false);
     }
 
-    protected virtual void GetWeaponData()
+    void ChangeStat(WeaponItemInfo info = null)
     {
-        Dictionary<int, WeaponItemInfo> datas = InventoryManager._inst.Dict_Weapon;
-        if (datas.ContainsKey(index))
-        {
-            _weaponStat = datas[index];
-            _weaponDamage = _weaponStat.Damage;            
-            return;
+        _weaponStat = info;
+        if (info != null)
+        {            
+            _weaponDamage = info.Damage;
+            _weaponLevel = info.Level;
         }
         else
+        {
             _weaponDamage = 0;
+            _weaponLevel = 0;
+        }
+        
     }
 
+    public void ChangeWeaponData()
+    {
+        Dictionary<int, WeaponItemInfo> datas = InventoryManager._inst.Dict_Weapon;
+
+        if(datas.TryGetValue(index,out WeaponItemInfo info))
+        {
+            ChangeStat(info);
+            if (_effectScript != null)
+                _effectScript.ChangeIndex(_weaponLevel);
+        }
+    }    
 
     public abstract void AttackAction();
 
@@ -74,7 +95,6 @@ public abstract class BaseWeaponCtrl : MonoBehaviour
     {
 
     }
-
 
     public virtual void ChargeEnd()
     {

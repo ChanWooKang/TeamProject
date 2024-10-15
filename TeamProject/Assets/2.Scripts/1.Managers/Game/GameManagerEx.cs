@@ -27,7 +27,15 @@ public class GameManagerEx : TSingleton<GameManagerEx>
 
         if (Input.GetKeyDown(KeyCode.G))
         {
-            InventoryManager._inst.ChangeItemLevel(200, 5);
+            InventoryManager._inst.ChangeItemLevel(200, 1);
+        }
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            InventoryManager._inst.ChangeItemLevel(200, 2);
+        }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            InventoryManager._inst.ChangeItemLevel(200, 3);
         }
     }    
 

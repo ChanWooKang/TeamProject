@@ -98,6 +98,14 @@ public class PlayerEquipCtrl : MonoBehaviour
 
     #endregion [ Init ]
 
+    public void ChangeWeaponLevelEffect(int itemIndex)
+    {
+        if(_weapons.TryGetValue(itemIndex, out BaseWeaponCtrl weapon))
+        {
+            weapon.ChangeWeaponData();
+        }        
+    }
+
     public void ChangeSlotWeapon(int slotIndex, int weaponIndex)
     {
         if (_slotWeapons.ContainsKey(slotIndex))

@@ -6356,13 +6356,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 497480768, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
-      propertyPath: m_Layer
-      value: 7
+    - target: {fileID: 1046454073617649845, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 781786294, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
-      propertyPath: m_Layer
-      value: 7
+    - target: {fileID: 1252768765495667606, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2912192553408073697, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
       propertyPath: AimCam
@@ -6420,13 +6420,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4975557546998062458, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
-      propertyPath: m_Layer
-      value: 7
+    - target: {fileID: 3941911551016001161, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9105902031183095986, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
-      propertyPath: m_Layer
-      value: 7
+    - target: {fileID: 5166072567486244315, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8633940065135947060, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}

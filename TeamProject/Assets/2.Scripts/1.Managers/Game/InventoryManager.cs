@@ -72,24 +72,49 @@ public class InventoryManager : TSingleton<InventoryManager>
         if (Dict_Item.ContainsKey(itemIndex))
         {
             Dict_Item[itemIndex].Level = itemLevel;
-            Debug.Log("Check");
             int[] itemSlotIndexs = GetSlotIndex(itemIndex);
-            if(itemSlotIndexs.Length > 0)
+            if (itemSlotIndexs.Length > 0)
             {
-                for(int i = 0; i < itemSlotIndexs.Length; i++)
+                for (int i = 0; i < itemSlotIndexs.Length; i++)
                 {
                     ItemDatas datas = Dict_SlotItem[itemSlotIndexs[i]];
                     ItemDatas changeDatas = new ItemDatas(itemIndex, datas.count, itemLevel);
                     ChangeInventoryData(itemSlotIndexs[i], changeDatas);
                 }
-                
+
             }
+            Debug.Log(Dict_Item[itemIndex].Type);
+            if(Dict_Item[itemIndex].Type == eItemType.Weapon || Dict_Item[itemIndex].Type == eItemType.Equipment)
+            {
+                ChangeEquipLevel(Dict_Item[itemIndex].Type, itemIndex, itemLevel);
+                Debug.Log("ChangeEquipLevel Go");
+            }
+               
             return true;
         }
-        Debug.Log("¾Èµé¾î¿È");
+        
 
         return false;
     }
+
+    void ChangeEquipLevel(eItemType itemType,int itemIndex, int itemLevel)
+    {
+        switch (itemType)
+        {
+            case eItemType.Weapon:
+                if (Dict_Weapon.ContainsKey(itemIndex))
+                {
+                    Dict_Weapon[itemIndex].Level = itemLevel;
+                    GameManagerEx._inst.playerManager._equip.ChangeWeaponLevelEffect(itemIndex);
+                    Debug.Log("ChangeEquipLevelEffect Go");
+                }
+                break;
+            case eItemType.Equipment:
+
+                break;
+        }
+    }
+
     public void AddItems(LowDataType type)
     {
         LowBase table = Managers._table.Get(type);
