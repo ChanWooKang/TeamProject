@@ -64,6 +64,7 @@ public class InventoryManager : TSingleton<InventoryManager>
         AddInvenItem(Dict_Item[202]);
         AddInvenItem(Dict_Item[203]);
         AddInvenItem(Dict_Item[204]);
+        AddInvenItem(Dict_Item[101],5);
     }
 
     #region [ Item Data Load ]
@@ -80,14 +81,13 @@ public class InventoryManager : TSingleton<InventoryManager>
                     ItemDatas datas = Dict_SlotItem[itemSlotIndexs[i]];
                     ItemDatas changeDatas = new ItemDatas(itemIndex, datas.count, itemLevel);
                     ChangeInventoryData(itemSlotIndexs[i], changeDatas);
+                    InventoryItems[itemSlotIndexs[i]].ChangeItemData(Dict_Item[itemIndex]);
                 }
-
-            }
-            Debug.Log(Dict_Item[itemIndex].Type);
-            if(Dict_Item[itemIndex].Type == eItemType.Weapon || Dict_Item[itemIndex].Type == eItemType.Equipment)
+            }                            
+            
+            if(Dict_Item[itemIndex].Type == eItemType.Equipment)
             {
-                ChangeEquipLevel(Dict_Item[itemIndex].Type, itemIndex, itemLevel);
-                Debug.Log("ChangeEquipLevel Go");
+                ChangeEquipLevel(Dict_Item[itemIndex].EquipType, itemIndex, itemLevel);
             }
                
             return true;
@@ -97,22 +97,20 @@ public class InventoryManager : TSingleton<InventoryManager>
         return false;
     }
 
-    void ChangeEquipLevel(eItemType itemType,int itemIndex, int itemLevel)
+    void ChangeEquipLevel(eEquipType equipType,int itemIndex, int itemLevel)
     {
-        switch (itemType)
+        equipUI.ChangeEquipData(itemIndex, Dict_Item[itemIndex]);
+        switch (equipType)
         {
-            case eItemType.Weapon:
+            case eEquipType.Weapon:
                 if (Dict_Weapon.ContainsKey(itemIndex))
                 {
                     Dict_Weapon[itemIndex].Level = itemLevel;
                     GameManagerEx._inst.playerManager._equip.ChangeWeaponLevelEffect(itemIndex);
-                    Debug.Log("ChangeEquipLevelEffect Go");
                 }
                 break;
-            case eItemType.Equipment:
-
-                break;
-        }
+            
+        }        
     }
 
     public void AddItems(LowDataType type)
@@ -161,7 +159,8 @@ public class InventoryManager : TSingleton<InventoryManager>
     {
         if (Dict_SlotItem.ContainsKey(slotIndex))
         {
-            Dict_SlotItem[slotIndex] = datas;            
+            Dict_SlotItem[slotIndex] = datas;
+            
         }
     }
 
@@ -488,7 +487,6 @@ public class InventoryManager : TSingleton<InventoryManager>
     
     public int GetActiveWeaponIndex(int slotIndex)
     {
-
         UI_EquipSlot data = equipUI.GetEquipData(slotIndex);
         if (data != null)
         {

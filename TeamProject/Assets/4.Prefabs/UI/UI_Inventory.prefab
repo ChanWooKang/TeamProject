@@ -17576,7 +17576,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36e322209d9ff4f4494445904b92ace4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Equip_Slots: []
+  Equip_Slots:
+  - {fileID: 3765738607516400453}
+  - {fileID: 3765738608109421957}
+  - {fileID: 3765738606153614732}
+  - {fileID: 3765738607588052145}
+  - {fileID: 3765738607929621393}
+  - {fileID: 3765738607858941984}
 --- !u!1 &3765738606848068922
 GameObject:
   m_ObjectHideFlags: 0

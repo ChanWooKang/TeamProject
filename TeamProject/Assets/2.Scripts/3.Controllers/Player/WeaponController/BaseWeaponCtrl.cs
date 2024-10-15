@@ -72,6 +72,14 @@ public abstract class BaseWeaponCtrl : MonoBehaviour
         }
     }    
 
+    public void ChangeParticleState(bool isOn)
+    {
+        if(_effectScript != null)
+        {
+            _effectScript.PlayOrStop(isOn);
+        }
+    }
+
     public abstract void AttackAction();
 
     protected virtual void ShootRay()

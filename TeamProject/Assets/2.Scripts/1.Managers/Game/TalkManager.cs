@@ -17,7 +17,7 @@ public class TalkManager : TSingleton<TalkManager>
     public string _fileName;
     public bool isTalking;
     int _talkCounter;
-    Coroutine UICoroutine;
+    
 
     private void Start()
     {
@@ -28,8 +28,7 @@ public class TalkManager : TSingleton<TalkManager>
     {
         isTalking = false;
         _talkCounter = 0;
-        LoadTalkData();
-        UICoroutine = null;
+        LoadTalkData();        
     }
 
     #region [ Load Data ]

@@ -20,7 +20,6 @@ public class UI_Equipment : UI_Base
     {
         Bind<GameObject>(typeof(GameObjects));
         _slotParent = GetObject((int)GameObjects.Slot_Parent);
-        Equip_Slots = new List<UI_EquipSlot>();
         Dict_EquipSlot = new Dictionary<eEquipType, UI_EquipSlot[]>();
         
         SettingSlot();        
@@ -28,29 +27,42 @@ public class UI_Equipment : UI_Base
 
     public void SettingSlot()
     {
-        UI_EquipSlot[] slots = _slotParent.GetComponentsInChildren<UI_EquipSlot>();
-        for (int i = 0; i < slots.Length; i++)
+        int i = 0;
+        for (; i < Equip_Slots.Count; i++)
         {
-            Equip_Slots.Add(slots[i]);
-            slots[i].Init();
+            Equip_Slots[i].Init();
         }
 
-        for(int i = 1; i < (int)eEquipType.Max_Count; i++)
+        for(i = 1; i < (int)eEquipType.Max_Count; i++)
         {
             List<UI_EquipSlot> slotList = new List<UI_EquipSlot>();
-            for(int j = 0; j < slots.Length; j++)
+            for(int j = 0; j < Equip_Slots.Count; j++)
             {
-                if(slots[j].slotType == (eEquipType)i)
+                if(Equip_Slots[j].slotType == (eEquipType)i)
                 {
-                    slotList.Add(slots[j]);
+                    slotList.Add(Equip_Slots[j]);
                 }
             }
             Dict_EquipSlot.Add((eEquipType)i, slotList.ToArray());
         }        
     }
 
+    public void ChangeEquipData(int itemIndex, BaseItem changeData)
+    {        
+        foreach (var Data in EquipBySlotIndex)
+        {
+            if(Data.Value.item != null)
+            {                
+                if (Data.Value.item.Index == itemIndex)
+                {
+                    Data.Value.ChangeItemData(changeData);                    
+                }
+            }            
+        }
+    }
+
     public UI_EquipSlot GetEquipData(int slotIndex)
-    {
+    {        
         EquipBySlotIndex = new Dictionary<int, UI_EquipSlot>();
         for(int i = 0; i < Equip_Slots.Count; i++)
         {            

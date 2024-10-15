@@ -63,36 +63,41 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
         if (tempWeight != 0)
         {
             InventoryManager._inst.InventoryWeight += tempWeight;
-            Debug.Log(tempWeight);
         }
         itemWeight = weight;
+        Weight_Text.text = itemWeight.ToString();
     }
 
-    public void SetItem(BaseItem _item = null)
+    public void ChangeItemData(BaseItem changeData)
     {
-        if (_item != null)
-        {
-            if (_item.EquipType == eEquipType.Weapon)
-                GameManagerEx._inst.playerManager._equip.ChangeSlotWeapon(SlotIndex, _item.Index);                                     
-            item = _item;
-            Item_Image.sprite = InventoryManager._inst.GetItemSprite(item.Index) ;
-            ChangeWeight(item.Weight);
-            Weight_Text.text = itemWeight.ToString();
-            Weight_Parent.SetActive(true);
+        item = changeData;
+        itemLevel = changeData.Level;
+        ChangeUI(changeData);
+    }
 
-            if(item.Level > 0)
-            {
-                itemLevel = item.Level;
-                Level_Text.text = itemLevel.ToString();
-                Level_Parent.SetActive(true);
-            }
-            else
-            {
-                itemLevel = 0;
-                Level_Text.text = "";
-                Level_Parent.SetActive(false);
-            }            
-            SetAlpha(1);
+    void ChangeUI(BaseItem newItem = null)
+    {
+        bool isClear = newItem == null;
+        Sprite icon = isClear ? null : InventoryManager._inst.GetItemSprite(newItem.Index);
+        float alpha = isClear ? 0f : 1f;
+        Weight_Parent.SetActive(itemWeight > 0);        
+        Level_Parent.SetActive(!isClear && itemLevel > 0);
+
+        Item_Image.sprite = icon;        
+        Level_Text.text = itemLevel.ToString();
+        SetAlpha(alpha);
+    }
+
+    public void SetItem(BaseItem newItem = null)
+    {
+        if (newItem != null)
+        {
+            if (newItem.EquipType == eEquipType.Weapon)
+                GameManagerEx._inst.playerManager._equip.ChangeSlotWeapon(SlotIndex, newItem.Index);                                     
+            item = newItem;
+            itemLevel = newItem.Level;
+            ChangeWeight(newItem.Weight);
+            ChangeUI(newItem);
         }
         else
             ClearSlot();
@@ -108,14 +113,9 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
             }                
         }            
         item = null;
-        Item_Image.sprite = null;
-        ChangeWeight(0);
-        Weight_Text.text = "";
-        Weight_Parent.SetActive(false);
         itemLevel = 0;
-        Level_Text.text = "";
-        Level_Parent.SetActive(false);
-        SetAlpha(0);
+        ChangeWeight(0);
+        ChangeUI();        
         UI_ItemInfo._info.OffInformation();
     }
 

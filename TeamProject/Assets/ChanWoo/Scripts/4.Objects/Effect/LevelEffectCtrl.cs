@@ -12,7 +12,7 @@ public class LevelEffectCtrl : MonoBehaviour
 
     public void Init()
     {
-         currIndex = 0;
+        currIndex = 0;
         _particleDatas = new Dictionary<int, ParticleSystem>();
         for(int i = 0; i < particles.Count; i++)
         {
@@ -28,6 +28,14 @@ public class LevelEffectCtrl : MonoBehaviour
         currIndex = newIndex;               
     }
 
+
+    public void PlayOrStop(bool isPlay)
+    {
+        if(isPlay) 
+            PlayParticle(currIndex);
+        else
+            StopParticle(currIndex);
+    }
 
     void PlayParticle(int index)
     {

@@ -25,18 +25,22 @@ public class GameManagerEx : TSingleton<GameManagerEx>
         if(isSetting)
             UIUpdate();
 
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.H))
         {
-            InventoryManager._inst.ChangeItemLevel(200, 1);
+            InventoryManager._inst.ChangeItemLevel(200, 0);
         }
         if (Input.GetKeyDown(KeyCode.J))
         {
-            InventoryManager._inst.ChangeItemLevel(200, 2);
+            InventoryManager._inst.ChangeItemLevel(200, 1);
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
-            InventoryManager._inst.ChangeItemLevel(200, 3);
+            InventoryManager._inst.ChangeItemLevel(200, 2);
         }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            InventoryManager._inst.ChangeItemLevel(200, 3);
+        }        
     }    
 
     public void GameMangerStart()

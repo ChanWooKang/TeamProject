@@ -226,6 +226,7 @@ public class PlayerEquipCtrl : MonoBehaviour
     public void EquipEvent()
     {
         ChangeEnd();
+        _weapons[currWeaponIndex].ChangeParticleState(true);
     }
 
     public void DisarmEvent()
@@ -247,6 +248,7 @@ public class PlayerEquipCtrl : MonoBehaviour
         {
             WeaponLists[i].gameObject.SetActive(WeaponLists[i].Index == changeWeaponIndex);
         }
+        _weapons[changeWeaponIndex].ChangeParticleState(true);
     }
 
     public void DisarmActiveWeapon()
@@ -254,7 +256,8 @@ public class PlayerEquipCtrl : MonoBehaviour
         for(int i = 0; i < WeaponLists.Count; i++)
         {
             WeaponLists[i].gameObject.SetActive(false);
-        }        
+        }
+        _weapons[currWeaponIndex].ChangeParticleState(false);
     }
               
     

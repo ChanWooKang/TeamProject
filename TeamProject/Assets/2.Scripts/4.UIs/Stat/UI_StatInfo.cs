@@ -49,8 +49,7 @@ public class UI_StatInfo : UI_Base
     }
 
     public void Init(PlayerStat stat)
-    {
-        Debug.Log(stat);
+    {        
         _stat = stat;
         Init();
     }

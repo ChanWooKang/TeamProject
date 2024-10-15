@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DefineDatas;
+using System.Threading;
 
 public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -95,44 +96,47 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
             ChangeSlotData();
     }
 
+    void ChangeUI(BaseItem newItem = null) 
+    {
+        //아이템 클리어 하는건지 세팅하는건지 확인
+        bool isClear = newItem == null;
+        Sprite icon = isClear ? null : InventoryManager._inst.GetItemSprite(newItem.Index);
+        float alpha = isClear ? 0f : 1.0f;        
+
+        Weight_Parent.SetActive(itemWeight > 0);
+        if (isClear)
+        {            
+            Count_Parent.SetActive(false);
+            Level_Parent.SetActive(false);
+        }
+        else
+        {                        
+            bool isEquipment = newItem.Type == eItemType.Equipment || newItem.Type == eItemType.Weapon;
+            Count_Parent.SetActive(!isEquipment);
+            Level_Parent.SetActive(isEquipment && itemLevel > 0);
+        }
+
+        Item_Image.sprite = icon;        
+        Count_Text.text = itemCount.ToString();
+        Level_Text.text = itemLevel.ToString();
+
+        SetAlpha(alpha);
+    }
+
+    public void ChangeItemData(BaseItem changeData)
+    {
+        itemData = changeData;
+        itemLevel = changeData.Level;
+        ChangeUI(changeData);
+    }
+
     public void AddItem(BaseItem newItem, int cnt = 1)
     {        
         itemData = newItem;
         itemCount = cnt;
+        itemLevel = newItem.Level;
         ChangeWeight(newItem.Weight);
-        Item_Image.sprite = InventoryManager._inst.GetItemSprite(itemData.Index);
-        Weight_Text.text = itemWeight.ToString();
-        Weight_Parent.SetActive(true);
-
-        switch (itemData.Type)
-        {
-            case eItemType.Equipment:
-            case eItemType.Weapon:
-                Count_Text.text = "";
-                Count_Parent.SetActive(false);
-                if (itemData.Level > 0)
-                {
-                    itemLevel = itemData.Level;
-                    Level_Text.text = itemLevel.ToString();
-                    Level_Parent.SetActive(true);
-                }
-                else
-                {
-                    itemLevel = 0;
-                    Level_Text.text = "";
-                    Level_Parent.SetActive(false);
-                }
-                break;
-            default:
-                Count_Text.text = itemCount.ToString();
-                Count_Parent.SetActive(true);
-                itemLevel = 0;
-                Level_Text.text = "";
-                Level_Parent.SetActive(false);
-                break;
-        }              
-
-        SetAlpha(1);       
+        ChangeUI(newItem);
         ChangeSlotData();
     }
 
@@ -141,10 +145,10 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
         float tempWeight = weight - itemWeight;
         if(tempWeight != 0)
         {
-            InventoryManager._inst.InventoryWeight += tempWeight;
-            Debug.Log(tempWeight);
+            InventoryManager._inst.InventoryWeight += tempWeight;            
         }
         itemWeight = weight;
+        Weight_Text.text = itemWeight.ToString();
     }
 
     void ChangeSlotData()
@@ -160,20 +164,12 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
     {
         itemData = null;
         itemCount = 0;
-        ChangeWeight(0);
-        Item_Image.sprite = null;
-        Count_Text.text = "";
-        Count_Parent.SetActive(false);
-        Weight_Text.text = "";
-        Weight_Parent.SetActive(false);
         itemLevel = 0;
-        Level_Text.text = "";
-        Level_Parent.SetActive(false);
+        ChangeWeight(0);
+        ChangeUI();
         SetAlpha(0);
         if (isSetting)
-        {
             ChangeSlotData();
-        }
     }
 
     void ChangeSlot()
