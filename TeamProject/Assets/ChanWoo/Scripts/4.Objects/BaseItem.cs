@@ -37,7 +37,7 @@ public class BaseItem
         _spriteName = spriteName;
         _nameKr = nameKr;
         _weight = weight;
-        _maxStack = 999;        
+        _maxStack = 999;
         _eType = (eEquipType)((index / 100) - 1);
         _level = 0;
     }

@@ -65,7 +65,8 @@ public class InventoryManager : TSingleton<InventoryManager>
         AddInvenItem(Dict_Item[203]);
         AddInvenItem(Dict_Item[204]);
         AddInvenItem(Dict_Item[101],5);
-    }
+        
+    }   
 
     #region [ Item Data Load ]
     public bool ChangeItemLevel(int itemIndex, int itemLevel)
@@ -159,8 +160,7 @@ public class InventoryManager : TSingleton<InventoryManager>
     {
         if (Dict_SlotItem.ContainsKey(slotIndex))
         {
-            Dict_SlotItem[slotIndex] = datas;
-            
+            Dict_SlotItem[slotIndex] = datas;            
         }
     }
 
