@@ -67,17 +67,30 @@ public class UI_ItemInfo : UI_Base
         _rect = GetComponent<RectTransform>();
     }
 
-    string SetTextEffect(eItemType type)
+    string SetTextEffect(BaseItem item)
     {
         string data = null;
-        switch (type)
+        string name = null;
+        float value = 0;
+        switch (item.Type)
         {
             case eItemType.Equipment:
-                break;
-            case eItemType.Weapon:                
-                
+                switch (item.EquipType)
+                {
+                    case eEquipType.Weapon:
+                        name = "공격력";
+                        value = InventoryManager._inst.Dict_Weapon[item.Index].Damage;
+                        break;
+                    case eEquipType.Armor:                        
+                    case eEquipType.Head:
+                        name = "체 력";
+                        value = InventoryManager._inst.Dict_Equipment[item.Index].HP;
+                        break;
+                }
                 break;
         }
+
+        data = string.Format("{0} : +{1:D2}", name, (int)value);
 
         return data;
     }
@@ -97,8 +110,8 @@ public class UI_ItemInfo : UI_Base
             case eItemType.Equipment:
             case eItemType.Weapon:
                 //효과
-                _effectParent.SetActive(false);
-                _effect.text = null;
+                _effectParent.SetActive(true);
+                _effect.text = SetTextEffect(item);
                 //개수
                 _amountParent.SetActive(false);
                 _amount.text = "";

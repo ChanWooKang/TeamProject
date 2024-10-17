@@ -24,8 +24,14 @@ public abstract class BaseWeaponCtrl : MonoBehaviour
     [SerializeField] protected float _weaponRange = 0f;
     [SerializeField] protected float _useStamina = 5.0f;
 
+    [SerializeField] protected int _nowBulletCnt;
+    [SerializeField] protected int _maxBulletCnt;
+  
     //Particle Level System
     [SerializeField] protected LevelEffectCtrl _effectScript;
+
+    public int NowBulletCount { get { return _nowBulletCnt; } }
+    public int MaxBulletCount { get { return _maxBulletCnt; } }
 
     #region [ Property ]
     public int Index { get { return index; } }

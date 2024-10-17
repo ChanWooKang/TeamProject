@@ -32,5 +32,6 @@ public class WeaponItemInfo : BaseItem
         AddInit(Indexs, Costs, damage);
               
         _type = eItemType.Equipment;
+        _eType = eEquipType.Weapon;
     }
 }

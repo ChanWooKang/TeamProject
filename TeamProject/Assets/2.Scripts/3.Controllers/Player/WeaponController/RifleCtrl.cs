@@ -7,11 +7,7 @@ public class RifleCtrl : BaseWeaponCtrl
 {
 
     [SerializeField] ParticleSystem _muzzle;
-    [SerializeField] int _nowBulletCnt;
-    [SerializeField] int _maxBulletCnt;
     
-    public int NowBulletCount { get { return _nowBulletCnt; } }
-    public int MaxBulletCount { get { return _maxBulletCnt; } }
 
     public override void Init(PlayerEquipCtrl player, float damage)
     {
