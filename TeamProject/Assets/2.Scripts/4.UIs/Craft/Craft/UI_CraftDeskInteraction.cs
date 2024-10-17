@@ -55,7 +55,10 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                 if (m_petCtrl != null)
                     m_petCtrl.JobDone();
                 m_isCraftDone = true;
-                InventoryManager._inst.AddInvenItem(InventoryManager._inst.Dict_Weapon[m_itemIndex]);
+                if (m_itemIndex < 300)
+                    InventoryManager._inst.AddInvenItem(InventoryManager._inst.Dict_Weapon[m_itemIndex]);
+                else
+                    InventoryManager._inst.AddInvenItem(InventoryManager._inst.Dict_Equipment[m_itemIndex]);
                 m_dicUIMenuSlot[m_itemIndex].InactiveSlot();
                 m_itemIndex = 0;
                 OpenInteractionCraftTable(m_tableCtrl);
@@ -66,7 +69,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                 if (m_petCtrl != null)
                     m_petCtrl.MoveToObject(m_tableCtrl.transform.position);
             }
-            else 
+            else
             {
                 UpFKey();
             }
@@ -88,8 +91,8 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                 m_progressCraft.value = 0;
                 OpenInteractionCraftTable(m_tableCtrl);
                 CloseMenu();
-                
-                
+
+
                 TechnologyManager._inst.TechPointUp();
             }
         }
@@ -106,7 +109,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
         CloseMenu();
         gameObject.SetActive(false);
     }
-        
+
     public override void OpenMenu()
     {
         m_uiMenuObj.SetActive(true);
@@ -122,7 +125,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
             {
                 for (int j = 0; j < m_maxMenuVolAmount.x; j++)
                 {
-                    
+
                     m_uiMenuSlotObj = Instantiate(m_uiMenuSlotPrefab, m_startSlotW);
                     UI_MenuSlot slot = m_uiMenuSlotObj.GetComponent<UI_MenuSlot>();
                     RectTransform rect = m_uiMenuSlotObj.GetComponent<RectTransform>();
@@ -133,31 +136,31 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                     m_dicUIMenuSlot.Add(200 + num, slot);
                     m_listUIMenuSlot.Add(slot);
                     num++;
-                    
-                    m_isNew = false;
+
+
                 }
             }
             DecideSlotCount(LowDataType.EquipmentTable);
             num = 0;
-            for(int i = 0; i < m_maxMenuVolAmount.y; i++)
+            for (int i = 0; i < m_maxMenuVolAmount.y; i++)
             {
-                for(int j = 0; j < m_maxMenuVolAmount.x; j++)
+                for (int j = 0; j < m_maxMenuVolAmount.x; j++)
                 {
-                    m_uiMenuSlotObj = Instantiate(m_uiMenuSlotPrefab, null);
+                    m_uiMenuSlotObj = Instantiate(m_uiMenuSlotPrefab, m_startSlotE);
                     UI_MenuSlot slot = m_uiMenuSlotObj.GetComponent<UI_MenuSlot>();
                     RectTransform rect = m_uiMenuSlotObj.GetComponent<RectTransform>();
                     float x = (m_startSlotW.sizeDelta.x + 10) * j;
                     float y = -(m_startSlotW.sizeDelta.y + 10) * i;
                     rect.anchoredPosition = new Vector2(x, y);
-                    slot.InitSlot(LowDataType.EquipmentTable,num, j, i, this);
-                    m_dicUIMenuSlot.Add(200 + num, slot);
+                    slot.InitSlot(LowDataType.EquipmentTable, num, j, i, this);
+                    m_dicUIMenuSlot.Add(300 + num, slot);
                     m_listUIMenuSlot.Add(slot);
                     num++;
 
-                    m_isNew = false;
+
                 }
             }
-
+            m_isNew = false;
         }
         //UI클릭시 커서 잠금
         GameManagerEx._inst.ControlUI(false, false);
@@ -192,7 +195,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
         }
     }
 
-   
+
 
 
 }

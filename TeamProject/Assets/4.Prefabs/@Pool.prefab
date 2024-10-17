@@ -246,4 +246,12 @@ MonoBehaviour:
     name: SuperBall
     type: 1
     prefab: {fileID: 21300000, guid: 4fbc695742b8e594fb25ee9f64332f7e, type: 3}
+  - index: 300
+    name: LeatherArmor
+    type: 1
+    prefab: {fileID: 21300000, guid: 4fbc695742b8e594fb25ee9f64332f7e, type: 3}
+  - index: 301
+    name: CowBoyHat
+    type: 1
+    prefab: {fileID: 21300000, guid: 4fbc695742b8e594fb25ee9f64332f7e, type: 3}
   _hudRootTransform: {fileID: 0}

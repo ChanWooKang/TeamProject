@@ -17,7 +17,7 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     UI_CraftDeskInteraction m_uiInteraction;
     UI_PetBallCraftInteraction m_uiPetballInteraction;
     Image m_imgBg;
-
+    LowDataType m_type;
     int[] m_materialsIndex;
     int[] m_materialCosts;
     int m_x;
@@ -28,18 +28,21 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         m_imgBg = GetComponent<Image>();
         m_uiInteraction = interation;
+        m_type = type;
+        m_x = x;
+        m_y = y;
         if (type == LowDataType.WeaponTable)
         {
             m_itemIndex = 200 + num;
             m_icon.sprite = PoolingManager._inst._poolingIconByName[InventoryManager._inst.Dict_Weapon[m_itemIndex].NameEn].prefab;
-        }
-        else
+        }       
+        else if(type == LowDataType.EquipmentTable)
         {
             m_itemIndex = 300 + num;
             m_icon.sprite = PoolingManager._inst._poolingIconByName[InventoryManager._inst.Dict_Equipment[m_itemIndex].NameEn].prefab;
+            m_y += 3;
         }
-        m_x = x;
-        m_y = y;
+        
     }
     public void InitSlot(int num, int x, int y, UI_PetBallCraftInteraction interaction)
     {
@@ -65,18 +68,20 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             m_uiInfoBox = ui.GetComponent<UI_InfoBox>();
 
         }
-
+        RectTransform rect = m_uiInfoBox.GetComponent<RectTransform>();
+        rect.sizeDelta = new Vector2(650, 300);
 
         if (m_y < 3)
         {
             if (m_x < 5)
             {
                 m_uiInfoBox.gameObject.transform.SetParent(m_infoBoxPoses[0]);
-
+                rect.anchoredPosition = m_infoBoxPoses[0].anchoredPosition;
             }
             else
             {
                 m_uiInfoBox.gameObject.transform.SetParent(m_infoBoxPoses[1]);
+                rect.anchoredPosition = m_infoBoxPoses[1].anchoredPosition;
             }
         }
         else
@@ -84,18 +89,19 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             if (m_x < 5)
             {
                 m_uiInfoBox.gameObject.transform.SetParent(m_infoBoxPoses[2]);
+                rect.anchoredPosition = m_infoBoxPoses[2].anchoredPosition;
             }
             else
             {
                 m_uiInfoBox.gameObject.transform.SetParent(m_infoBoxPoses[3]);
+                rect.anchoredPosition = m_infoBoxPoses[3].anchoredPosition;
             }
         }
-
+        
         m_uiInfoBox.transform.SetParent(transform.parent);
         m_uiInfoBox.transform.SetAsLastSibling();
-        RectTransform rect = m_uiInfoBox.GetComponent<RectTransform>();
-        rect.sizeDelta = new Vector2(650, 300);
-        if (m_itemIndex < 500)
+       
+        if (m_type == LowDataType.WeaponTable)
         {
             string wNameKr = InventoryManager._inst.Dict_Weapon[m_itemIndex].NameKr;
             string wDesc = InventoryManager._inst.Dict_Weapon[m_itemIndex].Desc;
@@ -105,12 +111,22 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             m_uiInfoBox.OpenBox(wNameKr, wDesc);
             m_uiInfoBox.OpenMaterialsSlots(m_materialsIndex, m_materialCosts);
         }
-        else
+        else if(m_type == LowDataType.PetBallTable)
         {
             string wNameKr = InventoryManager._inst.Dict_Petball[m_itemIndex].NameKr;
             string wDesc = InventoryManager._inst.Dict_Petball[m_itemIndex].Desc;
             m_materialsIndex = InventoryManager._inst.Dict_Petball[m_itemIndex].MaterialsIndex;
             m_materialCosts = InventoryManager._inst.Dict_Petball[m_itemIndex].MaterialsCost;
+
+            m_uiInfoBox.OpenBox(wNameKr, wDesc);
+            m_uiInfoBox.OpenMaterialsSlots(m_materialsIndex, m_materialCosts);
+        }
+        else if(m_type == LowDataType.EquipmentTable)
+        {
+            string wNameKr = InventoryManager._inst.Dict_Equipment[m_itemIndex].NameKr;
+            string wDesc = InventoryManager._inst.Dict_Equipment[m_itemIndex].Desc;
+            m_materialsIndex = InventoryManager._inst.Dict_Equipment[m_itemIndex].MaterialsIndex;
+            m_materialCosts = InventoryManager._inst.Dict_Equipment[m_itemIndex].MaterialsCost;
 
             m_uiInfoBox.OpenBox(wNameKr, wDesc);
             m_uiInfoBox.OpenMaterialsSlots(m_materialsIndex, m_materialCosts);

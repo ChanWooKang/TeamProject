@@ -59,7 +59,10 @@ public abstract class UI_InteractionBase : MonoBehaviour
         {
             m_txtPressOrHold.text = "Press and Hold";
             m_txtMenuOrCraft.text = "Craft";
-            m_txtWeaponName.text = InventoryManager._inst.Dict_Weapon[m_itemIndex].NameKr;
+            if (m_itemIndex < 300)
+                m_txtWeaponName.text = InventoryManager._inst.Dict_Weapon[m_itemIndex].NameKr;
+            else
+                m_txtWeaponName.text = InventoryManager._inst.Dict_Equipment[m_itemIndex].NameKr;
             m_weaponInfoBoxObj.SetActive(true);
             m_CancelObj.SetActive(true);
         }
