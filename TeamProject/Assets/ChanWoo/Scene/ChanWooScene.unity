@@ -605,6 +605,7 @@ MonoBehaviour:
   _information: {fileID: 1591452966}
   UIStateValue: 0
   isOnBuild: 0
+  Hat: {fileID: 9216200083876772820, guid: 925c155961020df4aa51c9fd140dc3f2, type: 3}
 --- !u!4 &430903610
 Transform:
   m_ObjectHideFlags: 0
@@ -1808,6 +1809,11 @@ Transform:
   m_Father: {fileID: 237095742}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1564514666 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2912192552862159726, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
+  m_PrefabInstance: {fileID: 3941320733106027244}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1591452965 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6147755239862215764, guid: 2c84f910fd4e1bd45bb06e4ae105b13c, type: 3}
@@ -4102,6 +4108,42 @@ PrefabInstance:
       propertyPath: _hudRootTransform
       value: 
       objectReference: {fileID: 580256942}
+    - target: {fileID: 795888134428289011, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: _poolingIcons.Array.size
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 795888134428289011, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: _poolingIcons.Array.data[21].name
+      value: LeatherArmor
+      objectReference: {fileID: 0}
+    - target: {fileID: 795888134428289011, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: _poolingIcons.Array.data[21].type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 795888134428289011, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: _poolingIcons.Array.data[22].name
+      value: CowBoyHat
+      objectReference: {fileID: 0}
+    - target: {fileID: 795888134428289011, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: _poolingIcons.Array.data[22].type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 795888134428289011, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: _poolingIcons.Array.data[21].index
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 795888134428289011, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: _poolingIcons.Array.data[22].index
+      value: 301
+      objectReference: {fileID: 0}
+    - target: {fileID: 795888134428289011, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: _poolingIcons.Array.data[21].prefab
+      value: 
+      objectReference: {fileID: 21300000, guid: 4fbc695742b8e594fb25ee9f64332f7e, type: 3}
+    - target: {fileID: 795888134428289011, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
+      propertyPath: _poolingIcons.Array.data[22].prefab
+      value: 
+      objectReference: {fileID: 21300000, guid: 4fbc695742b8e594fb25ee9f64332f7e, type: 3}
     - target: {fileID: 795888134428289012, guid: 49d56ad473e152b4281ff94544e53300, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -6815,9 +6857,37 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2912192552994697702, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
+    - target: {fileID: 1887921026, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
+      propertyPath: EquipmentObjects.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1887921026, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
+      propertyPath: EquipmentObjects.Array.data[0].go
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1887921026, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
+      propertyPath: EquipmentObjects.Array.data[1].go
+      value: 
+      objectReference: {fileID: 1564514666}
+    - target: {fileID: 1887921026, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
+      propertyPath: EquipmentObjects.Array.data[2].go
+      value: 
+      objectReference: {fileID: 9216200084209479274}
+    - target: {fileID: 1887921026, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
+      propertyPath: EquipmentObjects.Array.data[0].Index
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1887921026, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
+      propertyPath: EquipmentObjects.Array.data[1].Index
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 1887921026, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
+      propertyPath: EquipmentObjects.Array.data[2].Index
+      value: 301
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912192552862159726, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2912192553408073697, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
       propertyPath: AimCam
@@ -6873,6 +6943,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2912192553408073702, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9216200084209479274, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
+      propertyPath: m_Name
+      value: 301
+      objectReference: {fileID: 0}
+    - target: {fileID: 9216200084209479274, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -10509,3 +10587,8 @@ Transform:
   m_Father: {fileID: 2586247800022321033}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9216200084209479274 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9216200084209479274, guid: 8f1973fab8c890d42bacfe4031eaa625, type: 3}
+  m_PrefabInstance: {fileID: 3941320733106027244}
+  m_PrefabAsset: {fileID: 0}

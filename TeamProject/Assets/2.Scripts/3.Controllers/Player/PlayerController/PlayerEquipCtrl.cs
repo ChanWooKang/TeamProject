@@ -31,6 +31,7 @@ public class PlayerEquipCtrl : MonoBehaviour
     // 변경 할 무기 인덱스 값
     [SerializeField] int changeWeaponIndex = 0;
 
+    [SerializeField] ObjectSettings equipSet;
 
     public PlayerAssetsInputs InputAsset { get { return _input; } }
 
@@ -60,7 +61,8 @@ public class PlayerEquipCtrl : MonoBehaviour
         SettingSlotWeapons();        
         InitData();
         PetBallModel.SetActive(false);
-        HammerModel.SetActive(false);       
+        HammerModel.SetActive(false);
+        equipSet.Init();
     }
 
     void InitData()
@@ -94,9 +96,25 @@ public class PlayerEquipCtrl : MonoBehaviour
             _slotWeapons.Add(i, weaponIndex);
         }
         _slotWeapons.Add(0, 0);
-    }
+    }    
 
     #endregion [ Init ]
+
+    public void EquipItem(int index,eEquipType type,EquipmentItemInfo info,bool isEquip)
+    {
+        float hp = isEquip ? info.HP : -info.HP;
+        _manager._stat.AddStat(eStatType.HP, hp);
+        switch (type)
+        {
+            case eEquipType.Head:
+                equipSet.Setting(EquipState.Hat, isEquip, index);                                
+                break;
+            case eEquipType.Armor:
+                equipSet.Setting(EquipState.Armor, isEquip, index);
+                break;
+        }
+        
+    }
 
     public void ChangeWeaponLevelEffect(int itemIndex)
     {

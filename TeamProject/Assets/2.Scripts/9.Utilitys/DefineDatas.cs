@@ -184,6 +184,13 @@ namespace DefineDatas
         Brazier,
     }    
 
+    public enum EquipState
+    {
+        None,
+        Hat,
+        Armor,        
+    }
+
     public interface IFSMState<T>
     {
         void Enter(T m);

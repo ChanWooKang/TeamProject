@@ -60,6 +60,11 @@ public class PlayerAnimCtrl : MonoBehaviour
         return _animator.GetBool(ID);
     }
 
+    public Transform GetBone(HumanBodyBones type)
+    {
+        return _animator.GetBoneTransform(type);
+    }
+
     //Animation Trigger Event
     public void OnAttack()
     {

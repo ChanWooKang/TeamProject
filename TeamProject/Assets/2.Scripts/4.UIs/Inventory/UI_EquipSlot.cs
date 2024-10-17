@@ -91,9 +91,18 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
     public void SetItem(BaseItem newItem = null)
     {
         if (newItem != null)
-        {
-            if (newItem.EquipType == eEquipType.Weapon)
-                GameManagerEx._inst.playerManager._equip.ChangeSlotWeapon(SlotIndex, newItem.Index);                                     
+        {                            
+            switch (newItem.EquipType)
+            {
+                case eEquipType.Weapon:
+                    GameManagerEx._inst.playerManager._equip.ChangeSlotWeapon(SlotIndex, newItem.Index);
+                    break;
+                case eEquipType.Head:
+                case eEquipType.Armor:
+                    InventoryManager._inst.EquipItem(newItem.Index,newItem.EquipType, true);
+                    break;
+            }
+            
             item = newItem;
             itemLevel = newItem.Level;
             ChangeWeight(newItem.Weight);
@@ -107,10 +116,16 @@ public class UI_EquipSlot : UI_Base, IPointerClickHandler, IBeginDragHandler, ID
     {
         if (item != null)
         {
-            if(item.EquipType == eEquipType.Weapon)
-            {                                
-                GameManagerEx._inst.playerManager._equip.ChangeSlotWeapon(SlotIndex, 0);
-            }                
+            switch (item.EquipType)
+            {
+                case eEquipType.Weapon:
+                    GameManagerEx._inst.playerManager._equip.ChangeSlotWeapon(SlotIndex, 0);
+                    break;
+                case eEquipType.Head:
+                case eEquipType.Armor:
+                    InventoryManager._inst.EquipItem(item.Index, item.EquipType, false);                    
+                    break;
+            }               
         }            
         item = null;
         itemLevel = 0;

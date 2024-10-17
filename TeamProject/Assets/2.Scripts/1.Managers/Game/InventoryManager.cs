@@ -17,6 +17,7 @@ public class InventoryManager : TSingleton<InventoryManager>
     public Dictionary<int, BaseItem> Dict_Item;
     public Dictionary<int, MaterialItemInfo> Dict_Material;
     public Dictionary<int, WeaponItemInfo> Dict_Weapon;
+    public Dictionary<int, EquipmentItemInfo> Dict_Equipment;
     public Dictionary<int, PetBallInfo> Dict_Petball;
     public Dictionary<int, ItemDatas> Dict_SlotItem;
     
@@ -35,11 +36,13 @@ public class InventoryManager : TSingleton<InventoryManager>
         Items = new List<BaseItem>();
         Dict_Material = new Dictionary<int, MaterialItemInfo>();
         Dict_Weapon = new Dictionary<int, WeaponItemInfo>();
+        Dict_Equipment = new Dictionary<int, EquipmentItemInfo>();
         Dict_Petball = new Dictionary<int, PetBallInfo>();
         
 
         AddItems(LowDataType.MaterialTable);
         AddItems(LowDataType.WeaponTable);
+        AddItems(LowDataType.EquipmentTable);
         AddItems(LowDataType.PetBallTable);
     }
 
@@ -67,6 +70,8 @@ public class InventoryManager : TSingleton<InventoryManager>
         AddInvenItem(Dict_Item[101],5);
 
         AddInvenItem(Dict_Item[102], 100);
+        AddInvenItem(Dict_Item[300]);
+        AddInvenItem(Dict_Item[301]);
     }
 
         
@@ -134,6 +139,10 @@ public class InventoryManager : TSingleton<InventoryManager>
                 offSetNum = 200;
                 itemType = eItemType.Weapon;
                 break;
+            case LowDataType.EquipmentTable:
+                offSetNum = 300;
+                itemType = eItemType.Equipment;
+                break;
             case LowDataType.PetBallTable:
                 offSetNum = 500;
                 itemType = eItemType.PetBall;
@@ -180,6 +189,7 @@ public class InventoryManager : TSingleton<InventoryManager>
         switch (type)
         {
             case eItemType.Weapon:
+            case eItemType.Equipment:
                 {
                     string materialsIndexStr = Table.ToStr(index, "Materials");
                     string[] materialsIndexStrArray = materialsIndexStr.Split('/');
@@ -201,12 +211,23 @@ public class InventoryManager : TSingleton<InventoryManager>
                         }
                     }
 
-                    float damage = Table.ToFloat(index, "Damage");
-                    WeaponItemInfo weapon = new WeaponItemInfo(index, nameEn, desc, spriteName, nameKr, weight, materialsIndexArray, materialsCostArray, damage);
-                    Items.Add(weapon);
-                    Dict_Weapon.Add(index, weapon);
+                    if(type == eItemType.Weapon)
+                    {
+                        float damage = Table.ToFloat(index, "Damage");
+                        WeaponItemInfo weapon = new WeaponItemInfo(index, nameEn, desc, spriteName, nameKr, weight, materialsIndexArray, materialsCostArray, damage);
+                        Items.Add(weapon);
+                        Dict_Weapon.Add(index, weapon);
+                    }
+                    else
+                    {
+                        int equiptype = Table.ToInt(index, "Type");
+                        float hp = Table.ToFloat(index, "HP");
+                        EquipmentItemInfo equip = new EquipmentItemInfo(index, nameEn, desc, spriteName, nameKr, weight, materialsIndexArray, materialsCostArray, hp, equiptype);
+                        Items.Add(equip);
+                        Dict_Equipment.Add(index, equip);
+                    }
                 }
-                break;
+                break;                            
             case eItemType.Material:
                 int rate = Table.ToInt(index, "Rate");
                 MaterialItemInfo material = new MaterialItemInfo(index, nameEn, desc, spriteName, nameKr, weight,rate);
@@ -263,6 +284,12 @@ public class InventoryManager : TSingleton<InventoryManager>
         }        
 
         return null;
+    }    
+
+    public void EquipItem(int index, eEquipType type, bool isEquip)
+    {
+        if (Dict_Equipment.ContainsKey(index))
+            GameManagerEx._inst.playerManager._equip.EquipItem(index, type, Dict_Equipment[index], isEquip);
     }
 
     #endregion [ Item Data Load ]

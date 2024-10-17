@@ -106,7 +106,7 @@ public class PlayerStat : BaseStat
         _moveSpeed = 5;
         _runSpeed = 10;
         _bonusStat = 0;
-        _carryWeight = 100;
+        _carryWeight = 5000;
         _workAbility = 50;
     }
 
@@ -145,6 +145,17 @@ public class PlayerStat : BaseStat
                 break;
         }
     }    
+
+    public void AddStat(eStatType type, float value)
+    {
+        switch (type)
+        {
+            case eStatType.HP:
+                MaxHP += value;
+                HP = Mathf.Min(HP + value, MaxHP);
+                break;
+        }
+    }
 
     public bool CheckUseStamina(float value)
     {

@@ -18,29 +18,14 @@ public class GameManagerEx : TSingleton<GameManagerEx>
 
     bool isSetting = false;
     public bool isOnBuild = false;
-    Coroutine OffBuildCoroutine = null;    
+    Coroutine OffBuildCoroutine = null;
+
+    [SerializeField] GameObject Hat;
 
     private void Update()
     {
         if(isSetting)
-            UIUpdate();
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            InventoryManager._inst.ChangeItemLevel(200, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            InventoryManager._inst.ChangeItemLevel(200, 1);
-        }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            InventoryManager._inst.ChangeItemLevel(200, 2);
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            InventoryManager._inst.ChangeItemLevel(200, 3);
-        }        
+            UIUpdate();           
     }    
 
     public void GameMangerStart()
