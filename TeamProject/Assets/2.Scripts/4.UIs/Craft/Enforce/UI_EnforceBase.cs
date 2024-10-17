@@ -23,6 +23,7 @@ public abstract class UI_EnforceBase : MonoBehaviour
     protected UI_EnforceMenuSlot m_prevSlot;
     protected UI_EnforceMenuSlot m_nextSlot;
 
+    protected Button m_btnEnforce;
     
     public void Init()
     {
@@ -30,7 +31,7 @@ public abstract class UI_EnforceBase : MonoBehaviour
         m_InvenBox = transform.GetChild(1).gameObject;
         m_uiInteractObj = transform.GetChild(2).gameObject;        
         m_txtUiName = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-        
+        m_btnEnforce = transform.GetChild(0).GetChild(2).GetComponent<Button>();
         
         m_progressCancel = m_uiInteractObj.transform.GetChild(2).GetChild(1).GetComponent<Slider>();
         m_invenSlotParent = transform.GetChild(1).GetChild(1);
@@ -52,12 +53,28 @@ public abstract class UI_EnforceBase : MonoBehaviour
             {
                 InventoryManager._inst.ChangeItemLevel(m_prevSlot.ItemIndex, m_prevSlot.ItemLevel + 1);
             }
-            else
+            else if(m_prevSlot.ItemIndex == 102)
             {
                 InventoryManager._inst.UseItem(m_prevSlot.ItemIndex, m_prevSlot.ItemLevel);
-                
+                InventoryManager._inst.AddInvenItem(InventoryManager._inst.Dict_Material[m_nextSlot.ItemIndex], m_nextSlot.ItemLevel);
             }
+            m_prevSlot.ResetSlot();
+            m_nextSlot.ResetSlot();
         }
+    }
+    public void OpenSlot()
+    {
+        UIManager._inst.UIOff();
+        m_EnfoceBox.SetActive(true);
+        m_InvenBox.SetActive(true);
+
+        m_uiInteractObj.SetActive(false);
+        
+        m_prevSlot.InitSlot(null);
+        m_nextSlot.InitSlot(null);
+        
+        GameManagerEx._inst.ControlUI(false, false);
+        GameManagerEx._inst.ChangeCursorLockForUI(true);
     }
     public abstract void PressCKey();
     public void UpCKey()

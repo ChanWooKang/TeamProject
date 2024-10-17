@@ -34,6 +34,7 @@ public abstract class UI_InteractionBase : MonoBehaviour
 
 
     protected List<UI_MenuSlot> m_listUIMenuSlot;
+    protected Dictionary<int, UI_MenuSlot> m_dicUIMenuSlot;
     protected Vector2Int m_maxMenuVolAmount;
 
     protected bool m_isNew = true;

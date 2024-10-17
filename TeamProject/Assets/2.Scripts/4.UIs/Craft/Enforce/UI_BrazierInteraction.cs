@@ -61,17 +61,12 @@ public class UI_BrazierInteraction : UI_EnforceBase
             gameObject.SetActive(false);
         }
     }
-    void OpenSlot()
+    new public void OpenSlot()
     {
-
-        UIManager._inst.UIOff();
-        m_EnfoceBox.SetActive(true);
-        m_InvenBox.SetActive(true);
-       
-        m_uiInteractObj.SetActive(false);
-        int i = 0;
-        m_prevSlot.InitSlot(null);
-        m_nextSlot.InitSlot(null);
+        base.OpenSlot();
+        if (m_btnEnforce.onClick.GetPersistentEventCount() == 0)
+            m_btnEnforce.onClick.AddListener(ClickEnforceButton);
+        int i = 0;        
         foreach (MaterialItemInfo mat in InventoryManager._inst.Dict_Material.Values)
         {
             if (mat.Index == 102)
@@ -81,8 +76,12 @@ public class UI_BrazierInteraction : UI_EnforceBase
                 break;
             }
         }
-        GameManagerEx._inst.ControlUI(false, false);
-        GameManagerEx._inst.ChangeCursorLockForUI(true);
+       
+    }
+    new public void ClickEnforceButton()
+    {
+        base.ClickEnforceButton();
+        OpenSlot();
     }
     void CloseSlot()
     {
@@ -90,6 +89,8 @@ public class UI_BrazierInteraction : UI_EnforceBase
         
         m_EnfoceBox.SetActive(false);
         m_InvenBox.SetActive(false);
+        m_prevSlot.ResetSlot();
+        m_nextSlot.ResetSlot();
         GameManagerEx._inst.ControlUI(false);
         GameManagerEx._inst.ChangeCursorLockForUI(false);
     }

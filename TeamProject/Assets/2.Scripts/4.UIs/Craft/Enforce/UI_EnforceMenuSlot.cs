@@ -13,6 +13,7 @@ public class UI_EnforceMenuSlot : MonoBehaviour
     int m_itemLevel;
     public int ItemIndex { get { return m_itemIndex; } }
     public int ItemLevel { get { return m_itemLevel; } }
+    public Image Icon { get { return m_icon; } }
     public void InitSlot(Sprite icon, int index = 0, int Level = 0)
     {        
         if (icon == null)
@@ -22,7 +23,7 @@ public class UI_EnforceMenuSlot : MonoBehaviour
         }
         else
         {
-            if (m_icon.sprite == PoolingManager._inst._poolingIconByIndex[105].prefab)
+            if (m_icon.sprite == PoolingManager._inst._poolingIconByIndex[105].prefab ||  (m_icon.sprite == PoolingManager._inst._poolingIconByIndex[102].prefab))
             {
                 m_itemLevel += 10;
                 m_txtLevel.text = m_itemLevel.ToString();
@@ -37,5 +38,10 @@ public class UI_EnforceMenuSlot : MonoBehaviour
         m_itemLevel = Level;
     }
 
-
+    public void ResetSlot()
+    {
+        m_icon.sprite = null;
+        m_itemIndex = 0;
+        m_itemLevel = 0;
+    }
 }
