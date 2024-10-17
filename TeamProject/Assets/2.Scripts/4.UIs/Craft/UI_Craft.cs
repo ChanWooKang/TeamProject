@@ -9,11 +9,11 @@ public class UI_Craft : MonoBehaviour
 
     [SerializeField] GameObject m_prefabObj;
     
-    Button m_slotBtn;
+   
     GameObject m_previewObj;
     GameObject m_craftingObj;
     Architecture m_architectureInfo;
-    UI_InfoBox m_uiInfoBox;
+   
     [SerializeField] List<UI_CraftSlot> m_listCraftSlot;
     Dictionary<int, UI_CraftSlot> m_dicCraftSlots;
 
@@ -49,7 +49,7 @@ public class UI_Craft : MonoBehaviour
                 CancleCraft();
         }
     }
-    public void OpenUI(int techLevel = 0)
+    public void InteractionUI(int techLevel = 0)
     {
         if (m_isPreviewActivated)
             return;        
@@ -63,6 +63,10 @@ public class UI_Craft : MonoBehaviour
         else
         {
             m_isOn = false;
+            for(int i = 0; i < m_listCraftSlot.Count;i++)
+            {
+                m_listCraftSlot[i].CloseSlot();
+            }
             m_craftBoxObj.SetActive(m_isOn);
             GameManagerEx._inst.ControlUI(m_isOn, true);
             return;

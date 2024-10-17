@@ -70,8 +70,8 @@ public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         m_uiCraft.IsPreviewActivated(true, m_previewObj, m_craftingObj, m_architectureInfo);
         m_highlightBG.enabled = false;
 
-        m_uiCraftBoxObj.SetActive(false);        
-
+        m_uiCraftBoxObj.SetActive(false);
+        m_uiInfoBox.CloseBox();
         //UI클릭시 커서 잠금
         GameManagerEx._inst.ControlUI(false, true);
         // 얘 켜져있으면 이동 과 카메라 회전만 가능
@@ -113,6 +113,11 @@ public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public void OnPointerExit(PointerEventData eventData)
     {
         m_highlightBG.enabled = false;
+        m_uiInfoBox.CloseBox();
+    }
+    public void CloseSlot()
+    {
+        if(m_uiInfoBox != null)
         m_uiInfoBox.CloseBox();
     }
 

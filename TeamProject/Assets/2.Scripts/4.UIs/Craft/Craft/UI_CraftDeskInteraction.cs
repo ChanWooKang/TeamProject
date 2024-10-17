@@ -123,13 +123,13 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                 for (int j = 0; j < m_maxMenuVolAmount.x; j++)
                 {
                     
-                    m_uiMenuSlotObj = Instantiate(m_uiMenuSlotPrefab, m_startSlot);
+                    m_uiMenuSlotObj = Instantiate(m_uiMenuSlotPrefab, m_startSlotW);
                     UI_MenuSlot slot = m_uiMenuSlotObj.GetComponent<UI_MenuSlot>();
                     RectTransform rect = m_uiMenuSlotObj.GetComponent<RectTransform>();
-                    float x = (m_startSlot.sizeDelta.x + 10) * j;
-                    float y = -(m_startSlot.sizeDelta.y + 10) * i;
+                    float x = (m_startSlotW.sizeDelta.x + 10) * j;
+                    float y = -(m_startSlotW.sizeDelta.y + 10) * i;
                     rect.anchoredPosition = new Vector2(x, y);
-                    slot.InitSlot(num, j, i, this);
+                    slot.InitSlot(LowDataType.WeaponTable, num, j, i, this);
                     m_dicUIMenuSlot.Add(200 + num, slot);
                     m_listUIMenuSlot.Add(slot);
                     num++;
@@ -137,6 +137,27 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                     m_isNew = false;
                 }
             }
+            DecideSlotCount(LowDataType.EquipmentTable);
+            num = 0;
+            for(int i = 0; i < m_maxMenuVolAmount.y; i++)
+            {
+                for(int j = 0; j < m_maxMenuVolAmount.x; j++)
+                {
+                    m_uiMenuSlotObj = Instantiate(m_uiMenuSlotPrefab, null);
+                    UI_MenuSlot slot = m_uiMenuSlotObj.GetComponent<UI_MenuSlot>();
+                    RectTransform rect = m_uiMenuSlotObj.GetComponent<RectTransform>();
+                    float x = (m_startSlotW.sizeDelta.x + 10) * j;
+                    float y = -(m_startSlotW.sizeDelta.y + 10) * i;
+                    rect.anchoredPosition = new Vector2(x, y);
+                    slot.InitSlot(LowDataType.EquipmentTable,num, j, i, this);
+                    m_dicUIMenuSlot.Add(200 + num, slot);
+                    m_listUIMenuSlot.Add(slot);
+                    num++;
+
+                    m_isNew = false;
+                }
+            }
+
         }
         //UI클릭시 커서 잠금
         GameManagerEx._inst.ControlUI(false, false);

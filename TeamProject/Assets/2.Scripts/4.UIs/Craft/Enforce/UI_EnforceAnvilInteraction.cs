@@ -51,6 +51,7 @@ public class UI_EnforceAnvilInteraction : UI_EnforceBase
     {
         if (isAnforcing)
             return;
+        CloseSlot();
         gameObject.SetActive(false);
 
     }

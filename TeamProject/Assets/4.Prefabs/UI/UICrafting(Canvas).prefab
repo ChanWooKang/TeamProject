@@ -384,6 +384,10 @@ PrefabInstance:
       propertyPath: m_infoboxP
       value: 
       objectReference: {fileID: 470783147910661883}
+    - target: {fileID: 3569613583653024393, guid: 9cf571d1481425245aba0bcf5949396c, type: 3}
+      propertyPath: m_uiCraftBoxObj
+      value: 
+      objectReference: {fileID: 5948367567978815219}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9cf571d1481425245aba0bcf5949396c, type: 3}
 --- !u!224 &2732096893912991971 stripped
@@ -626,6 +630,10 @@ PrefabInstance:
       propertyPath: m_infoboxP
       value: 
       objectReference: {fileID: 470783147910661883}
+    - target: {fileID: 3569613583653024393, guid: 9cf571d1481425245aba0bcf5949396c, type: 3}
+      propertyPath: m_uiCraftBoxObj
+      value: 
+      objectReference: {fileID: 5948367567978815219}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9cf571d1481425245aba0bcf5949396c, type: 3}
 --- !u!224 &4963703554022570731 stripped
@@ -747,6 +755,10 @@ PrefabInstance:
       propertyPath: m_infoboxP
       value: 
       objectReference: {fileID: 470783147910661883}
+    - target: {fileID: 3569613583653024393, guid: 9cf571d1481425245aba0bcf5949396c, type: 3}
+      propertyPath: m_uiCraftBoxObj
+      value: 
+      objectReference: {fileID: 5948367567978815219}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9cf571d1481425245aba0bcf5949396c, type: 3}
 --- !u!224 &6234507333782316997 stripped
@@ -868,6 +880,10 @@ PrefabInstance:
       propertyPath: m_infoboxP
       value: 
       objectReference: {fileID: 470783147910661883}
+    - target: {fileID: 3569613583653024393, guid: 9cf571d1481425245aba0bcf5949396c, type: 3}
+      propertyPath: m_uiCraftBoxObj
+      value: 
+      objectReference: {fileID: 5948367567978815219}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9cf571d1481425245aba0bcf5949396c, type: 3}
 --- !u!224 &6186035620705878671 stripped

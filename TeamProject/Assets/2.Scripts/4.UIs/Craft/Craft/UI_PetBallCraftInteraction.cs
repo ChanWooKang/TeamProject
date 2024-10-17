@@ -103,11 +103,11 @@ public class UI_PetBallCraftInteraction : UI_InteractionBase
                 for (int j = 0; j < m_maxMenuVolAmount.x; j++)
                 {
                     m_listUIMenuSlot = new List<UI_MenuSlot>();
-                    m_uiMenuSlotObj = Instantiate(m_uiMenuSlotPrefab, m_startSlot);
+                    m_uiMenuSlotObj = Instantiate(m_uiMenuSlotPrefab, m_startSlotW);
                     UI_MenuSlot slot = m_uiMenuSlotObj.GetComponent<UI_MenuSlot>();
                     RectTransform rect = m_uiMenuSlotObj.GetComponent<RectTransform>();
-                    float x = (m_startSlot.sizeDelta.x + 10) * j;
-                    float y = -(m_startSlot.sizeDelta.y + 10) * i;
+                    float x = (m_startSlotW.sizeDelta.x + 10) * j;
+                    float y = -(m_startSlotW.sizeDelta.y + 10) * i;
                     rect.anchoredPosition = new Vector2(x, y);
                     slot.InitSlot(num, j, i, this);
                     num++;

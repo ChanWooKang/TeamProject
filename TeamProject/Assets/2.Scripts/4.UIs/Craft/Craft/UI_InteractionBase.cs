@@ -17,7 +17,8 @@ public abstract class UI_InteractionBase : MonoBehaviour
     protected GameObject m_CancelObj;
     protected GameObject m_weaponInfoBoxObj;
     protected GameObject m_noEntrytextBox;
-    protected RectTransform m_startSlot;
+    protected RectTransform m_startSlotW;
+    protected RectTransform m_startSlotE;
     protected Slider m_progressCraft;
     protected Slider m_progressCancel;
     protected Image m_petIcon;
@@ -231,7 +232,8 @@ public abstract class UI_InteractionBase : MonoBehaviour
         m_progressCancel = transform.GetChild(2).GetChild(1).GetComponent<Slider>();
 
         m_uiMenuObj = transform.GetChild(3).gameObject;
-        m_startSlot = transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<RectTransform>();
+        m_startSlotW = transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<RectTransform>();
+        m_startSlotE = transform.GetChild(3).GetChild(1).GetChild(1).GetComponent<RectTransform>();
         m_txtMenuName = transform.GetChild(3).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
 
         m_uiMenuSlotPrefab = menuSlot;

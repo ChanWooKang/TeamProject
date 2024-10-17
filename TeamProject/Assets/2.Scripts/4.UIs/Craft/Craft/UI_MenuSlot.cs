@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using DefineDatas;
 
 public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
@@ -23,12 +24,20 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     int m_y;
     int m_itemIndex;
     bool m_isAllColstReady;
-    public void InitSlot(int num, int x, int y, UI_CraftDeskInteraction interation)
+    public void InitSlot(LowDataType type, int num, int x, int y, UI_CraftDeskInteraction interation)
     {
         m_imgBg = GetComponent<Image>();
         m_uiInteraction = interation;
-        m_itemIndex = 200 + num;
-        m_icon.sprite = PoolingManager._inst._poolingIconByName[InventoryManager._inst.Dict_Weapon[m_itemIndex].NameEn].prefab;        
+        if (type == LowDataType.WeaponTable)
+        {
+            m_itemIndex = 200 + num;
+            m_icon.sprite = PoolingManager._inst._poolingIconByName[InventoryManager._inst.Dict_Weapon[m_itemIndex].NameEn].prefab;
+        }
+        else
+        {
+            m_itemIndex = 300 + num;
+            m_icon.sprite = PoolingManager._inst._poolingIconByName[InventoryManager._inst.Dict_Equipment[m_itemIndex].NameEn].prefab;
+        }
         m_x = x;
         m_y = y;
     }

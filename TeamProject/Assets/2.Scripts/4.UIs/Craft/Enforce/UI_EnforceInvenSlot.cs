@@ -49,6 +49,7 @@ public class UI_EnforceInvenSlot : MonoBehaviour, IPointerClickHandler
 
         if (m_itemIndex != ironOffset)
         {
+            m_enforcePrevSlot.InitSlot(m_icon.sprite, m_itemIndex, m_level);
             m_enforceNextSlot.InitSlot(m_icon.sprite, m_itemIndex, (m_level + 1));
         }
         else

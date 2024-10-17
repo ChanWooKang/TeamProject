@@ -6,7 +6,7 @@ using TMPro;
 
 public abstract class UI_EnforceBase : MonoBehaviour
 {
-    protected const int weaponOffset = 500;
+    protected const int weaponOffset = 200;
     protected const int ironOffset = 102;
     public GameObject UIEnforce { get { return m_EnfoceBox; } }
     protected TextMeshProUGUI m_txtUiName;

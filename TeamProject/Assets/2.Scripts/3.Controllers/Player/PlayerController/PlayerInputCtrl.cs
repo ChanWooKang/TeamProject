@@ -243,18 +243,18 @@ public class PlayerInputCtrl : MonoBehaviour
     {
         if (_input.craft)
         {
-            Debug.Log("b");
+
             if (m_UICrafting == null)
             {
                 GameObject ui = Instantiate(m_UICraftingPrefab);
                 Canvas canvas = ui.GetComponent<Canvas>();
                 canvas.worldCamera = GameObject.FindGameObjectWithTag("UICamera").GetComponent<Camera>();
                 m_UICrafting = ui.GetComponent<UI_Craft>();                
-                m_UICrafting.OpenUI(TechnologyManager._inst.TechLevel);
+                m_UICrafting.InteractionUI(TechnologyManager._inst.TechLevel);
             }
             else
             {
-                m_UICrafting.OpenUI(TechnologyManager._inst.TechLevel);
+                m_UICrafting.InteractionUI(TechnologyManager._inst.TechLevel);
             }
 
             _input.craft = false;
