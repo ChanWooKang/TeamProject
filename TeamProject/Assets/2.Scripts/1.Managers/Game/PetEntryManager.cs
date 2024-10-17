@@ -58,6 +58,7 @@ public class PetEntryManager : TSingleton<PetEntryManager>
             petCtrl.InitPet(index);
             AddEntry(index, index + (++m_tempOffset));            
         }
+        
     }
     public void InitEntry()
     {

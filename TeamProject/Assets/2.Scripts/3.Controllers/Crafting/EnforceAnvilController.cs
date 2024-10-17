@@ -19,7 +19,7 @@ public class EnforceAnvilController : MonoBehaviour
         }
         if (GameManagerEx._inst.UIStateValue == 0 && isClosed && m_uiInteraction != null)
         {
-            if (!m_uiInteraction.gameObject.activeSelf)
+            if (!m_uiInteraction.UIEnforce.activeSelf)
                 m_uiInteraction.OpenEnforce(this);
         }
 
@@ -66,10 +66,7 @@ public class EnforceAnvilController : MonoBehaviour
                 m_uiInteraction.OpenEnforce(this);
 
             }
-            else
-            {
-                m_uiInteraction.OpenEnforce(this);
-            }
+            
 
             isClosed = true;
         }

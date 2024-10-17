@@ -116,7 +116,7 @@ public class UI_PetBallCraftInteraction : UI_InteractionBase
                 }
             }
         }
-        //UI클릭시 커서 잠금
+        
         GameManagerEx._inst.ControlUI(false, false);
         GameManagerEx._inst.ChangeCursorLockForUI(true);
     }

@@ -222,3 +222,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 601678fed3451374b927b0fdeb001331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_uiInteractionObj: {fileID: 6395454668559097202, guid: 7693f7c9b72100f4a819ba6e8e07efc1, type: 3}
+  m_objPreview: {fileID: 1336065365414112069}
