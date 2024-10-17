@@ -152,7 +152,7 @@ public class PlayerStat : BaseStat
         {
             case eStatType.HP:
                 MaxHP += value;
-                HP = Mathf.Min(HP + value, MaxHP);
+                HP = Mathf.Min(HP, MaxHP);
                 break;
         }
     }

@@ -70,10 +70,12 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     public void OnUpdate()
     {
+        JumpInGravity();
+        GroundedCheck();
         if (GameManagerEx._inst.CheckIsMoveAble() && _manager.StopMove == false)
         {            
-            JumpInGravity();
-            GroundedCheck();
+            
+            
             CheckStaminaUse();
             MoveAcion();            
             LookAtAim();

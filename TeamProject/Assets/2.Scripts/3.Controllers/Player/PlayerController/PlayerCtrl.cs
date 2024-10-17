@@ -44,6 +44,7 @@ public class PlayerCtrl : MonoBehaviour
     private void Start()
     {
         Init();
+        StartCoroutine(RegenerationStat());
     }
 
     private void Update()
@@ -131,4 +132,17 @@ public class PlayerCtrl : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         _render.ReturnColor();
     }    
+
+    IEnumerator RegenerationStat()
+    {
+        while(!isDead)
+        {
+            if(_stat.HP < _stat.MaxHP)
+            {
+                _stat.HP = Mathf.Min(_stat.HP + 5, _stat.MaxHP);
+            }
+
+            yield return new WaitForSeconds(1);
+        }
+    }
 }
