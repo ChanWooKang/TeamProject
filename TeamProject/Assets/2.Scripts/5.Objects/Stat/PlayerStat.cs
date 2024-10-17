@@ -106,7 +106,7 @@ public class PlayerStat : BaseStat
         _moveSpeed = 5;
         _runSpeed = 10;
         _bonusStat = 0;
-        _carryWeight = 100;
+        _carryWeight = 5000;
         _workAbility = 50;
     }
 

@@ -99,10 +99,12 @@ public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             if (m_materialsCosts[i] > count)
             {
                 isAllcostReady = false;
-                
+
                 m_highlightBG.color = m_highlightColor[1];
                 break;
             }
+            else
+                isAllcostReady = true;
         }
         if (isAllcostReady)
             m_highlightBG.color = m_highlightColor[0];

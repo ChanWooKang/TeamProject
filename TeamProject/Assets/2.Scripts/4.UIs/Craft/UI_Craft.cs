@@ -42,10 +42,12 @@ public class UI_Craft : MonoBehaviour
             Build();
 
         if (m_isPreviewActivated)
+        {
             PreviewPositionUpdate();
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-            CancleCraft();
+            if (Input.GetKeyDown(KeyCode.Escape))
+                CancleCraft();
+        }
     }
     public void OpenUI(int techLevel = 0)
     {
