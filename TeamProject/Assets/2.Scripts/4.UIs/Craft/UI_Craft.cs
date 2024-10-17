@@ -8,10 +8,12 @@ public class UI_Craft : MonoBehaviour
     [SerializeField] GameObject m_craftBoxObj;
 
     [SerializeField] GameObject m_prefabObj;
+    
     Button m_slotBtn;
     GameObject m_previewObj;
     GameObject m_craftingObj;
     Architecture m_architectureInfo;
+    UI_InfoBox m_uiInfoBox;
     [SerializeField] List<UI_CraftSlot> m_listCraftSlot;
     Dictionary<int, UI_CraftSlot> m_dicCraftSlots;
 
@@ -40,10 +42,12 @@ public class UI_Craft : MonoBehaviour
             Build();
 
         if (m_isPreviewActivated)
+        {
             PreviewPositionUpdate();
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-            CancleCraft();
+            if (Input.GetKeyDown(KeyCode.Escape))
+                CancleCraft();
+        }
     }
     public void OpenUI(int techLevel = 0)
     {
@@ -68,11 +72,11 @@ public class UI_Craft : MonoBehaviour
         {
             for (int i = 1; i < m_listCraftSlot.Count + 1; i++)
             {
-                int levle = 0;
-                levle = i;
+                int level = 0;
+                level = i;
                 if (i > techLevel)
-                    levle = 0;
-                InitSlots(i, levle);
+                    level = 0;
+                InitSlots(i, level);
             }
         }
     }   

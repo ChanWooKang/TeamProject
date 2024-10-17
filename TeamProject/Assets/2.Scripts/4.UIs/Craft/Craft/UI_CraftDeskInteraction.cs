@@ -12,8 +12,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
 
     #endregion[참조]   
 
-    #region [자료형]
-    List<UI_MenuSlot> m_listUIPetBallSlot;
+    #region [자료형]    
     #endregion [자료형]
 
 
@@ -44,7 +43,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                 }
             }
         }
-        else if (m_itemIndex != 0 & !m_isCraftDone) // 무기를 제작 중
+        else if (m_itemIndex != 0 && !m_isCraftDone) // 무기를 제작 중
         {
             if (m_progressCraft.value < m_progressCraft.maxValue)
             {
@@ -56,6 +55,8 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                 if (m_petCtrl != null)
                     m_petCtrl.JobDone();
                 m_isCraftDone = true;
+                InventoryManager._inst.AddInvenItem(InventoryManager._inst.Dict_Weapon[m_itemIndex]);
+                m_dicUIMenuSlot[m_itemIndex].InactiveSlot();
                 m_itemIndex = 0;
                 OpenInteractionCraftTable(m_tableCtrl);
             }
@@ -78,7 +79,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                 UpCKey();
             }
         }
-        else if (m_itemIndex == 0 & m_isCraftDone) // 무기가 다 제작 됨
+        else if (m_itemIndex == 0 && m_isCraftDone) // 무기가 다 제작 됨
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
@@ -87,7 +88,8 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                 m_progressCraft.value = 0;
                 OpenInteractionCraftTable(m_tableCtrl);
                 CloseMenu();
-                InventoryManager._inst.AddEquipItem(eEquipType.Weapon, new BaseItem());
+                
+                
                 TechnologyManager._inst.TechPointUp();
             }
         }
@@ -114,11 +116,13 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
         {
             DecideSlotCount(LowDataType.WeaponTable);
             int num = 0;
+            m_listUIMenuSlot = new List<UI_MenuSlot>();
+            m_dicUIMenuSlot = new Dictionary<int, UI_MenuSlot>();
             for (int i = 0; i < m_maxMenuVolAmount.y; i++)
             {
                 for (int j = 0; j < m_maxMenuVolAmount.x; j++)
                 {
-                    m_listUIMenuSlot = new List<UI_MenuSlot>();
+                    
                     m_uiMenuSlotObj = Instantiate(m_uiMenuSlotPrefab, m_startSlot);
                     UI_MenuSlot slot = m_uiMenuSlotObj.GetComponent<UI_MenuSlot>();
                     RectTransform rect = m_uiMenuSlotObj.GetComponent<RectTransform>();
@@ -126,8 +130,10 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                     float y = -(m_startSlot.sizeDelta.y + 10) * i;
                     rect.anchoredPosition = new Vector2(x, y);
                     slot.InitSlot(num, j, i, this);
-                    num++;
+                    m_dicUIMenuSlot.Add(200 + num, slot);
                     m_listUIMenuSlot.Add(slot);
+                    num++;
+                    
                     m_isNew = false;
                 }
             }

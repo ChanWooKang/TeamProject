@@ -64,7 +64,7 @@ public class PlayerInputCtrl : MonoBehaviour
         {
             AimAction();
 
-            CraftAction();
+            
 
             InteractAction();
 
@@ -74,7 +74,7 @@ public class PlayerInputCtrl : MonoBehaviour
 
             ReloadAction();
         }
-
+        CraftAction();
         InventoryAction();
     }
 
@@ -243,6 +243,7 @@ public class PlayerInputCtrl : MonoBehaviour
     {
         if (_input.craft)
         {
+            Debug.Log("b");
             if (m_UICrafting == null)
             {
                 GameObject ui = Instantiate(m_UICraftingPrefab);

@@ -11,6 +11,7 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] Image m_icon;
     [SerializeField] RectTransform[] m_infoBoxPoses;
     [SerializeField] GameObject m_infoBoxPrefab;
+    [SerializeField] GameObject m_inActiveObj;
     UI_InfoBox m_uiInfoBox;
     UI_CraftDeskInteraction m_uiInteraction;
     UI_PetBallCraftInteraction m_uiPetballInteraction;
@@ -27,7 +28,7 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         m_imgBg = GetComponent<Image>();
         m_uiInteraction = interation;
         m_itemIndex = 200 + num;
-        m_icon.sprite = PoolingManager._inst._poolingIconByName[InventoryManager._inst.Dict_Weapon[m_itemIndex].NameEn].prefab;
+        m_icon.sprite = PoolingManager._inst._poolingIconByName[InventoryManager._inst.Dict_Weapon[m_itemIndex].NameEn].prefab;        
         m_x = x;
         m_y = y;
     }
@@ -40,8 +41,14 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         m_x = x;
         m_y = y;
     }
+    public void InactiveSlot()
+    {
+        m_inActiveObj.SetActive(true);
+    }
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (m_inActiveObj.activeSelf)
+            return;
         if (m_uiInfoBox == null)
         {
             GameObject ui = Instantiate(m_infoBoxPrefab, m_infoBoxPoses[0]);
@@ -121,13 +128,15 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        
+        if (m_inActiveObj.activeSelf)
+            return;
         if (m_isAllColstReady)
         {
             for (int i = 0; i < m_materialsIndex.Length; i++)
             {
-                if (InventoryManager._inst.UseItem(m_materialsIndex[i]))
+                if (InventoryManager._inst.UseItem(m_materialsIndex[i], m_materialCosts[i]))
                 {
+                    m_imgBg.color = new Color32(0, 0, 0, 160);
                     m_uiInteraction.ReadyToCraftSometing(m_itemIndex);
                     m_uiInteraction.OpenInteractionCraftTable();
                     m_uiInfoBox.CloseBox();

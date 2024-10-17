@@ -40,6 +40,7 @@ public class UI_EnforceInvenSlot : MonoBehaviour, IPointerClickHandler
         m_enforcePrevSlot = prevSlot;
         m_enforceNextSlot = nextSlot;
     }
+    
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -52,10 +53,10 @@ public class UI_EnforceInvenSlot : MonoBehaviour, IPointerClickHandler
         }
         else
         {
-            if (m_count > 10 && m_enforcePrevSlot.ItemLevel  < m_count)
+            if (m_count >= 10 && m_enforcePrevSlot.ItemLevel  < m_count)
             {
                 m_enforcePrevSlot.InitSlot(m_icon.sprite, m_itemIndex, 10);
-                m_enforceNextSlot.InitSlot(PoolingManager._inst._poolingIconByIndex[105].prefab, m_itemIndex, 10);
+                m_enforceNextSlot.InitSlot(PoolingManager._inst._poolingIconByIndex[105].prefab, 105, 10);
             }
         }
     }
