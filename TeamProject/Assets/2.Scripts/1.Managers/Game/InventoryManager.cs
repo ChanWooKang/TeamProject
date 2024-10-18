@@ -215,7 +215,8 @@ public class InventoryManager : TSingleton<InventoryManager>
                     if(type == eItemType.Weapon)
                     {
                         float damage = Table.ToFloat(index, "Damage");
-                        WeaponItemInfo weapon = new WeaponItemInfo(index, nameEn, desc, spriteName, nameKr, weight, materialsIndexArray, materialsCostArray, damage);
+                        int ammo = Table.ToInt(index, "Ammo");
+                        WeaponItemInfo weapon = new WeaponItemInfo(index, nameEn, desc, spriteName, nameKr, weight, materialsIndexArray, materialsCostArray, damage, ammo);
                         Items.Add(weapon);
                         Dict_Weapon.Add(index, weapon);
                     }

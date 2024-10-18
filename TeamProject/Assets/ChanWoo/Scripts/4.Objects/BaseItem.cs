@@ -15,6 +15,7 @@ public class BaseItem
     protected float _weight;    
     protected int _maxStack;
     protected int _level;
+    
 
     
 
@@ -28,7 +29,7 @@ public class BaseItem
     public float Weight { get { return _weight; } }
     public int MaxStack { get { return _maxStack; } }
     public int Level { get { return _level; } set { _level = value; } }
-
+    
     public virtual void Init(int index, string nameEn, string desc, string spriteName, string nameKr, float weight)
     {
         _index = index;
