@@ -494,6 +494,9 @@ public class InventoryManager : TSingleton<InventoryManager>
     public bool UseItem(int itemIndex, int count = 1)
     {
         int rest = count;
+
+        int deleteCount = 0;
+
         foreach (var data in Dict_SlotItem)
         {
             if (data.Value.index == itemIndex)
@@ -506,6 +509,9 @@ public class InventoryManager : TSingleton<InventoryManager>
                     {
                         InventoryItems[data.Key].SetSlotCount(-haveItemCount);
                         rest -= haveItemCount;
+
+                        deleteCount += haveItemCount;
+
                     }
                     else
                     {
@@ -516,6 +522,14 @@ public class InventoryManager : TSingleton<InventoryManager>
                 }
             }
         }
+
+
+        if(rest > 0)
+        {
+            AddInvenItem(Dict_Item[itemIndex], deleteCount);
+        }
+
+
         return rest <= 0;
     }
 
