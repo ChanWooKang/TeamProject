@@ -24,9 +24,9 @@ public abstract class BaseWeaponCtrl : MonoBehaviour
     [SerializeField] protected float _weaponRange = 0f;
     [SerializeField] protected float _useStamina = 5.0f;
 
-    [SerializeField] protected int _nowBulletCnt;
-    [SerializeField] protected int _maxBulletCnt;
-  
+    protected int _nowBulletCnt;
+    protected int _maxBulletCnt;
+
     //Particle Level System
     [SerializeField] protected LevelEffectCtrl _effectScript;
 
@@ -36,6 +36,7 @@ public abstract class BaseWeaponCtrl : MonoBehaviour
     #region [ Property ]
     public int Index { get { return index; } }
     public WeaponType weaponType { get { return _type; } }
+    public WeaponItemInfo weaponInfo { get { return _weaponStat; } }
     protected float PlayerDamage { get { return GameManagerEx._inst.playerManager._stat.Damage; } }
     protected float TotalDamage { get { return _weaponDamage + PlayerDamage; } }
     #endregion [ Property ]
@@ -43,10 +44,10 @@ public abstract class BaseWeaponCtrl : MonoBehaviour
     public virtual void Init(PlayerEquipCtrl player, float damage)
     {
         _playerEquip = player;
-        if(_effectScript != null)
+        if (_effectScript != null)
             _effectScript.Init();
         ChangeWeaponData();
-        
+
         gameObject.SetActive(false);
     }
 
@@ -54,7 +55,7 @@ public abstract class BaseWeaponCtrl : MonoBehaviour
     {
         _weaponStat = info;
         if (info != null)
-        {            
+        {
             _weaponDamage = info.Damage;
             _weaponLevel = info.Level;
         }
@@ -63,24 +64,28 @@ public abstract class BaseWeaponCtrl : MonoBehaviour
             _weaponDamage = 0;
             _weaponLevel = 0;
         }
-        
+
     }
 
     public void ChangeWeaponData()
     {
         Dictionary<int, WeaponItemInfo> datas = InventoryManager._inst.Dict_Weapon;
 
-        if(datas.TryGetValue(index,out WeaponItemInfo info))
+        if (datas.TryGetValue(index, out WeaponItemInfo info))
         {
             ChangeStat(info);
             if (_effectScript != null)
                 _effectScript.ChangeIndex(_weaponLevel);
         }
-    }    
-
+    }
+    public void SetAmmo()
+    {
+        _maxBulletCnt = weaponInfo.Ammo;
+        _nowBulletCnt = weaponInfo.CurrentAmmo;
+    }
     public void ChangeParticleState(bool isOn)
     {
-        if(_effectScript != null)
+        if (_effectScript != null)
         {
             _effectScript.PlayOrStop(isOn);
         }
@@ -90,13 +95,13 @@ public abstract class BaseWeaponCtrl : MonoBehaviour
 
     protected virtual void ShootRay()
     {
-        if (Physics.SphereCast(FirePos.position, RayRadius, FirePos.forward, out RaycastHit rhit, _minDist+_weaponRange, AcceptLayer))
-        {            
-            if(rhit.transform.TryGetComponent(out IHitAble hit))
+        if (Physics.SphereCast(FirePos.position, RayRadius, FirePos.forward, out RaycastHit rhit, _minDist + _weaponRange, AcceptLayer))
+        {
+            if (rhit.transform.TryGetComponent(out IHitAble hit))
             {
-                if(hit.CheckAttackType(_type))
+                if (hit.CheckAttackType(_type))
                     hit.OnDamage(TotalDamage, _playerEquip.transform, rhit.point);
-            }            
+            }
         }
     }
 
@@ -104,7 +109,7 @@ public abstract class BaseWeaponCtrl : MonoBehaviour
     {
         return true;
     }
-    
+
     public virtual void ChargeStart()
     {
 

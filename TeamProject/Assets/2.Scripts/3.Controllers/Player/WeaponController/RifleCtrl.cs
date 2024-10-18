@@ -42,13 +42,31 @@ public class RifleCtrl : BaseWeaponCtrl
         if (CheckAttackAble() == false)
             return;
 
+       
         _muzzle.Play(true);
         ShootRay();
-        _nowBulletCnt--;
+        --_nowBulletCnt;
+        weaponInfo.CurrentAmmo = _nowBulletCnt;
+        InventoryManager._inst.weaponUI.ShootWeapon(_nowBulletCnt);
     }
 
     public override void Reload()
     {
-        _nowBulletCnt = _maxBulletCnt;
+        int BcountLeft = InventoryManager._inst.GetItemCount(weaponInfo.ShotIndex);        
+      
+        if (BcountLeft > 0 && BcountLeft < _maxBulletCnt)
+        {
+            InventoryManager._inst.UseItem(weaponInfo.ShotIndex, BcountLeft);
+            _nowBulletCnt = BcountLeft;
+        }
+        else if(BcountLeft >= _maxBulletCnt)
+        {
+            InventoryManager._inst.UseItem(weaponInfo.ShotIndex, _maxBulletCnt);
+            _nowBulletCnt = _maxBulletCnt;
+        }
+        else if(BcountLeft == 0)
+        {
+            
+        }
     }
 }

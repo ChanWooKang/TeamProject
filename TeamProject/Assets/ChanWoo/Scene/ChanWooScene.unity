@@ -8303,6 +8303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   invenUI: {fileID: 359017692}
   equipUI: {fileID: 1670524082}
+  weaponUI: {fileID: 1025498404}
   itemCount: 0
   InventoryWeight: 0
 --- !u!1 &4993226954971137651

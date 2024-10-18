@@ -14,7 +14,10 @@ public class UI_WeaponInfo : MonoBehaviour
     int m_currentAmmo;
     int m_FullAmmo;
 
-
+    private void Awake()
+    {
+        InitSlot();
+    }
     public void InitSlot(WeaponItemInfo wInfo = null)
     {
         if (wInfo != null)
@@ -50,11 +53,12 @@ public class UI_WeaponInfo : MonoBehaviour
         m_txtWeaponAmmo.text = currentAmmo.ToString() + "/" + FullAmmo.ToString();
     }
 
-    public void ShootWeapon()
+    public void ShootWeapon(int ammo)
     {
-        m_currentAmmo--;
+        m_currentAmmo = ammo;
+        
 
-        m_txtWeaponAmmo.text = m_currentAmmo.ToString() + "/" + m_FullAmmo.ToString();
+        m_txtWeaponAmmo.text = ammo.ToString() + "/" + m_FullAmmo.ToString();
     }
 
     public void ReloadWeapon(int currentAmmo)

@@ -239,12 +239,15 @@ public class PlayerEquipCtrl : MonoBehaviour
         SetLayerWeight();
         currWeaponIndex = changeWeaponIndex;
         currSlotIndex = changeSlotIndex;        
+
     }
 
     public void EquipEvent()
     {
         ChangeEnd();
         _weapons[currWeaponIndex].ChangeParticleState(true);
+        _weapons[currWeaponIndex].SetAmmo();
+        InventoryManager._inst.weaponUI.InitSlot(_weapons[currWeaponIndex].weaponInfo);
     }
 
     public void DisarmEvent()
@@ -256,6 +259,7 @@ public class PlayerEquipCtrl : MonoBehaviour
         }
         else
         {
+            InventoryManager._inst.weaponUI.InitSlot(null);
             ChangeEnd();
         }
     }

@@ -9,6 +9,7 @@ public class InventoryManager : TSingleton<InventoryManager>
     [Header("Components")]
     public UI_Inventory invenUI;
     public UI_Equipment equipUI;
+    public UI_WeaponInfo weaponUI;
 
     //Action
     public Action<eEquipType, BaseItem, int, bool> OnChangeEvent;
@@ -73,6 +74,7 @@ public class InventoryManager : TSingleton<InventoryManager>
         AddInvenItem(Dict_Item[100], 100);
         AddInvenItem(Dict_Item[300]);
         AddInvenItem(Dict_Item[301]);
+        AddInvenItem(Dict_Item[206], 300);
     }
 
         
@@ -216,7 +218,8 @@ public class InventoryManager : TSingleton<InventoryManager>
                     {
                         float damage = Table.ToFloat(index, "Damage");
                         int ammo = Table.ToInt(index, "Ammo");
-                        WeaponItemInfo weapon = new WeaponItemInfo(index, nameEn, desc, spriteName, nameKr, weight, materialsIndexArray, materialsCostArray, damage, ammo);
+                        int shot = Table.ToInt(index, "Shot");
+                        WeaponItemInfo weapon = new WeaponItemInfo(index, nameEn, desc, spriteName, nameKr, weight, materialsIndexArray, materialsCostArray, damage, ammo, shot);
                         Items.Add(weapon);
                         Dict_Weapon.Add(index, weapon);
                     }
@@ -490,17 +493,30 @@ public class InventoryManager : TSingleton<InventoryManager>
     }
     public bool UseItem(int itemIndex, int count = 1)
     {
-        bool isOk = false;
-        foreach (var Data in Dict_SlotItem)
+        int rest = count;
+        foreach (var data in Dict_SlotItem)
         {
-            if (Data.Value.index == itemIndex && Data.Value.count >= count)
+            if (data.Value.index == itemIndex)
             {
-                isOk = true;
-                InventoryItems[Data.Key].SetSlotCount(-count);
-                break;
+                if (data.Value.count > 0)
+                {
+
+                    int haveItemCount = data.Value.count;
+                    if (rest > haveItemCount)
+                    {
+                        InventoryItems[data.Key].SetSlotCount(-haveItemCount);
+                        rest -= haveItemCount;
+                    }
+                    else
+                    {
+                        InventoryItems[data.Key].SetSlotCount(rest);
+                        rest = 0;
+                        break;
+                    }
+                }
             }
         }
-        return isOk;
+        return rest <= 0;
     }
 
     public bool UseItem(BaseItem item, int count = 1)
