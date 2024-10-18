@@ -490,17 +490,38 @@ public class InventoryManager : TSingleton<InventoryManager>
     }
     public bool UseItem(int itemIndex, int count = 1)
     {
-        bool isOk = false;
-        foreach (var Data in Dict_SlotItem)
+        int rest = count;
+        int deleteCount = 0;
+        foreach (var data in Dict_SlotItem)
         {
-            if (Data.Value.index == itemIndex && Data.Value.count >= count)
+            if (data.Value.index == itemIndex)
             {
-                isOk = true;
-                InventoryItems[Data.Key].SetSlotCount(-count);
-                break;
+                if (data.Value.count > 0)
+                {
+
+                    int haveItemCount = data.Value.count;
+                    if (rest > haveItemCount)
+                    {
+                        InventoryItems[data.Key].SetSlotCount(-haveItemCount);
+                        rest -= haveItemCount;
+                        deleteCount += haveItemCount;
+                    }
+                    else
+                    {
+                        InventoryItems[data.Key].SetSlotCount(rest);
+                        rest = 0;
+                        break;
+                    }
+                }
             }
         }
-        return isOk;
+
+        if(rest > 0)
+        {
+            AddInvenItem(Dict_Item[itemIndex], deleteCount);
+        }
+
+        return rest <= 0;
     }
 
     public bool UseItem(BaseItem item, int count = 1)
