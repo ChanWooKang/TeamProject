@@ -18,6 +18,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
     GameObject m_recalledPet;
     PetController m_petCtrl;
     HudController m_recalledPetsHud;
+    public GameObject RecalledPet { get { return m_recalledPet; } }
     #endregion [Æê °ü·Ã]
 
     #region [UI °ü·Ã]
@@ -135,7 +136,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
         m_currentPetNum = count - 1;
         InitEntryIcon();
     }
-    public void RecallOrPutIn(Vector3 pos)
+    public void RecallOrPutIn(Vector3 pos = new Vector3())
     {
         if (!m_isPetOut)
         {
@@ -200,6 +201,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
         m_recalledPetsHud.HideHud();
         m_recalledPetsHud = null;
         PoolingManager.DestroyAPS(m_recalledPet);
+        m_recalledPet = null;
     }
     public void SetHudInfoBox(PetController pet)
     {

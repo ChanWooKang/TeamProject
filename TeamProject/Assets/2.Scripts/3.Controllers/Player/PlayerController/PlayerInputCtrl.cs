@@ -38,7 +38,7 @@ public class PlayerInputCtrl : MonoBehaviour
     PlayerAssetsInputs _input;
 
     const float _threshold = 0.01f;
-    
+
     public void Init(PlayerCtrl manager, PlayerAssetsInputs input)
     {
         _manager = manager;
@@ -64,7 +64,7 @@ public class PlayerInputCtrl : MonoBehaviour
         {
             AimAction();
 
-            
+
 
             InteractAction();
 
@@ -169,6 +169,8 @@ public class PlayerInputCtrl : MonoBehaviour
 
     void ThrowAction()
     {
+        if (_input.recall)
+            return;
         if (_input.throws)
         {
             _manager._equip.ReadyToAnimAction(false);
@@ -194,8 +196,19 @@ public class PlayerInputCtrl : MonoBehaviour
     //KeyBoard F Key
     void ReCallAction()
     {
+        if (PetEntryManager._inst.m_listPetEntryCtrl.Count == 0 || _input.throws)
+            return;
+       
         if (_input.recall)
         {
+            if (UIManager._inst.UIPetEntry.RecalledPet != null)
+            {
+                if (UIManager._inst.UIPetEntry.RecalledPet.activeSelf)
+                {
+                    UIManager._inst.UIPetEntry.RecallOrPutIn();
+                    return;
+                }
+            }            
             _manager._equip.ReadyToAnimAction(false);
             if (AimCam.gameObject.activeSelf == false)
             {
@@ -276,7 +289,7 @@ public class PlayerInputCtrl : MonoBehaviour
                 GameObject ui = Instantiate(m_UICraftingPrefab);
                 Canvas canvas = ui.GetComponent<Canvas>();
                 canvas.worldCamera = GameObject.FindGameObjectWithTag("UICamera").GetComponent<Camera>();
-                m_UICrafting = ui.GetComponent<UI_Craft>();                
+                m_UICrafting = ui.GetComponent<UI_Craft>();
                 m_UICrafting.InteractionUI(TechnologyManager._inst.TechLevel);
             }
             else
