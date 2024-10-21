@@ -159,6 +159,31 @@ MonoBehaviour:
     type: 2
     prefab: {fileID: 5018838811873960009, guid: e391a7a09f96a0742a9b5123e007db6c, type: 3}
     amount: 1
+  - index: 106
+    name: Item106
+    type: 2
+    prefab: {fileID: 3933372774700231532, guid: d560c02ff910c4e41b0582dd414f99f9, type: 3}
+    amount: 1
+  - index: 107
+    name: Item107
+    type: 2
+    prefab: {fileID: 5914850166049521326, guid: fa3aeba868fc85c45a6c5ce5379a35d2, type: 3}
+    amount: 1
+  - index: 108
+    name: Item108
+    type: 2
+    prefab: {fileID: 7127528583591029764, guid: da69dee62a61025469966d6a7b6216f4, type: 3}
+    amount: 1
+  - index: 109
+    name: Item109
+    type: 2
+    prefab: {fileID: 3385191264122763920, guid: e004915ec10fd564496dc26d9f852069, type: 3}
+    amount: 1
+  - index: 110
+    name: Item110
+    type: 2
+    prefab: {fileID: 7717958196324857388, guid: b4b24cbd11e2a4f478a9f7b7c42ec11c, type: 3}
+    amount: 1
   _defPoolAmount: 0
   _canPoolExpand: 1
   _poolingIcons:
@@ -262,4 +287,24 @@ MonoBehaviour:
     name: CowBoyHat
     type: 1
     prefab: {fileID: 21300000, guid: e856bb27f4e1dbd4cb49544e4f0052b5, type: 3}
+  - index: 106
+    name: LeatherFabric
+    type: 1
+    prefab: {fileID: 21300000, guid: d369652571d65df42bbaecc6a019119f, type: 3}
+  - index: 107
+    name: Mushroom
+    type: 1
+    prefab: {fileID: 21300000, guid: 57e68a65faed04f4c8d158a2069133af, type: 3}
+  - index: 108
+    name: Meat
+    type: 1
+    prefab: {fileID: 21300000, guid: adb09a2d6cfe0ec4a8f8a1ed3ecd1c08, type: 3}
+  - index: 109
+    name: PricklyPear
+    type: 1
+    prefab: {fileID: 21300000, guid: 219001444d4388c478af044df6945828, type: 3}
+  - index: 110
+    name: RockSalt
+    type: 1
+    prefab: {fileID: 21300000, guid: f375f6232a168124aa5f90e32d7706cd, type: 3}
   _hudRootTransform: {fileID: 0}
