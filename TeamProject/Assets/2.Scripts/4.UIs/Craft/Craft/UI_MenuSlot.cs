@@ -42,6 +42,12 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             m_icon.sprite = PoolingManager._inst._poolingIconByName[InventoryManager._inst.Dict_Equipment[m_itemIndex].NameEn].prefab;
             m_y += 3;
         }
+        else if(type == LowDataType.UsableTable)
+        {
+            m_itemIndex = 600 + num;
+            m_icon.sprite = PoolingManager._inst._poolingIconByName[InventoryManager._inst.Dict_Usable[m_itemIndex].NameEn].prefab;
+            m_y += 2;
+        }
         
     }
     public void InitSlot(int num, int x, int y, UI_PetBallCraftInteraction interaction)

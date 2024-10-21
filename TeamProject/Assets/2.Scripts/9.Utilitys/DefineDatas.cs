@@ -67,7 +67,8 @@ namespace DefineDatas
         Equipment,
         Potion,        
         Gold,
-        PetBall
+        PetBall,
+        Usable
     }
 
     public enum eEquipType
@@ -87,7 +88,12 @@ namespace DefineDatas
         Rifle,
         Pickaxe
     }
-
+    public enum eUsableType
+    {
+        Shot,
+        Food,
+        Dinner
+    }
     public enum eStatType
     {
         HP,
@@ -220,7 +226,8 @@ namespace DefineDatas
         PetBallTable,
         SkillTable,
         HitObjectTable,
-        EquipmentTable
+        EquipmentTable,
+        UsableTable,
     }
 
     [System.Serializable]

@@ -8,6 +8,7 @@ public class BaseItem
     protected int _index;
     protected eItemType _type;
     protected eEquipType _eType;
+    protected eUsableType _uType;
     protected string _nameEn;
     protected string _desc;
     protected string _spriteName;

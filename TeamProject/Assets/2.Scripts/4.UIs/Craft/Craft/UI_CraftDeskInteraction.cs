@@ -156,8 +156,24 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                     m_dicUIMenuSlot.Add(300 + num, slot);
                     m_listUIMenuSlot.Add(slot);
                     num++;
-
-
+                }
+            }
+            DecideSlotCount(LowDataType.UsableTable);
+            num = 0;
+            for(int i = 0; i < m_maxMenuVolAmount.y;i++)
+            {
+                for(int j = 0; j < m_maxMenuVolAmount.x; j++)
+                {
+                    m_uiMenuSlotObj = Instantiate(m_uiMenuSlotPrefab, null);
+                    UI_MenuSlot slot = m_uiMenuSlotObj.GetComponent<UI_MenuSlot>();
+                    RectTransform rect = m_uiMenuSlotObj.GetComponent<RectTransform>();
+                    float x = (m_startSlotW.sizeDelta.x + 10) * j;
+                    float y = -(m_startSlotW.sizeDelta.y + 10) * i;
+                    rect.anchoredPosition = new Vector2(x, y);
+                    slot.InitSlot(LowDataType.UsableTable, num, j, i, this);
+                    m_dicUIMenuSlot.Add(300 + num, slot);
+                    m_listUIMenuSlot.Add(slot);
+                    num++;
                 }
             }
             m_isNew = false;

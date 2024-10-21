@@ -20,8 +20,10 @@ public class InventoryManager : TSingleton<InventoryManager>
     public Dictionary<int, WeaponItemInfo> Dict_Weapon;
     public Dictionary<int, EquipmentItemInfo> Dict_Equipment;
     public Dictionary<int, PetBallInfo> Dict_Petball;
+    public Dictionary<int, UsableItemInfo> Dict_Usable;
     public Dictionary<int, ItemDatas> Dict_SlotItem;
     
+
     public static bool ActiveChangeEquip = false;
     public int itemCount;    
 
@@ -39,7 +41,7 @@ public class InventoryManager : TSingleton<InventoryManager>
         Dict_Weapon = new Dictionary<int, WeaponItemInfo>();
         Dict_Equipment = new Dictionary<int, EquipmentItemInfo>();
         Dict_Petball = new Dictionary<int, PetBallInfo>();
-        
+        Dict_Usable = new Dictionary<int, UsableItemInfo>();
 
         AddItems(LowDataType.MaterialTable);
         AddItems(LowDataType.WeaponTable);
@@ -263,6 +265,31 @@ public class InventoryManager : TSingleton<InventoryManager>
                 PetBallInfo petball = new PetBallInfo(index, nameEn, desc, spriteName, nameKr, weight, pmaterialsIndexArray, pmaterialsCostArray, bonusRate);
                 Items.Add(petball);
                 Dict_Petball.Add(index, petball);
+                break;
+            case eItemType.Usable:
+                string umaterialsIndexStr = Table.ToStr(index,"Materials");
+                string[] umaterialsIndexStrArray = umaterialsIndexStr.Split('/');
+                int[] umaterialsIndexArray = new int[umaterialsIndexStrArray.Length];
+                for(int i = 0; i < umaterialsIndexStrArray.Length; i++)
+                {
+                    if (int.TryParse(umaterialsIndexStrArray[i], out int number))
+                        umaterialsIndexArray[i] = number;
+                }
+                string umaterialsCost = Table.ToStr(index, "MaterialsCost");
+                string[] umaterialsCostStrArray = umaterialsCost.Split('/');
+                int[] umaterialsCostArray = new int[umaterialsCostStrArray.Length];
+                for (int i = 0; i < umaterialsCostArray.Length; i++)
+                {
+                    if (int.TryParse(umaterialsCostStrArray[i], out int number))
+                    {
+                        umaterialsCostArray[i] = number;
+                    }
+                }
+                int value = Table.ToInt(index, "Value");
+                int usbleType = Table.ToInt(index, "Type");
+                UsableItemInfo usableItem = new UsableItemInfo(index, nameEn, desc, spriteName, nameKr, weight, umaterialsIndexArray, umaterialsCostArray, value, usbleType);
+                Items.Add(usableItem);
+                Dict_Usable.Add(index, usableItem);
                 break;
         }
 
