@@ -4,10 +4,7 @@ using UnityEngine;
 using DefineDatas;
 
 public class PetMushBoy : PetAnimController
-{
-   
-
-    
+{       
     int _animIDDizzy;
     int _animIDBuff;
 

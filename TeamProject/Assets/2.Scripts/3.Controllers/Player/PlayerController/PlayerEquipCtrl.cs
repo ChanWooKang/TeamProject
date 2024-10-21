@@ -338,9 +338,12 @@ public class PlayerEquipCtrl : MonoBehaviour
 
     public void ThrowBall()
     {
+        bool isRecall = false;
+        if (_manager._input.isRecall)
+            isRecall = true;
         BallPos.rotation = Quaternion.LookRotation(GetDirection());
         GameObject go = PoolingManager._inst.InstantiateAPS("PetBall", BallPos.position, BallPos.rotation, Vector3.one * 0.2f);        
-        go.GetComponent<PetBallController>().ShootEvent(Camera.main.transform.forward);
+        go.GetComponent<PetBallController>().ShootEvent(Camera.main.transform.forward,500 ,isRecall);
     }
 
     Vector3 GetDirection()
@@ -353,6 +356,7 @@ public class PlayerEquipCtrl : MonoBehaviour
     public void ThrowEnd()
     {
         PetBallModel.SetActive(false);
+        
         ReadyToAnimAction(true);
     }
 

@@ -28,22 +28,35 @@ public class PetBallController : MonoBehaviour
 
 
     bool m_isSuccess;
+    bool m_isRecall;
     float _shootPower = 20.0f;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Monster") && m_targetMonsterCtrl == null)
+        if (m_isRecall)
         {
-            //Æ÷È¹            
-            m_rigidbdy.isKinematic = true;
-            m_capturePos = gameObject.transform.position;
-
-            m_targetMonsterCtrl = other.GetComponent<MonsterController>();
-            // ÀâÈ÷´Â ÀÌÆåÆ® .... (¸ðµ¨ ²¯´Ù ÄÖ´Ù , »ìÂ¦À§·Î ÀÌµ¿ )
-            m_targetMonsterCtrl.gameObject.SetActive(false);
-            // m_targetMonsterCtrl.ChangeState(MonsterStateCapture._inst);
-            StartCoroutine(CaptureStart());
+            if(other.CompareTag("Ground"))
+            {
+                //Recall
+                UIManager._inst.UIPetEntry.RecallOrPutIn(transform.position);
+            }
         }
+        else
+        {
+            if (other.CompareTag("Monster") && m_targetMonsterCtrl == null)
+            {
+                //Æ÷È¹            
+                m_rigidbdy.isKinematic = true;
+                m_capturePos = gameObject.transform.position;
+
+                m_targetMonsterCtrl = other.GetComponent<MonsterController>();
+                // ÀâÈ÷´Â ÀÌÆåÆ® .... (¸ðµ¨ ²¯´Ù ÄÖ´Ù , »ìÂ¦À§·Î ÀÌµ¿ )
+                m_targetMonsterCtrl.gameObject.SetActive(false);
+                // m_targetMonsterCtrl.ChangeState(MonsterStateCapture._inst);
+                StartCoroutine(CaptureStart());
+            }
+        }
+            
     }
 
     void Init(int index = 500)
@@ -60,13 +73,14 @@ public class PetBallController : MonoBehaviour
         m_animator = GetComponent<Animator>();
     }
 
-    public void ShootEvent(Vector3 direction, int petBallIndex = 500)
+    public void ShootEvent(Vector3 direction, int petBallIndex = 500, bool isreCall = false)
     {
         // ÀÓ½Ã
         Init(petBallIndex);        
         //
         Vector3 dir = direction * _shootPower;
         m_rigidbdy.AddForce(dir, ForceMode.Impulse);
+        m_isRecall = isreCall;
     }
 
     void DestoryObject()

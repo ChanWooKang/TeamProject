@@ -176,6 +176,7 @@ namespace DefineDatas
         Charge,
         AttackEnd,
         Throw,
+        Recall,
         Root,
         Reload,
         AttackAble,

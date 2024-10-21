@@ -29,7 +29,6 @@ public class CrossHairLayController : MonoBehaviour
         targetRay = Physics.Raycast(rayOrigin, rayDir, out hit, Mathf.Infinity, targetLayer);
         if (targetRay)
         {
-
             if (hit.collider.gameObject.TryGetComponent(out MonsterController mon))
             {
                 if (mon != null)

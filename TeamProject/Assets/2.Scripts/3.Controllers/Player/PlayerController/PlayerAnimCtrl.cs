@@ -34,7 +34,7 @@ public class PlayerAnimCtrl : MonoBehaviour
         int ID = GetAnimationID(parmas);
         _animator.SetBool(ID, isOn);
     }
-
+    
     //Float
     public void SetAnimation(ePlayerAnimParams parmas, float value)
     {
@@ -162,7 +162,7 @@ public class PlayerAnimCtrl : MonoBehaviour
     }
 
     public void ThrowEvent()
-    {
+    {        
         _manager._equip.ThrowBall();
     }
 

@@ -143,6 +143,15 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ReCall"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""d79af061-2e90-4948-9ac2-84282872c375"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -365,6 +374,17 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
                     ""action"": ""NumberInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""16da3b00-8dd0-4b65-a908-c0e6c643b049"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ReCall"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -403,6 +423,7 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
         m_Player_Scroll = m_Player.FindAction("Scroll", throwIfNotFound: true);
         m_Player_NumberInput = m_Player.FindAction("NumberInput", throwIfNotFound: true);
+        m_Player_ReCall = m_Player.FindAction("ReCall", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -477,6 +498,7 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Reload;
     private readonly InputAction m_Player_Scroll;
     private readonly InputAction m_Player_NumberInput;
+    private readonly InputAction m_Player_ReCall;
     public struct PlayerActions
     {
         private @PlayerAssets m_Wrapper;
@@ -494,6 +516,7 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
         public InputAction @Scroll => m_Wrapper.m_Player_Scroll;
         public InputAction @NumberInput => m_Wrapper.m_Player_NumberInput;
+        public InputAction @ReCall => m_Wrapper.m_Player_ReCall;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -542,6 +565,9 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
             @NumberInput.started += instance.OnNumberInput;
             @NumberInput.performed += instance.OnNumberInput;
             @NumberInput.canceled += instance.OnNumberInput;
+            @ReCall.started += instance.OnReCall;
+            @ReCall.performed += instance.OnReCall;
+            @ReCall.canceled += instance.OnReCall;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -585,6 +611,9 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
             @NumberInput.started -= instance.OnNumberInput;
             @NumberInput.performed -= instance.OnNumberInput;
             @NumberInput.canceled -= instance.OnNumberInput;
+            @ReCall.started -= instance.OnReCall;
+            @ReCall.performed -= instance.OnReCall;
+            @ReCall.canceled -= instance.OnReCall;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -626,5 +655,6 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
         void OnReload(InputAction.CallbackContext context);
         void OnScroll(InputAction.CallbackContext context);
         void OnNumberInput(InputAction.CallbackContext context);
+        void OnReCall(InputAction.CallbackContext context);
     }
 }

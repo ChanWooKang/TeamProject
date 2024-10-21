@@ -38,19 +38,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
             InitEntryIcon();
             LeftSwap();
         }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (!m_isPetOut)
-            {
-                ReCall();
-                m_isPetOut = true;
-            }
-            else
-            {
-                PutIn();
-                m_isPetOut = false;
-            }
-        }
+
     }
     private void Awake()
     {
@@ -147,6 +135,20 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
         m_currentPetNum = count - 1;
         InitEntryIcon();
     }
+    public void RecallOrPutIn(Vector3 pos)
+    {
+        if (!m_isPetOut)
+        {
+            ReCall(pos);
+            m_isPetOut = true;
+        }
+        else
+        {
+            PutIn();
+            m_isPetOut = false;
+        }
+
+    }
     void RightSwap()
     {
         if (PetEntryManager._inst.m_listPetEntryCtrl.Count < 2)
@@ -156,7 +158,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
             m_currentPetNum = 0;
 
 
-       
+
         m_currentPetIndex = offset + PetEntryManager._inst.m_listPetEntryCtrl[m_currentPetNum].PetInfo.Index;
         SetHudInfoBox(PetEntryManager._inst.m_listPetEntryCtrl[m_currentPetNum]);
     }
@@ -164,22 +166,22 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
     {
         if (PetEntryManager._inst.m_listPetEntryCtrl.Count < 2)
             return;
-        if(PetEntryManager._inst.m_listPetEntryCtrl.Count == 2)
+        if (PetEntryManager._inst.m_listPetEntryCtrl.Count == 2)
             m_animCtrl.SetTrigger("SwapRight");
         else
             m_animCtrl.SetTrigger("SwapLeft");
         if (--m_currentPetNum < 0)
             m_currentPetNum = PetEntryManager._inst.m_listPetEntryCtrl.Count - 1;
-        
+
         m_currentPetIndex = offset + PetEntryManager._inst.m_listPetEntryCtrl[m_currentPetNum].PetInfo.Index;
         SetHudInfoBox(PetEntryManager._inst.m_listPetEntryCtrl[m_currentPetNum]);
     }
 
-    void ReCall()
+    void ReCall(Vector3 pos)
     {
         if (PetEntryManager._inst.m_listPetEntryCtrl.Count == 0)
             return;
-        m_recalledPet = PoolingManager._inst.InstantiateAPS(m_currentPetIndex, GameManagerEx._inst.playerManager.transform.position + (Vector3.forward * 0.5f) + (Vector3.right * 0.8f), PetEntryManager._inst.m_listPetEntryPrefab[1].transform.rotation, Vector3.one);
+        m_recalledPet = PoolingManager._inst.InstantiateAPS(m_currentPetIndex, pos, PetEntryManager._inst.m_listPetEntryPrefab[1].transform.rotation, Vector3.one);
         m_petCtrl = m_recalledPet.GetComponent<PetController>();
         GameManagerEx._inst.playerManager.SetCorrentRecallPet(m_petCtrl);
         m_petCtrl.ReCall();

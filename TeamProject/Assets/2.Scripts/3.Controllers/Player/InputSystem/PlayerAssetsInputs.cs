@@ -17,7 +17,9 @@ public class PlayerAssetsInputs : MonoBehaviour
     public bool craft;    
     public bool throws;
     public bool reload;
+    public bool recall;
     public float scrollY;    
+
     
 
     [Header("Movement Settings")]
@@ -80,7 +82,10 @@ public class PlayerAssetsInputs : MonoBehaviour
     {
         ThrowInput(value.isPressed);
     }
-
+    public void OnReCall(InputValue value)
+    {
+        ReCallInput(value.isPressed);
+    }
     public void OnReload(InputValue value)
     {
         ReloadInput(value.isPressed);
@@ -140,7 +145,10 @@ public class PlayerAssetsInputs : MonoBehaviour
     {
         throws = newThrowState;
     }
-
+    public void ReCallInput(bool newRecallState)
+    {
+        recall = newRecallState;
+    }
     public void ReloadInput(bool newReloadState)
     {
         reload = newReloadState;

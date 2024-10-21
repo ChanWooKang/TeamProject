@@ -24,7 +24,7 @@ public class PlayerInputCtrl : MonoBehaviour
     public bool LockCamPos = false;
     public float SpanMinY = -10.0f;
     public float SpanMaxY = 10.0f;
-
+    public bool isRecall = false;
     //나중에 변경 해야함
     [Header("Craft")]
     [SerializeField] GameObject m_UICraftingPrefab;
@@ -38,7 +38,7 @@ public class PlayerInputCtrl : MonoBehaviour
     PlayerAssetsInputs _input;
 
     const float _threshold = 0.01f;
-
+    
     public void Init(PlayerCtrl manager, PlayerAssetsInputs input)
     {
         _manager = manager;
@@ -71,6 +71,8 @@ public class PlayerInputCtrl : MonoBehaviour
             FireAction();
 
             ThrowAction();
+
+            ReCallAction();
 
             ReloadAction();
         }
@@ -174,6 +176,7 @@ public class PlayerInputCtrl : MonoBehaviour
             {
                 AimCam.gameObject.SetActive(true);
             }
+            isRecall = false;
         }
         else
         {
@@ -189,6 +192,30 @@ public class PlayerInputCtrl : MonoBehaviour
     }
 
     //KeyBoard F Key
+    void ReCallAction()
+    {
+        if (_input.recall)
+        {
+            _manager._equip.ReadyToAnimAction(false);
+            if (AimCam.gameObject.activeSelf == false)
+            {
+                AimCam.gameObject.SetActive(true);
+            }
+            isRecall = true;
+        }
+        else
+        {
+            if (AimCam.gameObject.activeSelf == true)
+            {
+                AimCam.gameObject.SetActive(false);
+            }
+
+            if (_manager._equip.PetBallModel.activeSelf)
+                _manager._equip.ThrowEnd();
+        }
+        _manager._anim.SetAnimation(ePlayerAnimParams.Recall, _input.recall);
+    }
+    //KeyBoard E Key
     void InteractAction()
     {
         if (_input.interact)

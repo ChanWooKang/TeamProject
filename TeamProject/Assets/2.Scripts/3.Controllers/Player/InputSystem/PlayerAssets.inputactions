@@ -121,6 +121,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ReCall",
+                    "type": "PassThrough",
+                    "id": "d79af061-2e90-4948-9ac2-84282872c375",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -341,6 +350,17 @@
                     "processors": "",
                     "groups": "KeyBoardMouse",
                     "action": "NumberInput",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "16da3b00-8dd0-4b65-a908-c0e6c643b049",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReCall",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
