@@ -72,41 +72,10 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             GameObject ui = Instantiate(m_infoBoxPrefab, m_infoBoxPoses[0]);
 
             m_uiInfoBox = ui.GetComponent<UI_InfoBox>();
-
+           
         }
         RectTransform rect = m_uiInfoBox.GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(650, 300);
-
-        if (m_y < 3)
-        {
-            if (m_x < 5)
-            {
-                m_uiInfoBox.gameObject.transform.SetParent(m_infoBoxPoses[0]);
-                rect.anchoredPosition = m_infoBoxPoses[0].anchoredPosition;
-            }
-            else
-            {
-                m_uiInfoBox.gameObject.transform.SetParent(m_infoBoxPoses[1]);
-                rect.anchoredPosition = m_infoBoxPoses[1].anchoredPosition;
-            }
-        }
-        else
-        {
-            if (m_x < 5)
-            {
-                m_uiInfoBox.gameObject.transform.SetParent(m_infoBoxPoses[2]);
-                rect.anchoredPosition = m_infoBoxPoses[2].anchoredPosition;
-            }
-            else
-            {
-                m_uiInfoBox.gameObject.transform.SetParent(m_infoBoxPoses[3]);
-                rect.anchoredPosition = m_infoBoxPoses[3].anchoredPosition;
-            }
-        }
-        
-        m_uiInfoBox.transform.SetParent(transform.parent);
-        m_uiInfoBox.transform.SetAsLastSibling();
-       
         if (m_type == LowDataType.WeaponTable)
         {
             string wNameKr = InventoryManager._inst.Dict_Weapon[m_itemIndex].NameKr;
@@ -117,7 +86,7 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             m_uiInfoBox.OpenBox(wNameKr, wDesc);
             m_uiInfoBox.OpenMaterialsSlots(m_materialsIndex, m_materialCosts);
         }
-        else if(m_type == LowDataType.PetBallTable)
+        else if (m_type == LowDataType.PetBallTable)
         {
             string wNameKr = InventoryManager._inst.Dict_Petball[m_itemIndex].NameKr;
             string wDesc = InventoryManager._inst.Dict_Petball[m_itemIndex].Desc;
@@ -127,12 +96,22 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             m_uiInfoBox.OpenBox(wNameKr, wDesc);
             m_uiInfoBox.OpenMaterialsSlots(m_materialsIndex, m_materialCosts);
         }
-        else if(m_type == LowDataType.EquipmentTable)
+        else if (m_type == LowDataType.EquipmentTable)
         {
             string wNameKr = InventoryManager._inst.Dict_Equipment[m_itemIndex].NameKr;
             string wDesc = InventoryManager._inst.Dict_Equipment[m_itemIndex].Desc;
             m_materialsIndex = InventoryManager._inst.Dict_Equipment[m_itemIndex].MaterialsIndex;
             m_materialCosts = InventoryManager._inst.Dict_Equipment[m_itemIndex].MaterialsCost;
+
+            m_uiInfoBox.OpenBox(wNameKr, wDesc);
+            m_uiInfoBox.OpenMaterialsSlots(m_materialsIndex, m_materialCosts);
+        }
+        else if (m_type == LowDataType.UsableTable)
+        {
+            string wNameKr = InventoryManager._inst.Dict_Usable[m_itemIndex].NameKr;
+            string wDesc = InventoryManager._inst.Dict_Usable[m_itemIndex].Desc;
+            m_materialsIndex = InventoryManager._inst.Dict_Usable[m_itemIndex].MaterialsIndex;
+            m_materialCosts = InventoryManager._inst.Dict_Usable[m_itemIndex].MaterialsCost;
 
             m_uiInfoBox.OpenBox(wNameKr, wDesc);
             m_uiInfoBox.OpenMaterialsSlots(m_materialsIndex, m_materialCosts);
@@ -143,13 +122,61 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             int count = InventoryManager._inst.GetItemCount(m_materialsIndex[i]);
             if (m_materialCosts[i] > count)
             {
-                m_isAllColstReady = false;                
+                m_isAllColstReady = false;
                 m_imgBg.color = new Color32(255, 0, 0, 160);
                 break;
             }
         }
-        if(m_isAllColstReady)
+        if (m_isAllColstReady)
             m_imgBg.color = new Color32(0, 255, 0, 160);
+        
+       
+
+        if (m_y < 3)
+        {
+            if (m_x < 5)
+            {
+                m_uiInfoBox.gameObject.transform.SetParent(m_infoBoxPoses[0]);
+                rect.anchoredPosition = m_infoBoxPoses[0].anchoredPosition;
+                if (m_materialsIndex.Length > 3)
+                {
+                    m_uiInfoBox.gameObject.transform.SetParent(m_infoBoxPoses[0]);
+                    rect.anchoredPosition = m_infoBoxPoses[2].anchoredPosition;
+                }
+            }
+            else
+            {
+                m_uiInfoBox.gameObject.transform.SetParent(m_infoBoxPoses[1]);
+                rect.anchoredPosition = m_infoBoxPoses[1].anchoredPosition;
+                if (m_materialsIndex.Length > 3)
+                {
+                    m_uiInfoBox.gameObject.transform.SetParent(m_infoBoxPoses[1]);
+                    rect.anchoredPosition = m_infoBoxPoses[3].anchoredPosition;
+                }
+            }
+        }
+        else
+        {
+            if (m_x < 5)
+            {
+                m_uiInfoBox.gameObject.transform.SetParent(m_infoBoxPoses[2]);
+                rect.anchoredPosition = m_infoBoxPoses[2].anchoredPosition;
+                
+            }
+            else
+            {
+                m_uiInfoBox.gameObject.transform.SetParent(m_infoBoxPoses[3]);
+                rect.anchoredPosition = m_infoBoxPoses[3].anchoredPosition;
+               
+            }
+           
+
+        }
+        
+        m_uiInfoBox.transform.SetParent(transform.parent.parent);
+        m_uiInfoBox.transform.SetAsLastSibling();
+       
+        
     }
     public void OnPointerExit(PointerEventData eventData)
     {

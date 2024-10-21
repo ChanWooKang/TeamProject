@@ -115,6 +115,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
         m_uiMenuObj.SetActive(true);
         m_uiCraftObj.SetActive(false);
         m_CancelObj.SetActive(false);
+        UIManager._inst.UIOff();
         if (m_isNew)
         {
             DecideSlotCount(LowDataType.WeaponTable);
@@ -164,14 +165,14 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
             {
                 for(int j = 0; j < m_maxMenuVolAmount.x; j++)
                 {
-                    m_uiMenuSlotObj = Instantiate(m_uiMenuSlotPrefab, null);
+                    m_uiMenuSlotObj = Instantiate(m_uiMenuSlotPrefab, m_startSlotU);
                     UI_MenuSlot slot = m_uiMenuSlotObj.GetComponent<UI_MenuSlot>();
                     RectTransform rect = m_uiMenuSlotObj.GetComponent<RectTransform>();
                     float x = (m_startSlotW.sizeDelta.x + 10) * j;
                     float y = -(m_startSlotW.sizeDelta.y + 10) * i;
                     rect.anchoredPosition = new Vector2(x, y);
                     slot.InitSlot(LowDataType.UsableTable, num, j, i, this);
-                    m_dicUIMenuSlot.Add(300 + num, slot);
+                    m_dicUIMenuSlot.Add(600 + num, slot);
                     m_listUIMenuSlot.Add(slot);
                     num++;
                 }
@@ -188,6 +189,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
         m_uiMenuObj.SetActive(false);
         m_CancelObj.SetActive(true);
         m_uiCraftObj.SetActive(true);
+        UIManager._inst.UIOn();
     }
 
     public override void PressCKey(bool isWeapon)
