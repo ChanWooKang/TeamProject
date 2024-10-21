@@ -47,6 +47,7 @@ public class InventoryManager : TSingleton<InventoryManager>
         AddItems(LowDataType.WeaponTable);
         AddItems(LowDataType.EquipmentTable);
         AddItems(LowDataType.PetBallTable);
+        AddItems(LowDataType.UsableTable);
     }
 
     private void Start()
@@ -76,7 +77,7 @@ public class InventoryManager : TSingleton<InventoryManager>
         AddInvenItem(Dict_Item[100], 100);
         AddInvenItem(Dict_Item[300]);
         AddInvenItem(Dict_Item[301]);
-        AddInvenItem(Dict_Item[206], 300);
+        AddInvenItem(Dict_Item[601], 300);
     }
 
         
@@ -151,6 +152,10 @@ public class InventoryManager : TSingleton<InventoryManager>
             case LowDataType.PetBallTable:
                 offSetNum = 500;
                 itemType = eItemType.PetBall;
+                break;
+            case LowDataType.UsableTable:
+                offSetNum = 600;
+                itemType = eItemType.Usable;
                 break;
         }
         for (int i = 0; i < maxCount; i++)
