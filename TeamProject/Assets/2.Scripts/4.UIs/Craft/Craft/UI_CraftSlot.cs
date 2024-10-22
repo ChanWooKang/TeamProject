@@ -62,20 +62,26 @@ public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        // 재료가 충분하면 프리뷰 오브젝트 생성
         if (m_architectureInfo == null || !isAllcostReady)
             return;
-        m_previewObj = Instantiate(m_prefabObj);
-        m_craftingObj = m_prefabObj;       
-        m_uiCraft.IsPreviewActivated(true, m_previewObj, m_craftingObj, m_architectureInfo);
-        m_highlightBG.enabled = false;
+        // 재료가 충분하면 프리뷰 오브젝트 생성
+        for (int i = 0; i < m_materialsIndex.Length; i++)
+        {
+            if (InventoryManager._inst.UseItem(m_materialsIndex[i], m_materialsCosts[i]))
+            {
+                m_previewObj = Instantiate(m_prefabObj);
+                m_craftingObj = m_prefabObj;
+                m_uiCraft.IsPreviewActivated(true, m_previewObj, m_craftingObj, m_architectureInfo);
+                m_highlightBG.enabled = false;
 
-        m_uiCraftBoxObj.SetActive(false);
-        m_uiInfoBox.CloseBox();
-        //UI클릭시 커서 잠금
-        GameManagerEx._inst.ControlUI(false, true);
-        // 얘 켜져있으면 이동 과 카메라 회전만 가능
-        GameManagerEx._inst.isOnBuild = true;
+                m_uiCraftBoxObj.SetActive(false);
+                m_uiInfoBox.CloseBox();
+                //UI클릭시 커서 잠금
+                GameManagerEx._inst.ControlUI(false, true);
+                // 얘 켜져있으면 이동 과 카메라 회전만 가능
+                GameManagerEx._inst.isOnBuild = true;
+            }
+        }               
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
