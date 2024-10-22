@@ -547,7 +547,7 @@ public class InventoryManager : TSingleton<InventoryManager>
                     }
                     else
                     {
-                        InventoryItems[data.Key].SetSlotCount(rest);
+                        InventoryItems[data.Key].SetSlotCount(-rest);
                         rest = 0;
                         break;
                     }

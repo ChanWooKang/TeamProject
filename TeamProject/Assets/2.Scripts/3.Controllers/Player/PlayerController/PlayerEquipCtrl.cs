@@ -328,6 +328,7 @@ public class PlayerEquipCtrl : MonoBehaviour
     public void Reload()
     {
         _weapons[currWeaponIndex].Reload();
+        Debug.Log("reload");
     }
 
 

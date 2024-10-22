@@ -61,12 +61,13 @@ public class RifleCtrl : BaseWeaponCtrl
         }
         else if(BcountLeft >= _maxBulletCnt)
         {
-            InventoryManager._inst.UseItem(weaponInfo.ShotIndex, _maxBulletCnt);
+            InventoryManager._inst.UseItem(weaponInfo.ShotIndex, _maxBulletCnt - _nowBulletCnt);
             _nowBulletCnt = _maxBulletCnt;
         }
         else if(BcountLeft == 0)
         {
             
         }
+        InventoryManager._inst.weaponUI.ReloadWeapon(_nowBulletCnt);
     }
 }

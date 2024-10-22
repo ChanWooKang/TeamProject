@@ -15,4 +15,5 @@ public class PickaxeCtrl : BaseWeaponCtrl
     {
         return GameManagerEx._inst.playerManager._stat.CheckUseStamina(_useStamina);
     }
+   
 }

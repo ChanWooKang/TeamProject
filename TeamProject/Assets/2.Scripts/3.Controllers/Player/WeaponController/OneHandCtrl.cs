@@ -14,4 +14,5 @@ public class OneHandCtrl : BaseWeaponCtrl
     {
         return GameManagerEx._inst.playerManager._stat.CheckUseStamina(_useStamina);
     }
+  
 }

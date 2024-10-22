@@ -120,7 +120,8 @@ public class UI_Craft : MonoBehaviour
             m_isPreviewActivated = false;
             m_previewObj = null;
             m_architectureInfo = null;
-            gameObject.SetActive(false);
+            m_isOn = false;
+            m_craftBoxObj.SetActive(m_isOn);
             OffBuildAction();
         }
     }
@@ -133,7 +134,8 @@ public class UI_Craft : MonoBehaviour
             m_isPreviewActivated = false;
             m_previewObj = null;
         }
-        gameObject.SetActive(false);
+        m_isOn = false;
+        m_craftBoxObj.SetActive(m_isOn);
         OffBuildAction();
         GameManagerEx._inst.ControlUI(false, true);
     }

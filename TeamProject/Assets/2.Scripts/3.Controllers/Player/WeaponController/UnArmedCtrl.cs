@@ -13,5 +13,6 @@ public class UnArmedCtrl : BaseWeaponCtrl
     {
         if (GameManagerEx._inst.playerManager._stat.CanUseStamina(_useStamina))
             ShootRay();
-    }    
+    }
+   
 }
