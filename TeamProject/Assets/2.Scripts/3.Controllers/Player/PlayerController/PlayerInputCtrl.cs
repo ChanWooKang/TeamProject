@@ -84,6 +84,8 @@ public class PlayerInputCtrl : MonoBehaviour
 
     public void CamRotate()
     {
+        if (GameManagerEx._inst.CheckIsMoveAble() == false)
+            return;
         if (_input.look.sqrMagnitude >= _threshold && !LockCamPos)
         {
             float times = _manager.IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;

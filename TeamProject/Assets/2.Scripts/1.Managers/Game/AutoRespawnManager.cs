@@ -77,6 +77,8 @@ public class AutoRespawnManager : MonoBehaviour
             Vector3 randPos = new Vector3();
             if (go.TryGetComponent(out NavMeshAgent agent) == false)
                 agent = go.AddComponent<NavMeshAgent>();
+            else
+                agent.enabled = true;
 
             while (true)
             {

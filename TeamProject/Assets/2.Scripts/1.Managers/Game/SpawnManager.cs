@@ -33,8 +33,7 @@ public class SpawnManager : TSingleton<SpawnManager>
 
     public GameObject SpawnMonster(int index)
     {
-        Transform spawnTransform = null;
-
+        Transform spawnTransform = null;        
         for(int i = 0; i < spawnPoints.Count; i++)
         {
             if(index == spawnPoints[i].Index)

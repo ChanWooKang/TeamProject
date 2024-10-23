@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1047425503769415178}
   - component: {fileID: 1047425503768415434}
   - component: {fileID: 1047425503770677771}
+  - component: {fileID: 244611469209346835}
   m_Layer: 10
   m_Name: ThrowStone
   m_TagString: MonsterSkill
@@ -96,3 +97,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 0
   skillID: 1100003
+--- !u!135 &244611469209346835
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047425503770677770}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 90
+  m_Center: {x: 0, y: 0, z: 0}
