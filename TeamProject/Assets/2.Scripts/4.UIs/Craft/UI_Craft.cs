@@ -58,6 +58,7 @@ public class UI_Craft : MonoBehaviour
         {
             m_isOn = true;
             m_craftBoxObj.SetActive(m_isOn);
+            UIManager._inst.UIOff();
             GameManagerEx._inst.ControlUI(m_isOn, true);
         }
         else
@@ -68,6 +69,7 @@ public class UI_Craft : MonoBehaviour
                 m_listCraftSlot[i].CloseSlot();
             }
             m_craftBoxObj.SetActive(m_isOn);
+            UIManager._inst.UIOn();
             GameManagerEx._inst.ControlUI(m_isOn, true);
             return;
         }
@@ -123,6 +125,7 @@ public class UI_Craft : MonoBehaviour
             m_isOn = false;
             m_craftBoxObj.SetActive(m_isOn);
             OffBuildAction();
+            UIManager._inst.UIOn();
         }
     }
     void CancleCraft()

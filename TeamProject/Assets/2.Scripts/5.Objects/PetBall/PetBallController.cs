@@ -169,7 +169,7 @@ public class PetBallController : MonoBehaviour
                     //∫º »ÁµÈ∏≤ or ¿Ã∆Â∆Æ
                     yield return new WaitForSeconds(m_shakeDelayTime);
                     Debug.Log("¿‚æ“¥Ÿ!");
-                    PetEntryManager._inst.AddEntry(m_targetMonsterCtrl.Index, m_targetMonsterCtrl.Stat.UniqueID);
+                    PetEntryManager._inst.AddEntry(m_targetMonsterCtrl.Index, m_targetMonsterCtrl.Stat.UniqueID, m_material);
                     StopCoroutine(CaptureStart());
                     m_targetMonsterCtrl.gameObject.DestroyAPS();
                     m_isSuccess = true;

@@ -9,10 +9,10 @@ public class PetEntryManager : TSingleton<PetEntryManager>
     public List<GameObject> m_listPetEntryPrefab;
     public List<GameObject> m_listPetPortraitPrefab;
     [HideInInspector] public List<PetController> m_listPetEntryCtrl;
-    Dictionary<int, GameObject> m_dicPetPortraitPrefab;
     public Dictionary<int, GameObject> m_dicPetPortraitObject;
     public Dictionary<int, GameObject> m_dicPetObject;
-    List<int> m_listPetIndex;
+    public Dictionary<int, Material> m_listPetIndex; // <Dic<uniqueIndex, petballMaterial>>
+    Dictionary<int, GameObject> m_dicPetPortraitPrefab;
 
     [SerializeField] UI_PetEnryInfoBoxController m_uiPetEntryInfoBox;
     [SerializeField] Transform m_petPortraitRoot;
@@ -35,7 +35,7 @@ public class PetEntryManager : TSingleton<PetEntryManager>
     private void Start()
     {
         m_listPetEntryCtrl = new List<PetController>(m_maxEntryCount);
-        m_listPetIndex = new List<int>();
+        m_listPetIndex = new Dictionary<int, Material>();
     }
     int i = 0;
     private void Update()
@@ -56,7 +56,7 @@ public class PetEntryManager : TSingleton<PetEntryManager>
                 index = 1001;
 
             petCtrl.InitPet(index);
-            AddEntry(index, index + (++m_tempOffset));            
+            AddEntry(index, index + (++m_tempOffset), null);            
         }
         
     }
@@ -64,14 +64,14 @@ public class PetEntryManager : TSingleton<PetEntryManager>
     {
         m_listPetEntryPrefab = new List<GameObject>(m_maxEntryCount);
         m_listPetEntryCtrl = new List<PetController>(m_maxEntryCount);
-        m_listPetIndex = new List<int>();
+        m_listPetIndex = new Dictionary<int, Material>();
     }
 
-    public void AddEntry(int index, int UniqueId)
+    public void AddEntry(int index, int UniqueId, Material mat)
     {
-        if (!m_listPetIndex.Contains(UniqueId))
+        if (!m_listPetIndex.ContainsKey(UniqueId))
         {
-            m_listPetIndex.Add(UniqueId);
+            m_listPetIndex.Add(UniqueId, mat);
             PetController pet = m_dicPetObject[index].GetComponent<PetController>();
             pet.InitPet(index);
             pet.Stat.UniqueID = UniqueId;
