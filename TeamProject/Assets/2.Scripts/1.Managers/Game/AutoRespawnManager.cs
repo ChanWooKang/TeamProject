@@ -108,7 +108,12 @@ public class AutoRespawnManager : MonoBehaviour
         }
         else if (go.TryGetComponent(out BossCtrl boss))
         {
-            if(boss.isDead)
+            if (go.TryGetComponent(out NavMeshAgent agent))
+                agent.enabled = true;
+            
+                
+
+            if (boss.isDead)
                 boss.OnResurrectEvent();
             else
             {

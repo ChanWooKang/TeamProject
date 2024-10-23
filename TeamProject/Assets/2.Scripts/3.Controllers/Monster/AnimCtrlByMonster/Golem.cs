@@ -31,8 +31,8 @@ public class Golem : MonsterAnimCtrl
                 AttackAction();
                 break;
             case eMonsterState.GETHIT:
-                _manager.AttackNavSetting();
-                _animator.SetTrigger(_animIDGetHit);
+                //_manager.AttackNavSetting();
+                //_animator.SetTrigger(_animIDGetHit);
                 break;                            
             case eMonsterState.DIE:
                 _animator.CrossFade("Die", 0.1f);
