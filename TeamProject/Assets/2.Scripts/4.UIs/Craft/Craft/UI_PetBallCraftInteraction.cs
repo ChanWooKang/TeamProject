@@ -6,8 +6,11 @@ using DefineDatas;
 public class UI_PetBallCraftInteraction : UI_InteractionBase
 {
     #region [참조]
-    PetBallCraftTableConotroller m_tableCtrl;
+    [HideInInspector] public PetBallCraftTableConotroller m_tableCtrl;
     #endregion [참조]
+    #region [자료형]
+    int m_makedBallIndex;
+    #endregion [자료형]
     private void Update()
     {
         if (m_itemIndex == 0 && !m_isCraftDone) // 제작중인 볼이 없음
@@ -47,6 +50,7 @@ public class UI_PetBallCraftInteraction : UI_InteractionBase
                 if (m_petCtrl != null)
                     m_petCtrl.JobDone();
                 m_isCraftDone = true;
+                m_makedBallIndex = m_itemIndex;
                 m_itemIndex = 0;
                 OpenInteractionCraftTable(m_tableCtrl);
             }
@@ -77,8 +81,17 @@ public class UI_PetBallCraftInteraction : UI_InteractionBase
                 m_isCraftDone = false;
                 m_progressCraft.value = 0;
                 OpenInteractionCraftTable(m_tableCtrl);
+
+                InventoryManager._inst.AddInvenItem(InventoryManager._inst.Dict_Petball[m_makedBallIndex]);
+                if (!InventoryManager._inst.Dict_PetballCount.ContainsKey(m_makedBallIndex))
+                {
+                    InventoryManager._inst.Dict_PetballCount.Add(m_makedBallIndex, 0);
+                }
+                InventoryManager._inst.Dict_PetballCount[m_makedBallIndex]+=1;
+                InventoryManager._inst.weaponUI.InitPetBallSlot(InventoryManager._inst.Dict_Petball[m_makedBallIndex]);
+                InventoryManager._inst.List_PetBallIndex.Add(m_makedBallIndex);
+                m_makedBallIndex = 0;
                 CloseMenu();
-                InventoryManager._inst.AddEquipItem(eEquipType.Weapon, new BaseItem());
                 TechnologyManager._inst.TechPointUp();
             }
         }

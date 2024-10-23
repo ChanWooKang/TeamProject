@@ -19,6 +19,7 @@ public class PlayerEquipCtrl : MonoBehaviour
     Dictionary<int, int> _slotWeapons;           
 
     public GameObject PetBallModel;
+    public PetBallModelController PetBallModelCtrl;
     public GameObject HammerModel;
     public Transform BallPos;
 
@@ -247,7 +248,7 @@ public class PlayerEquipCtrl : MonoBehaviour
         ChangeEnd();
         _weapons[currWeaponIndex].ChangeParticleState(true);
         _weapons[currWeaponIndex].SetAmmo();
-        InventoryManager._inst.weaponUI.InitSlot(_weapons[currWeaponIndex].weaponInfo);
+        InventoryManager._inst.weaponUI.InitWeaponSlot(_weapons[currWeaponIndex].weaponInfo);
     }
 
     public void DisarmEvent()
@@ -259,7 +260,7 @@ public class PlayerEquipCtrl : MonoBehaviour
         }
         else
         {
-            InventoryManager._inst.weaponUI.InitSlot(null);
+            InventoryManager._inst.weaponUI.InitWeaponSlot(null);
             ChangeEnd();
         }
     }
@@ -335,6 +336,7 @@ public class PlayerEquipCtrl : MonoBehaviour
     public void GeneratePetBall()
     {
         PetBallModel.SetActive(true);
+        PetBallModelCtrl.SetMaterial(InventoryManager._inst.Dict_Petball[InventoryManager._inst.weaponUI.BallIndex].NameEn);
     }
 
     public void ThrowBall()
@@ -343,8 +345,12 @@ public class PlayerEquipCtrl : MonoBehaviour
         if (_manager._input.isRecall)
             isRecall = true;
         BallPos.rotation = Quaternion.LookRotation(GetDirection());
-        GameObject go = PoolingManager._inst.InstantiateAPS("PetBall", BallPos.position, BallPos.rotation, Vector3.one * 0.2f);        
-        go.GetComponent<PetBallController>().ShootEvent(Camera.main.transform.forward,500 ,isRecall);
+        GameObject go = PoolingManager._inst.InstantiateAPS("PetBall", BallPos.position, BallPos.rotation, Vector3.one * 0.2f);
+        InventoryManager._inst.UseItem(InventoryManager._inst.weaponUI.BallIndex);
+        InventoryManager._inst.weaponUI.SetBallCount();
+        Debug.Log("thorw");
+        int ballIndex = InventoryManager._inst.weaponUI.BallIndex;
+        go.GetComponent<PetBallController>().ShootEvent(Camera.main.transform.forward, ballIndex, isRecall);
     }
 
     Vector3 GetDirection()
@@ -357,6 +363,7 @@ public class PlayerEquipCtrl : MonoBehaviour
     public void ThrowEnd()
     {
         PetBallModel.SetActive(false);
+        
         
         ReadyToAnimAction(true);
     }

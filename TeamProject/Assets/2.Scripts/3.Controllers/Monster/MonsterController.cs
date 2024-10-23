@@ -118,6 +118,10 @@ public class MonsterController : FSM<MonsterController>, IHitAble
         _movement.Init(_agent);
         _animCtrl.Init(this, _animator);
     }
+    public void InitState()
+    {
+        InitState(this, MonsterStateInit._inst);
+    }
     public void SetHud(HudController hud, Transform hudRoot)
     {
         _hudCtrl = hud;

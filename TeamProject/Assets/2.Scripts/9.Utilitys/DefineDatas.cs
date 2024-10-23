@@ -158,7 +158,16 @@ namespace DefineDatas
         AttackBuff,
         MaxCount
     }
+    public enum ePlayerAnimLayers
+    {
+        BaseLayer,
+        UnArmedLayer,
+        OneHandLayer,
+        BowLayer,
+        RifleLayer,
+        PickaxeLayer,
 
+    }
     public enum ePlayerAnimParams
     {
         xDir     = 0,
@@ -177,6 +186,7 @@ namespace DefineDatas
         AttackEnd,
         Throw,
         Recall,
+        Putin,
         Root,
         Reload,
         AttackAble,

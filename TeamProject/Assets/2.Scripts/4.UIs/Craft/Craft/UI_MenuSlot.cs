@@ -56,6 +56,7 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         m_uiPetballInteraction = interaction;
         m_itemIndex = 500 + num;
         m_icon.sprite = PoolingManager._inst._poolingIconByName[InventoryManager._inst.Dict_Petball[m_itemIndex].NameEn].prefab;
+        m_type = LowDataType.PetBallTable;
         m_x = x;
         m_y = y;
     }
@@ -195,10 +196,19 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 if (InventoryManager._inst.UseItem(m_materialsIndex[i], m_materialCosts[i]))
                 {
                     m_imgBg.color = new Color32(0, 0, 0, 160);
-                    m_uiInteraction.ReadyToCraftSometing(m_itemIndex);
-                    m_uiInteraction.OpenInteractionCraftTable();
+                    if (m_type == LowDataType.PetBallTable)
+                    {
+                        m_uiPetballInteraction.ReadyToCraftSometing(m_itemIndex);
+                        m_uiPetballInteraction.OpenInteractionCraftTable();
+                        m_uiPetballInteraction.SetPetWork(m_uiPetballInteraction.m_tableCtrl);
+                    }
+                    else
+                    {
+                        m_uiInteraction.ReadyToCraftSometing(m_itemIndex);
+                        m_uiInteraction.OpenInteractionCraftTable();                        
+                        m_uiInteraction.SetPetWork(m_uiInteraction.m_tableCtrl);
+                    }
                     m_uiInfoBox.CloseBox();
-                    m_uiInteraction.SetPetWork(m_uiInteraction.m_tableCtrl);
                 }
             }
         }

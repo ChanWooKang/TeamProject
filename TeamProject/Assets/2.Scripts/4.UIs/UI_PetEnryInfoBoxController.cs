@@ -136,7 +136,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
         m_currentPetNum = count - 1;
         InitEntryIcon();
     }
-    public void RecallOrPutIn(Vector3 pos = new Vector3())
+    public bool RecallOrPutIn(Vector3 pos = new Vector3())
     {
         if (!m_isPetOut)
         {
@@ -148,6 +148,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
             PutIn();
             m_isPetOut = false;
         }
+        return m_isPetOut;
 
     }
     void RightSwap()

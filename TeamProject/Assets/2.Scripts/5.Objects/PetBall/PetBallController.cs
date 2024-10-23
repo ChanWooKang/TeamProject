@@ -14,6 +14,7 @@ public class PetBallController : MonoBehaviour
     #region [참조]
     [SerializeField]
     Material[] m_Mball;
+    
     Material m_material;
     MonsterController m_targetMonsterCtrl;
     PetBallInfo m_petBallInfo;
@@ -39,6 +40,7 @@ public class PetBallController : MonoBehaviour
             {
                 //Recall
                 UIManager._inst.UIPetEntry.RecallOrPutIn(transform.position);
+                DestoryObject();
             }
         }
         else
@@ -55,54 +57,59 @@ public class PetBallController : MonoBehaviour
                 // m_targetMonsterCtrl.ChangeState(MonsterStateCapture._inst);
                 StartCoroutine(CaptureStart());
             }
+            else
+            {
+                DestoryObject();
+            }
         }
-            
-    }
+        
+    }    
 
-    void Init(int index = 500)
+    void InitBall(int index)
     {
-        InitBall(index);
-        m_rigidbdy = GetComponent<Rigidbody>();        
-    }
-
-    public void InitBall(int index)
-    {   
+        m_rigidbdy = GetComponent<Rigidbody>();
         m_petBallInfo = InventoryManager._inst.Dict_Petball[index];
         SetMaterial(m_petBallInfo.NameEn);
-        m_material = GetComponent<Material>();
+        
         m_animator = GetComponent<Animator>();
     }
 
     public void ShootEvent(Vector3 direction, int petBallIndex = 500, bool isreCall = false)
     {
         // 임시
-        Init(petBallIndex);        
+        InitBall(petBallIndex);               
         //
         Vector3 dir = direction * _shootPower;
         m_rigidbdy.AddForce(dir, ForceMode.Impulse);
         m_isRecall = isreCall;
     }
-
+    
     void DestoryObject()
     {
         m_rigidbdy.velocity = Vector3.zero;
         m_rigidbdy.inertiaTensor = Vector3.zero;
+        m_rigidbdy.isKinematic = false;
+        m_targetMonsterCtrl = null;
+
         gameObject.DestroyAPS();
     }
     void SetMaterial(string Name)
     {
-        switch(Name)
+        Material mat = null;
+        switch (Name)
         {
             case "PetBall":
-                m_material = m_Mball[0];
+                mat = m_Mball[0];
                 break;
             case "GreatBall":
-                m_material = m_Mball[1];
+                mat = m_Mball[1];
                 break;
             case "SuperBall":
-                m_material = m_Mball[2];
+                mat = m_Mball[2];
                 break;
         }
+        GetComponent<MeshRenderer>().material = mat;
+        m_material = mat;
     }
     IEnumerator CaptureStart()
     {
@@ -142,6 +149,8 @@ public class PetBallController : MonoBehaviour
                 Debug.Log("앗 펫이 볼에서 빠져나왔다!");
                 m_isSuccess = false;
                 m_uiRateBox.CaptureFailed();
+                m_targetMonsterCtrl.gameObject.SetActive(true);
+                m_targetMonsterCtrl.InitState();
                 break;
             }
             else if (RN < b)
@@ -161,6 +170,8 @@ public class PetBallController : MonoBehaviour
                     yield return new WaitForSeconds(m_shakeDelayTime);
                     Debug.Log("잡았다!");
                     PetEntryManager._inst.AddEntry(m_targetMonsterCtrl.Index, m_targetMonsterCtrl.Stat.UniqueID);
+                    StopCoroutine(CaptureStart());
+                    m_targetMonsterCtrl.gameObject.DestroyAPS();
                     m_isSuccess = true;
                     break;
                 }
@@ -197,8 +208,8 @@ public class PetBallController : MonoBehaviour
 
     void CaculateCaputreRate()
     {
-        //float a = (1f - ((2f / 3f) * (m_targetMonsterCtrl.Stat.HP / m_targetMonsterCtrl.Stat.MaxHP))) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;
-        float a = (1f - ((2f / 3f)) * 1 / 3) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;  //테스트 (1/3남은 피)
+        float a = (1f - ((2f / 3f) * (m_targetMonsterCtrl.Stat.HP / m_targetMonsterCtrl.Stat.MaxHP))) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;
+        //float a = (1f - ((2f / 3f)) * 1 / 3) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;  //테스트 (1/3남은 피)
         //float a = (1f - ((2f / 3f) * (m_targetMonsterCtrl.Stat.HP / m_targetMonsterCtrl.Stat.MaxHP))) * m_petBallInfo.BonusRate * 50; //테스트 (낮은 포획률의 펫)
         if (a >= 255)
         {
