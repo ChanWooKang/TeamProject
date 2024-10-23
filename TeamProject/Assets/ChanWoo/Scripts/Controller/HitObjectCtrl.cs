@@ -11,14 +11,16 @@ public class HitObjectCtrl : MonoBehaviour, IHitAble
     [SerializeField] Transform baseHitPoint;    
     [SerializeField] protected float _hp;
 
-    protected bool isDead;    
+    protected bool isDead;
+    protected bool isInit = false;
 
     public virtual void Init()
     {
         _info = Managers._data.Dict_HitObject[Index];
         _hp = _info.HP;
 
-        isDead = false;        
+        isDead = false;
+        isInit = true;
     }
 
     void GetItemByRandom()

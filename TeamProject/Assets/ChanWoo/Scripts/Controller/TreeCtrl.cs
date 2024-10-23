@@ -6,16 +6,16 @@ using DefineDatas;
 public class TreeCtrl : HitObjectCtrl, IHitAble
 {
     TreeComponent _tree;
-
-    void Start()
-    {
-        Init();
-        _tree = GetComponent<TreeComponent>();
-        _tree.Init(this);
-    }
-
     public override void OnDamage()
     {
+        if (!isInit)
+        {
+            Init();
+            _tree = GetComponent<TreeComponent>();
+            _tree.Init(this);
+        }
+
+
         if (isDead)
         {
             _tree.FallDownTree();

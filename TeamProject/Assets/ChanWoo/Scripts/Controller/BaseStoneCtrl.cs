@@ -8,11 +8,6 @@ public class BaseStoneCtrl : HitObjectCtrl, IHitAble
     [SerializeField] float _destoryTime;
     Coroutine DeadCoroutine = null;
 
-    void Start()
-    {
-        Init();
-    }
-
     void MakeStoneEffect(Vector3 hitPoint)
     {
         GameObject go = PoolingManager._inst.InstantiateAPS("StoneHitEffect");
@@ -22,6 +17,8 @@ public class BaseStoneCtrl : HitObjectCtrl, IHitAble
 
     public override void OnDamage(float damage, Transform attacker, Vector3 hitPoint)
     {
+        if (!isInit)
+            Init();
         base.OnDamage(damage, attacker, hitPoint);
         MakeStoneEffect(hitPoint);
     }
