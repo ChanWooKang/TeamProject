@@ -82,7 +82,10 @@ public class PlayerMoveCtrl : MonoBehaviour
         }
         else
         {
-            StopMove();
+            if (Grounded)
+                StopMove();
+            else
+                MoveAcion();
         }
     }
 
@@ -110,7 +113,7 @@ public class PlayerMoveCtrl : MonoBehaviour
             if (_verticalVelocity < 0)
                 _verticalVelocity = -2.0f;
 
-            if (_input.jump && _jumpTimeOutDelta <= 0.0f && _manager._stat.CheckUseStamina(_jumpUseStamina))
+            if (_input.jump && _jumpTimeOutDelta <= 0.0f && _manager._stat.CheckUseStamina(_jumpUseStamina)&& GameManagerEx._inst.CheckIsMoveAble())
             {
                 _manager._stat.CanUseStamina(_jumpUseStamina);
                 _verticalVelocity = Mathf.Sqrt(JumpHeight * -2.0f * Gravity);
