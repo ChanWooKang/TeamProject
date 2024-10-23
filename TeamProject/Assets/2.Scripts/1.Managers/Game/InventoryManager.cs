@@ -22,6 +22,8 @@ public class InventoryManager : TSingleton<InventoryManager>
     public Dictionary<int, PetBallInfo> Dict_Petball;
     public Dictionary<int, UsableItemInfo> Dict_Usable;
     public Dictionary<int, ItemDatas> Dict_SlotItem;
+    public Dictionary<int, int> Dict_PetballCount;
+    public List<int> List_PetBallIndex;
     
 
     public static bool ActiveChangeEquip = false;
@@ -42,6 +44,8 @@ public class InventoryManager : TSingleton<InventoryManager>
         Dict_Equipment = new Dictionary<int, EquipmentItemInfo>();
         Dict_Petball = new Dictionary<int, PetBallInfo>();
         Dict_Usable = new Dictionary<int, UsableItemInfo>();
+        Dict_PetballCount = new Dictionary<int, int>();
+        List_PetBallIndex = new List<int>();
 
         AddItems(LowDataType.MaterialTable);
         AddItems(LowDataType.WeaponTable);
@@ -71,13 +75,14 @@ public class InventoryManager : TSingleton<InventoryManager>
         AddInvenItem(Dict_Item[202]);
         AddInvenItem(Dict_Item[203]);
         AddInvenItem(Dict_Item[204]);
-        AddInvenItem(Dict_Item[101],5);
+        AddInvenItem(Dict_Item[101],100);
 
         AddInvenItem(Dict_Item[102], 100);
         AddInvenItem(Dict_Item[100], 100);
         AddInvenItem(Dict_Item[300]);
         AddInvenItem(Dict_Item[301]);
         AddInvenItem(Dict_Item[601], 300);
+        AddInvenItem(Dict_Item[103], 50);
     }
 
         
@@ -269,7 +274,7 @@ public class InventoryManager : TSingleton<InventoryManager>
                 float bonusRate = Table.ToFloat(index, "BonusRate");
                 PetBallInfo petball = new PetBallInfo(index, nameEn, desc, spriteName, nameKr, weight, pmaterialsIndexArray, pmaterialsCostArray, bonusRate);
                 Items.Add(petball);
-                Dict_Petball.Add(index, petball);
+                Dict_Petball.Add(index, petball);                                
                 break;
             case eItemType.Usable:
                 string umaterialsIndexStr = Table.ToStr(index,"Materials");

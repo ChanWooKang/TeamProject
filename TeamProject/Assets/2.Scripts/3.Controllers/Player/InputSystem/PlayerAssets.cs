@@ -118,6 +118,15 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Putin"",
+                    ""type"": ""Button"",
+                    ""id"": ""ad7ed205-9b68-4e1d-9050-92d41b5c5e18"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Reload"",
                     ""type"": ""Button"",
                     ""id"": ""da4b012e-66f3-41a4-8e68-936305c949d9"",
@@ -385,6 +394,17 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
                     ""action"": ""ReCall"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f9f7b603-0086-4dbe-9b7f-1de565cf1d89"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Putin"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -420,6 +440,7 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
         m_Player_Craft = m_Player.FindAction("Craft", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Throw = m_Player.FindAction("Throw", throwIfNotFound: true);
+        m_Player_Putin = m_Player.FindAction("Putin", throwIfNotFound: true);
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
         m_Player_Scroll = m_Player.FindAction("Scroll", throwIfNotFound: true);
         m_Player_NumberInput = m_Player.FindAction("NumberInput", throwIfNotFound: true);
@@ -495,6 +516,7 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Craft;
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Throw;
+    private readonly InputAction m_Player_Putin;
     private readonly InputAction m_Player_Reload;
     private readonly InputAction m_Player_Scroll;
     private readonly InputAction m_Player_NumberInput;
@@ -513,6 +535,7 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
         public InputAction @Craft => m_Wrapper.m_Player_Craft;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Throw => m_Wrapper.m_Player_Throw;
+        public InputAction @Putin => m_Wrapper.m_Player_Putin;
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
         public InputAction @Scroll => m_Wrapper.m_Player_Scroll;
         public InputAction @NumberInput => m_Wrapper.m_Player_NumberInput;
@@ -556,6 +579,9 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
             @Throw.started += instance.OnThrow;
             @Throw.performed += instance.OnThrow;
             @Throw.canceled += instance.OnThrow;
+            @Putin.started += instance.OnPutin;
+            @Putin.performed += instance.OnPutin;
+            @Putin.canceled += instance.OnPutin;
             @Reload.started += instance.OnReload;
             @Reload.performed += instance.OnReload;
             @Reload.canceled += instance.OnReload;
@@ -602,6 +628,9 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
             @Throw.started -= instance.OnThrow;
             @Throw.performed -= instance.OnThrow;
             @Throw.canceled -= instance.OnThrow;
+            @Putin.started -= instance.OnPutin;
+            @Putin.performed -= instance.OnPutin;
+            @Putin.canceled -= instance.OnPutin;
             @Reload.started -= instance.OnReload;
             @Reload.performed -= instance.OnReload;
             @Reload.canceled -= instance.OnReload;
@@ -652,6 +681,7 @@ public partial class @PlayerAssets: IInputActionCollection2, IDisposable
         void OnCraft(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnThrow(InputAction.CallbackContext context);
+        void OnPutin(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnScroll(InputAction.CallbackContext context);
         void OnNumberInput(InputAction.CallbackContext context);

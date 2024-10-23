@@ -96,6 +96,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Putin",
+                    "type": "Button",
+                    "id": "ad7ed205-9b68-4e1d-9050-92d41b5c5e18",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Reload",
                     "type": "Button",
                     "id": "da4b012e-66f3-41a4-8e68-936305c949d9",
@@ -361,6 +370,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ReCall",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f9f7b603-0086-4dbe-9b7f-1de565cf1d89",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Putin",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

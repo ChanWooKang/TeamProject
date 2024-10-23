@@ -13,6 +13,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
     #endregion[참조]   
 
     #region [자료형]    
+    int m_makedItemIndex;
     #endregion [자료형]
 
 
@@ -55,11 +56,9 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                 if (m_petCtrl != null)
                     m_petCtrl.JobDone();
                 m_isCraftDone = true;
-                if (m_itemIndex < 300)
-                    InventoryManager._inst.AddInvenItem(InventoryManager._inst.Dict_Weapon[m_itemIndex]);
-                else
-                    InventoryManager._inst.AddInvenItem(InventoryManager._inst.Dict_Equipment[m_itemIndex]);
+                
                 m_dicUIMenuSlot[m_itemIndex].InactiveSlot();
+                m_makedItemIndex = m_itemIndex;
                 m_itemIndex = 0;
                 OpenInteractionCraftTable(m_tableCtrl);
             }
@@ -89,6 +88,11 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                 m_itemIndex = 0;
                 m_isCraftDone = false;
                 m_progressCraft.value = 0;
+                if (m_itemIndex < 300)
+                    InventoryManager._inst.AddInvenItem(InventoryManager._inst.Dict_Weapon[m_makedItemIndex]);
+                else
+                    InventoryManager._inst.AddInvenItem(InventoryManager._inst.Dict_Equipment[m_makedItemIndex]);
+                m_makedItemIndex = 0;
                 OpenInteractionCraftTable(m_tableCtrl);
                 CloseMenu();
 

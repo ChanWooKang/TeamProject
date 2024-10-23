@@ -18,6 +18,7 @@ public class PlayerAssetsInputs : MonoBehaviour
     public bool throws;
     public bool reload;
     public bool recall;
+    public bool putin;
     public float scrollY;    
 
     
@@ -84,7 +85,11 @@ public class PlayerAssetsInputs : MonoBehaviour
     }
     public void OnReCall(InputValue value)
     {
-        ReCallInput(value.isPressed);
+        ReCall(value.isPressed);
+    }
+    public void OnPutin(InputValue value)
+    {
+        Putin(value.isPressed);
     }
     public void OnReload(InputValue value)
     {
@@ -145,9 +150,13 @@ public class PlayerAssetsInputs : MonoBehaviour
     {
         throws = newThrowState;
     }
-    public void ReCallInput(bool newRecallState)
+    public void ReCall(bool newRecallState)
     {
         recall = newRecallState;
+    }
+    public void Putin(bool newPutinState)
+    {
+        putin = newPutinState;
     }
     public void ReloadInput(bool newReloadState)
     {

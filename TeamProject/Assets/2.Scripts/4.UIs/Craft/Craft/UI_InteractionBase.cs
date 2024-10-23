@@ -9,6 +9,7 @@ using DefineDatas;
 public abstract class UI_InteractionBase : MonoBehaviour
 {
     public GameObject m_uiMenuSlotPrefab;
+   
     public GameObject UIMenu { get { return m_uiMenuObj; } }
     #region [ChildComponent]
     protected GameObject m_uiCraftObj;
@@ -121,7 +122,7 @@ public abstract class UI_InteractionBase : MonoBehaviour
         {
             m_txtPressOrHold.text = "Press and Hold";
             m_txtMenuOrCraft.text = "Craft";
-            m_txtWeaponName.text = InventoryManager._inst.Dict_Weapon[m_itemIndex].NameKr;
+            m_txtWeaponName.text = InventoryManager._inst.Dict_Petball[m_itemIndex].NameKr;
             m_weaponInfoBoxObj.SetActive(true);
             m_CancelObj.SetActive(true);
         }
@@ -169,6 +170,11 @@ public abstract class UI_InteractionBase : MonoBehaviour
     {
         if (m_petCtrl != null)
             m_petCtrl.MoveToObject(ctCtrl.transform.position);
+    }
+    public void SetPetWork(PetBallCraftTableConotroller ptCtrl)
+    {
+        if (m_petCtrl != null)
+            m_petCtrl.MoveToObject(ptCtrl.transform.position);
     }
     public void SetNoEntry()
     {

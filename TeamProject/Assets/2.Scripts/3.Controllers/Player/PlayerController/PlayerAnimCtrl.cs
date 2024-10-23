@@ -20,7 +20,11 @@ public class PlayerAnimCtrl : MonoBehaviour
         int animID = Animator.StringToHash(Utilitys.ConvertEnum(parmas));
         return animID;
     }
-
+    int GetLayerID(ePlayerAnimLayers layer)
+    {
+        int layerID = Animator.StringToHash(Utilitys.ConvertEnum(layer));
+        return layerID;
+    }
     //Trigger
     public void SetAnimation(ePlayerAnimParams parmas)
     {
@@ -58,6 +62,11 @@ public class PlayerAnimCtrl : MonoBehaviour
     {
         int ID = GetAnimationID(parmas);        
         return _animator.GetBool(ID);
+    }
+    public bool GetCurrentAnimationStateInfo(ePlayerAnimLayers layer, ePlayerAnimParams parmas)
+    {
+        int ID = GetLayerID(layer);
+        return _animator.GetCurrentAnimatorStateInfo(ID).IsName(parmas.ToString());
     }
 
     public Transform GetBone(HumanBodyBones type)

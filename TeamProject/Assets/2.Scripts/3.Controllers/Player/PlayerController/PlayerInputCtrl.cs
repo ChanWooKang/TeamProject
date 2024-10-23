@@ -72,6 +72,8 @@ public class PlayerInputCtrl : MonoBehaviour
 
             ThrowAction();
 
+            InputAction();
+
             ReCallAction();
 
             ReloadAction();
@@ -169,7 +171,7 @@ public class PlayerInputCtrl : MonoBehaviour
 
     void ThrowAction()
     {
-        if (_input.recall)
+        if (_input.recall || InventoryManager._inst.GetItemCount(InventoryManager._inst.weaponUI.BallIndex) == 0)
             return;
         if (_input.throws)
         {
@@ -188,7 +190,7 @@ public class PlayerInputCtrl : MonoBehaviour
             }
 
             if (_manager._equip.PetBallModel.activeSelf)
-                _manager._equip.ThrowEnd();
+                _manager._equip.ThrowEnd();           
         }
         _manager._anim.SetAnimation(ePlayerAnimParams.Throw, _input.throws);
     }
@@ -196,19 +198,10 @@ public class PlayerInputCtrl : MonoBehaviour
     //KeyBoard F Key
     void ReCallAction()
     {
-        if (PetEntryManager._inst.m_listPetEntryCtrl.Count == 0 || _input.throws)
+        if (PetEntryManager._inst.m_listPetEntryCtrl.Count == 0 || _input.throws || _manager._anim.GetCurrentAnimationStateInfo(ePlayerAnimLayers.OneHandLayer, ePlayerAnimParams.Putin) || UIManager._inst.UIPetEntry.RecalledPet != null)
             return;
-       
         if (_input.recall)
         {
-            if (UIManager._inst.UIPetEntry.RecalledPet != null)
-            {
-                if (UIManager._inst.UIPetEntry.RecalledPet.activeSelf)
-                {
-                    UIManager._inst.UIPetEntry.RecallOrPutIn();
-                    return;
-                }
-            }            
             _manager._equip.ReadyToAnimAction(false);
             if (AimCam.gameObject.activeSelf == false)
             {
@@ -227,6 +220,25 @@ public class PlayerInputCtrl : MonoBehaviour
                 _manager._equip.ThrowEnd();
         }
         _manager._anim.SetAnimation(ePlayerAnimParams.Recall, _input.recall);
+    }
+    void InputAction()
+    {
+        if (PetEntryManager._inst.m_listPetEntryCtrl.Count == 0 || _input.throws || _input.recall)
+            return;
+
+        if (_input.putin)
+        {
+            if (UIManager._inst.UIPetEntry.RecalledPet != null)
+            {
+                if (UIManager._inst.UIPetEntry.RecalledPet.activeSelf)
+                {
+                    isRecall = UIManager._inst.UIPetEntry.RecallOrPutIn();
+                    _manager._anim.SetAnimation(ePlayerAnimParams.Putin);
+
+                }
+            }
+            _input.putin = false;
+        }
     }
     //KeyBoard E Key
     void InteractAction()
