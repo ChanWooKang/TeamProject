@@ -335,8 +335,20 @@ public class PlayerEquipCtrl : MonoBehaviour
 
     public void GeneratePetBall()
     {
+        bool isRecall = false;
+        if (_manager._input.isRecall)
+            isRecall = true;
         PetBallModel.SetActive(true);
-        PetBallModelCtrl.SetMaterial(InventoryManager._inst.Dict_Petball[InventoryManager._inst.weaponUI.BallIndex].NameEn);
+
+        if (!isRecall)
+            PetBallModelCtrl.SetMaterial(InventoryManager._inst.Dict_Petball[InventoryManager._inst.weaponUI.BallIndex].NameEn);
+        else
+        {
+            int uniquePetIndex = UIManager._inst.UIPetEntry.m_currentPetUIndex;
+            int ballIndex = PetEntryManager._inst.m_dictPetballIndex[uniquePetIndex];
+            Debug.LogFormat("손안에 볼인덱스 : {0}, 유니크 인덱스 : {1}", ballIndex, uniquePetIndex);
+            PetBallModelCtrl.SetMaterial(InventoryManager._inst.Dict_Petball[ballIndex].NameEn);
+        }
     }
 
     public void ThrowBall()
@@ -346,11 +358,21 @@ public class PlayerEquipCtrl : MonoBehaviour
             isRecall = true;
         BallPos.rotation = Quaternion.LookRotation(GetDirection());
         GameObject go = PoolingManager._inst.InstantiateAPS("PetBall", BallPos.position, BallPos.rotation, Vector3.one * 0.2f);
-        InventoryManager._inst.UseItem(InventoryManager._inst.weaponUI.BallIndex);
-        InventoryManager._inst.weaponUI.SetBallCount();
-        Debug.Log("thorw");
-        int ballIndex = InventoryManager._inst.weaponUI.BallIndex;
-        go.GetComponent<PetBallController>().ShootEvent(Camera.main.transform.forward, ballIndex, isRecall);
+        if (!isRecall)
+        {
+            InventoryManager._inst.UseItem(InventoryManager._inst.weaponUI.BallIndex);
+            InventoryManager._inst.weaponUI.SetBallCount();
+
+            int ballIndex = InventoryManager._inst.weaponUI.BallIndex;
+            go.GetComponent<PetBallController>().ShootEvent(Camera.main.transform.forward, ballIndex, isRecall);
+        }
+        else
+        {
+            int uniquePetIndex = UIManager._inst.UIPetEntry.m_currentPetUIndex;
+            int ballIndex = PetEntryManager._inst.m_dictPetballIndex[uniquePetIndex];
+            Debug.LogFormat("던진 볼인덱스 : {0}, 유니크 인덱스 : {1}", ballIndex, uniquePetIndex);
+            go.GetComponent<PetBallController>().ShootEvent(Camera.main.transform.forward, ballIndex, isRecall);
+        }
     }
 
     Vector3 GetDirection()

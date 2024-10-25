@@ -59,13 +59,17 @@ public class PoolingManager : TSingleton<PoolingManager>
         }
     }
     
-    public void AddPetPool(PetController pet, float uniqueID)
+    public PetController AddPetPool(GameObject prefab, int index, int uniqueID)
     {
         int offsetNum = 100;
         Array.Resize(ref _poolingUnits, _poolingUnits.Length + 1);
         int lastIndex = _poolingUnits.Length - 1;
         _poolingUnits[lastIndex] = new PoolUnit();
         LowBase table = Managers._table.Get(LowDataType.PetTable);
+        GameObject makePet = MakeObject(prefab);
+        PetController pet = makePet.GetComponent<PetController>();
+        pet.InitPet(index);
+        pet.Stat.UniqueID = uniqueID;
 
         int petIndex = table.Find("NameKr", pet.PetInfo.NameKr);
         string nameKr = table.ToStr(petIndex, "NameKr");
@@ -75,17 +79,17 @@ public class PoolingManager : TSingleton<PoolingManager>
         _poolingUnits[lastIndex].prefab = pet.gameObject;
         _poolingUnits[lastIndex].type = PoolType.Pet;
         Dictionary<int, GameObject> objDatas = new Dictionary<int, GameObject>();
-        GameObject makePet = MakeObject(_poolingUnits[lastIndex].prefab);
-        objDatas.Add(0, makePet);
-        PetController petCtrl = makePet.GetComponent<PetController>();
-        petCtrl.InitPet(petIndex);
-        petCtrl.Stat.UniqueID = uniqueID;
-        if (!_pooledUnitsByIndex.ContainsKey(petIndex + offsetNum))
-            _pooledUnitsByIndex.Add(petIndex + offsetNum, objDatas);
+        objDatas.Add(0, makePet);        
+        pet.InitPet(petIndex);
+        pet.Stat.UniqueID = uniqueID;
+        if (!_pooledUnitsByIndex.ContainsKey(uniqueID))
+            _pooledUnitsByIndex.Add(uniqueID, objDatas);
         GameObject hud = InstantiateAPS(1000000);
         HudController hudctrl = hud.GetComponent<HudController>();
-        petCtrl.SetHud(hudctrl, _hudRootTransform);
+        pet.SetHud(hudctrl, _hudRootTransform);
         hudctrl.HideHud();
+
+        return pet;
     }
     void SettingPoolingUnits(int index)
     {
@@ -128,7 +132,7 @@ public class PoolingManager : TSingleton<PoolingManager>
         }
     }
 
-    GameObject GetPooledItem(int index, Transform parent = null)
+    public GameObject GetPooledItem(int index, Transform parent = null)
     {
         if (_pooledUnitsByIndex.ContainsKey(index))
         {

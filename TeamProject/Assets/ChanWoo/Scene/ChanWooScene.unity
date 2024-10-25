@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1557526, g: 0.23584321, b: 0.33610904, a: 1}
+  m_IndirectSpecularColor: {r: 0.15575309, g: 0.23584393, b: 0.33611047, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5667,9 +5667,9 @@ MonoBehaviour:
   - {fileID: 2088950040016347571, guid: a4148cac6acf48443802cbbd24e7c5a3, type: 3}
   - {fileID: 1113119422529090172, guid: a41d3d28855f0fe45bf43765f8325575, type: 3}
   - {fileID: 5789328151241978402, guid: 3d5f8aa1269c67d4d8f829b1ebeec1f8, type: 3}
-  m_listPetEntryCtrl: []
+  m_listEntryPetUniqueindex: 
   m_uiPetEntryInfoBox: {fileID: 5762232605756951013}
-  m_petPortraitRoot: {fileID: 3336904932476538617}
+  m_petPortraitRoot: {fileID: 3336904932393235278}
   m_petBoxCtrl: {fileID: 0}
 --- !u!4 &1276448957858079657
 Transform:
@@ -12922,7 +12922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c568bf8ac3b8f084388627274eae1c12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_currentPetIndex: 0
+  m_currentPetUIndex: 0
   m_listPetIcon:
   - {fileID: 5762232603693167720}
   - {fileID: 5762232604559712147}

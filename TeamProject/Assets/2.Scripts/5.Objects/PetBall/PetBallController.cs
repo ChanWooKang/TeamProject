@@ -169,7 +169,8 @@ public class PetBallController : MonoBehaviour
                     //º¼ Èçµé¸² or ÀÌÆåÆ®
                     yield return new WaitForSeconds(m_shakeDelayTime);
                     Debug.Log("Àâ¾Ò´Ù!");
-                    PetEntryManager._inst.AddEntry(m_targetMonsterCtrl.Index, m_targetMonsterCtrl.Stat.UniqueID, m_material);
+                    PetEntryManager._inst.AddEntry( m_targetMonsterCtrl.Index, m_targetMonsterCtrl.Stat.UniqueID, m_petBallInfo.Index);
+                    Debug.LogFormat("ÀâÀº º¼ÀÎµ¦½º : {0}, À¯´ÏÅ© ÀÎµ¦½º : {1}", m_petBallInfo.Index, m_targetMonsterCtrl.Stat.UniqueID);
                     StopCoroutine(CaptureStart());
                     m_targetMonsterCtrl.gameObject.DestroyAPS();
                     m_isSuccess = true;
@@ -202,14 +203,19 @@ public class PetBallController : MonoBehaviour
         //ÇÑ¹ø Èçµé±â or ÀÌÆåÆ®
         yield return new WaitForSeconds(m_shakeDelayTime);
         Debug.Log("¹Ù·Î ÀâÇû´Ù");
+        PetEntryManager._inst.AddEntry( m_targetMonsterCtrl.Index, m_targetMonsterCtrl.Stat.UniqueID, m_petBallInfo.Index);
+        Debug.LogFormat("ÀâÀº º¼ÀÎµ¦½º : {0}, À¯´ÏÅ© ÀÎµ¦½º : {1}", m_petBallInfo.Index, m_targetMonsterCtrl.Stat.UniqueID);
+        StopCoroutine(CaptureStart());
+        m_targetMonsterCtrl.gameObject.DestroyAPS();
+        m_isSuccess = true;
         m_uiRateBox.CaptureSuccess();
         DestoryObject();
     }
 
     void CaculateCaputreRate()
     {
-        float a = (1f - ((2f / 3f) * (m_targetMonsterCtrl.Stat.HP / m_targetMonsterCtrl.Stat.MaxHP))) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;
-        //float a = (1f - ((2f / 3f)) * 1 / 3) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;  //Å×½ºÆ® (1/3³²Àº ÇÇ)
+        //float a = (1f - ((2f / 3f) * (m_targetMonsterCtrl.Stat.HP / m_targetMonsterCtrl.Stat.MaxHP))) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;
+        float a = (1f - ((2f / 3f)) * 1 / 3) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;  //Å×½ºÆ® (1/3³²Àº ÇÇ)
         //float a = (1f - ((2f / 3f) * (m_targetMonsterCtrl.Stat.HP / m_targetMonsterCtrl.Stat.MaxHP))) * m_petBallInfo.BonusRate * 50; //Å×½ºÆ® (³·Àº Æ÷È¹·üÀÇ Æê)
         if (a >= 255)
         {

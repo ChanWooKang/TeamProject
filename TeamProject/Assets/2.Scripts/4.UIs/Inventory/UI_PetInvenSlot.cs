@@ -137,7 +137,7 @@ public class UI_PetInvenSlot : MonoBehaviour, IPointerClickHandler, IPointerEnte
     }
     public void OnDrop(PointerEventData eventData)
     {
-        if (m_petCtrl.Stat.UniqueID == GameManagerEx._inst.playerManager.PetController.Stat.UniqueID)
+        if ((GameManagerEx._inst.playerManager.PetController != null && m_petCtrl.Stat.UniqueID == GameManagerEx._inst.playerManager.PetController.Stat.UniqueID))
             return;
         if (eventData.pointerDrag.transform.TryGetComponent(out UI_PetBoxSlot slot))
         {
@@ -147,7 +147,10 @@ public class UI_PetInvenSlot : MonoBehaviour, IPointerClickHandler, IPointerEnte
             m_petCtrl = tempCtrl;
             m_icon.enabled = true;
             m_icon.sprite = slot.Icon.sprite;
-            PetEntryManager._inst.m_listPetEntryCtrl.Add(m_petCtrl);
+            PetEntryManager._inst.m_dictPetEntryCtrl.Add(m_petCtrl.Stat.UniqueID, m_petCtrl);
+            PetEntryManager._inst.m_listEntryPetUniqueindex.Add(m_petCtrl.Stat.UniqueID);
+            
+            UIManager._inst.UIPetEntry.InitAllEntryIcon();
             m_managerPetbox.InitPetInven();
            
         }
@@ -158,7 +161,7 @@ public class UI_PetInvenSlot : MonoBehaviour, IPointerClickHandler, IPointerEnte
     {
         if (m_draggingObject != null )
             Destroy(m_draggingObject);
-        if (!m_icon.enabled || m_managerPetbox == null || m_petCtrl.Stat.UniqueID == GameManagerEx._inst.playerManager.PetController.Stat.UniqueID)
+        if (!m_icon.enabled || m_managerPetbox == null || (GameManagerEx._inst.playerManager.PetController != null && m_petCtrl.Stat.UniqueID == GameManagerEx._inst.playerManager.PetController.Stat.UniqueID))
             return;
 
         m_draggingObject = new GameObject("Dragging Object");
@@ -180,7 +183,7 @@ public class UI_PetInvenSlot : MonoBehaviour, IPointerClickHandler, IPointerEnte
     }
     public void OnDrag(PointerEventData eventData)
     {
-        if (m_managerPetbox == null || m_petCtrl.Stat.UniqueID == GameManagerEx._inst.playerManager.PetController.Stat.UniqueID)
+        if (m_managerPetbox == null || (GameManagerEx._inst.playerManager.PetController != null && m_petCtrl.Stat.UniqueID == GameManagerEx._inst.playerManager.PetController.Stat.UniqueID))
             return;
         UpdateDraggingObjectPos(eventData);
     }

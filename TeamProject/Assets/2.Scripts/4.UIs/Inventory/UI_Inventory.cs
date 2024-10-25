@@ -245,8 +245,11 @@ public class UI_Inventory : MonoBehaviour
         m_petSlots = petSlot_Parent.GetComponentsInChildren<UI_PetInvenSlot>();
         for (int i = 0; i < m_petSlots.Length; i++)
         {
-            if (i < PetEntryManager._inst.m_listPetEntryCtrl.Count)
-                m_petSlots[i].InitSlot(this, PetEntryManager._inst.m_listPetEntryCtrl[i]);
+            if (i < PetEntryManager._inst.m_dictPetEntryCtrl.Count)
+            {
+                List<int> petEntryUIndex = PetEntryManager._inst.m_listEntryPetUniqueindex;
+                m_petSlots[i].InitSlot(this, PetEntryManager._inst.m_dictPetEntryCtrl[petEntryUIndex[i]]);
+            }
             else
                 m_petSlots[i].InitSlot();
         }

@@ -66,7 +66,7 @@ public class UI_PetBoxSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         if (eventData.pointerDrag.transform.TryGetComponent(out UI_PetBoxSlot slot))
         {
             PetController tempCtrl = slot.Pet;
-            if (tempCtrl.Stat.UniqueID == GameManagerEx._inst.playerManager.PetController.Stat.UniqueID)
+            if (GameManagerEx._inst.playerManager.PetController && tempCtrl.Stat.UniqueID == GameManagerEx._inst.playerManager.PetController.Stat.UniqueID)
                 return;
             slot.SwapSlot(this);
             m_petCtrl = tempCtrl;
@@ -80,7 +80,11 @@ public class UI_PetBoxSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                 Islot.InitSlot(Islot.SlotNum, m_manager);
                 m_petCtrl = Islot.Pet;
                 InitSlot(m_slotNum, Islot.ManagerPetBox, m_petCtrl);
-                PetEntryManager._inst.m_listPetEntryCtrl.Remove(Islot.Pet);
+                PetEntryManager._inst.m_dictPetEntryCtrl.Remove(Islot.Pet.Stat.UniqueID);
+                PetEntryManager._inst.m_listEntryPetUniqueindex.Remove(Islot.Pet.Stat.UniqueID);
+                
+                UIManager._inst.UIPetEntry.m_currentPetNum -= 1;
+                UIManager._inst.UIPetEntry.InitAllEntryIcon();
                 m_manager.InitPetInven();
             }
             else

@@ -10,7 +10,7 @@ public class PetStat : BaseStat
     protected float _attackrange;
     protected float _attackDelay;
     protected float _sight;
-    protected float _uniqueID;
+    protected int _uniqueID;
     [SerializeField] float baseHp;
     float baseDamage;
 
@@ -22,7 +22,7 @@ public class PetStat : BaseStat
     public float AttackRange { get { return _attackrange; } }
     public float Sight { get { return _sight; } }
     public float AttackDelay { get { return _attackDelay; } }
-    public float UniqueID { get { return _uniqueID; } set { _uniqueID = value; } }
+    public int UniqueID { get { return _uniqueID; } set { _uniqueID = value; } }
     #endregion [ Property ] 
 
 

@@ -8,10 +8,11 @@ public class PetEntryManager : TSingleton<PetEntryManager>
     public int MaxEntryCount { get { return m_maxEntryCount; } }
     public List<GameObject> m_listPetEntryPrefab;
     public List<GameObject> m_listPetPortraitPrefab;
-    [HideInInspector] public List<PetController> m_listPetEntryCtrl;
+    public List<int> m_listEntryPetUniqueindex;
+    [HideInInspector] public Dictionary<int, PetController> m_dictPetEntryCtrl;// <Dic<uniqueIndex, PetController>>
     public Dictionary<int, GameObject> m_dicPetPortraitObject;
     public Dictionary<int, GameObject> m_dicPetObject;
-    public Dictionary<int, Material> m_listPetIndex; // <Dic<uniqueIndex, petballMaterial>>
+    public Dictionary<int, int> m_dictPetballIndex; // <Dic<uniqueIndex, petballindex>>
     Dictionary<int, GameObject> m_dicPetPortraitPrefab;
 
     [SerializeField] UI_PetEnryInfoBoxController m_uiPetEntryInfoBox;
@@ -25,6 +26,7 @@ public class PetEntryManager : TSingleton<PetEntryManager>
         m_dicPetObject = new Dictionary<int, GameObject>();
         m_dicPetPortraitObject = new Dictionary<int, GameObject>();
         m_dicPetPortraitPrefab = new Dictionary<int, GameObject>();
+        m_listEntryPetUniqueindex = new List<int>();
         for (int i = 0; i < m_listPetEntryPrefab.Count; i++)
         {
             int index = 1000 + i;
@@ -34,8 +36,8 @@ public class PetEntryManager : TSingleton<PetEntryManager>
     }
     private void Start()
     {
-        m_listPetEntryCtrl = new List<PetController>(m_maxEntryCount);
-        m_listPetIndex = new Dictionary<int, Material>();
+        m_dictPetEntryCtrl = new Dictionary<int, PetController>(m_maxEntryCount);
+        m_dictPetballIndex = new Dictionary<int, int>();
     }
     int i = 0;
     private void Update()
@@ -56,28 +58,27 @@ public class PetEntryManager : TSingleton<PetEntryManager>
                 index = 1001;
 
             petCtrl.InitPet(index);
-            AddEntry(index, index + (++m_tempOffset), null);            
+            AddEntry(index, index + (++m_tempOffset), 500);            
         }
         
     }
     public void InitEntry()
     {
         m_listPetEntryPrefab = new List<GameObject>(m_maxEntryCount);
-        m_listPetEntryCtrl = new List<PetController>(m_maxEntryCount);
-        m_listPetIndex = new Dictionary<int, Material>();
+        m_dictPetEntryCtrl = new Dictionary<int, PetController>();
+        m_dictPetballIndex = new Dictionary<int, int>();
     }
 
-    public void AddEntry(int index, int UniqueId, Material mat)
+    public void AddEntry(int index, int UniqueId, int ballIndex)
     {
-        if (!m_listPetIndex.ContainsKey(UniqueId))
+        if (!m_dictPetballIndex.ContainsKey(UniqueId))
         {
-            m_listPetIndex.Add(UniqueId, mat);
-            PetController pet = m_dicPetObject[index].GetComponent<PetController>();
-            pet.InitPet(index);
-            pet.Stat.UniqueID = UniqueId;
-            if (m_listPetEntryCtrl.Count < MaxEntryCount)
+            m_listEntryPetUniqueindex.Add(UniqueId);
+            m_dictPetballIndex.Add(UniqueId, ballIndex);
+            
+            if (m_dictPetEntryCtrl.Count < MaxEntryCount)
             {
-                InitPetEntry(pet);
+                InitPetEntry(index, UniqueId);
                 m_uiPetEntryInfoBox.InitAllEntryIcon();
             }
             else
@@ -85,7 +86,7 @@ public class PetEntryManager : TSingleton<PetEntryManager>
                 //ø£∆Æ∏Æø° ∆Í¿Ã ≤À √°¿ª ∂ß
                 if (m_petBoxCtrl != null)
                 {
-                    m_petBoxCtrl.GetPetIntheBox(pet);
+                    m_petBoxCtrl.GetPetIntheBox(InitPetBox(index, UniqueId));
                 }
                 else
                 {
@@ -98,24 +99,29 @@ public class PetEntryManager : TSingleton<PetEntryManager>
     public void RemoveEntry(PetController pet)
     {
         m_listPetEntryPrefab.Remove(pet.gameObject);
-        m_listPetEntryCtrl.Remove(pet);
+        //m_listPetEntryCtrl.Remove(pet);
     }
     public void InitPetBox(UI_PetBoxController petbox)
     {
         m_petBoxCtrl = petbox;
     }
-    public void InitPetEntry(PetController pet)
+    public void InitPetEntry(int index,int uniqueID)
     {
-        m_listPetEntryCtrl.Add(pet);
-        PoolingManager._inst.AddPetPool(pet, pet.Stat.UniqueID);
+        PetController pet = PoolingManager._inst.AddPetPool(m_dicPetObject[index], index, uniqueID);
+        m_dictPetEntryCtrl.Add(pet.Stat.UniqueID, pet);
         m_uiPetEntryInfoBox.SetHudInfoBox(pet);
-        m_uiPetEntryInfoBox.InitCurrentPetIndex(pet.PetInfo.Index, m_listPetEntryCtrl.Count);
+        m_uiPetEntryInfoBox.InitCurrentPetIndex(pet.Stat.UniqueID, m_dictPetEntryCtrl.Count);
         if (!m_dicPetPortraitObject.ContainsKey(pet.PetInfo.Index))
         {
             GameObject portrait = Instantiate(m_dicPetPortraitPrefab[pet.PetInfo.Index], m_petPortraitRoot, false);
             m_dicPetPortraitObject.Add(pet.PetInfo.Index, portrait);
             portrait.SetActive(false);
         }
+    }
+    PetController InitPetBox(int index, int uniqueID)
+    {
+        PetController pet = PoolingManager._inst.AddPetPool(m_dicPetObject[index], index, uniqueID);
+        return pet;
     }
 
 }

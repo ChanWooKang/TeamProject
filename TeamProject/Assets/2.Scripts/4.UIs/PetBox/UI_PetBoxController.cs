@@ -105,8 +105,11 @@ public class UI_PetBoxController : MonoBehaviour
         for (int i = 0; i < invenSlots.Length; i++)
         {
             m_listEntrySlots.Add(invenSlots[i]);
-            if (i < PetEntryManager._inst.m_listPetEntryCtrl.Count)
-                m_listEntrySlots[i].InitSlot(i, this, PetEntryManager._inst.m_listPetEntryCtrl[i]);
+            if (i < PetEntryManager._inst.m_dictPetEntryCtrl.Count)
+            {
+                List<int> listPetEntryUIndex = PetEntryManager._inst.m_listEntryPetUniqueindex;
+                m_listEntrySlots[i].InitSlot(i, this, PetEntryManager._inst.m_dictPetEntryCtrl[listPetEntryUIndex[i]]);
+            }
             else
                 m_listEntrySlots[i].InitSlot(i, this);
         }
