@@ -39,7 +39,7 @@ public class FlameCtrl : BaseSkill
         transform.rotation = Quaternion.LookRotation(dir);
     }
 
-    public void OnFlameEvent(Transform firePos,Transform target,float damage)
+    public void OnFlameEvent(Transform firePos,Transform target,float damage, BossCtrl bCtrl)
     {
         if (_isInit == false)
             Init();
@@ -51,6 +51,7 @@ public class FlameCtrl : BaseSkill
         isOn = true;
         Damage = damage;
         PlayParticle();
+        SetBoss(bCtrl);
     }
 
     Vector3 GetDirection()

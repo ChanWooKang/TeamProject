@@ -60,6 +60,7 @@ public class UI_Craft : MonoBehaviour
             m_craftBoxObj.SetActive(m_isOn);
             UIManager._inst.UIOff();
             GameManagerEx._inst.ControlUI(m_isOn, true);
+            transform.SetAsLastSibling();
         }
         else
         {

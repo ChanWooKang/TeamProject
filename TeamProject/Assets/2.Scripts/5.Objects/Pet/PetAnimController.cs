@@ -7,7 +7,7 @@ public abstract class PetAnimController : BaseAnimCtrl
 {
     protected PetController _manager;
     protected Animator _animator;
-
+    [SerializeField] protected Transform _firePos;
 
     public virtual void Init(PetController manager, Animator animator)
     {
@@ -39,6 +39,16 @@ public abstract class PetAnimController : BaseAnimCtrl
                 if (_manager.target.CompareTag("Monster"))
                 {
                     _manager.target.GetComponent<MonsterController>().OnDamage(_manager.Stat.Damage, _manager.transform);
+                }
+            }
+        }
+        if(_manager._targetBoss != null)
+        {
+            if (_manager.Movement.CheckCloseTarget(_manager.target.position, _manager.attackRange))
+            {
+                if (_manager.target.CompareTag("Boss"))
+                {
+                    _manager.target.GetComponent<BossCtrl>().OnDamage(_manager.Stat.Damage, _manager.transform);
                 }
             }
         }
@@ -89,7 +99,7 @@ public abstract class PetAnimController : BaseAnimCtrl
         GameObject go = PoolingManager._inst.InstantiateAPS("LeafSlash");
         if (go.TryGetComponent(out LeafSlash leaf))
         {
-            leaf.SlashEvent(transform, _manager.Stat.Damage, transform.forward);
+            leaf.SlashEvent(transform, _manager.Stat.Damage, transform.forward, _manager);
         }
         else
         {
@@ -100,12 +110,12 @@ public abstract class PetAnimController : BaseAnimCtrl
     public void MushBombAction()
     {
         GameObject go = PoolingManager._inst.InstantiateAPS("MushBomb", transform.position, Quaternion.identity, Vector3.one);
-        //if (go.TryGetComponent(out MushBomb bomb))
-        //{
-        //    bomb.BombEvent(_manager, transform.position, _manager.target.position, _manager.Stat.Damage * 2);
-        //}
-        //else
-        //    Destroy(go);
+        if (go.TryGetComponent(out MushBomb bomb))
+        {
+            bomb.BombEvent(_manager, transform.position, _manager.target.position, _manager.Stat.Damage * 2);
+        }
+        else
+            Destroy(go);
     }
 
     public void BuffAction()
@@ -115,6 +125,18 @@ public abstract class PetAnimController : BaseAnimCtrl
             aura.BuffEvent();
         else
             Destroy(go);
+    }
+    public void ThrowRockAction()
+    {
+        GameObject go = PoolingManager._inst.InstantiateAPS("ThrowStone", _firePos.position, Quaternion.identity, Vector3.one * 0.01f);
+        if (go.TryGetComponent(out ThrowStone stone))
+        {
+            stone.ThrowEvent(_manager, _firePos.position, _manager.target.position, _manager.Stat.Damage * 3.0f, _manager);
+        }
+        else
+        {
+            Destroy(go);
+        }
     }
     #endregion [ Animation CallEvent ]
 }

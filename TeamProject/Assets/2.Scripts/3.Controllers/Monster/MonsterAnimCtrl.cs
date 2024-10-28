@@ -84,7 +84,7 @@ public abstract class MonsterAnimCtrl : BaseAnimCtrl
         GameObject go = PoolingManager._inst.InstantiateAPS("LeafSlash");
         if (go.TryGetComponent(out LeafSlash leaf))
         {
-            leaf.SlashEvent(transform, _manager.Stat.Damage, transform.forward);
+            leaf.SlashEvent(transform, _manager.Stat.Damage, transform.forward, _manager);
         }
         else
         {
@@ -117,7 +117,7 @@ public abstract class MonsterAnimCtrl : BaseAnimCtrl
         GameObject go = PoolingManager._inst.InstantiateAPS("ThrowStone",_firePos.position, Quaternion.identity,Vector3.one * 0.01f);
         if(go.TryGetComponent(out ThrowStone stone))
         {            
-            stone.ThrowEvent(_manager, _firePos.position, _manager.target.position, _manager.Stat.Damage * 3.0f);            
+            stone.ThrowEvent(_manager, _firePos.position, _manager.target.position, _manager.Stat.Damage * 3.0f, _manager);            
         }
         else 
         { 

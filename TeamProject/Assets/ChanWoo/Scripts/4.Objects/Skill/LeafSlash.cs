@@ -8,7 +8,7 @@ public class LeafSlash : BaseSkill
     BoxCollider _collider;
     ParticleSystem _particle;
     Vector3 direction;
-    float _offSetPosY;    
+    float _offSetPosY;
     [SerializeField] float power;
     bool isShoot = false;
 
@@ -16,7 +16,7 @@ public class LeafSlash : BaseSkill
 
     private void FixedUpdate()
     {
-        if(isShoot && direction != Vector3.zero)
+        if (isShoot && direction != Vector3.zero)
         {
             _rigid.velocity = Vector3.zero;
             _rigid.AddForce(transform.forward * power, ForceMode.Impulse);
@@ -25,7 +25,7 @@ public class LeafSlash : BaseSkill
     }
 
     void Init()
-    {        
+    {
         _rigid = GetComponent<Rigidbody>();
         _collider = GetComponent<BoxCollider>();
         _particle = GetComponentInChildren<ParticleSystem>();
@@ -48,7 +48,7 @@ public class LeafSlash : BaseSkill
         transform.rotation = Quaternion.LookRotation(pos.forward);
     }
 
-    public void SlashEvent(Transform shooter, float damage, Vector3 destination)
+    public void SlashEvent(Transform shooter, float damage, Vector3 destination, MonsterController mCtrl = null)
     {
         Init();
         SetPosition(shooter);
@@ -56,18 +56,41 @@ public class LeafSlash : BaseSkill
         direction.y = 0;
 
 
-        if(Info != null)
+        if (Info != null)
         {
             Damage = damage * Info.DamageTimes;
         }
         else
         {
             Damage = damage;
-        }        
+        }
         if (SlashCoroutine != null)
             StopCoroutine(SlashCoroutine);
         SlashCoroutine = StartCoroutine(OnSlashEvent());
-        
+        if (mCtrl != null)
+            SetMon(mCtrl);
+    }
+    public void SlashEvent(Transform shooter, float damage, Vector3 destination, PetController pCtrl = null)
+    {
+        Init();
+        SetPosition(shooter);
+        direction = destination;
+        direction.y = 0;
+
+
+        if (Info != null)
+        {
+            Damage = damage * Info.DamageTimes;
+        }
+        else
+        {
+            Damage = damage;
+        }
+        if (SlashCoroutine != null)
+            StopCoroutine(SlashCoroutine);
+        SlashCoroutine = StartCoroutine(OnSlashEvent());
+        if (pCtrl != null)
+            SetPet(pCtrl);
     }
 
     IEnumerator OnSlashEvent()

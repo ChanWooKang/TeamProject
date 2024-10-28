@@ -50,7 +50,7 @@ public abstract class BossAnimCtrl : BaseAnimCtrl
         if(_manager._move.CheckCloseTarget(_manager.target.position,_manager.attackRange))
         {
             if (_manager.target.CompareTag("Player"))
-                _manager.player.OnDamage(_manager.Stat.Damage);                
+                _manager.player.OnDamage(_manager.Stat.Damage, transform);                
         }
     }
 
@@ -81,7 +81,7 @@ public abstract class BossAnimCtrl : BaseAnimCtrl
         if(go.TryGetComponent(out FireBall fireBall))
         {
             float damageTime = GetDamageTime(fireBall.skillID);
-            fireBall.ShootEvent(GetDirection(_firePos.position,_manager.target.position), _manager.Stat.Damage * damageTime);
+            fireBall.ShootEvent(GetDirection(_firePos.position,_manager.target.position), _manager.Stat.Damage * damageTime, _manager);            
         }
         else
         {
@@ -108,7 +108,7 @@ public abstract class BossAnimCtrl : BaseAnimCtrl
             if (go.TryGetComponent(out _flame))
             {
                 float damageTime = GetDamageTime(_flame.skillID);
-                _flame.OnFlameEvent(_firePos,_manager.target,_manager.Stat.Damage * damageTime);                
+                _flame.OnFlameEvent(_firePos,_manager.target,_manager.Stat.Damage * damageTime, _manager);                
             }
             else
             {
@@ -119,7 +119,7 @@ public abstract class BossAnimCtrl : BaseAnimCtrl
         else
         {
             float damageTime = GetDamageTime(_flame.skillID);
-            _flame.OnFlameEvent(_firePos, _manager.target,_manager.Stat.Damage * damageTime);
+            _flame.OnFlameEvent(_firePos, _manager.target,_manager.Stat.Damage * damageTime, _manager);
         }
         
     }

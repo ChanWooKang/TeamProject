@@ -19,9 +19,9 @@ public class PlayerColliderCtrl : MonoBehaviour
         hitDamage = 0;
     }
 
-    public void OnDamage(float damage)
+    public void OnDamage(float damage, Transform transform)
     {
-        _manager.OnDamage(damage);
+        _manager.OnDamage(damage, transform);
     } 
 
     private void OnTriggerEnter(Collider other)
@@ -49,7 +49,8 @@ public class PlayerColliderCtrl : MonoBehaviour
         {
             if (other.TryGetComponent(out BaseSkill skill))
             {
-                OnDamage(skill.Damage);
+                
+                OnDamage(skill.Damage, skill.gameObject.transform);
                 other.gameObject.DestroyAPS();
             }
         }
@@ -72,7 +73,7 @@ public class PlayerColliderCtrl : MonoBehaviour
             hitCntTime += Time.deltaTime;
             if (hitCntTime > hitRateTime)
             {
-                OnDamage(hitDamage);
+                OnDamage(hitDamage, other.gameObject.transform);
                 hitCntTime = 0;
             }
                 

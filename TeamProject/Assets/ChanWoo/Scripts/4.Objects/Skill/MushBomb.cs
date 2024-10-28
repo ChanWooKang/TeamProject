@@ -39,7 +39,21 @@ public class MushBomb : ObjectInParticle
         }
         SetEnable(false);
     }
-
+    void Init(PetController target)
+    {
+        _animator = GetComponent<Animator>();
+        _rigid = GetComponent<Rigidbody>();
+        _animIDBomb = Animator.StringToHash("Bomb");
+        if (Managers._data.Dict_Skill.ContainsKey(skillID))
+        {
+            Info = Managers._data.Dict_Skill[skillID];
+        }
+        else
+        {
+            Info = null;
+        }
+        SetEnable(false);
+    }
     void SetEnable(bool enable)
     {
         if(_model != null)
@@ -63,6 +77,24 @@ public class MushBomb : ObjectInParticle
         if (ShootCoroutine != null)
             StopCoroutine(ShootCoroutine);
         ShootCoroutine = StartCoroutine(OnShootEvent(start,target));
+        
+    }
+    public void BombEvent(PetController petCtrl, Vector3 start, Vector3 target, float damage)
+    {
+        Init(petCtrl);
+        SetEnable(true);
+        if (Info != null)
+        {
+            Damage = damage * Info.DamageTimes;
+        }
+        else
+        {
+            Damage = damage;
+        }
+        if (ShootCoroutine != null)
+            StopCoroutine(ShootCoroutine);
+        ShootCoroutine = StartCoroutine(OnShootEvent(start, target));
+
     }
 
     IEnumerator OnShootEvent(Vector3 start, Vector3 target)

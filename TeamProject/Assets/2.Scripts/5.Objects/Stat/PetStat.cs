@@ -81,7 +81,7 @@ public class PetStat : BaseStat
         _runSpeed = _monster.RunSpeed;
         _attackrange = _monster.Range;
         _attackDelay = _monster.AttackDelay;
-        _sight = _monster.Sight;
+        _sight = _monster.Sight;        
         //_characterType = _monster.CharacterType;
 
 
@@ -106,6 +106,7 @@ public class PetStat : BaseStat
             MonsterLevelInfo info = Managers._data.Dict_MonsterLevel[_level];
             // 레벨이 1일때
             _maxHp = _hp = monster.HP;
+            _damage = monster.Damage;
             _exp = 0;
         }
     }

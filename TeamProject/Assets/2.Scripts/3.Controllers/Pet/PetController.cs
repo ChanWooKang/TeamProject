@@ -30,6 +30,7 @@ public class PetController : FSM<PetController>
     public Transform _hudTransform;
     //Å¸°Ù °ü·Ã
     [HideInInspector] public MonsterController _targetMon;
+    [HideInInspector] public BossCtrl _targetBoss;
     [HideInInspector] public Transform target;
     [HideInInspector] public Transform player;
 
@@ -69,6 +70,17 @@ public class PetController : FSM<PetController>
     }
     private void Update()
     {
+        if ((_targetMon != null && _targetMon.isDead))
+        {
+            target = null;
+            _targetMon = null;
+        }
+        if (_targetBoss != null && _targetBoss.isDead)
+        {
+            target = null;
+            _targetBoss = null;
+        }
+
         FSMUpdate();
     }
     private void LateUpdate()
@@ -117,7 +129,7 @@ public class PetController : FSM<PetController>
             _hudCtrl.InitHud(m_petInfo.NameKr, Stat.Level, _hudTransform, Color.green, true, this);
             SetHudHp();
         }
-        
+
     }
     public void GetRangeByAttackType()
     {
@@ -139,9 +151,34 @@ public class PetController : FSM<PetController>
     {
         if (target != null)
             return;
-        target = attacker;
-        if (target != null)
-            _targetMon = target.GetComponent<MonsterController>();
+
+        
+        if (attacker != null)
+            if (attacker.TryGetComponent(out MonsterController mCtrl))
+            {
+                _targetMon = mCtrl;
+                target = attacker;
+            }
+            else if (attacker.TryGetComponent(out BossCtrl bCtrl))
+            {
+                _targetBoss = bCtrl;
+                target = attacker;
+            }
+            else if (attacker.TryGetComponent(out BaseSkill bSkill))
+            {
+                if (bSkill.MonCtrl != null)
+                {
+                    _targetMon = bSkill.MonCtrl;
+                    target = _targetMon.transform;
+                }
+                else if (bSkill.BossCtrl != null)
+                {
+                    _targetBoss = bSkill.BossCtrl;
+                    target = _targetBoss.transform;
+                }
+            }
+
+
     }
     public void SetHud(HudController hud, Transform hudRoot)
     {

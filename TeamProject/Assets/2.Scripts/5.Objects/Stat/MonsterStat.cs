@@ -154,8 +154,8 @@ public class MonsterStat : BaseStat
             MonsterLevelInfo info = Managers._data.Dict_MonsterLevel[_level];
             // 레벨이 1일때
             _maxHp = _hp = monster.HP;             
-            _exp = 0;
-            _dropExp = info.DropExp;
+            _exp = 0;            
+            SetStat(1, info.DropExp);
         }
     }
 

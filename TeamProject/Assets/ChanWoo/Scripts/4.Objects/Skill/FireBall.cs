@@ -56,7 +56,7 @@ public class FireBall : BaseSkill
         transform.rotation = Quaternion.LookRotation(dir);
     }
 
-    public void ShootEvent(Vector3 shootDirect,float damage)
+    public void ShootEvent(Vector3 shootDirect,float damage, BossCtrl bCtrl)
     {
         Init();
         SetRotaiton(shootDirect);
@@ -65,6 +65,7 @@ public class FireBall : BaseSkill
         if (ShootCoroutine != null)
             StopCoroutine(ShootCoroutine);
         ShootCoroutine = StartCoroutine(OnShootEvent());
+        SetBoss(bCtrl);
     }
 
     IEnumerator OnShootEvent()

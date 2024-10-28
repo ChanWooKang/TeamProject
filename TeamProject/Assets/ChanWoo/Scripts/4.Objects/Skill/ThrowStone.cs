@@ -13,8 +13,12 @@ public class ThrowStone : BaseSkill
         _targetMonster = monster;
         SetInformation();
     }
+    void Init(PetController pet)
+    {
+        SetInformation();
+    }
 
-    public void ThrowEvent(MonsterController monster, Vector3 start, Vector3 target, float damage)
+    public void ThrowEvent(MonsterController monster, Vector3 start, Vector3 target, float damage, MonsterController mCtrl = null)
     {
         Init(monster);
         if (Info != null)
@@ -28,6 +32,25 @@ public class ThrowStone : BaseSkill
         if (ShootCoroutine != null)
             StopCoroutine(ShootCoroutine);
         ShootCoroutine = StartCoroutine(OnShootEvent(start, target));
+        if (mCtrl != null)
+            SetMon(mCtrl);
+    }
+    public void ThrowEvent(PetController pet, Vector3 start, Vector3 target, float damage, PetController mCtrl = null)
+    {
+        Init(pet);
+        if (Info != null)
+        {
+            Damage = damage * Info.DamageTimes;
+        }
+        else
+        {
+            Damage = damage;
+        }
+        if (ShootCoroutine != null)
+            StopCoroutine(ShootCoroutine);
+        ShootCoroutine = StartCoroutine(OnShootEvent(start, target));
+        if (mCtrl != null)
+            SetPet(mCtrl);
     }
 
     IEnumerator OnShootEvent(Vector3 start, Vector3 target)
