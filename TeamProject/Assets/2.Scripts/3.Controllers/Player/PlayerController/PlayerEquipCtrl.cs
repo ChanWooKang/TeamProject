@@ -346,7 +346,7 @@ public class PlayerEquipCtrl : MonoBehaviour
         {
             int uniquePetIndex = UIManager._inst.UIPetEntry.m_currentPetUIndex;
             int ballIndex = PetEntryManager._inst.m_dictPetballIndex[uniquePetIndex];
-            Debug.LogFormat("손안에 볼인덱스 : {0}, 유니크 인덱스 : {1}", ballIndex, uniquePetIndex);
+            
             PetBallModelCtrl.SetMaterial(InventoryManager._inst.Dict_Petball[ballIndex].NameEn);
         }
     }
@@ -370,7 +370,7 @@ public class PlayerEquipCtrl : MonoBehaviour
         {
             int uniquePetIndex = UIManager._inst.UIPetEntry.m_currentPetUIndex;
             int ballIndex = PetEntryManager._inst.m_dictPetballIndex[uniquePetIndex];
-            Debug.LogFormat("던진 볼인덱스 : {0}, 유니크 인덱스 : {1}", ballIndex, uniquePetIndex);
+            
             go.GetComponent<PetBallController>().ShootEvent(Camera.main.transform.forward, ballIndex, isRecall);
         }
     }

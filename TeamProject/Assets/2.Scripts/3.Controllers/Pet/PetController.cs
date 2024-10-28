@@ -21,6 +21,9 @@ public class PetController : FSM<PetController>
     Rigidbody m_rigid;
     MonsterInfo m_petInfo;
     public HudController _hudCtrl;
+    Coroutine DamageCoroutine = null;
+    Renderer[] _meshs;
+    Vector3 _offSetHitPoint;
     #endregion [Component]
 
     //몬스터 상태 체크 및 애니메이션 적용     
@@ -115,6 +118,7 @@ public class PetController : FSM<PetController>
         m_animator = GetComponent<Animator>();
         m_collider = GetComponent<CapsuleCollider>();
         m_rigid = GetComponent<Rigidbody>();
+        _meshs = GetComponentsInChildren<Renderer>();
         m_animCtrl.Init(this, m_animator);
         _movement.Init(this, m_agent);
         Stat.Init(index);
@@ -229,9 +233,72 @@ public class PetController : FSM<PetController>
     {
         InitState(this, PetStateInit._inst);
     }
-    public void Call()
+    public void OnDamage(float damage, Transform attacker)
     {
+        Vector3 hitPoint = transform.position + _offSetHitPoint;
+        OnDamage(damage, attacker, hitPoint);
+    }
+    public void OnDamage(float damage, Transform attacker, Vector3 hitPoint)
+    {
+        if (isDead)
+            return;
+        isStatic = false;
 
+        if (target != attacker)
+            SetTarget(attacker);
+       
+        State = eMonsterState.GETHIT;
+        isDead = Stat.CalculateDamage(damage);
+        if (_hudCtrl != null)
+            _hudCtrl.DisPlay(Stat.HP / Stat.MaxHP);
+        DamageTextManager._inst.ShowDamageText(hitPoint, damage);
+        OnDamage();
+    }
+    public void OnDamage()
+    {
+        if (DamageCoroutine != null)
+            StopCoroutine(DamageCoroutine);
+        DamageCoroutine = StartCoroutine(OnDamageEvent());
+    }
+    IEnumerator OnDamageEvent()
+    {
+        float randValue = Random.Range(0.0f, 1.0f);
+        bool isDizzy = randValue <= dizzyRate;
+        
+        if (isDead)
+        {
+            m_agent.SetDestination(transform.position);
+            AttackNavSetting();
+            yield return new WaitForSeconds(0.20f);
+            //죽을 때 작업
+            m_collider.enabled = false;            
+            ChangeColor(Color.gray);
+            ChangeState(PetStateDie._inst);
+            yield break;
+        }
+        if (isDizzy)
+            ChangeState(PetStateDizzy._inst);
+
+        ChangeColor(Color.red);
+        yield return new WaitForSeconds(0.3f);
+        ChangeColor(Color.white);
+    }
+    
+    public void ChangeLayer(eLayer layer)
+    {
+        gameObject.layer = (int)layer;
+    }
+    public void OnDeadEvent()
+    {
+        UIManager._inst.UIPetEntry.RecallOrPutIn();
+    }
+    void ChangeColor(Color color)
+    {
+        if (_meshs.Length > 0)
+        {
+            foreach (Renderer mesh in _meshs)
+                mesh.material.color = color;
+        }
     }
     void FreezeRotation()
     {
@@ -239,6 +306,25 @@ public class PetController : FSM<PetController>
         m_rigid.angularVelocity = Vector3.zero;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {        
 
+        if (other.CompareTag("MonsterSkill"))
+        {
+            if (other.TryGetComponent(out BaseSkill skill))
+            {
+                if (skill._subject == eSkillSubject.Monster)
+                {
+                    OnDamage(skill.Damage, skill.MonCtrl.transform, other.ClosestPoint(transform.position));
+                    other.gameObject.DestroyAPS();
+                }
+                else if(skill._subject == eSkillSubject.Boss)
+                {
+                    OnDamage(skill.Damage, skill.BossCtrl.transform, other.ClosestPoint(transform.position));
+                    other.gameObject.DestroyAPS();
+                }
+            }
+        }
+    }
 
 }
