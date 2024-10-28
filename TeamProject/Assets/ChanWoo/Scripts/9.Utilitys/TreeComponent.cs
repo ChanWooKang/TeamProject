@@ -20,15 +20,20 @@ public class TreeComponent : MonoBehaviour
     [SerializeField]
     private CapsuleCollider _childCollider;
     [SerializeField]
-    private Rigidbody _childRigidBody;    
-   
+    private Rigidbody _childRigidBody;
+
+    public CollisionEvent collisionEvent;    
+
     public void Init(TreeCtrl ctrl)
     {
         _ctrl = ctrl;
         _parentCollider.enabled = true;
         _childCollider.enabled = false;
         _childRigidBody.useGravity = false;
-        
+        if (collisionEvent != null)
+        {
+            collisionEvent.onCollisionEnter.AddListener(OnCollide);
+        }
     }
 
     public void FallDownTree()
@@ -56,5 +61,14 @@ public class TreeComponent : MonoBehaviour
         //아이템 생성
         _ctrl.OnDeadEvent();
         _childTree.gameObject.SetActive(false);
+    }
+
+    public void OnCollide(Collision collision)
+    {
+        if (collision.transform.CompareTag("Ground"))
+        {
+            GameObject go = PoolingManager._inst.InstantiateAPS("TreeFall", collision.contacts[0].point, Quaternion.identity, Vector3.one);            
+            go.GetComponent<TreeFallEffect>().FallEvent();
+        }        
     }
 }

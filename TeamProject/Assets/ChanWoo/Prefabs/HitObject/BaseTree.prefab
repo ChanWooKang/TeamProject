@@ -99,6 +99,7 @@ MonoBehaviour:
   _parentCollider: {fileID: 1648113707157015715}
   _childCollider: {fileID: 6189759841430777890}
   _childRigidBody: {fileID: 6189759841430777891}
+  collisionEvent: {fileID: 8647085717339727220}
 --- !u!114 &2844574759688908995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,6 +253,7 @@ GameObject:
   - component: {fileID: 5685387400073318905}
   - component: {fileID: 6189759841430777890}
   - component: {fileID: 6189759841430777891}
+  - component: {fileID: 8647085717339727220}
   m_Layer: 14
   m_Name: Main
   m_TagString: Untagged
@@ -353,3 +355,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8647085717339727220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6189759841430777900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dcc4b7f5e796214497723e2ed1b9695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onCollisionEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  _particle: {fileID: 0}

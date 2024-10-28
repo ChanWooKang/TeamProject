@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DefineDatas;
 
-public class HitObjectCtrl : MonoBehaviour, IHitAble
+public abstract class HitObjectCtrl : MonoBehaviour, IHitAble
 {
     public int Index;
     protected HitObjectInfo _info;
@@ -26,6 +26,7 @@ public class HitObjectCtrl : MonoBehaviour, IHitAble
     void GetItemByRandom()
     {
         int randValue = Random.Range(0, 100);
+        Debug.Log(_info.RewardIndex);
         if (randValue < InventoryManager._inst.Dict_Material[_info.RewardIndex].Rate)
         {
             GetItem(_info.RewardIndex);
@@ -61,9 +62,8 @@ public class HitObjectCtrl : MonoBehaviour, IHitAble
         return AttackTypes.Contains(type);
     }
 
-    public virtual void OnDamage()
-    {       
-    }
+    public abstract void OnDamage();
+   
 
     public void OnDamage(float damage, Transform attacker)
     {
@@ -78,8 +78,9 @@ public class HitObjectCtrl : MonoBehaviour, IHitAble
 
         isDead = GetHitDamage(damage);
         DamageTextManager._inst.ShowDamageText(hitPoint, damage);
-        GetItemByRandom();
         OnDamage();
+        GetItemByRandom();
+        
     }
 
     //IEnumerator OnDamageEvent()

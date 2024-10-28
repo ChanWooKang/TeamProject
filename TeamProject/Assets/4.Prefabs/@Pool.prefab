@@ -184,6 +184,11 @@ MonoBehaviour:
     type: 2
     prefab: {fileID: 7717958196324857388, guid: b4b24cbd11e2a4f478a9f7b7c42ec11c, type: 3}
     amount: 1
+  - index: 16
+    name: TreeFall
+    type: 3
+    prefab: {fileID: 0}
+    amount: 1
   _defPoolAmount: 0
   _canPoolExpand: 1
   _poolingIcons:
@@ -215,6 +220,10 @@ MonoBehaviour:
     name: Cactus
     type: 0
     prefab: {fileID: 21300000, guid: af4aac8eecf22164090587b65445b50c, type: 3}
+  - index: 1002
+    name: Golem
+    type: 0
+    prefab: {fileID: 21300000, guid: 6cf39905c216318408cff02db0e4a6fe, type: 3}
   - index: 100
     name: Branch
     type: 1
@@ -259,14 +268,6 @@ MonoBehaviour:
     name: Pickaxe
     type: 1
     prefab: {fileID: 21300000, guid: 2be0e75b84d62814ab36a4b2dabb3b04, type: 3}
-  - index: 205
-    name: Arrow
-    type: 1
-    prefab: {fileID: 21300000, guid: 37cc50061aa214c4b91e8ba6cdce4e27, type: 3}
-  - index: 206
-    name: Bullet
-    type: 1
-    prefab: {fileID: 21300000, guid: 1e6ceaf5a8c99154f839a7d6aeb0d74f, type: 3}
   - index: 500
     name: PetBall
     type: 1
@@ -307,4 +308,28 @@ MonoBehaviour:
     name: RockSalt
     type: 1
     prefab: {fileID: 21300000, guid: f375f6232a168124aa5f90e32d7706cd, type: 3}
+  - index: 600
+    name: Arrow
+    type: 1
+    prefab: {fileID: 21300000, guid: 37cc50061aa214c4b91e8ba6cdce4e27, type: 3}
+  - index: 601
+    name: Bullet
+    type: 1
+    prefab: {fileID: 21300000, guid: 1e6ceaf5a8c99154f839a7d6aeb0d74f, type: 3}
+  - index: 602
+    name: MushroomSoup
+    type: 1
+    prefab: {fileID: 21300000, guid: 06b952b009d7e624685a8b683ef41ff4, type: 3}
+  - index: 603
+    name: CactusSalad
+    type: 1
+    prefab: {fileID: 21300000, guid: 26a90ca1403544645a66d076bd0cdd7f, type: 3}
+  - index: 604
+    name: GrilledSkewers
+    type: 1
+    prefab: {fileID: 21300000, guid: f899f8007330bc844b864a84e543ecc8, type: 3}
+  - index: 605
+    name: RicethiefDinner
+    type: 1
+    prefab: {fileID: 21300000, guid: b9af8358e69eea749a59cf486616c212, type: 3}
   _hudRootTransform: {fileID: 0}
