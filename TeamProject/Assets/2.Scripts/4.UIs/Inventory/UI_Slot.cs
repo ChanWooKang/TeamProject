@@ -36,6 +36,7 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
     GameObject Count_Parent;
     GameObject Weight_Parent;
     GameObject Level_Parent;
+    RectTransform m_canvasTF;
 
     public int slotIndex;
     public BaseItem itemData;
@@ -214,6 +215,7 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
             DragSlot._inst.SetCanvas(false);
             DragSlot._inst.SlotInven = this;
             DragSlot._inst.DragSetImage(Item_Image);
+            m_canvasTF = DragSlot._inst.gameObject.GetComponent<RectTransform>();
         }
     }
 
@@ -222,7 +224,17 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
         if (itemData != null)
         {            
 
-            DragSlot._inst._rect.position = eventData.position;            
+            //DragSlot._inst._rect.position = eventData.position;
+            Vector3 screenPos = eventData.position;
+
+            Vector3 newPos = Vector3.zero;
+
+            Camera cam = eventData.pressEventCamera;
+            if (RectTransformUtility.ScreenPointToWorldPointInRectangle(m_canvasTF, screenPos, cam, out newPos))
+            {
+                DragSlot._inst.gameObject.transform.position = newPos;
+                DragSlot._inst.gameObject.transform.rotation = m_canvasTF.rotation;
+            }
         }
     }
 
@@ -231,7 +243,7 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
         DragSlot._inst.SetAlpha(0);
         DragSlot._inst.SetCanvas(true);
         DragSlot._inst.SlotInven = null;
-        DragSlot._inst._rect.position = Vector2.zero;
+        //DragSlot._inst._rect.position = Vector2.zero;
     }
 
     public void OnDrop(PointerEventData eventData)
