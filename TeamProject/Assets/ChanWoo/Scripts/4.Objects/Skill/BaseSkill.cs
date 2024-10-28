@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DefineDatas;
 
 public class BaseSkill : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class BaseSkill : MonoBehaviour
     public MonsterController MonCtrl;
     public BossCtrl BossCtrl;
     public PetController PetCtrl;
+    public eSkillSubject _subject = eSkillSubject.None;
 
     protected void SetInformation()
     {
@@ -24,14 +26,17 @@ public class BaseSkill : MonoBehaviour
     }
     public void SetMon(MonsterController mCtrl)
     {
+        _subject = eSkillSubject.Monster;
         MonCtrl = mCtrl;
     }
     public void SetBoss(BossCtrl bCtrl)
     {
+        _subject = eSkillSubject.Boss;
         BossCtrl = bCtrl;
     }
     public void SetPet(PetController pCtrl)
     {
+        _subject = eSkillSubject.Pet;
         PetCtrl = pCtrl;
     }
     

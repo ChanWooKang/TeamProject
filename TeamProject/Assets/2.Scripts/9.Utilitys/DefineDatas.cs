@@ -110,6 +110,14 @@ namespace DefineDatas
         AGGRESSIVE,
     }
 
+    public enum eSkillSubject
+    {
+        None = 0,
+        Monster,
+        Pet,
+        Boss
+    }
+
     public enum eMonsterState
     {                
         IDLE,

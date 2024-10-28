@@ -420,6 +420,18 @@ public class MonsterController : FSM<MonsterController>, IHitAble
                 arrow.ClearRigidBody();
             }
         }
+
+        if(other.CompareTag("MonsterSkill"))
+        {
+            if(other.TryGetComponent(out BaseSkill skill))
+            {
+                if(skill._subject == eSkillSubject.Pet)
+                {
+                    OnDamage(skill.Damage, skill.PetCtrl.transform, other.ClosestPoint(transform.position));
+                    other.gameObject.DestroyAPS();
+                }
+            }
+        }
     }
 
     public bool CheckAttackType(WeaponType type)

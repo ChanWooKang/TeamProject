@@ -220,9 +220,8 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
     public void OnDrag(PointerEventData eventData)
     {
         if (itemData != null)
-        {            
-
-            DragSlot._inst._rect.position = eventData.position;            
+        {                       
+            DragSlot._inst._rect.position =eventData.position;
         }
     }
 
