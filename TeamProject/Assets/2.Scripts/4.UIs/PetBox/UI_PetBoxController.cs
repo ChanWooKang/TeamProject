@@ -44,8 +44,7 @@ public class UI_PetBoxController : MonoBehaviour
     [SerializeField] GameObject m_petBoxUI;
     [SerializeField] GameObject m_selectedPetInfoBox;
     [SerializeField] GameObject m_noDataObj;
-
-    bool m_isUIOpen;
+    
     #endregion [Component]
 
     private void Update()
@@ -158,7 +157,7 @@ public class UI_PetBoxController : MonoBehaviour
     }
     void OpenPetBox(int boxNum)
     {
-        m_isUIOpen = true;
+        
         m_petBoxUI.SetActive(true);
         for (int i = 1; i < 4; i++)
         {
@@ -178,7 +177,7 @@ public class UI_PetBoxController : MonoBehaviour
     }
     public void ClosePetBox()
     {
-        m_isUIOpen = false;
+        
         m_petBoxUI.SetActive(false);
         m_noDataObj.SetActive(true);
         m_selectedPetInfoBox.SetActive(false);

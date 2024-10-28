@@ -240,8 +240,7 @@ public class UI_Slot : UI_Base, IPointerClickHandler, IBeginDragHandler, IDragHa
     {
         DragSlot._inst.SetAlpha(0);
         DragSlot._inst.SetCanvas(true);
-        DragSlot._inst.SlotInven = null;
-        //DragSlot._inst._rect.position = Vector2.zero;
+        DragSlot._inst.SlotInven = null;        
     }
 
     public void OnDrop(PointerEventData eventData)

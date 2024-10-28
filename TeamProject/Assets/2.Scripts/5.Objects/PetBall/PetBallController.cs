@@ -142,11 +142,11 @@ public class PetBallController : MonoBehaviour
             float RN = Random.Range(0, 65535);
             float rate = Mathf.Pow(b / 65535, m_shakeMaxCount - count);
             if (count == 0)
-                Debug.Log("º¼¿¡ µé¾î¿Ô´Ù!");
+                
             if (count > 0 && RN > b)
             {
                 //Æ÷È¹ ½ÇÆĞ (º¼¿¡¼­ ÆêÀÌ Å»Ãâ)
-                Debug.Log("¾Ñ ÆêÀÌ º¼¿¡¼­ ºüÁ®³ª¿Ô´Ù!");
+                
                 m_isSuccess = false;
                 m_uiRateBox.CaptureFailed();
                 m_targetMonsterCtrl.gameObject.SetActive(true);
@@ -157,18 +157,18 @@ public class PetBallController : MonoBehaviour
             {
                 if (count >= 1 && count < m_shakeMaxCount)
                 {
-                    Debug.LogFormat("º¼ÀÌ Èçµé·È´Ù!" + (count));
+                    
                     m_animator.SetTrigger("ShakeBall");
                     //º¼ Èçµé¸² or ÀÌÆåÆ®
                 }
                 if (count == m_shakeMaxCount)
                 {
-                    Debug.Log("Àâ¾Ò³ª?");
+                    
                     m_animator.SetTrigger("ShakeBall");
                     StartCoroutine(m_uiRateBox.SetRateProgress(rate));
                     //º¼ Èçµé¸² or ÀÌÆåÆ®
                     yield return new WaitForSeconds(m_shakeDelayTime);
-                    Debug.Log("Àâ¾Ò´Ù!");
+                    
                     PetEntryManager._inst.AddEntry( m_targetMonsterCtrl.Index, m_targetMonsterCtrl.Stat.UniqueID, m_petBallInfo.Index);
                     Debug.LogFormat("ÀâÀº º¼ÀÎµ¦½º : {0}, À¯´ÏÅ© ÀÎµ¦½º : {1}", m_petBallInfo.Index, m_targetMonsterCtrl.Stat.UniqueID);
                     StopCoroutine(CaptureStart());
@@ -202,9 +202,9 @@ public class PetBallController : MonoBehaviour
         StartCoroutine(m_uiRateBox.SetRateProgress(1f));
         //ÇÑ¹ø Èçµé±â or ÀÌÆåÆ®
         yield return new WaitForSeconds(m_shakeDelayTime);
-        Debug.Log("¹Ù·Î ÀâÇû´Ù");
+        
         PetEntryManager._inst.AddEntry( m_targetMonsterCtrl.Index, m_targetMonsterCtrl.Stat.UniqueID, m_petBallInfo.Index);
-        Debug.LogFormat("ÀâÀº º¼ÀÎµ¦½º : {0}, À¯´ÏÅ© ÀÎµ¦½º : {1}", m_petBallInfo.Index, m_targetMonsterCtrl.Stat.UniqueID);
+        
         StopCoroutine(CaptureStart());
         m_targetMonsterCtrl.gameObject.DestroyAPS();
         m_isSuccess = true;
