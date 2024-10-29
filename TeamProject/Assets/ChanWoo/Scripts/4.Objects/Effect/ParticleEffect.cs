@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StoneEffect : ObjectInParticle
+public class ParticleEffect : ObjectInParticle
 {
     ParticleCallBack _particle;
 

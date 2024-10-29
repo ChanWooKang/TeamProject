@@ -116,6 +116,7 @@ MonoBehaviour:
   AttackTypes: 0100000002000000
   baseHitPoint: {fileID: 6865716204694850166}
   _hp: 0
+  _particleID: TreeHitEvent
 --- !u!205 &2426147639550170065
 LODGroup:
   m_ObjectHideFlags: 0
@@ -370,4 +371,3 @@ MonoBehaviour:
   onCollisionEnter:
     m_PersistentCalls:
       m_Calls: []
-  _particle: {fileID: 0}

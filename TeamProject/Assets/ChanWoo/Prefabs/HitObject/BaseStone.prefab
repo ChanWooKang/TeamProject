@@ -145,6 +145,7 @@ MonoBehaviour:
   AttackTypes: 05000000
   baseHitPoint: {fileID: 6338685122128630052}
   _hp: 0
+  _particleID: StoneHitEffect
   _destoryTime: 2
 --- !u!205 &1853918353967198989
 LODGroup:

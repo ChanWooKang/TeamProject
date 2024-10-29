@@ -10,7 +10,7 @@ public abstract class HitObjectCtrl : MonoBehaviour, IHitAble
     public List<WeaponType> AttackTypes;
     [SerializeField] Transform baseHitPoint;    
     [SerializeField] protected float _hp;
-
+    [SerializeField] protected string _particleID;
     protected bool isDead;
     protected bool isInit = false;
 
@@ -63,7 +63,17 @@ public abstract class HitObjectCtrl : MonoBehaviour, IHitAble
     }
 
     public abstract void OnDamage();
-   
+
+    protected virtual GameObject GetParticle(string ID)
+    {
+        return PoolingManager._inst.InstantiateAPS(ID);
+    }
+
+    protected virtual void MakeParticleEffect(Vector3 hitPoint)
+    {
+        GameObject go = GetParticle(_particleID);
+        go.GetComponent<ParticleEffect>().HitEvent(hitPoint);
+    }
 
     public void OnDamage(float damage, Transform attacker)
     {

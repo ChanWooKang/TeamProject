@@ -322,6 +322,7 @@ MonoBehaviour:
   AttackTypes: 0100000002000000
   baseHitPoint: {fileID: 8614741030616253158}
   _hp: 0
+  _particleID: TreeHitEvent
 --- !u!114 &5544186628454102090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,7 +341,7 @@ MonoBehaviour:
   _parentCollider: {fileID: 5544186628454102088}
   _childCollider: {fileID: 5104184341706835586}
   _childRigidBody: {fileID: 5104184341706835587}
-  collisionEvent: {fileID: 0}
+  collisionEvent: {fileID: 8765730214424271225}
 --- !u!205 &2396732922760255083
 LODGroup:
   m_ObjectHideFlags: 0

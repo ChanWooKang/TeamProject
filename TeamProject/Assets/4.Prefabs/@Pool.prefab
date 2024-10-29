@@ -187,7 +187,12 @@ MonoBehaviour:
   - index: 16
     name: TreeFall
     type: 3
-    prefab: {fileID: 0}
+    prefab: {fileID: 9148104866748059443, guid: 08d40ea856692614abf810e5ddb85f6b, type: 3}
+    amount: 1
+  - index: 17
+    name: TreeHitEvent
+    type: 3
+    prefab: {fileID: 2691237716420902003, guid: fc6c75b893f89994b8c93c650aee612c, type: 3}
     amount: 1
   _defPoolAmount: 0
   _canPoolExpand: 1
