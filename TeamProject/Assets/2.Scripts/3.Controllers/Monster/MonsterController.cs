@@ -326,7 +326,7 @@ public class MonsterController : FSM<MonsterController>, IHitAble
             yield return new WaitForSeconds(0.20f);
             //죽을 때 작업
             _collider.enabled = false;
-            Stat.DeadFunc(_player._stat);
+            Stat.DeadFunc(_player);
             ChangeColor(Color.gray);
             ChangeState(MonsterStateDie._inst);
             yield break;

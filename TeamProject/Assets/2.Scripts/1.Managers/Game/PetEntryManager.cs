@@ -80,6 +80,7 @@ public class PetEntryManager : TSingleton<PetEntryManager>
             {
                 InitPetEntry(index, UniqueId);
                 m_uiPetEntryInfoBox.InitAllEntryIcon();
+                m_uiPetEntryInfoBox.IsAllDead = false;
             }
             else
             {

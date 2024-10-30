@@ -11,25 +11,30 @@ public class MonsterStateAttack : TSingleton<MonsterStateAttack>, IFSMState<Mons
         m.AttackNavSetting();
         cntTime = m.Stat.AttackDelay;
         m.State = eMonsterState.IDLE;
-        
+
     }
 
     public void Execute(MonsterController m)
     {
-        if(m.target == null)
+        if (m.target == null)
         {
             m.ChangeState(MonsterStateReturn._inst);
         }
         else
         {
-            m.transform.LookAt(m.target);
-            if(m._movement.CheckCloseTarget(m.target.position,m.attackRange))
+            if (GameManagerEx._inst.recalledPetManager == null && m.target != GameManagerEx._inst.playerManager.transform)
             {
-                if(m.isAttack == false)
+                m.target = GameManagerEx._inst.playerManager.transform;
+                m.ChangeState(MonsterStateChase._inst);
+            }
+            m.transform.LookAt(m.target);
+            if (m._movement.CheckCloseTarget(m.target.position, m.attackRange))
+            {
+                if (m.isAttack == false)
                     cntTime += Time.deltaTime;
 
-                if(cntTime > m.Stat.AttackDelay && m.isAttack == false)
-                {                    
+                if (cntTime > m.Stat.AttackDelay && m.isAttack == false)
+                {
                     cntTime = 0;
                     m.AttackFunc();
                 }

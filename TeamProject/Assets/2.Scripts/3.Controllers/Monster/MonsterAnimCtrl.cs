@@ -40,6 +40,8 @@ public abstract class MonsterAnimCtrl : BaseAnimCtrl
     //근접 기본 공격
     public void AttackEvent()
     {
+        if (GameManagerEx._inst.recalledPetManager == null)
+            return;
         if (_manager._movement.CheckCloseTarget(_manager.target.position, _manager.attackRange))
         {
             if (_manager.target.CompareTag("Player"))

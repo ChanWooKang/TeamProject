@@ -81,6 +81,10 @@ public class HudController : MonoBehaviour
 
         m_hpBar.value = normalizedHp;
     }
+    public void DisPlayEntryHud(float normalizedHp) // entryHudÀü¿ë
+    {
+        m_hpBar.value = normalizedHp;
+    }
     public void ShowHud()
     {
         m_infoBox.SetActive(true);

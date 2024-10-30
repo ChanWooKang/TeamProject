@@ -133,7 +133,14 @@ public class PetController : FSM<PetController>
             _hudCtrl.InitHud(m_petInfo.NameKr, Stat.Level, _hudTransform, Color.green, true, this);
             SetHudHp();
         }
-
+    }    
+    public void InitPetHud()
+    {
+        if (_hudCtrl != null)
+        {
+            _hudCtrl.InitHud(m_petInfo.NameKr, Stat.Level, _hudTransform, Color.green, true, this);
+            SetHudHp();
+        }
     }
     public void GetRangeByAttackType()
     {
@@ -156,7 +163,7 @@ public class PetController : FSM<PetController>
         if (target != null)
             return;
 
-        
+
         if (attacker != null)
             if (attacker.TryGetComponent(out MonsterController mCtrl))
             {
@@ -246,11 +253,14 @@ public class PetController : FSM<PetController>
 
         if (target != attacker)
             SetTarget(attacker);
-       
+
         State = eMonsterState.GETHIT;
         isDead = Stat.CalculateDamage(damage);
         if (_hudCtrl != null)
+        {
             _hudCtrl.DisPlay(Stat.HP / Stat.MaxHP);
+            UIManager._inst.UIPetEntry.SetRecalledPetHud();
+        }
         DamageTextManager._inst.ShowDamageText(hitPoint, damage);
         OnDamage();
     }
@@ -264,14 +274,14 @@ public class PetController : FSM<PetController>
     {
         float randValue = Random.Range(0.0f, 1.0f);
         bool isDizzy = randValue <= dizzyRate;
-        
+
         if (isDead)
         {
             m_agent.SetDestination(transform.position);
             AttackNavSetting();
             yield return new WaitForSeconds(0.20f);
             //Á×À» ¶§ ÀÛ¾÷
-            m_collider.enabled = false;            
+            m_collider.enabled = false;
             ChangeColor(Color.gray);
             ChangeState(PetStateDie._inst);
             yield break;
@@ -283,7 +293,7 @@ public class PetController : FSM<PetController>
         yield return new WaitForSeconds(0.3f);
         ChangeColor(Color.white);
     }
-    
+
     public void ChangeLayer(eLayer layer)
     {
         gameObject.layer = (int)layer;
@@ -307,7 +317,7 @@ public class PetController : FSM<PetController>
     }
 
     private void OnTriggerEnter(Collider other)
-    {        
+    {
 
         if (other.CompareTag("MonsterSkill"))
         {
@@ -318,7 +328,7 @@ public class PetController : FSM<PetController>
                     OnDamage(skill.Damage, skill.MonCtrl.transform, other.ClosestPoint(transform.position));
                     other.gameObject.DestroyAPS();
                 }
-                else if(skill._subject == eSkillSubject.Boss)
+                else if (skill._subject == eSkillSubject.Boss)
                 {
                     OnDamage(skill.Damage, skill.BossCtrl.transform, other.ClosestPoint(transform.position));
                     other.gameObject.DestroyAPS();

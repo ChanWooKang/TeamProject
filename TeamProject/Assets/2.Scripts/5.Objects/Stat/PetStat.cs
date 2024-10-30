@@ -113,9 +113,9 @@ public class PetStat : BaseStat
 
     void SetStat(float value, float exp)
     {
-        _hp = baseHp * value;
+        _maxHp = baseHp * value;
         _damage = baseDamage * value;
-        _maxHp = _hp;
+        _hp = _maxHp;
     }
 
     void SetBaseStat()

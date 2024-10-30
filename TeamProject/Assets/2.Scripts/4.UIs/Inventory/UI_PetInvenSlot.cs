@@ -137,7 +137,7 @@ public class UI_PetInvenSlot : MonoBehaviour, IPointerClickHandler, IPointerEnte
     }
     public void OnDrop(PointerEventData eventData)
     {
-        if ((GameManagerEx._inst.playerManager.PetController != null && m_petCtrl.Stat.UniqueID == GameManagerEx._inst.playerManager.PetController.Stat.UniqueID))
+        if ((GameManagerEx._inst.playerManager.RecalledPet != null && m_petCtrl.Stat.UniqueID == GameManagerEx._inst.playerManager.RecalledPet.Stat.UniqueID))
             return;
         if (eventData.pointerDrag.transform.TryGetComponent(out UI_PetBoxSlot slot))
         {
@@ -161,7 +161,7 @@ public class UI_PetInvenSlot : MonoBehaviour, IPointerClickHandler, IPointerEnte
     {
         if (m_draggingObject != null )
             Destroy(m_draggingObject);
-        if (!m_icon.enabled || m_managerPetbox == null || (GameManagerEx._inst.playerManager.PetController != null && m_petCtrl.Stat.UniqueID == GameManagerEx._inst.playerManager.PetController.Stat.UniqueID))
+        if (!m_icon.enabled || m_managerPetbox == null || (GameManagerEx._inst.playerManager.RecalledPet != null && m_petCtrl.Stat.UniqueID == GameManagerEx._inst.playerManager.RecalledPet.Stat.UniqueID))
             return;
 
         m_draggingObject = new GameObject("Dragging Object");
@@ -183,7 +183,7 @@ public class UI_PetInvenSlot : MonoBehaviour, IPointerClickHandler, IPointerEnte
     }
     public void OnDrag(PointerEventData eventData)
     {
-        if (m_managerPetbox == null || (GameManagerEx._inst.playerManager.PetController != null && m_petCtrl.Stat.UniqueID == GameManagerEx._inst.playerManager.PetController.Stat.UniqueID))
+        if (m_managerPetbox == null || (GameManagerEx._inst.playerManager.RecalledPet != null && m_petCtrl.Stat.UniqueID == GameManagerEx._inst.playerManager.RecalledPet.Stat.UniqueID))
             return;
         UpdateDraggingObjectPos(eventData);
     }

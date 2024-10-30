@@ -8,18 +8,20 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
 {
     const int offset = 100;
     public int m_currentPetUIndex;
-    
+
     public int m_currentPetNum;
 
     [SerializeField] List<Image> m_listPetIcon;
     List<Sprite> m_listAllPetIcon;
     #region [Æê °ü·Ã]
     bool m_isPetOut;
+    bool m_isAllDead;
     GameObject m_recalledPet;
     PetController m_petCtrl;
     HudController m_recalledPetsHud;
     public GameObject RecalledPet { get { return m_recalledPet; } }
-    
+    public HudController RecalledPetHud { get { return m_recalledPetsHud; } }
+    public bool IsAllDead { get { return m_isAllDead; }set { m_isAllDead = value; } }
     #endregion [Æê °ü·Ã]
 
     #region [UI °ü·Ã]
@@ -43,12 +45,12 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
 
     }
     private void Awake()
-    {        
+    {
         m_animCtrl = GetComponent<Animator>();
         m_listAllPetIcon = new List<Sprite>();
         for (int i = 0; i < PetEntryManager._inst.MaxEntryCount; i++)
             m_listAllPetIcon.Add(null);
-
+        m_isAllDead = false;
         //ÀÓ½Ã
         m_currentPetNum = 0;
 
@@ -60,7 +62,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
         m_animCtrl.SetTrigger("SwapStop");
         InitEntryIcon();
     }
-    public void InitEntryIcon()
+    void InitEntryIcon()
     {
         if (PetEntryManager._inst.m_dictPetEntryCtrl == null)
             return;
@@ -106,20 +108,20 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
         {
             m_listPetIcon[1].enabled = false;
         }
-        else if(PetEntryManager._inst.m_dictPetEntryCtrl.Count == 0)
+        else if (PetEntryManager._inst.m_dictPetEntryCtrl.Count == 0)
         {
-            for(int i = 0; i < m_listPetIcon.Count; i++)
+            for (int i = 0; i < m_listPetIcon.Count; i++)
             {
                 m_listPetIcon[i].enabled = false;
             }
         }
-        
+
         if (PetEntryManager._inst.m_listEntryPetUniqueindex.Count > 0)
         {
-            int prevUIndex = PetEntryManager._inst.m_listEntryPetUniqueindex[m_currentPetNum];            
+            int prevUIndex = PetEntryManager._inst.m_listEntryPetUniqueindex[m_currentPetNum];
             m_currentPetUIndex = PetEntryManager._inst.m_dictPetEntryCtrl[prevUIndex].Stat.UniqueID;
         }
-      
+
         //Debug.Log(m_currentPetNum);
     }
     public void InitAllEntryIcon()
@@ -170,19 +172,26 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
         return m_isPetOut;
 
     }
+    public void SetRecalledPetHud()
+    {
+        if (m_recalledPetsHud != null)
+            m_hudInfo.DisPlayEntryHud(m_petCtrl.Stat.HP / m_petCtrl.Stat.MaxHP);
+    }
     public void RightSwap()
     {
         if (PetEntryManager._inst.m_dictPetEntryCtrl.Count < 2)
             return;
         m_animCtrl.SetTrigger("SwapRight");
+        int tempNum = m_currentPetNum;
+        
         if (++m_currentPetNum >= PetEntryManager._inst.m_listEntryPetUniqueindex.Count)
             m_currentPetNum = 0;
 
-        int prevUIndex = PetEntryManager._inst.m_listEntryPetUniqueindex[m_currentPetNum];
+        int nextUIndex = PetEntryManager._inst.m_listEntryPetUniqueindex[m_currentPetNum];
+        m_currentPetUIndex = nextUIndex;
+        CheckAllDead( nextUIndex, tempNum);
 
-
-        m_currentPetUIndex = PetEntryManager._inst.m_dictPetEntryCtrl[prevUIndex].Stat.UniqueID;
-        SetHudInfoBox(PetEntryManager._inst.m_dictPetEntryCtrl[prevUIndex]);
+        SetHudInfoBox(PetEntryManager._inst.m_dictPetEntryCtrl[m_currentPetUIndex]);
     }
     void LeftSwap()
     {
@@ -192,15 +201,47 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
             m_animCtrl.SetTrigger("SwapRight");
         else
             m_animCtrl.SetTrigger("SwapLeft");
+        int temp = m_currentPetNum;
+       
         if (--m_currentPetNum < 0)
             m_currentPetNum = PetEntryManager._inst.m_dictPetEntryCtrl.Count - 1;
 
         int prevUIndex = PetEntryManager._inst.m_listEntryPetUniqueindex[m_currentPetNum];
+        m_currentPetUIndex = prevUIndex;
+        CheckAllDead( prevUIndex, temp, false);
 
-        m_currentPetUIndex = PetEntryManager._inst.m_dictPetEntryCtrl[prevUIndex].Stat.UniqueID;
-        SetHudInfoBox(PetEntryManager._inst.m_dictPetEntryCtrl[prevUIndex]);
+        SetHudInfoBox(PetEntryManager._inst.m_dictPetEntryCtrl[m_currentPetUIndex]);
     }
+    void CheckAllDead( int swapUIndex, int temp, bool isright = true)
+    {
+        if (PetEntryManager._inst.m_dictPetEntryCtrl[swapUIndex].Stat.HP <= 0)
+        {
+            bool isAllDead = true;
+            foreach (PetController pet in PetEntryManager._inst.m_dictPetEntryCtrl.Values)
+            {
+                if (pet.Stat.HP > 0)
+                {
+                    isAllDead = false;
+                    m_isAllDead = isAllDead;                    
+                    break;
+                }
+            }
+            if (isAllDead)
+            {
+                m_isAllDead = isAllDead;
+                m_currentPetNum = temp;
+                return;
+            }
+            else
+            {
+                if (isright)
+                    RightSwap();
+                else
+                    LeftSwap();
+            }
+        }
 
+    }
     void ReCall(Vector3 pos)
     {
         if (PetEntryManager._inst.m_dictPetEntryCtrl.Count == 0)
@@ -214,17 +255,22 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
         {
             m_recalledPetsHud = pet._hudCtrl;
         }
+        GameManagerEx._inst.recalledPetManager = m_petCtrl;
 
     }
     void PutIn()
     {
         if (m_recalledPet == null)
             return;
+        if (m_petCtrl.Stat.HP <= 0)
+            RightSwap();
         GameManagerEx._inst.playerManager.SetCorrentRecallPet(null);
         m_recalledPetsHud.HideHud();
         m_recalledPetsHud = null;
         PoolingManager.DestroyAPS(m_recalledPet);
         m_recalledPet = null;
+        m_petCtrl = null;
+        GameManagerEx._inst.recalledPetManager = null;
     }
     public void SetHudInfoBox(PetController pet)
     {

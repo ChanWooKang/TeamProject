@@ -6,7 +6,7 @@ public class GameManagerEx : TSingleton<GameManagerEx>
 {        
     [Header("Object Script For Connect Other Scripts")]
     public PlayerCtrl playerManager;
-
+    public PetController recalledPetManager;
     //UI = Update ≈Î¡¶
     [Header("UIs For Update Controll")]
     public UI_StatInfo _statInfo;

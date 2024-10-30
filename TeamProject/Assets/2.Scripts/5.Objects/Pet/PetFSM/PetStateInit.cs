@@ -9,7 +9,7 @@ public class PetStateInit : TSingleton<PetStateInit>, IFSMState<PetController>
     {
         m.Movement._offsetPos = m.transform.position;
         //레벨은 자동 생성 할 때 저장
-        m.SettingPetStatByLevel();        
+        m.InitPetHud();
         m.BaseNavSetting();
         m.ChangeState(PetStateIdle._inst);
     }

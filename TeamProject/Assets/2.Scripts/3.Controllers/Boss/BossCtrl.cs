@@ -219,7 +219,7 @@ public class BossCtrl : FSM<BossCtrl>, IHitAble
             yield return new WaitForSeconds(0.2f);
 
             _collider.ManageColider(false);
-            Stat.DeadFunc(player._stat);
+            Stat.DeadFunc(player);
             _render.ChangeColor(Color.gray);
             ChangeState(BossStateDie._inst);
             yield break;

@@ -200,7 +200,7 @@ public class PlayerInputCtrl : MonoBehaviour
     //KeyBoard F Key
     void ReCallAction()
     {
-        if (PetEntryManager._inst.m_dictPetEntryCtrl.Count == 0 || _input.throws || UIManager._inst.UIPetEntry.RecalledPet != null)
+        if (PetEntryManager._inst.m_dictPetEntryCtrl.Count == 0 || _input.throws || UIManager._inst.UIPetEntry.RecalledPet != null || UIManager._inst.UIPetEntry.IsAllDead == true)
             return;
         if (_input.recall)
         {

@@ -116,10 +116,14 @@ public class MonsterStat : BaseStat
         _uniqueID = id;
     }
 
-    public void DeadFunc(PlayerStat stat)
+    public void DeadFunc(PlayerCtrl player)
     {
-        if (stat != null)
-            stat.EXP += _exp;
+        if (player != null)
+            player._stat.EXP += _exp;
+        if(player.RecalledPet != null)
+        {
+
+        }
     }    
 
     //최초 데이터 설정 ( 변하지 않는 값 )

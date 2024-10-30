@@ -66,7 +66,7 @@ public class UI_PetBoxSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         if (eventData.pointerDrag.transform.TryGetComponent(out UI_PetBoxSlot slot))
         {
             PetController tempCtrl = slot.Pet;
-            if (GameManagerEx._inst.playerManager.PetController && tempCtrl.Stat.UniqueID == GameManagerEx._inst.playerManager.PetController.Stat.UniqueID)
+            if (GameManagerEx._inst.playerManager.RecalledPet && tempCtrl.Stat.UniqueID == GameManagerEx._inst.playerManager.RecalledPet.Stat.UniqueID)
                 return;
             slot.SwapSlot(this);
             m_petCtrl = tempCtrl;
