@@ -348,5 +348,15 @@ namespace DefineDatas
         public IconType type;
         public Sprite prefab;              
     }
+    [System.Serializable]
+    public class PoolEffect
+    {
+        public string name;
+        public PoolType type;
+        public GameObject prefab;
+        public int amount;
+        int curAmount;
+        public int CurAmount { get { return curAmount; } set { curAmount = value; } }
+    }
    
 }

@@ -9,7 +9,7 @@ public class PoolingManager : TSingleton<PoolingManager>
 {
     #region [UnitPool]
     public PoolUnit[] _poolingUnits;
-    
+
     //public List<GameObject>[] _pooledUnitList;
     public int _defPoolAmount;
     public bool _canPoolExpand = true;
@@ -25,10 +25,16 @@ public class PoolingManager : TSingleton<PoolingManager>
 
     public Dictionary<string, PoolIcon> _poolingIconByName;
     public Dictionary<int, PoolIcon> _poolingIconByIndex;
-    
+
     #endregion [IconPool]
     public Transform _hudRootTransform;
 
+    #region [EffectPool]
+    public PoolEffect[] _poolingEffect;
+
+    public Dictionary<string, Dictionary<int, GameObject>> _pooledEffectByName;
+    public Dictionary<string, PoolEffect> _poolingEffectByName;
+    #endregion [EffectPool]
 
     public void LoadObjectPool()
     {
@@ -38,6 +44,8 @@ public class PoolingManager : TSingleton<PoolingManager>
         _poolingUnitByName = new Dictionary<string, PoolUnit>();
         _poolingIconByIndex = new Dictionary<int, PoolIcon>();
         _poolingIconByName = new Dictionary<string, PoolIcon>();
+        _pooledEffectByName = new Dictionary<string, Dictionary<int, GameObject>>();
+        _poolingEffectByName = new Dictionary<string, PoolEffect>();
 
         for (int i = 0; i < _poolingUnits.Length; i++)
         {
@@ -52,13 +60,24 @@ public class PoolingManager : TSingleton<PoolingManager>
             _pooledUnitsByName.Add(_poolingUnits[i].name, objDatas);
         }
 
-        for(int i = 0; i < _poolingIcons.Length; i++)
+        for (int i = 0; i < _poolingIcons.Length; i++)
         {
             _poolingIconByIndex.Add(_poolingIcons[i].index, _poolingIcons[i]);
             _poolingIconByName.Add(_poolingIcons[i].name, _poolingIcons[i]);
         }
+        for (int i = 0; i < _poolingEffect.Length; i++)
+        {
+            Dictionary<int, GameObject> vfxDatas = new Dictionary<int, GameObject>();
+
+            SettingPoolingEffect(i);
+            for (int index = 0; index < _poolingEffect[i].CurAmount; index++)
+            {
+                vfxDatas.Add(index, MakeObject(_poolingEffect[i].prefab));
+            }
+            _pooledEffectByName.Add(_poolingEffect[i].name, vfxDatas);
+        }
     }
-    
+
     public PetController AddPetPool(GameObject prefab, int index, int uniqueID)
     {
         int offsetNum = 100;
@@ -79,7 +98,7 @@ public class PoolingManager : TSingleton<PoolingManager>
         _poolingUnits[lastIndex].prefab = pet.gameObject;
         _poolingUnits[lastIndex].type = PoolType.Pet;
         Dictionary<int, GameObject> objDatas = new Dictionary<int, GameObject>();
-        objDatas.Add(0, makePet);        
+        objDatas.Add(0, makePet);
         pet.InitPet(petIndex);
         pet.Stat.UniqueID = uniqueID;
         if (!_pooledUnitsByIndex.ContainsKey(uniqueID))
@@ -105,8 +124,16 @@ public class PoolingManager : TSingleton<PoolingManager>
         if (_poolingUnitByIndex.ContainsKey(_poolingUnits[index].index) == false)
             _poolingUnitByIndex.Add(_poolingUnits[index].index, _poolingUnits[index]);
     }
-    void SettingPoolingIcons(int index)
+    void SettingPoolingEffect(int index)
     {
+        if (_poolingEffect[index].amount > 0)
+            _poolingEffect[index].CurAmount = _poolingEffect[index].amount;
+        else
+            _poolingEffect[index].CurAmount = _defPoolAmount;
+
+        if (_poolingEffectByName.ContainsKey(_poolingEffect[index].name) == false)
+            _poolingEffectByName.Add(_poolingEffect[index].name, _poolingEffect[index]);
+
 
     }
     GameObject MakeObject(GameObject prefab, Transform parent = null)
@@ -116,7 +143,7 @@ public class PoolingManager : TSingleton<PoolingManager>
         SetActiveAndParent(newItem, parent);
         return newItem;
     }
-    
+
 
     void SetActiveAndParent(GameObject newItem, Transform parent = null)
     {
@@ -171,11 +198,11 @@ public class PoolingManager : TSingleton<PoolingManager>
         return null;
     }
 
-    GameObject GetPooledItem(string index, Transform parent = null)
+    GameObject GetPooledItem(string name, Transform parent = null)
     {
-        if (_pooledUnitsByName.ContainsKey(index))
+        if (_pooledUnitsByName.ContainsKey(name))
         {
-            foreach (var obj in _pooledUnitsByName[index])
+            foreach (var obj in _pooledUnitsByName[name])
             {
                 if (obj.Value.activeInHierarchy == false)
                     return obj.Value;
@@ -184,12 +211,12 @@ public class PoolingManager : TSingleton<PoolingManager>
             //추가 생성
             if (_canPoolExpand)
             {
-                if (_poolingUnitByName.ContainsKey(index))
+                if (_poolingUnitByName.ContainsKey(name))
                 {
-                    GameObject tmpObj = MakeObject(_poolingUnitByName[index].prefab, parent);
-                    int unitIndex = _pooledUnitsByName[index].Count;
-                    int listIndex = _poolingUnitByName[index].index;
-                    _pooledUnitsByName[index].Add(unitIndex, tmpObj);
+                    GameObject tmpObj = MakeObject(_poolingUnitByName[name].prefab, parent);
+                    int unitIndex = _pooledUnitsByName[name].Count;
+                    int listIndex = _poolingUnitByName[name].index;
+                    _pooledUnitsByName[name].Add(unitIndex, tmpObj);
                     if (_pooledUnitsByIndex.ContainsKey(listIndex))
                     {
                         unitIndex = _pooledUnitsByIndex[listIndex].Count;
@@ -197,6 +224,14 @@ public class PoolingManager : TSingleton<PoolingManager>
                     }
                     return tmpObj;
                 }
+            }
+        }
+        else if (_pooledEffectByName.ContainsKey(name))
+        {
+            foreach (var obj in _pooledEffectByName[name])
+            {
+                if (obj.Value.activeInHierarchy == false)
+                    return obj.Value;
             }
         }
         return null;

@@ -383,8 +383,7 @@ public class PlayerEquipCtrl : MonoBehaviour
     }
 
     public void ThrowEnd()
-    {
-        Debug.Log("2");
+    {        
         PetBallModel.SetActive(false);
         
         

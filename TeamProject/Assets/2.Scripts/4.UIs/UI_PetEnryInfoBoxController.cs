@@ -247,6 +247,8 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
         if (PetEntryManager._inst.m_dictPetEntryCtrl.Count == 0)
             return;
         m_recalledPet = PoolingManager._inst.InstantiateAPS(m_currentPetUIndex, pos, PetEntryManager._inst.m_listPetEntryPrefab[1].transform.rotation, Vector3.one);
+        PoolingManager._inst.InstantiateAPS("RecallAura", pos, PoolingManager._inst._poolingEffectByName["RecallAura"].prefab.transform.rotation, Vector3.one);
+        PoolingManager._inst.InstantiateAPS("RecallMisc", pos + Vector3.up, PoolingManager._inst._poolingEffectByName["RecallAura"].prefab.transform.rotation, Vector3.one);
         m_petCtrl = m_recalledPet.GetComponent<PetController>();
         GameManagerEx._inst.playerManager.SetCorrentRecallPet(m_petCtrl);
         m_petCtrl.ReCall();
