@@ -358,6 +358,7 @@ public class PlayerEquipCtrl : MonoBehaviour
             isRecall = true;
         BallPos.rotation = Quaternion.LookRotation(GetDirection());
         GameObject go = PoolingManager._inst.InstantiateAPS("PetBall", BallPos.position, BallPos.rotation, Vector3.one * 0.2f);
+        PoolingManager._inst.InstantiateAPS("ThrowMisc", BallPos.position, BallPos.rotation, Vector3.one);
         if (!isRecall)
         {
             InventoryManager._inst.UseItem(InventoryManager._inst.weaponUI.BallIndex);

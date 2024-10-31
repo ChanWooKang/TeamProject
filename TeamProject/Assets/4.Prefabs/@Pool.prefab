@@ -347,3 +347,23 @@ MonoBehaviour:
     type: 3
     prefab: {fileID: 2955019859388751239, guid: dce3671051d15104487f2543b539522d, type: 3}
     amount: 1
+  - name: ThrowMisc
+    type: 3
+    prefab: {fileID: 3098274985180393604, guid: 9f0a3b372a155704a9ea1dac09c947fe, type: 3}
+    amount: 1
+  - name: BallHit
+    type: 3
+    prefab: {fileID: 4076639776405654604, guid: c6f553a081f7587418b7612fd6eb7e6f, type: 3}
+    amount: 5
+  - name: ChatchSucceed
+    type: 3
+    prefab: {fileID: 4413290442749713371, guid: 31e2bb6819fc6f54caabe575d5ae7db4, type: 3}
+    amount: 5
+  - name: CFXR _Catch
+    type: 3
+    prefab: {fileID: 3485327125099086233, guid: a431395d8b095e3499fad6c110cc1d5a, type: 3}
+    amount: 5
+  - name: CFXR_FAIL
+    type: 3
+    prefab: {fileID: 4012038473298557465, guid: 387d53794a3d1824fa28608c38c63c05, type: 3}
+    amount: 5

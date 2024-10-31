@@ -36,8 +36,10 @@ namespace DefineDatas
         Monster,
         Pet,
         DropItem,
-        Effect,
-        UI
+        Effect,                
+        UI,
+        BGM,
+        SFX,
     }
     public enum IconType
     {
@@ -215,7 +217,26 @@ namespace DefineDatas
         Hat,
         Armor,        
     }
+  
+    public struct StartSoundSettingInfo
+    {
+        public bool m_isLoopBGM;
+        public bool m_isMuteBGM;
+        public float m_volumeBGM;
+        public bool m_isLoopSFX;
+        public bool m_isMuteSFX;
+        public float m_volumeSFX;
 
+        public StartSoundSettingInfo(bool loopB, bool muteB, float volB, bool loopS, bool muteS, float volS)
+        {
+            m_isLoopBGM = loopB;
+            m_isMuteBGM = muteB;
+            m_volumeBGM = volB;
+            m_isLoopSFX = loopS;
+            m_isMuteSFX = muteS;
+            m_volumeSFX = volS;
+        }
+    }
     public interface IFSMState<T>
     {
         void Enter(T m);
@@ -358,5 +379,12 @@ namespace DefineDatas
         int curAmount;
         public int CurAmount { get { return curAmount; } set { curAmount = value; } }
     }
-   
+   [System.Serializable]
+   public class PoolSoundClip
+    {
+        public string name;
+       
+        public AudioClip m_clip;
+        
+    }
 }

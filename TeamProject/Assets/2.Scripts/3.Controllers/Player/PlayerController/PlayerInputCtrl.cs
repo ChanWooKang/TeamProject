@@ -72,7 +72,7 @@ public class PlayerInputCtrl : MonoBehaviour
 
             ThrowAction();
 
-            InputAction();
+            PutInAction();
 
             ReCallAction();
 
@@ -197,6 +197,7 @@ public class PlayerInputCtrl : MonoBehaviour
         _manager._anim.SetAnimation(ePlayerAnimParams.Throw, _input.throws);
     }
 
+
     //KeyBoard F Key
     void ReCallAction()
     {
@@ -223,7 +224,7 @@ public class PlayerInputCtrl : MonoBehaviour
         }
         _manager._anim.SetAnimation(ePlayerAnimParams.Recall, _input.recall);
     }
-    void InputAction()
+    void PutInAction()
     {
         if (PetEntryManager._inst.m_dictPetEntryCtrl.Count == 0 || _input.throws || _input.recall)
             return;
@@ -236,7 +237,7 @@ public class PlayerInputCtrl : MonoBehaviour
                 {
                     isRecall = UIManager._inst.UIPetEntry.RecallOrPutIn();
                     _manager._anim.SetAnimation(ePlayerAnimParams.Putin);
-
+                  
                 }
             }
             _input.putin = false;

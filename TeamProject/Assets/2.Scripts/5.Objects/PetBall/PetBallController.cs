@@ -53,6 +53,7 @@ public class PetBallController : MonoBehaviour
 
                 m_targetMonsterCtrl = other.GetComponent<MonsterController>();
                 // ¿‚»˜¥¬ ¿Ã∆Â∆Æ .... (∏µ® ≤Ø¥Ÿ ƒ÷¥Ÿ , ªÏ¬¶¿ß∑Œ ¿Ãµø )
+                PoolingManager._inst.InstantiateAPS("BallHit", transform.position + (Vector3.up * 0.3f), transform.rotation, Vector3.one);
                 m_targetMonsterCtrl.gameObject.SetActive(false);
                 // m_targetMonsterCtrl.ChangeState(MonsterStateCapture._inst);
                 StartCoroutine(CaptureStart());
@@ -141,16 +142,15 @@ public class PetBallController : MonoBehaviour
         {
             float RN = Random.Range(0, 65535);
             float rate = Mathf.Pow(b / 65535, m_shakeMaxCount - count);
-            if (count == 0)
+            
                 
             if (count > 0 && RN > b)
             {
                 //∆˜»π Ω«∆– (∫ºø°º≠ ∆Í¿Ã ≈ª√‚)
                 
                 m_isSuccess = false;
-                m_uiRateBox.CaptureFailed();
-                m_targetMonsterCtrl.gameObject.SetActive(true);
-                m_targetMonsterCtrl.InitState();
+               
+               
                 break;
             }
             else if (RN < b)
@@ -166,13 +166,10 @@ public class PetBallController : MonoBehaviour
                     
                     m_animator.SetTrigger("ShakeBall");
                     StartCoroutine(m_uiRateBox.SetRateProgress(rate));
-                    //∫º »ÁµÈ∏≤ or ¿Ã∆Â∆Æ
+                    //∫º »ÁµÈ∏≤ or ¿Ã∆Â∆Æ (¿‚»˚ »Æ¡§)
                     yield return new WaitForSeconds(m_shakeDelayTime);
-                    
-                    PetEntryManager._inst.AddEntry( m_targetMonsterCtrl.Index, m_targetMonsterCtrl.Stat.UniqueID, m_petBallInfo.Index);
-                    Debug.LogFormat("¿‚¿∫ ∫º¿Œµ¶Ω∫ : {0}, ¿Ø¥œ≈© ¿Œµ¶Ω∫ : {1}", m_petBallInfo.Index, m_targetMonsterCtrl.Stat.UniqueID);
-                    StopCoroutine(CaptureStart());
-                    m_targetMonsterCtrl.gameObject.DestroyAPS();
+                    // ¿‚»˚
+                   
                     m_isSuccess = true;
                     break;
                 }
@@ -182,17 +179,27 @@ public class PetBallController : MonoBehaviour
             StartCoroutine(m_uiRateBox.SetRateProgress(rate));
             yield return new WaitForSeconds(m_shakeDelayTime);
         }
+
+
         if (m_isSuccess)
         {
             //UI ¿˚øÎ
             m_uiRateBox.CaptureSuccess();
             //∏ÛΩ∫≈Õ ¿‚«˚¿∏∏È setactive false
-
+            PoolingManager._inst.InstantiateAPS("CFXR _Catch", transform.position, transform.rotation, Vector3.one);
+            PoolingManager._inst.InstantiateAPS("ChatchSucceed", transform.position, transform.rotation, Vector3.one);
+            PetEntryManager._inst.AddEntry(m_targetMonsterCtrl.Index, m_targetMonsterCtrl.Stat.UniqueID, m_petBallInfo.Index);            
+            StopCoroutine(CaptureStart());
+            m_targetMonsterCtrl.gameObject.DestroyAPS();
         }
         else
         {
-            //Ω«∆–Ω√ ∏ÛΩ∫≈Õ ∆¢æÓ≥™ø» Ω∫≈◊¿Ã∆Æ, ∏µ® ∫Ø∞Ê«ÿæﬂ«‘
+            //Ω«∆–Ω√ ∏ÛΩ∫≈Õ ∆¢æÓ≥™ø»
             //m_targetMonsterCtrl.ChangeState(MonsterStateChase._inst);
+            m_uiRateBox.CaptureFailed();
+            m_targetMonsterCtrl.gameObject.SetActive(true);
+            m_targetMonsterCtrl.InitState();
+            PoolingManager._inst.InstantiateAPS("CFXR_FAIL", transform.position, transform.rotation, Vector3.one);
         }
 
         DestoryObject();
@@ -202,9 +209,9 @@ public class PetBallController : MonoBehaviour
         StartCoroutine(m_uiRateBox.SetRateProgress(1f));
         //«—π¯ »ÁµÈ±‚ or ¿Ã∆Â∆Æ
         yield return new WaitForSeconds(m_shakeDelayTime);
-        
+        // ¿‚±‚
         PetEntryManager._inst.AddEntry( m_targetMonsterCtrl.Index, m_targetMonsterCtrl.Stat.UniqueID, m_petBallInfo.Index);
-        
+        PoolingManager._inst.InstantiateAPS("CFXR _Catch", transform.position, transform.rotation, Vector3.one);
         StopCoroutine(CaptureStart());
         m_targetMonsterCtrl.gameObject.DestroyAPS();
         m_isSuccess = true;
