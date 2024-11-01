@@ -26,7 +26,18 @@ public class PlayerSoundCtrl : MonoBehaviour
         }
     }
 
+    void PlaySound(string name, Vector3 pos)
+    {
+        SoundManager._inst.PlaySfxAtPoint(name, pos);
+    }
 
+    public void GetHitSound()
+    {
+        var gethit = dictSound[eSoundState.GetHit];
+        PlaySound(gethit, transform.position);
+    }
+
+    #region [Sound By Animation]
     private void OnFootStep(AnimationEvent animationEvent)
     {
         if (animationEvent.animatorClipInfo.weight > 0.5f)
@@ -34,7 +45,7 @@ public class PlayerSoundCtrl : MonoBehaviour
             if (footSteps.Count > 0)
             {
                 var index = Random.Range(0, footSteps.Count); ;
-                SoundManager._inst.PlaySfxAtPoint(footSteps[index], transform.position);
+                PlaySound(footSteps[index], transform.position);
             }
         }
     }
@@ -44,7 +55,7 @@ public class PlayerSoundCtrl : MonoBehaviour
         if (animationEvent.animatorClipInfo.weight > 0.5f)
         {
             var landStep = dictSound[eSoundState.Land];
-            SoundManager._inst.PlaySfxAtPoint(landStep, transform.position);
+            PlaySound(landStep, transform.position);
         }
     }
 
@@ -53,9 +64,51 @@ public class PlayerSoundCtrl : MonoBehaviour
         if(animationEvent.animatorClipInfo.weight > 0.5f)
         {
             var jump = dictSound[eSoundState.Jump];
-            SoundManager._inst.PlaySfxAtPoint(jump, transform.position);
+            PlaySound(jump, transform.position);
         }
     }
 
-    
+    private void OnRootSound(AnimationEvent animationEvent)
+    {
+        if(animationEvent.animatorClipInfo.weight > 0.5f)
+        {
+            var root = dictSound[eSoundState.PickUp];
+            PlaySound(root, transform.position);
+        }
+    }
+
+    private void OnEquipSound(AnimationEvent animationEvent)
+    {
+        if (animationEvent.animatorClipInfo.weight > 0.5f)
+        {
+            var root = dictSound[eSoundState.Equip];
+            PlaySound(root, transform.position);
+        }
+    }
+
+    private void OnFireSound(AnimationEvent animationEvent)
+    {
+        var animName = string.Empty;
+        switch (_manager._equip.CurrentWeaponType)
+        {
+            case WeaponType.None:
+                animName = dictSound[eSoundState.AttackUnArmed];
+                break;
+            case WeaponType.OneHand:
+                animName = dictSound[eSoundState.AttackOneHand];
+                break;
+            case WeaponType.Bow:
+                animName = dictSound[eSoundState.AttackBow];
+                break;
+            case WeaponType.Rifle:
+                animName = dictSound[eSoundState.AttackRifle];
+                break;
+            case WeaponType.Pickaxe:
+                animName = dictSound[eSoundState.AttackOneHand];
+                break;
+        }
+        PlaySound(animName, transform.position);
+    }
+    #endregion [Sound By Animation]
+
 }

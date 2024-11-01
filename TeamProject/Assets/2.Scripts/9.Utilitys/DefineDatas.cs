@@ -222,11 +222,13 @@ namespace DefineDatas
     {
         Jump,
         Land,
-        SwingAxe,
-        ShootArrow,
-        SwingOneHand,
+        AttackUnArmed,
+        AttackOneHand,
+        AttackBow,
+        AttackRifle,        
         PickUp,
         GetHit,
+        Equip
 
     }
 

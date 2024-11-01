@@ -35,6 +35,10 @@ public class PlayerEquipCtrl : MonoBehaviour
     [SerializeField] ObjectSettings equipSet;
 
     public PlayerAssetsInputs InputAsset { get { return _input; } }
+    public WeaponType CurrentWeaponType
+    {
+        get { return _weapons[currWeaponIndex].weaponType; }
+    }
 
     #region [ Init ]
     private void Awake()
@@ -282,7 +286,8 @@ public class PlayerEquipCtrl : MonoBehaviour
         }
         _weapons[currWeaponIndex].ChangeParticleState(false);
     }
-              
+          
+    
     
 
     #region [ Animation Event ]
