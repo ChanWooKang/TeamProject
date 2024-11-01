@@ -29,6 +29,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
     [SerializeField] HudController m_hudInfo;
     [SerializeField] TextMeshProUGUI m_textLevelUp;
     Animator m_animCtrl;
+    bool isCoroutineRunning = false;
     #endregion [UI ฐüทร]
     private void Update()
     {
@@ -284,32 +285,39 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
 
     public IEnumerator StartLevelUPText()
     {
-        RectTransform rect = m_textLevelUp.GetComponent<RectTransform>();
-        RectTransform parent = rect.parent.GetComponent<RectTransform>();
-        rect.anchoredPosition = new Vector2((parent.sizeDelta.x / 2) + rect.sizeDelta.x, rect.anchoredPosition.y);
-        while (true)
+        if (isCoroutineRunning)
+            yield return null;
+        else
         {
-            Vector2.Lerp(rect.anchoredPosition, Vector2.zero, Time.deltaTime);
-            if (Vector2.Distance(rect.anchoredPosition, Vector2.zero) <= 0.1f)
-            {                
-                StartCoroutine(EndLevelUpText(rect, parent));                
-                break;
-            }
-
-        }
-        yield return null;
-    }
-    IEnumerator EndLevelUpText(RectTransform rect, RectTransform parent)
-    {
-        while (true)
-        {
-            Vector2 target = new Vector2(-(parent.sizeDelta.x / 2 + rect.sizeDelta.x), rect.anchoredPosition.y);
-            Vector2.Lerp(rect.anchoredPosition, target, Time.deltaTime);
-            if (Vector2.Distance(rect.anchoredPosition, Vector2.zero) >= (parent.sizeDelta.x / 2 + rect.sizeDelta.x))
+            isCoroutineRunning = true;
+            RectTransform rect = m_textLevelUp.GetComponent<RectTransform>();
+            RectTransform parent = rect.parent.GetComponent<RectTransform>();
+            Vector2 start = new Vector2((parent.sizeDelta.x / 2) + (rect.sizeDelta.x / 2), rect.anchoredPosition.y);
+            while (true)
             {
-                break;
+                rect.anchoredPosition = Vector2.Lerp(rect.anchoredPosition, Vector2.zero, Time.deltaTime);
+                if (Vector2.Distance(rect.anchoredPosition, Vector2.zero) <= 0.1f)
+                {
+                    StartCoroutine(EndLevelUpText(start, rect, parent));
+                    break;
+                }
+                yield return null;
             }
         }
-        yield return null;
+    }
+    IEnumerator EndLevelUpText(Vector2 start, RectTransform rect, RectTransform parent)
+    {
+        Vector2 target = new Vector2(-Mathf.Abs((parent.sizeDelta.x / 2) + (start.x / 2)), start.y);
+        while (true)
+        {
+            rect.anchoredPosition = Vector2.Lerp(rect.anchoredPosition, target, Time.deltaTime);
+            if (Vector2.Distance(rect.anchoredPosition, target) <= 0.1f)
+            {
+                rect.anchoredPosition = new Vector2((parent.sizeDelta.x / 2) + (rect.sizeDelta.x / 2), rect.anchoredPosition.y);
+                isCoroutineRunning = false;
+                break;
+            }
+            yield return null;
+        }
     }
 }
