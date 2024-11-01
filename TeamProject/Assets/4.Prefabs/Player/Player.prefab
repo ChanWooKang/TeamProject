@@ -2530,6 +2530,7 @@ GameObject:
   - component: {fileID: 2912192553408073725}
   - component: {fileID: 2912192553408073726}
   - component: {fileID: 1887921026}
+  - component: {fileID: 3941320733106027246}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -2651,6 +2652,8 @@ MonoBehaviour:
   craft: 0
   throws: 0
   reload: 0
+  recall: 0
+  putin: 0
   scrollY: 0
   analogMovement: 0
   cursorLocked: 1
@@ -2674,6 +2677,7 @@ MonoBehaviour:
   _render: {fileID: 0}
   _equip: {fileID: 0}
   _collider: {fileID: 0}
+  _sound: {fileID: 0}
   CameraRoot: {fileID: 3941320733417363661}
   isDead: 0
   StopMove: 0
@@ -2739,6 +2743,7 @@ MonoBehaviour:
   LockCamPos: 0
   SpanMinY: -10
   SpanMaxY: 10
+  isRecall: 0
   m_UICraftingPrefab: {fileID: 8485876495839451279, guid: 9e4fe9768ce2aa24c8f3db20f31d0ca3, type: 3}
 --- !u!114 &2912192553408073696
 MonoBehaviour:
@@ -2786,6 +2791,7 @@ MonoBehaviour:
   - {fileID: 3941320733469881903}
   - {fileID: 1490970589}
   PetBallModel: {fileID: 9105902031183095986}
+  PetBallModelCtrl: {fileID: 1979415672}
   HammerModel: {fileID: 337251955}
   BallPos: {fileID: 3941320733512546446}
   changeSlotIndex: 0
@@ -2844,6 +2850,30 @@ MonoBehaviour:
     go: {fileID: 9216200084209479274}
   _armor: {fileID: 2912192552862159726}
   _hat: {fileID: 9216200084209479274}
+--- !u!114 &3941320733106027246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2912192553408073700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6884dff41ee40e94baf1a32e53882d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footSteps:
+  - Player_Footstep_01
+  - Player_Footstep_02
+  - Player_Footstep_03
+  - Player_Footstep_04
+  - Player_Footstep_05
+  - Player_Footstep_06
+  - Player_Footstep_07
+  - Player_Footstep_08
+  - Player_Footstep_09
+  - Player_Footstep_10
+  landStep: Player_Land
 --- !u!1 &2912192553455200119
 GameObject:
   m_ObjectHideFlags: 0
@@ -6160,6 +6190,7 @@ GameObject:
   - component: {fileID: 9105902031183095991}
   - component: {fileID: 9105902031183095990}
   - component: {fileID: 9105902031183095985}
+  - component: {fileID: 1979415672}
   m_Layer: 7
   m_Name: PetBall
   m_TagString: Untagged
@@ -6230,6 +6261,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1979415672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9105902031183095986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7417e88f198fe604abd54abd238ae4ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_materials:
+  - {fileID: 2100000, guid: 1a3af23e57659fc4899e82a195af21e7, type: 2}
+  - {fileID: 2100000, guid: 025cbf9d232c99f4bb5a2e86929f2cd7, type: 2}
+  - {fileID: 2100000, guid: 28833ac21775e824d9dd3100d488c1fc, type: 2}
 --- !u!1 &9216200084209479274
 GameObject:
   m_ObjectHideFlags: 0
@@ -6326,11 +6373,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d6c653d556c6094d8257d7da7ca4287, type: 3}
---- !u!4 &3941320733798966602 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3830830097605450343, guid: 6d6c653d556c6094d8257d7da7ca4287, type: 3}
-  m_PrefabInstance: {fileID: 260001506321628973}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3941320733798966601 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3830830097605450340, guid: 6d6c653d556c6094d8257d7da7ca4287, type: 3}
@@ -6342,6 +6384,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d16671b5445d29647b426ecd0855a9d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &3941320733798966602 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3830830097605450343, guid: 6d6c653d556c6094d8257d7da7ca4287, type: 3}
+  m_PrefabInstance: {fileID: 260001506321628973}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2782633494010050101
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -217,6 +217,19 @@ namespace DefineDatas
         Hat,
         Armor,        
     }
+
+    public enum PlayerSoundState
+    {
+        Jump,
+        Land
+    }
+
+    [System.Serializable]
+    public struct PlayerSoundInfo
+    {
+        public PlayerSoundState State;
+        public string Name;
+    }
   
     public struct StartSoundSettingInfo
     {
