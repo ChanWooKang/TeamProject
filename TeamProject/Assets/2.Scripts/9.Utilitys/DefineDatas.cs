@@ -218,16 +218,22 @@ namespace DefineDatas
         Armor,        
     }
 
-    public enum PlayerSoundState
+    public enum eSoundState
     {
         Jump,
-        Land
+        Land,
+        SwingAxe,
+        ShootArrow,
+        SwingOneHand,
+        PickUp,
+        GetHit,
+
     }
 
     [System.Serializable]
     public struct PlayerSoundInfo
     {
-        public PlayerSoundState State;
+        public eSoundState State;
         public string Name;
     }
   

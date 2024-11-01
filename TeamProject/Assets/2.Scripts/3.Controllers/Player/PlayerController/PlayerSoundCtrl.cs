@@ -12,13 +12,13 @@ public class PlayerSoundCtrl : MonoBehaviour
     CharacterController _control;
 
     public List<PlayerSoundInfo> playerSoundInfos;
-    Dictionary<PlayerSoundState, string> dictSound;
+    Dictionary<eSoundState, string> dictSound;
 
     public void Init(PlayerCtrl manager, CharacterController control)
     {
         _manager = manager;
         _control = control;
-
+        dictSound = new Dictionary<eSoundState, string>();
         foreach(var info in playerSoundInfos)
         {
             if (!dictSound.ContainsKey(info.State))
@@ -43,8 +43,19 @@ public class PlayerSoundCtrl : MonoBehaviour
     {
         if (animationEvent.animatorClipInfo.weight > 0.5f)
         {
-            var landStep = dictSound[PlayerSoundState.Land];
+            var landStep = dictSound[eSoundState.Land];
             SoundManager._inst.PlaySfxAtPoint(landStep, transform.position);
         }
     }
+
+    private void OnJumpEvent(AnimationEvent animationEvent)
+    {
+        if(animationEvent.animatorClipInfo.weight > 0.5f)
+        {
+            var jump = dictSound[eSoundState.Jump];
+            SoundManager._inst.PlaySfxAtPoint(jump, transform.position);
+        }
+    }
+
+    
 }
