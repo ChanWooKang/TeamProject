@@ -56,7 +56,7 @@ public class PlayerMoveCtrl : MonoBehaviour
     CharacterController _control;
 
     //Other Components
-    GameObject _mainCam;
+    GameObject _mainCam;    
 
     public void Init(PlayerCtrl manager, PlayerAssetsInputs input, CharacterController control)
     {
