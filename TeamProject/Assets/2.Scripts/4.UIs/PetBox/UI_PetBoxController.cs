@@ -211,7 +211,7 @@ public class UI_PetBoxController : MonoBehaviour
         m_noDataObj.SetActive(false);
         m_selectedPetInfoBox.SetActive(true);
         m_selectedPetInfoSlot.InitSlot(0, this, pet);
-        m_textSelectedPetAttack.text = pet.PetInfo.Damage.ToString();
+        m_textSelectedPetAttack.text = pet.Stat.Damage.ToString();
         m_textSelectedPetWorkAbility.text = pet.PetInfo.WorkAbility.ToString();
         ShowPetSkills(pet.PetInfo.Index);
     }

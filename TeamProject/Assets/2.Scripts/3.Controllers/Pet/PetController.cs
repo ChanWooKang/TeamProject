@@ -6,9 +6,8 @@ using DefineDatas;
 
 public class PetController : FSM<PetController>
 {
-    [Header("Monster Data")]
 
-    public int PetLevel = 1;
+    
     int Index;
 
     #region [Component]
@@ -126,14 +125,14 @@ public class PetController : FSM<PetController>
     }
     public void SettingPetStatByLevel()
     {
-        Stat.Level = PetLevel;
+        Stat.Level = 1;
         Stat.SetByLevel();
         if (_hudCtrl != null)
         {
             _hudCtrl.InitHud(m_petInfo.NameKr, Stat.Level, _hudTransform, Color.green, true, this);
             SetHudHp();
         }
-    }    
+    }
     public void InitPetHud()
     {
         if (_hudCtrl != null)
@@ -200,7 +199,7 @@ public class PetController : FSM<PetController>
     public void SetHudHp()
     {
         if (_hudCtrl != null && gameObject.activeSelf == true)
-            _hudCtrl.DisPlay(Stat.HP / Stat.MaxHP);
+            _hudCtrl.DisPlay(Stat.Level, Stat.HP / Stat.MaxHP);
     }
     public void AttackFunc()
     {
@@ -258,7 +257,7 @@ public class PetController : FSM<PetController>
         isDead = Stat.CalculateDamage(damage);
         if (_hudCtrl != null)
         {
-            _hudCtrl.DisPlay(Stat.HP / Stat.MaxHP);
+            _hudCtrl.DisPlay(Stat.Level, Stat.HP / Stat.MaxHP);
             UIManager._inst.UIPetEntry.SetRecalledPetHud();
         }
         DamageTextManager._inst.ShowDamageText(hitPoint, damage);
@@ -301,6 +300,21 @@ public class PetController : FSM<PetController>
     public void OnDeadEvent()
     {
         UIManager._inst.UIPetEntry.RecallOrPutIn();
+    }
+    public void SetExp(int exp)
+    {      
+        int next = m_stat.NextExp;
+        m_stat.CurrentExp += exp;
+        if (m_stat.CurrentExp >= next)
+        {
+            m_stat.CurrentExp -= next;
+            m_stat.Level += 1;
+            m_stat.SetByLevel();
+            UIManager._inst.UIPetEntry.SetHudInfoBox(this);
+            _hudCtrl.DisPlay(m_stat.Level, m_stat.MaxHP);
+        }
+        if (m_stat.CurrentExp >= next)
+            SetExp(exp);
     }
     void ChangeColor(Color color)
     {

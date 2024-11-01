@@ -60,7 +60,7 @@ public class UI_PetInvenSlot : MonoBehaviour, IPointerClickHandler, IPointerEnte
             m_icon.sprite = PoolingManager._inst._poolingIconByIndex[pet.PetInfo.Index].prefab;
             m_hpBar.gameObject.SetActive(true);
             m_petCtrl = pet;
-            m_txtLevel.text = pet.PetLevel.ToString();
+            m_txtLevel.text = pet.Stat.Level.ToString(); 
             m_txtName.text = pet.PetInfo.NameKr;
             m_txtHp.text = pet.Stat.HP + "/" + pet.Stat.MaxHP;
             m_hpBar.value = pet.Stat.HP / pet.Stat.MaxHP;
@@ -90,7 +90,7 @@ public class UI_PetInvenSlot : MonoBehaviour, IPointerClickHandler, IPointerEnte
             m_icon.sprite = PoolingManager._inst._poolingIconByIndex[pet.PetInfo.Index].prefab;
             m_hpBar.gameObject.SetActive(true);
             m_petCtrl = pet;
-            m_txtLevel.text = pet.PetLevel.ToString();
+            m_txtLevel.text = pet.Stat.Level.ToString();
             m_txtName.text = pet.PetInfo.NameKr;
             m_txtHp.text = pet.Stat.HP + "/" + pet.Stat.MaxHP;
             m_hpBar.value = pet.Stat.HP / pet.Stat.MaxHP;

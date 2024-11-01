@@ -97,13 +97,14 @@ public class SoundManager : TSingleton<SoundManager>
         AudioClip clip = m_dicSFX[name];
 
 
-        AudioSource.PlayClipAtPoint(clip, pos);
+        AudioSource.PlayClipAtPoint(clip, pos, m_sfxPlayer.volume);
     }
     public void PlaySfxAtObject(AudioSource source, string name) // 오브젝트에서 중첩되는(혹은 될 수 있는) sfx 재생 (오브젝트가 오디오 소스를 가지고 있어야함)
     {        
         AudioClip clip = m_dicSFX[name];
         source.spatialBlend = 1f;
         source.rolloffMode = AudioRolloffMode.Logarithmic; // 거리에 따른 사운드 증감
+        source.volume = m_sfxPlayer.volume;
         source.PlayOneShot(clip);
     }
 }

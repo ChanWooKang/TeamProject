@@ -277,7 +277,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
     public void SetHudInfoBox(PetController pet)
     {
         m_hudInfo.gameObject.SetActive(true);
-        m_hudInfo.InitHud(pet.PetInfo.NameKr, pet.PetLevel, null, Color.white, true, null);
+        m_hudInfo.InitHud(pet.PetInfo.NameKr, pet.Stat.Level, null, Color.white, true, null);
     }
 
     public void ShowPetPortrait()

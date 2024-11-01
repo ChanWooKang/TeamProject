@@ -71,8 +71,9 @@ public class HudController : MonoBehaviour
             m_isDetected = true;
 
     }
-    public void DisPlay(float normalizedHp) // 데미지를 입거나 카메라 ray에 닿았을 때 
+    public void DisPlay(int level, float normalizedHp) // 데미지를 입거나 카메라 ray에 닿았을 때 레벨이 올랐을 때
     {
+        m_txtLevel.text = level.ToString();
         Vector3 screenPos = Camera.main.WorldToScreenPoint(m_targetPos.position);
         transform.position = screenPos;
         m_isDetected = true;        

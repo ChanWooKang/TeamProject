@@ -131,7 +131,7 @@ public class MonsterController : FSM<MonsterController>, IHitAble
     public void ShowHud()
     {       
         if (_hudCtrl != null)
-            _hudCtrl.DisPlay(Stat.HP / Stat.MaxHP);
+            _hudCtrl.DisPlay(Stat.Level, Stat.HP / Stat.MaxHP);
     }
     //State = Init 최초 데이터 설정
     public void InitData()
@@ -297,7 +297,7 @@ public class MonsterController : FSM<MonsterController>, IHitAble
             SetTarget(attacker);
 
         if (_hudCtrl != null)
-            _hudCtrl.DisPlay(Stat.HP / Stat.MaxHP);
+            _hudCtrl.DisPlay(Stat.Level, Stat.HP / Stat.MaxHP);
 
         State = eMonsterState.GETHIT;
         isDead = Stat.CalculateDamage(damage);

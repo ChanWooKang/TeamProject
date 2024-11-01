@@ -5,7 +5,7 @@ using UnityEngine;
 public class BaseStat : MonoBehaviour
 {
     protected int _level;
-    protected float _exp;
+    protected int _exp;
     protected float _hp;
     protected float _maxHp;
     protected float _damage;

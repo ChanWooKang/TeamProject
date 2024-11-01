@@ -114,7 +114,7 @@ public class BossCtrl : FSM<BossCtrl>, IHitAble
     public void ShowHud()
     {
         if (_hudCtrl != null)
-            _hudCtrl.DisPlay(Stat.HP / Stat.MaxHP);
+            _hudCtrl.DisPlay(Stat.Level, Stat.HP / Stat.MaxHP);
     }
 
     public void InitData()
@@ -199,7 +199,7 @@ public class BossCtrl : FSM<BossCtrl>, IHitAble
             SetTarget();
 
         if (_hudCtrl != null)
-            _hudCtrl.DisPlay(Stat.HP / Stat.MaxHP);
+            _hudCtrl.DisPlay(Stat.Level, Stat.HP / Stat.MaxHP);
 
         State = eBossState.GETHIT;
         isDead = Stat.CalculateDamage(damage);
