@@ -2878,6 +2878,20 @@ MonoBehaviour:
     Name: Player_Jump
   - State: 1
     Name: Player_Land
+  - State: 2
+    Name: Player_UnArmed
+  - State: 3
+    Name: Player_OneHand
+  - State: 4
+    Name: Player_Bow
+  - State: 5
+    Name: Player_Rifle
+  - State: 6
+    Name: Player_Pickup
+  - State: 7
+    Name: GetHit
+  - State: 8
+    Name: Player_Equip
 --- !u!1 &2912192553455200119
 GameObject:
   m_ObjectHideFlags: 0

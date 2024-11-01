@@ -229,8 +229,7 @@ namespace DefineDatas
         PickUp,
         GetHit,
         Equip
-
-    }
+    }    
 
     [System.Serializable]
     public struct PlayerSoundInfo

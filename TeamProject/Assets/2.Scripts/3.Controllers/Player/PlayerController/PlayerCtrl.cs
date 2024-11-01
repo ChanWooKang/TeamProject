@@ -113,6 +113,8 @@ public class PlayerCtrl : MonoBehaviour
     {
         if (isDead && gameObject.activeSelf)
             return;
+        //Sound
+        _sound.GetHitSound();
 
         isDead = _stat.GetHit(damage);
         if(m_recalledPet != null)

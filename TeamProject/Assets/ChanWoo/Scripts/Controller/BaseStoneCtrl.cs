@@ -18,6 +18,7 @@ public class BaseStoneCtrl : HitObjectCtrl, IHitAble
         if (!isInit)
             Init();
         base.OnDamage(damage, attacker, hitPoint);
+        SoundManager._inst.PlaySfxAtPoint("Rock_Break", hitPoint);
         MakeParticleEffect(hitPoint);
     }
 

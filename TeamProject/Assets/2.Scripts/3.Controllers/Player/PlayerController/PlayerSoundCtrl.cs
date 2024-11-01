@@ -36,6 +36,7 @@ public class PlayerSoundCtrl : MonoBehaviour
         var gethit = dictSound[eSoundState.GetHit];
         PlaySound(gethit, transform.position);
     }
+    
 
     #region [Sound By Animation]
     private void OnFootStep(AnimationEvent animationEvent)

@@ -585,6 +585,13 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.36746988
+        functionName: OnFireBallSound
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.5918991
         functionName: FireBallAction
         data: 
@@ -592,8 +599,22 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.6012048
+        functionName: OnFireBallSound
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.74859554
         functionName: FireBallAction
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.75435895
+        functionName: OnFireBallSound
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

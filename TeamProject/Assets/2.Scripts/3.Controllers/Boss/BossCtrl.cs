@@ -17,6 +17,7 @@ public class BossCtrl : FSM<BossCtrl>, IHitAble
     public BossAnimCtrl _anim;
     public BossRenderCtrl _render;
     public BossColliderCtrl _collider;
+    public BossSoundCtrl _sound;
     public HudController _hudCtrl;
 
     Rigidbody _rigid;
@@ -95,12 +96,14 @@ public class BossCtrl : FSM<BossCtrl>, IHitAble
         _anim = GetComponent<BossAnimCtrl>();
         _render = GetComponent<BossRenderCtrl>();
         _collider = GetComponent<BossColliderCtrl>();
+        _sound = GetComponent<BossSoundCtrl>();
         _rigid = GetComponent<Rigidbody>();
 
         Stat.Init(Index);
         _move.Init(this);
         _anim.Init(this);
         _render.Init();
+        _sound.Init(this);
         _collider.Init(this);
     }
 
@@ -212,6 +215,7 @@ public class BossCtrl : FSM<BossCtrl>, IHitAble
 
     IEnumerator OnDamageEvent()
     {
+        
         if (isDead)
         {
             Agent.SetDestination(transform.position);
