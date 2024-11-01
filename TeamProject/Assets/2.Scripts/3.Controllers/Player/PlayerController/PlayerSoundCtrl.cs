@@ -34,7 +34,7 @@ public class PlayerSoundCtrl : MonoBehaviour
     {
         if (animationEvent.animatorClipInfo.weight > 0.5f)
         {
-            SoundManager._inst.PlaySfxAtPoint("Player_Land", _control.center);
+            SoundManager._inst.PlaySfxAtPoint("Player_Land", transform.position);
         }
     }
 }

@@ -14,6 +14,7 @@ public class PlayerCtrl : MonoBehaviour
     public PlayerRenderCtrl _render;
     public PlayerEquipCtrl _equip;
     public PlayerColliderCtrl _collider;
+    public PlayerSoundCtrl _sound;
     PetController m_recalledPet;    
     //Player Components
     //Animator _animator;
@@ -84,7 +85,7 @@ public class PlayerCtrl : MonoBehaviour
         _render = GetComponent<PlayerRenderCtrl>();
         _equip = GetComponent<PlayerEquipCtrl>();
         _collider = GetComponent<PlayerColliderCtrl>();
-
+        _sound = GetComponent<PlayerSoundCtrl>();
         LoadStat();
         _input.Init(this, _assetInput);
         _move.Init(this, _assetInput, _control);
@@ -92,6 +93,7 @@ public class PlayerCtrl : MonoBehaviour
         _render.Init(this);
         _equip.Init(this, _assetInput);
         _collider.Init(this);
+        _sound.Init(this, _control);
     }
 
     void LoadStat()
