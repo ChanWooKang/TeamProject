@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.InputSystem;
 
 public class UI_PetEnryInfoBoxController : MonoBehaviour
@@ -21,11 +22,12 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
     HudController m_recalledPetsHud;
     public GameObject RecalledPet { get { return m_recalledPet; } }
     public HudController RecalledPetHud { get { return m_recalledPetsHud; } }
-    public bool IsAllDead { get { return m_isAllDead; }set { m_isAllDead = value; } }
+    public bool IsAllDead { get { return m_isAllDead; } set { m_isAllDead = value; } }
     #endregion [펫 관련]
 
     #region [UI 관련]
     [SerializeField] HudController m_hudInfo;
+    [SerializeField] TextMeshProUGUI m_textLevelUp;
     Animator m_animCtrl;
     #endregion [UI 관련]
     private void Update()
@@ -183,13 +185,13 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
             return;
         m_animCtrl.SetTrigger("SwapRight");
         int tempNum = m_currentPetNum;
-        
+
         if (++m_currentPetNum >= PetEntryManager._inst.m_listEntryPetUniqueindex.Count)
             m_currentPetNum = 0;
 
         int nextUIndex = PetEntryManager._inst.m_listEntryPetUniqueindex[m_currentPetNum];
         m_currentPetUIndex = nextUIndex;
-        CheckAllDead( nextUIndex, tempNum);
+        CheckAllDead(nextUIndex, tempNum);
 
         SetHudInfoBox(PetEntryManager._inst.m_dictPetEntryCtrl[m_currentPetUIndex]);
     }
@@ -202,17 +204,17 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
         else
             m_animCtrl.SetTrigger("SwapLeft");
         int temp = m_currentPetNum;
-       
+
         if (--m_currentPetNum < 0)
             m_currentPetNum = PetEntryManager._inst.m_dictPetEntryCtrl.Count - 1;
 
         int prevUIndex = PetEntryManager._inst.m_listEntryPetUniqueindex[m_currentPetNum];
         m_currentPetUIndex = prevUIndex;
-        CheckAllDead( prevUIndex, temp, false);
+        CheckAllDead(prevUIndex, temp, false);
 
         SetHudInfoBox(PetEntryManager._inst.m_dictPetEntryCtrl[m_currentPetUIndex]);
     }
-    void CheckAllDead( int swapUIndex, int temp, bool isright = true)
+    void CheckAllDead(int swapUIndex, int temp, bool isright = true)
     {
         if (PetEntryManager._inst.m_dictPetEntryCtrl[swapUIndex].Stat.HP <= 0)
         {
@@ -222,7 +224,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
                 if (pet.Stat.HP > 0)
                 {
                     isAllDead = false;
-                    m_isAllDead = isAllDead;                    
+                    m_isAllDead = isAllDead;
                     break;
                 }
             }
@@ -280,9 +282,34 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
         m_hudInfo.InitHud(pet.PetInfo.NameKr, pet.Stat.Level, null, Color.white, true, null);
     }
 
-    public void ShowPetPortrait()
+    public IEnumerator StartLevelUPText()
     {
+        RectTransform rect = m_textLevelUp.GetComponent<RectTransform>();
+        RectTransform parent = rect.parent.GetComponent<RectTransform>();
+        rect.anchoredPosition = new Vector2((parent.sizeDelta.x / 2) + rect.sizeDelta.x, rect.anchoredPosition.y);
+        while (true)
+        {
+            Vector2.Lerp(rect.anchoredPosition, Vector2.zero, Time.deltaTime);
+            if (Vector2.Distance(rect.anchoredPosition, Vector2.zero) <= 0.1f)
+            {                
+                StartCoroutine(EndLevelUpText(rect, parent));                
+                break;
+            }
 
+        }
+        yield return null;
     }
-
+    IEnumerator EndLevelUpText(RectTransform rect, RectTransform parent)
+    {
+        while (true)
+        {
+            Vector2 target = new Vector2(-(parent.sizeDelta.x / 2 + rect.sizeDelta.x), rect.anchoredPosition.y);
+            Vector2.Lerp(rect.anchoredPosition, target, Time.deltaTime);
+            if (Vector2.Distance(rect.anchoredPosition, Vector2.zero) >= (parent.sizeDelta.x / 2 + rect.sizeDelta.x))
+            {
+                break;
+            }
+        }
+        yield return null;
+    }
 }

@@ -7,7 +7,7 @@ using DefineDatas;
 public class PetController : FSM<PetController>
 {
 
-    
+
     int Index;
 
     #region [Component]
@@ -302,7 +302,7 @@ public class PetController : FSM<PetController>
         UIManager._inst.UIPetEntry.RecallOrPutIn();
     }
     public void SetExp(int exp)
-    {      
+    {
         int next = m_stat.NextExp;
         m_stat.CurrentExp += exp;
         if (m_stat.CurrentExp >= next)
@@ -311,6 +311,7 @@ public class PetController : FSM<PetController>
             m_stat.Level += 1;
             m_stat.SetByLevel();
             UIManager._inst.UIPetEntry.SetHudInfoBox(this);
+            StartCoroutine(UIManager._inst.UIPetEntry.StartLevelUPText());
             _hudCtrl.DisPlay(m_stat.Level, m_stat.MaxHP);
         }
         if (m_stat.CurrentExp >= next)

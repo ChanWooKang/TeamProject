@@ -2873,7 +2873,11 @@ MonoBehaviour:
   - Player_Footstep_08
   - Player_Footstep_09
   - Player_Footstep_10
-  landStep: Player_Land
+  playerSoundInfos:
+  - State: 0
+    Name: Player_Jump
+  - State: 1
+    Name: Player_Land
 --- !u!1 &2912192553455200119
 GameObject:
   m_ObjectHideFlags: 0
