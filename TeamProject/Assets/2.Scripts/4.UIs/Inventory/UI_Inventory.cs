@@ -44,6 +44,7 @@ public class UI_Inventory : MonoBehaviour
     [SerializeField] TextMeshProUGUI m_textSkill3Name;
     [SerializeField] TextMeshProUGUI m_textSkill3Value;
     [SerializeField] Image m_iconSkill3;
+    [SerializeField] TextMeshProUGUI m_textNextLevel;
 
     [SerializeField] Sprite m_imageRangeSkill;
     [SerializeField] Sprite m_imageBuff;
@@ -308,6 +309,7 @@ public class UI_Inventory : MonoBehaviour
         m_textPetDesc.text = pet.PetInfo.Desc;
         m_textPetAttack.text = string.Format("{0:D1}", pet.Stat.Damage.ToString());
         m_textPetWorkAbility.text = pet.PetInfo.WorkAbility.ToString();
+        m_textNextLevel.text = string.Format("다음 레벨까지 : {0}", pet.Stat.NextExp - pet.Stat.CurrentExp);
         ShowPetSkills(pet.PetInfo.Index);
         m_DescBox.SetActive(true);
         m_StatusBox.SetActive(true);
