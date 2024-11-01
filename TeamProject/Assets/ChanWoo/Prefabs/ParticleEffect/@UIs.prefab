@@ -4405,7 +4405,7 @@ MonoBehaviour:
   - {fileID: 5471956200826228880}
   - {fileID: 5471956200523562415}
   m_hudInfo: {fileID: 5786234486782471944}
-  m_textLevelUp: {fileID: 0}
+  m_textLevelUp: {fileID: 1865046137}
 --- !u!95 &5471956199607617257
 Animator:
   serializedVersion: 5
