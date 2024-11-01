@@ -64,6 +64,7 @@ public class ObjectPreview : MonoBehaviour
                 m_isDone = true;
                 m_collider.size = new Vector3(1.5f, 1f, 1.5f);
                 gameObject.transform.parent.gameObject.isStatic = true;
+                PoolingManager._inst.InstantiateAPS("MagicPoof", transform.position, transform.rotation, Vector3.one);
                 if (m_PetCtrl != null)
                     m_PetCtrl.JobDone();
             }
@@ -71,7 +72,9 @@ public class ObjectPreview : MonoBehaviour
                 m_uiWorkload.UpFKey();
             if (Input.GetKey(KeyCode.C))
                 if (m_uiWorkload.PressCKey())
+                {                   
                     Destroy(gameObject.transform.parent.gameObject);
+                }
             if (Input.GetKeyUp(KeyCode.C))
                 m_uiWorkload.UpCKey();
         }

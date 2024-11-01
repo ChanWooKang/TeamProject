@@ -57,7 +57,8 @@ public class CraftTableController : MonoBehaviour
             {
                 m_interaction.OpenInteractionCraftTable(this);
             }
-
+            if (m_petCtrl == null)
+                m_interaction.SetNoEntry();
             isClosed = true;
         }
         if (m_objPreview.IsDone && other.CompareTag("Pet"))
@@ -86,6 +87,8 @@ public class CraftTableController : MonoBehaviour
                 m_interaction = ui.GetComponent<UI_CraftDeskInteraction>();
                 m_interaction.OpenInteractionCraftTable(this);
             }
+            if (m_petCtrl == null)
+                m_interaction.SetNoEntry();
             isClosed = true;
         }
 

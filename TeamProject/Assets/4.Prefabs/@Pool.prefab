@@ -355,6 +355,14 @@ MonoBehaviour:
     type: 3
     prefab: {fileID: 4076639776405654604, guid: c6f553a081f7587418b7612fd6eb7e6f, type: 3}
     amount: 5
+  - name: MagicPoof
+    type: 3
+    prefab: {fileID: 5755173536163006744, guid: c387053cb343e68499572afeaf60ff5d, type: 3}
+    amount: 3
+  - name: Explosion
+    type: 3
+    prefab: {fileID: 6265239415920709566, guid: a96adf1ab28eb4d45b407f962eb6ff75, type: 3}
+    amount: 3
   - name: ChatchSucceed
     type: 3
     prefab: {fileID: 4413290442749713371, guid: 31e2bb6819fc6f54caabe575d5ae7db4, type: 3}

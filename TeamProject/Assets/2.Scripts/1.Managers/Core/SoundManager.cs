@@ -103,7 +103,7 @@ public class SoundManager : TSingleton<SoundManager>
     {        
         AudioClip clip = m_dicSFX[name];
         source.spatialBlend = 1f;
-        source.rolloffMode = AudioRolloffMode.Logarithmic;
+        source.rolloffMode = AudioRolloffMode.Logarithmic; // 거리에 따른 사운드 증감
         source.PlayOneShot(clip);
     }
 }
