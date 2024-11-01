@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     #region [임시 참조]
-    [SerializeField] GameObject m_uiCraftBoxObj;   
+    [SerializeField] GameObject m_uiCraftBoxObj;
     GameObject m_prefabObj;
     #endregion [임시 참조]
 
@@ -15,7 +15,7 @@ public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     UI_Craft m_uiCraft;
     GameObject m_previewObj;
     GameObject m_craftingObj;
-    Architecture m_architectureInfo;   
+    Architecture m_architectureInfo;
     [SerializeField]
     Image m_icon;
     [SerializeField]
@@ -28,7 +28,7 @@ public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     #region [param]
     [SerializeField]
     Color[] m_highlightColor;
-    
+
     int[] m_materialsIndex;
     int[] m_materialsCosts;
     bool isAllcostReady;
@@ -47,16 +47,16 @@ public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         else
         {
             m_architectureInfo = new Architecture(techLevel);
-            
+
             m_uiCraft = uiCraft;
             m_highlightBG.enabled = false;
             m_icon.enabled = true;
             m_icon.sprite = PoolingManager._inst._poolingIconByName[m_architectureInfo.NameEn].prefab;
             m_materialsIndex = m_architectureInfo.MaterialsIndex;
             m_materialsCosts = m_architectureInfo.MaterialsCost;
-            
+
             m_prefabObj = TechnologyManager._inst.CraftObjPrefabs[techLevel - 1];
-            
+
         }
     }
 
@@ -67,27 +67,25 @@ public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         // 재료가 충분하면 프리뷰 오브젝트 생성
         for (int i = 0; i < m_materialsIndex.Length; i++)
         {
-            if (InventoryManager._inst.UseItem(m_materialsIndex[i], m_materialsCosts[i]))
-            {
-                m_previewObj = Instantiate(m_prefabObj);
-                m_craftingObj = m_prefabObj;
-                m_uiCraft.IsPreviewActivated(true, m_previewObj, m_craftingObj, m_architectureInfo);
-                m_highlightBG.enabled = false;
+            InventoryManager._inst.UseItem(m_materialsIndex[i], m_materialsCosts[i]);
+        }
+        m_previewObj = Instantiate(m_prefabObj);
+        m_craftingObj = m_prefabObj;
+        m_uiCraft.IsPreviewActivated(true, m_previewObj, m_craftingObj, m_architectureInfo);
+        m_highlightBG.enabled = false;
 
-                m_uiCraftBoxObj.SetActive(false);
-                m_uiInfoBox.CloseBox();
-                //UI클릭시 커서 잠금
-                GameManagerEx._inst.ControlUI(false, true);
-                // 얘 켜져있으면 이동 과 카메라 회전만 가능
-                GameManagerEx._inst.isOnBuild = true;
-            }
-        }               
+        m_uiCraftBoxObj.SetActive(false);
+        m_uiInfoBox.CloseBox();
+        //UI클릭시 커서 잠금
+        GameManagerEx._inst.ControlUI(false, true);
+        // 얘 켜져있으면 이동 과 카메라 회전만 가능
+        GameManagerEx._inst.isOnBuild = true;
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (m_architectureInfo == null)
             return;
-        if(m_uiInfoBox == null)
+        if (m_uiInfoBox == null)
         {
             GameObject ui = Instantiate(m_uiInfoBoxObj, m_infoboxP);
 
@@ -123,10 +121,10 @@ public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     }
     public void CloseSlot()
     {
-        if(m_uiInfoBox != null)
-        m_uiInfoBox.CloseBox();
+        if (m_uiInfoBox != null)
+            m_uiInfoBox.CloseBox();
     }
 
-    
+
 
 }

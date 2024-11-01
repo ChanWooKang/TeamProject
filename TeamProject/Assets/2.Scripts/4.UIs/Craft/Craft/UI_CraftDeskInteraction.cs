@@ -211,6 +211,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
             }
             else
             {
+                PoolingManager._inst.InstantiateAPS("Explosion", m_tableCtrl.transform.position, m_tableCtrl.transform.rotation, Vector3.one);
                 Destroy(m_tableCtrl.transform.parent.gameObject);
                 gameObject.SetActive(false);
             }
