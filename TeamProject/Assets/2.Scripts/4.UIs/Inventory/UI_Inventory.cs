@@ -306,7 +306,7 @@ public class UI_Inventory : MonoBehaviour
     public void ClickPetSlot(PetController pet)
     {
         m_textPetDesc.text = pet.PetInfo.Desc;
-        m_textPetAttack.text = pet.PetInfo.Damage.ToString();
+        m_textPetAttack.text = string.Format("{0:D1}", pet.Stat.Damage.ToString());
         m_textPetWorkAbility.text = pet.PetInfo.WorkAbility.ToString();
         ShowPetSkills(pet.PetInfo.Index);
         m_DescBox.SetActive(true);

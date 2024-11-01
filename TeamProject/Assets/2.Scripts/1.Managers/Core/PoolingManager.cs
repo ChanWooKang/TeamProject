@@ -89,17 +89,15 @@ public class PoolingManager : TSingleton<PoolingManager>
         PetController pet = makePet.GetComponent<PetController>();
         pet.InitPet(index);
         pet.Stat.UniqueID = uniqueID;
-
-        int petIndex = table.Find("NameKr", pet.PetInfo.NameKr);
-        string nameKr = table.ToStr(petIndex, "NameKr");
-        _poolingUnits[lastIndex].index = petIndex + offsetNum;
+       
+        string nameKr = table.ToStr(index, "NameKr");
+        _poolingUnits[lastIndex].index = index + offsetNum;
         _poolingUnits[lastIndex].amount = 1;
         _poolingUnits[lastIndex].name = nameKr;
         _poolingUnits[lastIndex].prefab = pet.gameObject;
         _poolingUnits[lastIndex].type = PoolType.Pet;
         Dictionary<int, GameObject> objDatas = new Dictionary<int, GameObject>();
-        objDatas.Add(0, makePet);
-        pet.InitPet(petIndex);
+        objDatas.Add(0, makePet);        
         pet.Stat.UniqueID = uniqueID;
         if (!_pooledUnitsByIndex.ContainsKey(uniqueID))
             _pooledUnitsByIndex.Add(uniqueID, objDatas);

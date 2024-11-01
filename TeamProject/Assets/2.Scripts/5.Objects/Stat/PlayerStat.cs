@@ -16,7 +16,7 @@ public class PlayerStat : BaseStat
     [SerializeField] protected int _bonusStat;
 
     #region [ Property ]
-    public float EXP
+    public int EXP
     {
         get { return _exp; }
         set

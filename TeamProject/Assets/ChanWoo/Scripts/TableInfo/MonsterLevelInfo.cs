@@ -5,17 +5,17 @@ using UnityEngine;
 public class MonsterLevelInfo
 {
     protected int _index;
-    protected float _requiredExp;
+    protected int _requiredExp;
     protected float _rewardAbility;
-    protected float _dropExp;
+    protected int _dropExp;
 
     public int Level { get { return _index; } }
-    public float RequiredExp { get { return _requiredExp; } }
+    public int RequiredExp { get { return _requiredExp; } }
     public float RewardAbility { get { return _rewardAbility; } }
-    public float DropExp { get { return _dropExp; } }
+    public int DropExp { get { return _dropExp; } }
 
 
-    public MonsterLevelInfo (int index, float requiredExp, float rewardAblity, float drop)
+    public MonsterLevelInfo (int index, int requiredExp, float rewardAblity, int drop)
     {
         _index = index;
         _requiredExp = requiredExp;

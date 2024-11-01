@@ -5,12 +5,14 @@ using UnityEngine;
 public class PetStat : BaseStat
 {
     protected int _index;
+    protected int _uniqueID;
+    protected int _nextExp;
+    protected int _currentExp = 0;
     protected float _runSpeed;
     protected float _chaseRange;
     protected float _attackrange;
     protected float _attackDelay;
     protected float _sight;
-    protected int _uniqueID;
     [SerializeField] float baseHp;
     float baseDamage;
 
@@ -23,6 +25,8 @@ public class PetStat : BaseStat
     public float Sight { get { return _sight; } }
     public float AttackDelay { get { return _attackDelay; } }
     public int UniqueID { get { return _uniqueID; } set { _uniqueID = value; } }
+    public int CurrentExp { get { return _currentExp; } set { _currentExp = value; } }
+    public int NextExp { get { return _nextExp; } }
     #endregion [ Property ] 
 
 
@@ -99,7 +103,7 @@ public class PetStat : BaseStat
         {
             MonsterLevelInfo beforeLevelInfo = Managers._data.Dict_MonsterLevel[_level - 1];
             _exp = beforeLevelInfo.DropExp;
-            SetStat(Managers._data.Dict_MonsterLevel[_level].RewardAbility, Managers._data.Dict_MonsterLevel[_level].DropExp);
+            SetStat(Managers._data.Dict_MonsterLevel[_level].RewardAbility, Managers._data.Dict_MonsterLevel[_level].RequiredExp);
         }
         else
         {
@@ -111,11 +115,12 @@ public class PetStat : BaseStat
         }
     }
 
-    void SetStat(float value, float exp)
+    void SetStat(float value, int nextExp)
     {
         _maxHp = baseHp * value;
         _damage = baseDamage * value;
         _hp = _maxHp;
+        _nextExp = nextExp;
     }
 
     void SetBaseStat()

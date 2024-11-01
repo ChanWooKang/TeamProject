@@ -136,9 +136,9 @@ public class DataManager
     void MakeMonsterLevelClass(LowBase table, int num, int offSetNum)
     {
         int index = num + offSetNum;
-        float requiredExp = table.ToFloat(index, "NextExp");
+        int requiredExp = table.ToInt(index, "NextExp");
+        int rewardExp = table.ToInt(index, "RewardExp");
         float rewardAbility = table.ToFloat(index, "RewardAbility");
-        float rewardExp = table.ToFloat(index, "RewardExp");
 
         MonsterLevelInfo level = new MonsterLevelInfo(index, requiredExp, rewardAbility, rewardExp);
         if (Dict_MonsterLevel.ContainsKey(index) == false)

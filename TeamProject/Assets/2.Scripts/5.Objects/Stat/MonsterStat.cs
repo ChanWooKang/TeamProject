@@ -21,12 +21,12 @@ public class MonsterStat : BaseStat
     float baseDropExp;
 
     #region [ Property ]    
-    public int Index { get { return _index; }}
+    public int Index { get { return _index; } }
     public float ChaseRange { get { return _chaseRange; } }
     public float RunSpeed { get { return _runSpeed; } }
     public float AttackRange { get { return _attackrange; } }
     public float Sight { get { return _sight; } }
-    public float AttackDelay { get { return _attackDelay; } }    
+    public float AttackDelay { get { return _attackDelay; } }
     public float DropExp { get { return _dropExp; } }
     public int CaptureRate { get { return _captureRate; } }
     public int CharacterType { get { return _characterType; } }
@@ -34,7 +34,7 @@ public class MonsterStat : BaseStat
 
     public int UniqueID { get { return _uniqueID; } }
 
-    public float EXP 
+    public int EXP
     {
         get { return _exp; }
         set
@@ -50,7 +50,7 @@ public class MonsterStat : BaseStat
                 level++;
             }
 
-            if(level != _level)
+            if (level != _level)
             {
                 _level = level;
                 SetStat(Managers._data.Dict_MonsterLevel[_level].RewardAbility, Managers._data.Dict_MonsterLevel[_level].DropExp);
@@ -101,8 +101,8 @@ public class MonsterStat : BaseStat
             //방어력 추가 시 추가
             //_defense = info.Defense
             _dropExp = 60;
-        }        
-    }   
+        }
+    }
 
     void SettingUniqueID()
     {
@@ -119,16 +119,18 @@ public class MonsterStat : BaseStat
     public void DeadFunc(PlayerCtrl player)
     {
         if (player != null)
-            player._stat.EXP += _exp;
-        if(player.RecalledPet != null)
         {
-
+            player._stat.EXP += _exp;
+            if (player.RecalledPet != null)
+            {
+                player.RecalledPet.SetExp(_exp);
+            }
         }
-    }    
+    }
 
     //최초 데이터 설정 ( 변하지 않는 값 )
     public void LoadAndSetData()
-    {        
+    {
         //레벨과 관계없이 저장될 변수        
         _moveSpeed = _monster.Speed;
         _chaseRange = _monster.ChaseRange;
@@ -141,31 +143,31 @@ public class MonsterStat : BaseStat
         _characterType = 1;
 
         //SetConvertibleStat(info.Index,level);
-    }    
+    }
 
     //외부에서 레벨 설정 시 처리
     public void SetByLevel()
     {
-        MonsterInfo monster = Managers._data.Dict_Monster[_index];        
+        MonsterInfo monster = Managers._data.Dict_Monster[_index];
         if (_level > 1)
         {
             MonsterLevelInfo beforeLevelInfo = Managers._data.Dict_MonsterLevel[_level - 1];
-            _exp = beforeLevelInfo.DropExp;                        
+            _exp = beforeLevelInfo.DropExp;
             SetStat(Managers._data.Dict_MonsterLevel[_level].RewardAbility, Managers._data.Dict_MonsterLevel[_level].DropExp);
         }
         else
         {
             MonsterLevelInfo info = Managers._data.Dict_MonsterLevel[_level];
             // 레벨이 1일때
-            _maxHp = _hp = monster.HP;             
-            _exp = 0;            
+            _maxHp = _hp = monster.HP;
+            _exp = 0;
             SetStat(1, info.DropExp);
         }
     }
 
-    void SetStat(float value , float exp)
+    void SetStat(float value, float exp)
     {
-        _hp = baseHp * value;        
+        _hp = baseHp * value;
         _damage = baseDamage * value;
         _maxHp = _hp;
         _dropExp = exp;
@@ -174,8 +176,8 @@ public class MonsterStat : BaseStat
     void SetBaseStat()
     {
         int level = 1;
-        
-        if(Managers._data.Dict_MonsterLevel.TryGetValue(level, out MonsterLevelInfo info))
+
+        if (Managers._data.Dict_MonsterLevel.TryGetValue(level, out MonsterLevelInfo info))
         {
             baseHp = _monster.HP;
             baseDamage = _monster.Damage;
@@ -185,6 +187,6 @@ public class MonsterStat : BaseStat
         {
             //버그 발생 고치삼
         }
-            
+
     }
 }
