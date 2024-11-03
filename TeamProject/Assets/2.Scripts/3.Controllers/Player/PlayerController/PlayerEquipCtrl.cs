@@ -358,6 +358,7 @@ public class PlayerEquipCtrl : MonoBehaviour
 
     public void ThrowBall()
     {
+        SoundManager._inst.PlaySfx("Throw");
         bool isRecall = false;
         if (_manager._input.isRecall)
             isRecall = true;

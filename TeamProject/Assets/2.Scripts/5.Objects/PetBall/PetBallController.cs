@@ -115,7 +115,7 @@ public class PetBallController : MonoBehaviour
     IEnumerator CaptureStart()
     {
         Vector3 targetPos = m_capturePos + Vector3.up * 4;
-
+        SoundManager._inst.PlaySfx("BallBound");
         while (transform.position != targetPos)
         {
             // 최대한 화려한 이펙트 : 재생하는 동안 볼 위치 따라가도록
@@ -128,6 +128,7 @@ public class PetBallController : MonoBehaviour
             yield return null;
         }
         m_animator.SetTrigger("SpinBall");
+        SoundManager._inst.PlaySfx("BallCath");
         GameObject ui = Instantiate(m_uiRateBoxPrefab);
         m_uiRateBox = ui.GetComponent<UI_CaptureRateBox>();
         m_uiRateBox.OpenUI(gameObject.transform.position);
@@ -159,12 +160,14 @@ public class PetBallController : MonoBehaviour
                 {
                     
                     m_animator.SetTrigger("ShakeBall");
+                    SoundManager._inst.PlaySfx("BallShake");
                     //볼 흔들림 or 이펙트
                 }
                 if (count == m_shakeMaxCount)
                 {
                     
                     m_animator.SetTrigger("ShakeBall");
+                    SoundManager._inst.PlaySfx("BallShake");
                     StartCoroutine(m_uiRateBox.SetRateProgress(rate));
                     //볼 흔들림 or 이펙트 (잡힘 확정)
                     yield return new WaitForSeconds(m_shakeDelayTime);
@@ -207,6 +210,7 @@ public class PetBallController : MonoBehaviour
     IEnumerator CaptureImmediately()
     {
         StartCoroutine(m_uiRateBox.SetRateProgress(1f));
+        SoundManager._inst.PlaySfx("BallShake");
         //한번 흔들기 or 이펙트
         yield return new WaitForSeconds(m_shakeDelayTime);
         // 잡기
@@ -218,7 +222,7 @@ public class PetBallController : MonoBehaviour
         m_uiRateBox.CaptureSuccess();
         DestoryObject();
     }
-
+  
     void CaculateCaputreRate()
     {
         //float a = (1f - ((2f / 3f) * (m_targetMonsterCtrl.Stat.HP / m_targetMonsterCtrl.Stat.MaxHP))) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;

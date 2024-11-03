@@ -5495,6 +5495,7 @@ GameObject:
   - component: {fileID: 402435411959595443}
   - component: {fileID: 402435411959595442}
   - component: {fileID: 402435411959595452}
+  - component: {fileID: 2961908710941942554}
   m_Layer: 10
   m_Name: Dragon
   m_TagString: Monster
@@ -5582,6 +5583,7 @@ MonoBehaviour:
   _anim: {fileID: 0}
   _render: {fileID: 0}
   _collider: {fileID: 0}
+  _sound: {fileID: 0}
   _hudCtrl: {fileID: 0}
   _hudTransform: {fileID: 402435411771950786}
   delayTime: 2
@@ -5692,6 +5694,18 @@ MonoBehaviour:
   _colidersParent: {fileID: 2315817716176817232}
   _offsetTime: 2.12
   _offsetY: 5
+--- !u!114 &2961908710941942554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402435411959595447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7918f84615ce9c54bbb1626869ac08e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &402435411965171563
 GameObject:
   m_ObjectHideFlags: 0
