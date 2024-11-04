@@ -8,7 +8,7 @@ namespace DefineDatas
     {
         Unknown,   
         MainScene = 0,        
-        ChanWooScene = 1,
+        GameScene = 1,
     }
     
     public enum eLayer
