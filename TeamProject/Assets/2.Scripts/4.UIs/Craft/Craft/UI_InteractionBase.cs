@@ -44,6 +44,7 @@ public abstract class UI_InteractionBase : MonoBehaviour
     protected bool m_isCraftDone;
 
     protected int m_itemIndex = 0;
+    protected int m_makedItemIndex;
     protected float m_petWorkWeight;
     protected float m_playerWorkWeight;
 
@@ -61,10 +62,11 @@ public abstract class UI_InteractionBase : MonoBehaviour
         {
             m_txtPressOrHold.text = "Press and Hold";
             m_txtMenuOrCraft.text = "Craft";
-            if (m_itemIndex < 300)
-                m_txtWeaponName.text = InventoryManager._inst.Dict_Weapon[m_itemIndex].NameKr;
+            if (m_makedItemIndex < 300)
+                m_txtWeaponName.text = InventoryManager._inst.Dict_Weapon[m_makedItemIndex].NameKr;
             else
-                m_txtWeaponName.text = InventoryManager._inst.Dict_Equipment[m_itemIndex].NameKr;
+                m_txtWeaponName.text = InventoryManager._inst.Dict_Equipment[m_makedItemIndex].NameKr;
+            m_makedItemIndex = 0;
             m_weaponInfoBoxObj.SetActive(true);
             m_CancelObj.SetActive(true);
         }
