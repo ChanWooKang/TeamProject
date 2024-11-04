@@ -40,6 +40,7 @@ public class PetBallController : MonoBehaviour
             {
                 //Recall
                 UIManager._inst.UIPetEntry.RecallOrPutIn(transform.position);
+                PoolingManager._inst.InstantiateAPS("BallHit", transform.position + (Vector3.up * 0.3f), transform.rotation, Vector3.one * 0.3f);
                 DestoryObject();
             }
         }
@@ -78,8 +79,9 @@ public class PetBallController : MonoBehaviour
     public void ShootEvent(Vector3 direction, int petBallIndex = 500, bool isreCall = false)
     {
         // 임시
-        InitBall(petBallIndex);               
+        InitBall(petBallIndex);
         //
+        SoundManager._inst.PlaySfx("Throw");
         Vector3 dir = direction * _shootPower;
         m_rigidbdy.AddForce(dir, ForceMode.Impulse);
         m_isRecall = isreCall;
@@ -191,6 +193,8 @@ public class PetBallController : MonoBehaviour
             //몬스터 잡혔으면 setactive false
             PoolingManager._inst.InstantiateAPS("CFXR _Catch", transform.position, transform.rotation, Vector3.one);
             PoolingManager._inst.InstantiateAPS("ChatchSucceed", transform.position, transform.rotation, Vector3.one);
+            SoundManager._inst.PlaySfx("BallCatchSucceed");
+            SoundManager._inst.PlaySfx("BallCatchEntry");
             PetEntryManager._inst.AddEntry(m_targetMonsterCtrl.Index, m_targetMonsterCtrl.Stat.UniqueID, m_petBallInfo.Index);            
             StopCoroutine(CaptureStart());
             m_targetMonsterCtrl.gameObject.DestroyAPS();
@@ -203,6 +207,8 @@ public class PetBallController : MonoBehaviour
             m_targetMonsterCtrl.gameObject.SetActive(true);
             m_targetMonsterCtrl.InitState();
             PoolingManager._inst.InstantiateAPS("CFXR_FAIL", transform.position, transform.rotation, Vector3.one);
+            PoolingManager._inst.InstantiateAPS("RecallMisc", m_targetMonsterCtrl.gameObject.transform.position, transform.rotation, Vector3.one);
+            SoundManager._inst.PlaySfx("BallCatchFail");
         }
 
         DestoryObject();

@@ -192,7 +192,10 @@ public class PlayerInputCtrl : MonoBehaviour
             }
 
             if (_manager._equip.PetBallModel.activeSelf)
-                _manager._equip.ThrowEnd();           
+            {
+                
+                _manager._equip.ThrowEnd();
+            }
         }
         _manager._anim.SetAnimation(ePlayerAnimParams.Throw, _input.throws);
     }
@@ -237,7 +240,8 @@ public class PlayerInputCtrl : MonoBehaviour
                 {
                     isRecall = UIManager._inst.UIPetEntry.RecallOrPutIn();
                     _manager._anim.SetAnimation(ePlayerAnimParams.Putin);
-                  
+                    Transform putInPos = _manager._equip.PutInBallPos;
+                    PoolingManager._inst.InstantiateAPS("PutInPlayer", putInPos.position, putInPos.rotation, Vector3.one * 0.5f);
                 }
             }
             _input.putin = false;

@@ -272,6 +272,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
         GameManagerEx._inst.playerManager.SetCorrentRecallPet(null);
         m_recalledPetsHud.HideHud();
         m_recalledPetsHud = null;
+        PoolingManager._inst.InstantiateAPS("PutIn", m_recalledPet.transform.position, m_recalledPet.transform.rotation, Vector3.one);
         PoolingManager.DestroyAPS(m_recalledPet);
         m_recalledPet = null;
         m_petCtrl = null;

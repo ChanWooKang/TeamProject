@@ -1076,6 +1076,12 @@ MonoBehaviour:
     m_clip: {fileID: 8300000, guid: 47cbae5b9bbf12c42956c661fc981c7f, type: 3}
   - name: BallBound
     m_clip: {fileID: 8300000, guid: 34220ee15fa272d4e82c37b80b2b2075, type: 3}
+  - name: BallCatchSucceed
+    m_clip: {fileID: 8300000, guid: dd698c7f0778d8342a0edb06f34ebd28, type: 3}
+  - name: BallCatchEntry
+    m_clip: {fileID: 8300000, guid: 1eda6640e5546434f8522e4d52669aa5, type: 3}
+  - name: BallCatchFail
+    m_clip: {fileID: 8300000, guid: 6dc99a5bb81fd9d4ab5f3310a125d307, type: 3}
 --- !u!4 &670045274
 Transform:
   m_ObjectHideFlags: 0

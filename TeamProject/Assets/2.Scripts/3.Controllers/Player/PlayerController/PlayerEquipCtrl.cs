@@ -22,7 +22,7 @@ public class PlayerEquipCtrl : MonoBehaviour
     public PetBallModelController PetBallModelCtrl;
     public GameObject HammerModel;
     public Transform BallPos;
-
+    public Transform PutInBallPos;
     // 슬롯 변경 인덱스 값
     [SerializeField] int changeSlotIndex = 0;
     // 현재 적용중인 슬롯 인덱스 값
@@ -358,7 +358,7 @@ public class PlayerEquipCtrl : MonoBehaviour
 
     public void ThrowBall()
     {
-        SoundManager._inst.PlaySfx("Throw");
+        
         bool isRecall = false;
         if (_manager._input.isRecall)
             isRecall = true;
