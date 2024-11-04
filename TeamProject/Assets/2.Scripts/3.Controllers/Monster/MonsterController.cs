@@ -296,11 +296,13 @@ public class MonsterController : FSM<MonsterController>, IHitAble
         if (target != attacker)
             SetTarget(attacker);
 
-        if (_hudCtrl != null)
-            _hudCtrl.DisPlay(Stat.Level, Stat.HP / Stat.MaxHP);
+        
 
         State = eMonsterState.GETHIT;
         isDead = Stat.CalculateDamage(damage);
+
+        if (_hudCtrl != null)
+            _hudCtrl.DisPlay(Stat.Level, Stat.HP / Stat.MaxHP);
 
         DamageTextManager._inst.ShowDamageText(hitPoint, damage);
         OnDamage();

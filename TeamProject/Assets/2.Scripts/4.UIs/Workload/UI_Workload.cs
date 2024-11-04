@@ -28,7 +28,7 @@ public class UI_Workload : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI m_textWorkAbility;
     [SerializeField]
-    Image m_icon;    
+    Image m_icon;
     AudioSource m_audioSource;
     #endregion [ÂüÁ¶]
 
@@ -52,7 +52,7 @@ public class UI_Workload : MonoBehaviour
         m_ObjManager = manager;
         m_fSlider.value = progress;
         m_audioSource = source;
-        m_workloadBox.SetActive(true);       
+        m_workloadBox.SetActive(true);
     }
     public void CloseUI()
     {
@@ -66,7 +66,7 @@ public class UI_Workload : MonoBehaviour
             m_playerAbilityWeight = m_playerAbility;
             m_ObjManager.MovePlayerFarfromObject();
         }
-        
+
 
         if (m_fSlider.value >= m_fSlider.maxValue)
         {
@@ -128,8 +128,11 @@ public class UI_Workload : MonoBehaviour
     {
         float weight = m_playerAbilityWeight + m_petAbilityWeight;
         m_fSlider.value += weight * Time.deltaTime;
-        if (!m_audioSource.isPlaying)
-            SoundManager._inst.PlaySfxAtObject(m_audioSource, "Hammering");
+        if (weight > 0)
+        {
+            if (!m_audioSource.isPlaying)
+                SoundManager._inst.PlaySfxAtObject(m_audioSource, "Hammering");
+        }        
         if (m_petAbilityWeight > 0)
             m_leftTimetxt.text = Mathf.CeilToInt((m_fSlider.maxValue - m_fSlider.value) / (m_playerAbilityWeight + m_petAbilityWeight)).ToString();
         else
@@ -137,5 +140,5 @@ public class UI_Workload : MonoBehaviour
         m_ObjManager.Progress = m_fSlider.value;
         yield return null;
     }
-    
+
 }
