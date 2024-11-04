@@ -400,27 +400,31 @@ public class InventoryManager : TSingleton<InventoryManager>
                 if (isEmpty)
                 {
                     //장비 자리가 있을 경우
-                    // 그냥 추가
+                    // 그냥 추가                    
                     AddEquipItem(type, item, index);
                 }
                 else
                 {
                     //장비 자리가 없을 경우
                     //장비 해제 , 장착
-                    BaseItem tempItem = null;
-                    int minSlotIndex = 0;
+                    BaseItem tempItem = null;                    
+                    int minSlotIndex = equipSlots[type][0].SlotIndex;
                     // 슬롯 인덱스 값이 낮은 곳을 우선적으로 변경
-                    for (i = 0; i < equipSlots[type].Length; i++)
+                    for (i = 1; i < equipSlots[type].Length; i++)
                     {
-                        if (equipSlots[type][i].SlotIndex < minSlotIndex)
+                        if(minSlotIndex < equipSlots[type][i].SlotIndex)
                         {
                             index = i;
                             minSlotIndex = equipSlots[type][i].SlotIndex;
-                        }
+                        }                                                
                     }
-
+                    Debug.Log(minSlotIndex);
                     tempItem = equipSlots[type][index].item;
+                    Debug.Log(tempItem.NameKr);
+
                     AddInvenItem(tempItem);
+
+                    AddEquipItem(type, null, minSlotIndex);
                     AddEquipItem(type, item, minSlotIndex);
                 }
             }

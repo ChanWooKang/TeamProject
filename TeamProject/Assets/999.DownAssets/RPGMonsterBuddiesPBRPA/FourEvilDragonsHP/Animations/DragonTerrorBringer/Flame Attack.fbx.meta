@@ -585,6 +585,13 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.3222973
+        functionName: OnFlameStartSound
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.92128015
         functionName: FlameEnd
         data: 
@@ -594,6 +601,13 @@ ModelImporter:
         messageOptions: 0
       - time: 0.97642356
         functionName: AttackEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.89189184
+        functionName: OnFlameEndSound
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

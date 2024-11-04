@@ -318,7 +318,7 @@ public class MonsterController : FSM<MonsterController>, IHitAble
         float randValue = Random.Range(0.0f, 1.0f);
         bool isDizzy = randValue <= dizzyRate;
 
-        SoundManager._inst.PlaySfxAtPoint("GetHit", transform.position);   
+        SoundManager._inst.PlaySfx("GetHit");   
         if (isDead)
         {
             _agent.SetDestination(transform.position);

@@ -215,7 +215,7 @@ public class BossCtrl : FSM<BossCtrl>, IHitAble
 
     IEnumerator OnDamageEvent()
     {
-        
+        _sound.GetHitSound();
         if (isDead)
         {
             Agent.SetDestination(transform.position);

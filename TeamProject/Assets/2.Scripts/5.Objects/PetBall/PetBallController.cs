@@ -40,6 +40,7 @@ public class PetBallController : MonoBehaviour
             {
                 //Recall
                 UIManager._inst.UIPetEntry.RecallOrPutIn(transform.position);
+                PoolingManager._inst.InstantiateAPS("BallHit", transform.position + (Vector3.up * 0.3f), transform.rotation, Vector3.one * 0.3f);
                 DestoryObject();
             }
         }
@@ -78,8 +79,9 @@ public class PetBallController : MonoBehaviour
     public void ShootEvent(Vector3 direction, int petBallIndex = 500, bool isreCall = false)
     {
         // 임시
-        InitBall(petBallIndex);               
+        InitBall(petBallIndex);
         //
+        SoundManager._inst.PlaySfx("Throw");
         Vector3 dir = direction * _shootPower;
         m_rigidbdy.AddForce(dir, ForceMode.Impulse);
         m_isRecall = isreCall;
@@ -115,7 +117,7 @@ public class PetBallController : MonoBehaviour
     IEnumerator CaptureStart()
     {
         Vector3 targetPos = m_capturePos + Vector3.up * 4;
-
+        SoundManager._inst.PlaySfx("BallBound");
         while (transform.position != targetPos)
         {
             // 최대한 화려한 이펙트 : 재생하는 동안 볼 위치 따라가도록
@@ -128,6 +130,7 @@ public class PetBallController : MonoBehaviour
             yield return null;
         }
         m_animator.SetTrigger("SpinBall");
+        SoundManager._inst.PlaySfx("BallCath");
         GameObject ui = Instantiate(m_uiRateBoxPrefab);
         m_uiRateBox = ui.GetComponent<UI_CaptureRateBox>();
         m_uiRateBox.OpenUI(gameObject.transform.position);
@@ -159,12 +162,14 @@ public class PetBallController : MonoBehaviour
                 {
                     
                     m_animator.SetTrigger("ShakeBall");
+                    SoundManager._inst.PlaySfx("BallShake");
                     //볼 흔들림 or 이펙트
                 }
                 if (count == m_shakeMaxCount)
                 {
                     
                     m_animator.SetTrigger("ShakeBall");
+                    SoundManager._inst.PlaySfx("BallShake");
                     StartCoroutine(m_uiRateBox.SetRateProgress(rate));
                     //볼 흔들림 or 이펙트 (잡힘 확정)
                     yield return new WaitForSeconds(m_shakeDelayTime);
@@ -188,6 +193,8 @@ public class PetBallController : MonoBehaviour
             //몬스터 잡혔으면 setactive false
             PoolingManager._inst.InstantiateAPS("CFXR _Catch", transform.position, transform.rotation, Vector3.one);
             PoolingManager._inst.InstantiateAPS("ChatchSucceed", transform.position, transform.rotation, Vector3.one);
+            SoundManager._inst.PlaySfx("BallCatchSucceed");
+            SoundManager._inst.PlaySfx("BallCatchEntry");
             PetEntryManager._inst.AddEntry(m_targetMonsterCtrl.Index, m_targetMonsterCtrl.Stat.UniqueID, m_petBallInfo.Index);            
             StopCoroutine(CaptureStart());
             m_targetMonsterCtrl.gameObject.DestroyAPS();
@@ -200,6 +207,8 @@ public class PetBallController : MonoBehaviour
             m_targetMonsterCtrl.gameObject.SetActive(true);
             m_targetMonsterCtrl.InitState();
             PoolingManager._inst.InstantiateAPS("CFXR_FAIL", transform.position, transform.rotation, Vector3.one);
+            PoolingManager._inst.InstantiateAPS("RecallMisc", m_targetMonsterCtrl.gameObject.transform.position, transform.rotation, Vector3.one);
+            SoundManager._inst.PlaySfx("BallCatchFail");
         }
 
         DestoryObject();
@@ -207,6 +216,7 @@ public class PetBallController : MonoBehaviour
     IEnumerator CaptureImmediately()
     {
         StartCoroutine(m_uiRateBox.SetRateProgress(1f));
+        SoundManager._inst.PlaySfx("BallShake");
         //한번 흔들기 or 이펙트
         yield return new WaitForSeconds(m_shakeDelayTime);
         // 잡기
@@ -218,7 +228,7 @@ public class PetBallController : MonoBehaviour
         m_uiRateBox.CaptureSuccess();
         DestoryObject();
     }
-
+  
     void CaculateCaputreRate()
     {
         //float a = (1f - ((2f / 3f) * (m_targetMonsterCtrl.Stat.HP / m_targetMonsterCtrl.Stat.MaxHP))) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;

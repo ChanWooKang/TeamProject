@@ -192,7 +192,10 @@ public class PlayerInputCtrl : MonoBehaviour
             }
 
             if (_manager._equip.PetBallModel.activeSelf)
-                _manager._equip.ThrowEnd();           
+            {
+
+                _manager._equip.ThrowEnd();
+            }
         }
         _manager._anim.SetAnimation(ePlayerAnimParams.Throw, _input.throws);
     }
@@ -228,16 +231,20 @@ public class PlayerInputCtrl : MonoBehaviour
     {
         if (PetEntryManager._inst.m_dictPetEntryCtrl.Count == 0 || _input.throws || _input.recall)
             return;
-
         if (_input.putin)
         {
+
             if (UIManager._inst.UIPetEntry.RecalledPet != null)
             {
                 if (UIManager._inst.UIPetEntry.RecalledPet.activeSelf)
                 {
                     isRecall = UIManager._inst.UIPetEntry.RecallOrPutIn();
                     _manager._anim.SetAnimation(ePlayerAnimParams.Putin);
-                  
+                    Transform putInPos = _manager._equip.PutInBallPos;
+                    GameObject effect = PoolingManager._inst.InstantiateAPS("PutInPlayer", putInPos.position, putInPos.rotation, Vector3.one * 0.5f);
+                    EffectParticleSystemController ec = effect.GetComponent<EffectParticleSystemController>();
+                    ec.SetTarget(putInPos);
+
                 }
             }
             _input.putin = false;

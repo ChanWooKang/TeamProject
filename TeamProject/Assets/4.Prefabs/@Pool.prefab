@@ -351,6 +351,14 @@ MonoBehaviour:
     type: 3
     prefab: {fileID: 3098274985180393604, guid: 9f0a3b372a155704a9ea1dac09c947fe, type: 3}
     amount: 1
+  - name: PutIn
+    type: 3
+    prefab: {fileID: 7789527422975467540, guid: cca7e285e88757e4a87914a5c3af523c, type: 3}
+    amount: 1
+  - name: PutInPlayer
+    type: 3
+    prefab: {fileID: 4938958853878709788, guid: e8a92a2b97910494e80b3fdc28679211, type: 3}
+    amount: 1
   - name: BallHit
     type: 3
     prefab: {fileID: 4076639776405654604, guid: c6f553a081f7587418b7612fd6eb7e6f, type: 3}

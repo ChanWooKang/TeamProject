@@ -44,6 +44,7 @@ public class TreeComponent : MonoBehaviour
 
         Vector3 dir;
 
+        SoundManager._inst.PlaySfxAtPoint("Tree_Fall", transform.position);
         //랜덤한 방향
         //dir = new Vector3(Random.Range(-_pushPower, _pushPower), 0, Random.Range(-_pushPower, _pushPower));
         //플레이어 바라보는 방향

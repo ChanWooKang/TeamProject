@@ -6,6 +6,7 @@ using DefineDatas;
 
 public class SoundManager : TSingleton<SoundManager>
 {
+    public AudioMixer m_masterMixer;
     //임시    
     [SerializeField] AudioMixerGroup m_audioBGMGroup;
     [SerializeField] AudioMixerGroup m_audioSFXGroup;
@@ -91,13 +92,22 @@ public class SoundManager : TSingleton<SoundManager>
         AudioClip clip = m_dicSFX[name];
 
         m_sfxPlayer.PlayOneShot(clip);
-    }
+    }    
+
     public void PlaySfxAtPoint(string name, Vector3 pos) // 특정 위치에서 오디오 클립 재생 (오디오 소스 객체가 동적으로 생성)
     {        
-        AudioClip clip = m_dicSFX[name];
+        AudioClip clip = m_dicSFX[name];        
+      
+        GameObject audioObject = new GameObject("TemporaryAudio");
+        audioObject.transform.position = pos;
 
+        AudioSource audioSource = audioObject.AddComponent<AudioSource>();
+        audioSource.clip = clip;
+        audioSource.rolloffMode = AudioRolloffMode.Logarithmic;
+        audioSource.outputAudioMixerGroup = m_audioSFXGroup;
+        audioSource.Play();
 
-        AudioSource.PlayClipAtPoint(clip, pos, m_sfxPlayer.volume);
+        Destroy(audioObject, clip.length); // 클립 재생 후 오브젝트 제거
     }
     public void PlaySfxAtObject(AudioSource source, string name) // 오브젝트에서 중첩되는(혹은 될 수 있는) sfx 재생 (오브젝트가 오디오 소스를 가지고 있어야함)
     {        
@@ -106,5 +116,25 @@ public class SoundManager : TSingleton<SoundManager>
         source.rolloffMode = AudioRolloffMode.Logarithmic; // 거리에 따른 사운드 증감
         source.volume = m_sfxPlayer.volume;
         source.PlayOneShot(clip);
+    }
+
+    public void PlayLoopSfx(string name, AudioSource source, float vol = 1f)
+    {
+        AudioClip clip = m_dicSFX[name];
+        source.clip = clip;
+        source.spatialBlend = 1f;
+        source.rolloffMode = AudioRolloffMode.Logarithmic;
+        source.volume = m_sfxPlayer.volume;
+        source.loop = true;
+        source.Play();
+    }
+
+    public void StopAudio(AudioSource source)
+    {
+        if (source == null) return;
+
+        if (source.isPlaying)
+            source.Stop();
+        source.clip = null;
     }
 }
