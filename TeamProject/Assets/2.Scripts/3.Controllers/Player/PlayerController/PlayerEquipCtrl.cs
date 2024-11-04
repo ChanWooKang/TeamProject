@@ -310,7 +310,15 @@ public class PlayerEquipCtrl : MonoBehaviour
     public void AttackAction()
     {
         _weapons[currWeaponIndex].AttackAction();
-    }    
+    }
+
+    private void AttackEndAction(AnimationEvent animationEvent)
+    {
+        if(animationEvent.animatorClipInfo.weight > 0.5f)
+        {
+            _weapons[currWeaponIndex].AttackActionEnd();
+        }
+    }
 
     public void ChargeStart()
     {

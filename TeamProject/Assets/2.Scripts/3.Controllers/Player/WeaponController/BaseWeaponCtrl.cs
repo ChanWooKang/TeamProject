@@ -93,6 +93,12 @@ public abstract class BaseWeaponCtrl : MonoBehaviour
 
     public abstract void AttackAction();
 
+    public virtual void AttackActionEnd()
+    {
+
+    }
+    
+
     protected virtual void ShootRay()
     {
         if (Physics.SphereCast(FirePos.position, RayRadius, FirePos.forward, out RaycastHit rhit, _minDist + _weaponRange, AcceptLayer))

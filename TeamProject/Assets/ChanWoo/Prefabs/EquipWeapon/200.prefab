@@ -57802,9 +57802,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8681465513410865147}
   - component: {fileID: 8681465513410865146}
+  - component: {fileID: 6881688124723236764}
   m_Layer: 7
   m_Name: 200
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57847,3 +57848,17 @@ MonoBehaviour:
   _weaponRange: 5
   _useStamina: 10
   _effectScript: {fileID: 737586123689380802}
+--- !u!136 &6881688124723236764
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8681465513410865144}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.15
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0.03, y: 0.63, z: 0}
