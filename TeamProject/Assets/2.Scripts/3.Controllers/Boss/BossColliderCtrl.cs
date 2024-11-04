@@ -77,5 +77,13 @@ public class BossColliderCtrl : MonoBehaviour
                 arrow.ClearRigidBody();
             }
         }
+
+        if (other.CompareTag("Weapon"))
+        {
+            if (other.TryGetComponent(out BaseWeaponCtrl weapon))
+            {
+                OnDamage(weapon.TotalDamage, GameManagerEx._inst.playerManager.transform, other.ClosestPoint(transform.position));
+            }
+        }
     }
 }

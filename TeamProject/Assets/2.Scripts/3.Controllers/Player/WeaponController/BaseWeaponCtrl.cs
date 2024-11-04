@@ -38,7 +38,7 @@ public abstract class BaseWeaponCtrl : MonoBehaviour
     public WeaponType weaponType { get { return _type; } }
     public WeaponItemInfo weaponInfo { get { return _weaponStat; } }
     protected float PlayerDamage { get { return GameManagerEx._inst.playerManager._stat.Damage; } }
-    protected float TotalDamage { get { return _weaponDamage + PlayerDamage; } }
+    public float TotalDamage { get { return _weaponDamage + PlayerDamage; } }
     #endregion [ Property ]
 
     public virtual void Init(PlayerEquipCtrl player, float damage)

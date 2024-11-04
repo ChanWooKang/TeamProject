@@ -423,6 +423,14 @@ public class MonsterController : FSM<MonsterController>, IHitAble
             }
         }
 
+        if (other.CompareTag("Weapon"))
+        {
+            if(other.TryGetComponent(out BaseWeaponCtrl weapon))
+            {                
+                OnDamage(weapon.TotalDamage, GameManagerEx._inst.playerManager.transform, other.ClosestPoint(transform.position));
+            }
+        }
+
         if(other.CompareTag("MonsterSkill"))
         {
             if(other.TryGetComponent(out BaseSkill skill))
