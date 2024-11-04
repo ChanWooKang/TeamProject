@@ -14,6 +14,6 @@ public class MainScene : BaseScene
 
     public void ClickGameStart()
     {
-        SceneLoad(eScene.ChanWooScene);
+        SceneLoad(eScene.GameScene);
     }
 }

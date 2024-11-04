@@ -7,7 +7,8 @@ public class GameScene : BaseScene
 {
     protected override void Init()
     {
-        CurrScene = eScene.ChanWooScene;
+        base.Init();
+        CurrScene = eScene.GameScene;
 
     }
 
