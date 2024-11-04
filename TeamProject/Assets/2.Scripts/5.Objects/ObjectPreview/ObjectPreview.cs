@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.AI;
 
 public class ObjectPreview : MonoBehaviour
@@ -13,6 +14,7 @@ public class ObjectPreview : MonoBehaviour
     Architecture m_architectureInfo;
     BoxCollider m_collider;
     NavMeshObstacle m_navObstacle;
+    AudioSource m_audioSource;
     #endregion [ÂüÁ¶]
 
     [SerializeField]
@@ -47,6 +49,7 @@ public class ObjectPreview : MonoBehaviour
         m_isDone = false;
         m_collider = GetComponent<BoxCollider>();
         m_navObstacle = GetComponent<NavMeshObstacle>();
+        m_audioSource = gameObject.AddComponent<AudioSource>();
         m_navObstacle.enabled = false;
     }
 
@@ -127,12 +130,12 @@ public class ObjectPreview : MonoBehaviour
                 canvas.worldCamera = GameObject.FindGameObjectWithTag("UICamera").GetComponent<Camera>();
                 ui.transform.position = gameObject.transform.position + gameObject.transform.up * 1.5f + gameObject.transform.right * 1.5f;
                 m_uiWorkload = ui.GetComponentInChildren<UI_Workload>();
-                m_uiWorkload.OpenUI(this, m_progress);
+                m_uiWorkload.OpenUI(this,m_audioSource, m_progress);
                 m_uiWorkload.SetProgressValue(m_architectureInfo.Progress);
                 m_progress = m_architectureInfo.Progress;
             }
             else
-                m_uiWorkload.OpenUI(this, m_progress);
+                m_uiWorkload.OpenUI(this, m_audioSource, m_progress);
             switch (other.tag)
             {
                 case "Player":
@@ -154,7 +157,7 @@ public class ObjectPreview : MonoBehaviour
         {
             if (m_uiWorkload != null && !m_uiWorkload.IsOpen())
             {
-                m_uiWorkload.OpenUI(this, m_progress);
+                m_uiWorkload.OpenUI(this, m_audioSource, m_progress);
             }
         }
     }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using TMPro;
 using DefineDatas;
 
@@ -27,7 +28,8 @@ public class UI_Workload : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI m_textWorkAbility;
     [SerializeField]
-    Image m_icon;
+    Image m_icon;    
+    AudioSource m_audioSource;
     #endregion [ÂüÁ¶]
 
     float m_playerAbility;
@@ -45,10 +47,11 @@ public class UI_Workload : MonoBehaviour
             return true;
         return false;
     }
-    public void OpenUI(ObjectPreview manager, float progress)
+    public void OpenUI(ObjectPreview manager, AudioSource source, float progress)
     {
         m_ObjManager = manager;
         m_fSlider.value = progress;
+        m_audioSource = source;
         m_workloadBox.SetActive(true);       
     }
     public void CloseUI()
@@ -69,6 +72,8 @@ public class UI_Workload : MonoBehaviour
         {
             StopCoroutine(SetProgress());
             TechnologyManager._inst.TechPointUp();
+            SoundManager._inst.PlaySfx("CraftDone");
+            m_audioSource.Stop();
             Destroy(gameObject);
             return true;
         }
@@ -123,7 +128,8 @@ public class UI_Workload : MonoBehaviour
     {
         float weight = m_playerAbilityWeight + m_petAbilityWeight;
         m_fSlider.value += weight * Time.deltaTime;
-
+        if (!m_audioSource.isPlaying)
+            SoundManager._inst.PlaySfxAtObject(m_audioSource, "Hammering");
         if (m_petAbilityWeight > 0)
             m_leftTimetxt.text = Mathf.CeilToInt((m_fSlider.maxValue - m_fSlider.value) / (m_playerAbilityWeight + m_petAbilityWeight)).ToString();
         else
