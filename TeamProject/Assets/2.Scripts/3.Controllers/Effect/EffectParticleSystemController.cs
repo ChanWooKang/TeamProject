@@ -5,6 +5,7 @@ using UnityEngine;
 public class EffectParticleSystemController : MonoBehaviour
 {
     ParticleSystem m_particleSystem;
+    Transform m_targetPos;
     [Header("Add Duration If Looping")]
     [SerializeField] float m_duration;
     float m_timer;
@@ -15,6 +16,10 @@ public class EffectParticleSystemController : MonoBehaviour
     private void Update()
     {
         DestroyAps();
+    }
+    public void SetTarget(Transform target)
+    {
+        m_targetPos = target;
     }
     void InitEffect()
     {      
@@ -28,6 +33,10 @@ public class EffectParticleSystemController : MonoBehaviour
         if(m_particleSystem.main.loop)
         {
             m_timer += Time.deltaTime;
+            if(m_targetPos != null)
+            {
+                transform.position = m_targetPos.position;
+            }
             {
                 if (m_timer >= m_duration)
                 {
