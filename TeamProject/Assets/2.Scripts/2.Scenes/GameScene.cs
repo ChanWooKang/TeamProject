@@ -9,6 +9,7 @@ public class GameScene : BaseScene
     {
         base.Init();
         CurrScene = eScene.GameScene;
+        SoundManager._inst.PlayBGM("InGameScene");
 
     }
 

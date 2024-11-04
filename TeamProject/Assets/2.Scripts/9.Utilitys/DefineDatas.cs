@@ -7,8 +7,9 @@ namespace DefineDatas
     public enum eScene
     {
         Unknown,   
-        MainScene = 0,        
-        GameScene = 1,
+        MainScene = 0,    
+        LoadingScene=1,
+        GameScene = 2,
     }
     
     public enum eLayer

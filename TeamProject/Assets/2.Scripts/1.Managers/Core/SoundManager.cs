@@ -28,10 +28,7 @@ public class SoundManager : TSingleton<SoundManager>
         InitSoundData(new StartSoundSettingInfo(true, false, 1, false, false, 1), m_audioBGMGroup, m_audioSFXGroup);
         DontDestroyOnLoad(gameObject);
     }
-    private void Start()
-    {
-        PlayBGM("InGameScene");
-    }
+    
     void SettingBGMPlayer(StartSoundSettingInfo info)
     {
         m_bgmPlayer.loop = info.m_isLoopBGM;

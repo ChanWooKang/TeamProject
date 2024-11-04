@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/ChanWoo/Scene/MainScene.unity
     guid: bcf7f85169edfdd42a6f0e9bd7e73d39
   - enabled: 1
+    path: Assets/ChanWoo/Scene/LoadingScene.unity
+    guid: 165396a2f69114e4c9bbc22a400a06b2
+  - enabled: 1
     path: Assets/ChanWoo/Scene/GameScene.unity
     guid: 73209734da2fbd2479bc10b1c0561117
   m_configObjects:

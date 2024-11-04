@@ -6,7 +6,7 @@ using DefineDatas;
 public class BaseScene : MonoBehaviour
 {
     public eScene PrevScene { get; protected set; } = eScene.Unknown;
-    public eScene CurrScene { get; protected set; } = eScene.Unknown;
+    public eScene CurrScene { get; protected set; } = eScene.Unknown;    
 
     private void Awake()
     {
@@ -20,7 +20,8 @@ public class BaseScene : MonoBehaviour
 
     public void SceneLoad(eScene scene)
     {
-        StartCoroutine(Managers._scene.LoadCoroutine(scene));
+        var sceneName = Utilitys.ConvertEnum(scene);
+        LoadingSceneManager.LoadScene(sceneName);
     }
 
     public virtual void Clear()
