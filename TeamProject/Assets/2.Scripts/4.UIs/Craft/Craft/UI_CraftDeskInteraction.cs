@@ -56,7 +56,7 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                 if (m_petCtrl != null)
                     m_petCtrl.JobDone();
                 m_isCraftDone = true;
-                
+                SoundManager._inst.PlaySfx("CraftDone");
                 m_dicUIMenuSlot[m_itemIndex].InactiveSlot();
                 m_makedItemIndex = m_itemIndex;
                 m_itemIndex = 0;

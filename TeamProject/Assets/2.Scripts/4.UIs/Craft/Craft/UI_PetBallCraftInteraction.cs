@@ -45,8 +45,8 @@ public class UI_PetBallCraftInteraction : UI_InteractionBase
                 StartCoroutine(SetProgress());
             }
             else
-            {
-                //单胶农 困俊 公扁 积己
+            {                
+                SoundManager._inst.PlaySfx("CraftDone");
                 if (m_petCtrl != null)
                     m_petCtrl.JobDone();
                 m_isCraftDone = true;

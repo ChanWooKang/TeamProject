@@ -126,6 +126,7 @@ public class UI_PetInvenSlot : MonoBehaviour, IPointerClickHandler, IPointerEnte
             m_managerPetbox.m_currentPetPortrait = PetEntryManager._inst.m_dicPetPortraitObject[m_petCtrl.PetInfo.Index];
             m_managerPetbox.m_currentPetPortrait.SetActive(true);
         }
+        SoundManager._inst.PlaySfx("SelectSound");
     }
     public void OnPointerEnter(PointerEventData eventData)
     {

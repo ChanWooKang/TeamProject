@@ -192,7 +192,7 @@ public class ObjectPreview : MonoBehaviour
     {
         m_isFixed = true;
         m_detectiveAreaObj.layer = LayerMask.NameToLayer("Default");
-
+        SoundManager._inst.PlaySfx("PopSound");
         m_PetCtrl = null;
         m_navObstacle.enabled = true;
         SetColor(blue);

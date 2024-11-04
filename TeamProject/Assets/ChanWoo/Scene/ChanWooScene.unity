@@ -1088,6 +1088,12 @@ MonoBehaviour:
     m_clip: {fileID: 8300000, guid: bc7e68e23bf5c6248970cc0d3e10f513, type: 3}
   - name: SelectSound
     m_clip: {fileID: 8300000, guid: 42278a4c1a12f6b418780e1d131f92c2, type: 3}
+  - name: PopSound
+    m_clip: {fileID: 8300000, guid: 4a3cecca00fdd49438b423fee5ac5333, type: 3}
+  - name: Recall
+    m_clip: {fileID: 8300000, guid: 6f9dff41ed5eaa64788c2ce9d5dc79fd, type: 3}
+  - name: PutIn
+    m_clip: {fileID: 8300000, guid: 7538cfe797d202e4ab7ea6cf0539c76a, type: 3}
 --- !u!4 &670045274
 Transform:
   m_ObjectHideFlags: 0

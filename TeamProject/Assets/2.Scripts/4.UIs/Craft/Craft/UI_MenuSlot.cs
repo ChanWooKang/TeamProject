@@ -211,6 +211,7 @@ public class UI_MenuSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                     m_uiInfoBox.CloseBox();
                 }
             }
+            SoundManager._inst.PlaySfx("SelectSound");
         }
     }
 }

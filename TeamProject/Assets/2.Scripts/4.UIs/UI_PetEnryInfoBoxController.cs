@@ -165,11 +165,13 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
         if (!m_isPetOut)
         {
             ReCall(pos);
+            SoundManager._inst.PlaySfx("Recall");
             m_isPetOut = true;
         }
         else
         {
             PutIn();
+            SoundManager._inst.PlaySfx("PutIn");
             m_isPetOut = false;
         }
         return m_isPetOut;
@@ -296,7 +298,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
             Vector2 start = new Vector2((parent.sizeDelta.x / 2) + (rect.sizeDelta.x / 2), rect.anchoredPosition.y);
             while (true)
             {
-                rect.anchoredPosition = Vector2.Lerp(rect.anchoredPosition, Vector2.zero, Time.deltaTime);
+                rect.anchoredPosition = Vector2.Lerp(rect.anchoredPosition, Vector2.zero, Time.deltaTime * 2.5f);
                 if (Vector2.Distance(rect.anchoredPosition, Vector2.zero) <= 0.1f)
                 {
                     StartCoroutine(EndLevelUpText(start, rect, parent));
@@ -311,7 +313,7 @@ public class UI_PetEnryInfoBoxController : MonoBehaviour
         Vector2 target = new Vector2(-Mathf.Abs((parent.sizeDelta.x / 2) + (start.x / 2)), start.y);
         while (true)
         {
-            rect.anchoredPosition = Vector2.Lerp(rect.anchoredPosition, target, Time.deltaTime);
+            rect.anchoredPosition = Vector2.Lerp(rect.anchoredPosition, target, Time.deltaTime * 2.5f);
             if (Vector2.Distance(rect.anchoredPosition, target) <= 0.1f)
             {
                 rect.anchoredPosition = new Vector2((parent.sizeDelta.x / 2) + (rect.sizeDelta.x / 2), rect.anchoredPosition.y);

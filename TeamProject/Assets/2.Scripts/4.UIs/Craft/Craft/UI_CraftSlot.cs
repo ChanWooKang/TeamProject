@@ -69,6 +69,7 @@ public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         {
             InventoryManager._inst.UseItem(m_materialsIndex[i], m_materialsCosts[i]);
         }
+        SoundManager._inst.PlaySfx("SelectSound");
         m_previewObj = Instantiate(m_prefabObj);
         m_craftingObj = m_prefabObj;
         m_uiCraft.IsPreviewActivated(true, m_previewObj, m_craftingObj, m_architectureInfo);
