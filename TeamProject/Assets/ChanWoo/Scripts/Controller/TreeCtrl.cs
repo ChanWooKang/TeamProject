@@ -21,6 +21,8 @@ public class TreeCtrl : HitObjectCtrl, IHitAble
             _tree.Init(this);
         }
 
+
+        SoundManager._inst.PlaySfxAtPoint("Tree_Chop", hitPoint);
         base.OnDamage(damage, attacker, hitPoint);
         MakeParticleEffect(hitPoint);
     }

@@ -106,16 +106,26 @@ public class UI_Equipment : UI_Base
     {               
         if(item == null)
         {
-            //아이템 제거
-            for (int i = 0; i < Dict_EquipSlot[type].Length; i++)
+
+            foreach (var slot in Dict_EquipSlot[type])
             {
-                //int index = (Dict_EquipSlot[type].Length - 1) - i;
-                if (Dict_EquipSlot[type][i].item != null && Dict_EquipSlot[type][i].SlotIndex == slotIndex)
+                if(slot.SlotIndex == slotIndex)
                 {
-                    Dict_EquipSlot[type][i].SetItem(item);
+                    slot.SetItem(item);
                     break;
                 }
             }
+            //아이템 제거
+            //for (int i = 0; i < Dict_EquipSlot[type].Length; i++)
+            //{
+            //    //int index = (Dict_EquipSlot[type].Length - 1) - i;
+            //    //Dict_EquipSlot[type][i].item != null &&
+            //    if (Dict_EquipSlot[type][i].SlotIndex == slotIndex)
+            //    {
+            //        Dict_EquipSlot[type][i].SetItem(item);
+            //        break;
+            //    }
+            //}
 
         }
         else

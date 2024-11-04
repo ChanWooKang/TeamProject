@@ -92,7 +92,8 @@ public class SoundManager : TSingleton<SoundManager>
         AudioClip clip = m_dicSFX[name];
 
         m_sfxPlayer.PlayOneShot(clip);
-    }
+    }    
+
     public void PlaySfxAtPoint(string name, Vector3 pos) // 특정 위치에서 오디오 클립 재생 (오디오 소스 객체가 동적으로 생성)
     {        
         AudioClip clip = m_dicSFX[name];        
@@ -115,5 +116,25 @@ public class SoundManager : TSingleton<SoundManager>
         source.rolloffMode = AudioRolloffMode.Logarithmic; // 거리에 따른 사운드 증감
         source.volume = m_sfxPlayer.volume;
         source.PlayOneShot(clip);
+    }
+
+    public void PlayLoopSfx(string name, AudioSource source, float vol = 1f)
+    {
+        AudioClip clip = m_dicSFX[name];
+        source.clip = clip;
+        source.spatialBlend = 1f;
+        source.rolloffMode = AudioRolloffMode.Logarithmic;
+        source.volume = m_sfxPlayer.volume;
+        source.loop = true;
+        source.Play();
+    }
+
+    public void StopAudio(AudioSource source)
+    {
+        if (source == null) return;
+
+        if (source.isPlaying)
+            source.Stop();
+        source.clip = null;
     }
 }
