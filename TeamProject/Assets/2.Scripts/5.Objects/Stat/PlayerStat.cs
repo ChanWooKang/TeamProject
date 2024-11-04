@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DefineDatas;
+using JetBrains.Annotations;
 public class PlayerStat : BaseStat
 {
     //플레이어 추가 스탯 예상
@@ -93,8 +94,9 @@ public class PlayerStat : BaseStat
     }
     #endregion [ Property ]
 
+    PlayerCtrl _manager;
 
-    public void Init()
+    public void Init(PlayerCtrl ctrl)
     {
         _level = 1;
         _hp = _maxHp = 200;
@@ -106,14 +108,15 @@ public class PlayerStat : BaseStat
         _moveSpeed = 5;
         _runSpeed = 10;
         _bonusStat = 0;
-        _carryWeight = 5000;
+        _carryWeight = 1500;
         _workAbility = 50;
+        _manager = ctrl;
     }
 
     public void LevelUp(int level)
     {
         //레벨업 작용 (이펙트 , 보너스 스탯 획득 등등, HP회복);
-        Debug.Log("LevelUP");
+        _manager.LevelUp();
         _level = level;
         _hp = MaxHP;
         _bonusStat += 5;

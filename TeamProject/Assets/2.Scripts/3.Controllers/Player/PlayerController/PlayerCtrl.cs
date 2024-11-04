@@ -23,6 +23,7 @@ public class PlayerCtrl : MonoBehaviour
     CharacterController _control;
 
     [SerializeField] Transform CameraRoot;
+    [SerializeField] ParticleSystem _levelUpBuff;
     GameObject _recogObject;
     
     Coroutine _damagedCoroutine;
@@ -98,7 +99,12 @@ public class PlayerCtrl : MonoBehaviour
 
     void LoadStat()
     {
-        _stat.Init();        
+        _stat.Init(this);        
+    }
+
+    public void LevelUp()
+    {
+        _levelUpBuff.Play(true);
     }
 
     public void SetRecognizeObject(GameObject go = null)
