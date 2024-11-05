@@ -139,53 +139,42 @@ public class PetBallController : MonoBehaviour
 
     IEnumerator ShakeBall(float a)
     {
-        int count = 0;
+        int shakeCount = 0;
         float b = 65536 / Mathf.Pow((255 / a), 0.1875f);
-        while (count <= m_shakeMaxCount)
+        while (shakeCount <= m_shakeMaxCount)
         {
             float RN = Random.Range(0, 65535);
-            float rate = Mathf.Pow(b / 65535, m_shakeMaxCount - count);
-            
-                
-            if (count > 0 && RN > b)
+            float rate = Mathf.Pow(b / 65535, m_shakeMaxCount - shakeCount);                            
+            if (shakeCount > 0 && RN > b)
             {
-                //Æ÷È¹ ½ÇÆÐ (º¼¿¡¼­ ÆêÀÌ Å»Ãâ)
-                
-                m_isSuccess = false;
-               
-               
+                //Æ÷È¹ ½ÇÆÐ (º¼¿¡¼­ ÆêÀÌ Å»Ãâ)                
+                m_isSuccess = false;                              
                 break;
             }
             else if (RN < b)
             {
-                if (count >= 1 && count < m_shakeMaxCount)
-                {
-                    
+                if (shakeCount >= 1 && shakeCount < m_shakeMaxCount)
+                {                    
                     m_animator.SetTrigger("ShakeBall");
                     SoundManager._inst.PlaySfx("BallShake");
-                    //º¼ Èçµé¸² or ÀÌÆåÆ®
+                    //º¼ Èçµé¸²
                 }
-                if (count == m_shakeMaxCount)
-                {
-                    
+                if (shakeCount == m_shakeMaxCount)
+                {                    
                     m_animator.SetTrigger("ShakeBall");
                     SoundManager._inst.PlaySfx("BallShake");
                     StartCoroutine(m_uiRateBox.SetRateProgress(rate));
-                    //º¼ Èçµé¸² or ÀÌÆåÆ® (ÀâÈû È®Á¤)
+                    //º¼ Èçµé¸² (ÀâÈû È®Á¤)
                     yield return new WaitForSeconds(m_shakeDelayTime);
-                    // ÀâÈû
-                   
+                    // ÀâÈû                   
                     m_isSuccess = true;
                     break;
                 }
-                count++;
-
+                shakeCount++;
             }
             StartCoroutine(m_uiRateBox.SetRateProgress(rate));
             yield return new WaitForSeconds(m_shakeDelayTime);
         }
-
-
         if (m_isSuccess)
         {
             //UI Àû¿ë
@@ -231,8 +220,8 @@ public class PetBallController : MonoBehaviour
   
     void CaculateCaputreRate()
     {
-        //float a = (1f - ((2f / 3f) * (m_targetMonsterCtrl.Stat.HP / m_targetMonsterCtrl.Stat.MaxHP))) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;
-        float a = (1f - ((2f / 3f)) * 1 / 3) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;  //Å×½ºÆ® (1/3³²Àº ÇÇ)
+        float a = (1f - ((2f / 3f) * (m_targetMonsterCtrl.Stat.HP / m_targetMonsterCtrl.Stat.MaxHP))) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;
+        //float a = (1f - ((2f / 3f)) * 1 / 3) * m_petBallInfo.BonusRate * m_targetMonsterCtrl.Stat.CaptureRate;  //Å×½ºÆ® (1/3³²Àº ÇÇ)
         //float a = (1f - ((2f / 3f) * (m_targetMonsterCtrl.Stat.HP / m_targetMonsterCtrl.Stat.MaxHP))) * m_petBallInfo.BonusRate * 50; //Å×½ºÆ® (³·Àº Æ÷È¹·üÀÇ Æê)
         if (a >= 255)
         {
@@ -242,7 +231,7 @@ public class PetBallController : MonoBehaviour
         else
         {
             StartCoroutine(ShakeBall(a));
-            //¸ó½ºÅÍ °¡ À§·Î °¡´Â°Å 
+            // º¼ Èçµé¸² °è»ê½Ä
         }
     }
 }
