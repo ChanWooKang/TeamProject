@@ -15,7 +15,7 @@ public class EnforceAnvilController : MonoBehaviour
     {
         if (GameManagerEx._inst.UIStateValue >= 1 && m_uiInteraction != null)
         {
-            m_uiInteraction.CloseEnforce();
+            //m_uiInteraction.CloseEnforce();
         }
         if (GameManagerEx._inst.UIStateValue == 0 && isClosed && m_uiInteraction != null)
         {

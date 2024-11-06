@@ -71,28 +71,26 @@ public class PetEntryManager : TSingleton<PetEntryManager>
 
     public void AddEntry(int index, int UniqueId, int ballIndex)
     {
-        if (!m_dictPetballIndex.ContainsKey(UniqueId))
+        if (!m_dictPetballIndex.ContainsKey(UniqueId)) // 유니크 아이디 검사
         {
-            m_listEntryPetUniqueindex.Add(UniqueId);
-            m_dictPetballIndex.Add(UniqueId, ballIndex);
+            m_listEntryPetUniqueindex.Add(UniqueId); // 내가 가진 펫에 유니크 아이디 추가
+            m_dictPetballIndex.Add(UniqueId, ballIndex); // 잡은 펫을 잡은 볼의 인덱스 검사를 위한 추가ㅏ
             
-            if (m_dictPetEntryCtrl.Count < MaxEntryCount)
+            if (m_dictPetEntryCtrl.Count < MaxEntryCount) // 내가 가진 펫이 6마리 미만일 때
             {
-                InitPetEntry(index, UniqueId);
-                m_uiPetEntryInfoBox.InitAllEntryIcon();
+                InitPetEntry(index, UniqueId); // 엔트리에 펫 추가
+                m_uiPetEntryInfoBox.InitAllEntryIcon(); // UI Init
                 m_uiPetEntryInfoBox.IsAllDead = false;
             }
             else
             {
                 //엔트리에 펫이 꽉 찼을 때
-                if (m_petBoxCtrl != null)
+                if (m_petBoxCtrl != null) // 펫박스가 있음
                 {
                     m_petBoxCtrl.GetPetIntheBox(InitPetBox(index, UniqueId));
                 }
-                else
-                {
-
-                }
+                else //  펫박스가 없음
+                {}
             }
         }
     }
@@ -108,13 +106,14 @@ public class PetEntryManager : TSingleton<PetEntryManager>
     }
     public void InitPetEntry(int index,int uniqueID)
     {
-        PetController pet = PoolingManager._inst.AddPetPool(m_dicPetObject[index], index, uniqueID);
-        m_dictPetEntryCtrl.Add(pet.Stat.UniqueID, pet);
-        m_uiPetEntryInfoBox.SetHudInfoBox(pet);
-        m_uiPetEntryInfoBox.InitCurrentPetIndex(pet.Stat.UniqueID, m_dictPetEntryCtrl.Count);
-        if (!m_dicPetPortraitObject.ContainsKey(pet.PetInfo.Index))
+        PetController pet = PoolingManager._inst.AddPetPool(m_dicPetObject[index], index, uniqueID); // 잡은 펫은 풀링에 추가하여 관리
+        m_dictPetEntryCtrl.Add(pet.Stat.UniqueID, pet); // 펫 컨트롤러 저장
+        m_uiPetEntryInfoBox.SetHudInfoBox(pet); // 펫 HUD 초기화
+        m_uiPetEntryInfoBox.InitCurrentPetIndex(pet.Stat.UniqueID, m_dictPetEntryCtrl.Count); // 현재 잡은 펫을 1선으로
+        if (!m_dicPetPortraitObject.ContainsKey(pet.PetInfo.Index)) // 펫 초상화 저장
         {
             GameObject portrait = Instantiate(m_dicPetPortraitPrefab[pet.PetInfo.Index], m_petPortraitRoot, false);
+            portrait.transform.position = m_petPortraitRoot.position;
             m_dicPetPortraitObject.Add(pet.PetInfo.Index, portrait);
             portrait.SetActive(false);
         }

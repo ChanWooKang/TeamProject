@@ -121,8 +121,8 @@ public class UI_PetInvenSlot : MonoBehaviour, IPointerClickHandler, IPointerEnte
         else if (m_managerPetbox != null)
         {
             m_managerPetbox.ShowSelectedInfo(m_petCtrl);
-            if (m_managerInven != null && m_managerInven.m_currentPortrait != null)
-                m_managerInven.m_currentPortrait.SetActive(false);
+            if (m_managerPetbox.m_currentPetPortrait != null)
+                m_managerPetbox.m_currentPetPortrait.SetActive(false);
             m_managerPetbox.m_currentPetPortrait = PetEntryManager._inst.m_dicPetPortraitObject[m_petCtrl.PetInfo.Index];
             m_managerPetbox.m_currentPetPortrait.SetActive(true);
         }
