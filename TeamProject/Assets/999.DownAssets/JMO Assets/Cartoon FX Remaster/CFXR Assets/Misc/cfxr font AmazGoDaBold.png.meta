@@ -1,213 +1,213 @@
 fileFormatVersion: 2
-guid: 09e4c6a7d75923945afe43953ef58ad2
+guid: 7ab74e659e1f0a34d9cfec21c478fc12
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 21300000
-    second: cfxr font WashYourHand_0
+    second: amz2_0
   - first:
       213: 21300002
-    second: cfxr font WashYourHand_1
+    second: amz2_1
   - first:
       213: 21300004
-    second: cfxr font WashYourHand_2
+    second: amz2_2
   - first:
       213: 21300006
-    second: cfxr font WashYourHand_3
+    second: amz2_3
   - first:
       213: 21300008
-    second: cfxr font WashYourHand_4
+    second: amz2_4
   - first:
       213: 21300010
-    second: cfxr font WashYourHand_5
+    second: amz2_5
   - first:
       213: 21300012
-    second: cfxr font WashYourHand_6
+    second: amz2_6
   - first:
       213: 21300014
-    second: cfxr font WashYourHand_7
+    second: amz2_7
   - first:
       213: 21300016
-    second: cfxr font WashYourHand_8
+    second: amz2_8
   - first:
       213: 21300018
-    second: cfxr font WashYourHand_9
+    second: amz2_9
   - first:
       213: 21300020
-    second: cfxr font WashYourHand_10
+    second: amz2_10
   - first:
       213: 21300022
-    second: cfxr font WashYourHand_11
+    second: amz2_11
   - first:
       213: 21300024
-    second: cfxr font WashYourHand_12
+    second: amz2_12
   - first:
       213: 21300026
-    second: cfxr font WashYourHand_13
+    second: amz2_13
   - first:
       213: 21300028
-    second: cfxr font WashYourHand_14
+    second: amz2_14
   - first:
       213: 21300030
-    second: cfxr font WashYourHand_15
+    second: amz2_15
   - first:
       213: 21300032
-    second: cfxr font WashYourHand_16
+    second: amz2_16
   - first:
       213: 21300034
-    second: cfxr font WashYourHand_17
+    second: amz2_17
   - first:
       213: 21300036
-    second: cfxr font WashYourHand_18
+    second: amz2_18
   - first:
       213: 21300038
-    second: cfxr font WashYourHand_19
+    second: amz2_19
   - first:
       213: 21300040
-    second: cfxr font WashYourHand_20
+    second: amz2_20
   - first:
       213: 21300042
-    second: cfxr font WashYourHand_21
+    second: amz2_21
   - first:
       213: 21300044
-    second: cfxr font WashYourHand_22
+    second: amz2_22
   - first:
       213: 21300046
-    second: cfxr font WashYourHand_23
+    second: amz2_23
   - first:
       213: 21300048
-    second: cfxr font WashYourHand_24
+    second: amz2_24
   - first:
       213: 21300050
-    second: cfxr font WashYourHand_25
+    second: amz2_25
   - first:
       213: 21300052
-    second: cfxr font WashYourHand_26
+    second: amz2_26
   - first:
       213: 21300054
-    second: cfxr font WashYourHand_27
+    second: amz2_27
   - first:
       213: 21300056
-    second: cfxr font WashYourHand_28
+    second: amz2_28
   - first:
       213: 21300058
-    second: cfxr font WashYourHand_29
+    second: amz2_29
   - first:
       213: 21300060
-    second: cfxr font WashYourHand_30
+    second: amz2_30
   - first:
       213: 21300062
-    second: cfxr font WashYourHand_31
+    second: amz2_31
   - first:
       213: 21300064
-    second: cfxr font WashYourHand_32
+    second: amz2_32
   - first:
       213: 21300066
-    second: cfxr font WashYourHand_33
+    second: amz2_33
   - first:
       213: 21300068
-    second: cfxr font WashYourHand_34
+    second: amz2_34
   - first:
       213: 21300070
-    second: cfxr font WashYourHand_35
+    second: amz2_35
   - first:
       213: 21300072
-    second: cfxr font WashYourHand_36
+    second: amz2_36
   - first:
       213: 21300074
-    second: cfxr font WashYourHand_37
+    second: amz2_37
   - first:
       213: 21300076
-    second: cfxr font WashYourHand_38
+    second: amz2_38
   - first:
       213: 21300078
-    second: cfxr font WashYourHand_39
+    second: amz2_39
   - first:
       213: 21300080
-    second: cfxr font WashYourHand_40
+    second: amz2_40
   - first:
       213: 21300082
-    second: cfxr font WashYourHand_41
+    second: amz2_41
   - first:
       213: 21300084
-    second: cfxr font WashYourHand_42
+    second: amz2_42
   - first:
       213: 21300086
-    second: cfxr font WashYourHand_43
+    second: amz2_43
   - first:
       213: 21300088
-    second: cfxr font WashYourHand_44
+    second: amz2_44
   - first:
       213: 21300090
-    second: cfxr font WashYourHand_45
+    second: amz2_45
   - first:
       213: 21300092
-    second: cfxr font WashYourHand_46
+    second: amz2_46
   - first:
       213: 21300094
-    second: cfxr font WashYourHand_47
+    second: amz2_47
   - first:
       213: 21300096
-    second: cfxr font WashYourHand_48
+    second: amz2_48
   - first:
       213: 21300098
-    second: cfxr font WashYourHand_49
+    second: amz2_49
   - first:
       213: 21300100
-    second: cfxr font WashYourHand_50
+    second: amz2_50
   - first:
       213: 21300102
-    second: cfxr font WashYourHand_51
+    second: amz2_51
   - first:
       213: 21300104
-    second: cfxr font WashYourHand_52
+    second: amz2_52
   - first:
       213: 21300106
-    second: cfxr font WashYourHand_53
+    second: amz2_53
   - first:
       213: 21300108
-    second: cfxr font WashYourHand_54
+    second: amz2_54
   - first:
       213: 21300110
-    second: cfxr font WashYourHand_55
+    second: amz2_55
   - first:
       213: 21300112
-    second: cfxr font WashYourHand_56
+    second: amz2_56
   - first:
       213: 21300114
-    second: cfxr font WashYourHand_57
+    second: amz2_57
   - first:
       213: 21300116
-    second: cfxr font WashYourHand_58
+    second: amz2_58
   - first:
       213: 21300118
-    second: cfxr font WashYourHand_59
+    second: amz2_59
   - first:
       213: 21300120
-    second: cfxr font WashYourHand_60
+    second: amz2_60
   - first:
       213: 21300122
-    second: cfxr font WashYourHand_61
+    second: amz2_61
   - first:
       213: 21300124
-    second: cfxr font WashYourHand_62
+    second: amz2_62
   - first:
       213: 21300126
-    second: cfxr font WashYourHand_63
+    second: amz2_63
   - first:
       213: 21300128
-    second: cfxr font WashYourHand_64
+    second: amz2_64
   - first:
       213: 21300130
-    second: cfxr font WashYourHand_65
+    second: amz2_65
   - first:
       213: 21300132
-    second: cfxr font WashYourHand_66
+    second: amz2_66
   - first:
       213: 21300134
-    second: cfxr font WashYourHand_67
+    second: amz2_67
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -227,6 +227,7 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -235,12 +236,12 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: -1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -258,10 +259,14 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 1
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -287,1456 +292,1432 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 1
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 8192
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 8192
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cfxr font WashYourHand_0
+      name: amz2_0
       rect:
         serializedVersion: 2
-        x: 12
-        y: 9
-        width: 25
-        height: 68
+        x: 0
+        y: 7
+        width: 35
+        height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 85b2e226ff263ac41a8dafa1e0e0893e
+      spriteID: e9e89e94b29a35e47aa2fe87f53acb1c
       internalID: 21300000
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_1
+      name: amz2_1
       rect:
         serializedVersion: 2
-        x: 60
-        y: 51
-        width: 26
-        height: 22
+        x: 61
+        y: 37
+        width: 35
+        height: 30
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd20cc91283c83946b2377235be25a6c
+      spriteID: 1a83278d92fb1d84cab1daa0f6079221
       internalID: 21300002
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_2
+      name: amz2_2
       rect:
         serializedVersion: 2
-        x: 110
-        y: 10
-        width: 53
-        height: 54
+        x: 118
+        y: 7
+        width: 62
+        height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 149ab0e5226f1d34f98e8932a37390f7
+      spriteID: b5c8527a6fc07bd469c0bb3c5354574f
       internalID: 21300004
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_3
+      name: amz2_3
       rect:
         serializedVersion: 2
-        x: 187
-        y: 7
-        width: 39
-        height: 67
+        x: 203
+        y: 3
+        width: 52
+        height: 66
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 36fb95743f7270b4188ea17ebbebc9f8
+      spriteID: 98759fb56b336b14b9a948a7f26fc8b8
       internalID: 21300006
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_4
+      name: amz2_4
       rect:
         serializedVersion: 2
-        x: 250
-        y: 12
-        width: 43
-        height: 52
+        x: 279
+        y: 7
+        width: 58
+        height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 75aa3a4a2baf985409d210b5b6a042ec
+      spriteID: 82709bd3025b9cb4c8a9c312b6f35def
       internalID: 21300008
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_5
+      name: amz2_5
       rect:
         serializedVersion: 2
-        x: 317
-        y: 9
-        width: 47
-        height: 62
+        x: 359
+        y: 11
+        width: 46
+        height: 49
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd7e9117650f4214882af9b161b9c653
+      spriteID: fde64adf3e4f0bc41a9971196dca33f3
       internalID: 21300010
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_6
+      name: amz2_6
       rect:
         serializedVersion: 2
-        x: 387
-        y: 51
-        width: 18
-        height: 22
-      alignment: 9
-      pivot: {x: 0.5, y: -0.5}
+        x: 437
+        y: 37
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 648b30264b29bda4d8d26865b782cc93
+      spriteID: 9b3be39825ed3f14e81c28a30f45b895
       internalID: 21300012
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_7
+      name: amz2_7
       rect:
         serializedVersion: 2
-        x: 429
-        y: 3
-        width: 37
-        height: 69
+        x: 486
+        y: 8
+        width: 35
+        height: 56
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5a7b31e59a252944491666ac90a98e86
+      spriteID: a51789ff747389645a6f44d945a5d883
       internalID: 21300014
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_8
+      name: amz2_8
       rect:
         serializedVersion: 2
-        x: 490
-        y: 4
-        width: 36
-        height: 68
+        x: 546
+        y: 8
+        width: 38
+        height: 57
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ba6bae6e24d05a4db2f9dd995331274
+      spriteID: fef400c27fa3de6468f022c0344d98f0
       internalID: 21300016
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_9
+      name: amz2_9
       rect:
         serializedVersion: 2
-        x: 550
-        y: 36
-        width: 37
-        height: 37
+        x: 614
+        y: 34
+        width: 34
+        height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 21ac480b8d9b8b14f8298f316006ee43
+      spriteID: 468b553971a2b634eab1d3cc06c573dc
       internalID: 21300018
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_10
+      name: amz2_10
       rect:
         serializedVersion: 2
-        x: 612
-        y: 19
-        width: 35
+        x: 673
+        y: 20
+        width: 36
         height: 35
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90318f84d186151499230a41c07218db
+      spriteID: cce9fc538708ab44b839cee75fff3fcd
       internalID: 21300020
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_11
+      name: amz2_11
       rect:
         serializedVersion: 2
-        x: 733
-        y: 6
-        width: 44
-        height: 67
+        x: 790
+        y: 25
+        width: 36
+        height: 21
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1de5bfda1dfbbf54e9e0f3fedc89d9e9
+      spriteID: 55d0b16ffe2184a48b780c0b860534ff
       internalID: 21300022
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_12
+      name: amz2_12
       rect:
         serializedVersion: 2
-        x: 801
-        y: 10
-        width: 41
+        x: 902
+        y: 7
+        width: 35
         height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 02481183487d95942a3cdaeebc466215
+      spriteID: 5c4487faf57316f4bac683d52dba37b7
       internalID: 21300024
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_13
+      name: amz2_13
       rect:
         serializedVersion: 2
-        x: 864
-        y: 10
-        width: 30
-        height: 56
+        x: 973
+        y: 7
+        width: 53
+        height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a14ce8c611361e6418f2b1febd28037e
+      spriteID: 864aa05ebca299d4abe03fa89ac3abc0
       internalID: 21300026
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_14
+      name: amz2_14
       rect:
         serializedVersion: 2
-        x: 917
-        y: 10
-        width: 41
-        height: 57
+        x: 1054
+        y: 7
+        width: 31
+        height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40b1bf45ef6864040a5f23c00758f865
+      spriteID: c6340c78200662f4eab8d58d49f1f780
       internalID: 21300028
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_15
+      name: amz2_15
       rect:
         serializedVersion: 2
-        x: 981
-        y: 8
-        width: 40
-        height: 61
+        x: 1105
+        y: 7
+        width: 56
+        height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5a0fdb3cd75997941beff4bdcd5c362c
+      spriteID: 64d359c646f02b144a597fef67fe811d
       internalID: 21300030
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_16
+      name: amz2_16
       rect:
         serializedVersion: 2
-        x: 1045
-        y: 11
-        width: 40
-        height: 57
+        x: 1185
+        y: 7
+        width: 55
+        height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ad6ac512cb539a84a9316ae1a989f827
+      spriteID: 2078d84c78e988347b041c0b43cd5036
       internalID: 21300032
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_17
+      name: amz2_17
       rect:
         serializedVersion: 2
-        x: 1109
-        y: 9
-        width: 42
+        x: 1269
+        y: 8
+        width: 53
         height: 58
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3f2a83e0f5bdc2c448270b9a26bc6538
+      spriteID: ff2fcdb120038cd45998d8404ec526a1
       internalID: 21300034
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_18
+      name: amz2_18
       rect:
         serializedVersion: 2
-        x: 1174
-        y: 10
-        width: 40
-        height: 57
+        x: 1344
+        y: 7
+        width: 58
+        height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0b72165a832a62b43a532d3d4c7a340c
+      spriteID: 2d88328cef04916459101dd060f7b379
       internalID: 21300036
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_19
+      name: amz2_19
       rect:
         serializedVersion: 2
-        x: 1237
-        y: 11
-        width: 37
-        height: 57
+        x: 1429
+        y: 7
+        width: 58
+        height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8cceb4247d45c2d44b0a47989c4d181d
+      spriteID: 281331b91bd01ed43a7d6371bfd3d2af
       internalID: 21300038
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_20
+      name: amz2_20
       rect:
         serializedVersion: 2
-        x: 1296
-        y: 9
-        width: 39
+        x: 1520
+        y: 7
+        width: 52
         height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d5cfa29e9fd171047ac1ef003a8a1cb7
+      spriteID: efe1c367a36cc144388b951fbd829bd2
       internalID: 21300040
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_21
+      name: amz2_21
       rect:
         serializedVersion: 2
-        x: 1357
-        y: 8
-        width: 42
+        x: 1593
+        y: 7
+        width: 57
         height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 35eb49d4bfc730a46be8bbfc23f0c6b9
+      spriteID: f83fc57611ee0c7409514038edf05f98
       internalID: 21300042
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_22
+      name: amz2_22
       rect:
         serializedVersion: 2
-        x: 1424
-        y: 16
-        width: 21
-        height: 36
-      alignment: 9
-      pivot: {x: 0.5, y: 0.88}
+        x: 1678
+        y: 7
+        width: 59
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 839a560dd244d8649b425cdf7d8ace40
+      spriteID: 5373ed8d1c00f39448b288721e884042
       internalID: 21300044
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_23
+      name: amz2_23
       rect:
         serializedVersion: 2
-        x: 1470
-        y: 8
-        width: 22
-        height: 44
-      alignment: 9
-      pivot: {x: 0.5, y: 0.88}
+        x: 1763
+        y: 15
+        width: 27
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f2101c7c3980a41409f01272ce81af43
+      spriteID: 1751e72c325d1d144a5e316e4ab34ed5
       internalID: 21300046
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_24
+      name: amz2_24
       rect:
         serializedVersion: 2
-        x: 1516
-        y: 20
-        width: 34
-        height: 35
+        x: 1813
+        y: 8
+        width: 30
+        height: 49
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9dc2893e9d37dd2499760286f4141326
+      spriteID: 1b8123bdcb36746438520c66af965d0f
       internalID: 21300048
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_25
+      name: amz2_25
       rect:
         serializedVersion: 2
-        x: 1573
-        y: 20
-        width: 37
-        height: 32
+        x: 1870
+        y: 18
+        width: 28
+        height: 38
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e5d06a5c5f5f694b900548db35f0371
+      spriteID: 6b571999082fce441b0870ba5788800c
       internalID: 21300050
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_26
+      name: amz2_26
       rect:
         serializedVersion: 2
-        x: 1633
-        y: 21
-        width: 36
-        height: 33
+        x: 1925
+        y: 19
+        width: 39
+        height: 31
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c5a3909ae58f9794a8fc9c0ad43f9578
+      spriteID: 7e63ab38ee08a5b4fa53e47f161ce9fa
       internalID: 21300052
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_27
+      name: amz2_27
       rect:
         serializedVersion: 2
-        x: 1692
-        y: 7
-        width: 44
-        height: 65
+        x: 1992
+        y: 18
+        width: 31
+        height: 38
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ea94f6fc06adb248b9c05b9573f8b3a
+      spriteID: 2d53a0364cae46b409d65350005162f0
       internalID: 21300054
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_28
+      name: amz2_28
       rect:
         serializedVersion: 2
-        x: 1760
+        x: 2056
         y: 7
-        width: 57
-        height: 63
+        width: 48
+        height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d57d1e0896d7b84aa31b17fa86bff74
+      spriteID: 06a08a972bbff2246937a55a78aeab2e
       internalID: 21300056
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_29
+      name: amz2_29
       rect:
         serializedVersion: 2
-        x: 1841
-        y: 5
-        width: 45
-        height: 67
+        x: 2130
+        y: 3
+        width: 66
+        height: 63
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db2c6344a2a493c4b83da15bfd866f5a
+      spriteID: 887ac9c1ee3eb9e45a157d1dca4abcac
       internalID: 21300058
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_30
+      name: amz2_30
       rect:
         serializedVersion: 2
-        x: 1909
-        y: 6
-        width: 53
-        height: 61
+        x: 2220
+        y: 8
+        width: 57
+        height: 58
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d09a8ff592c1d2d438931155c2d561ec
+      spriteID: 57e5e9dd5c67fdc4caa5a39884e93025
       internalID: 21300060
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_31
+      name: amz2_31
       rect:
         serializedVersion: 2
-        x: 1985
-        y: 11
-        width: 45
-        height: 59
+        x: 2309
+        y: 7
+        width: 53
+        height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 43df43971e4c8d54abfdd6345a061c52
+      spriteID: 5aca87d7bf9cf1746ab6464e2d2174e3
       internalID: 21300062
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_32
+      name: amz2_32
       rect:
         serializedVersion: 2
-        x: 2052
-        y: 10
-        width: 54
-        height: 58
+        x: 2393
+        y: 7
+        width: 60
+        height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d2c7a440e51950742a4bb8ffb17de78e
+      spriteID: c92ac101928285f4b8aa28e8c169e8e8
       internalID: 21300064
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_33
+      name: amz2_33
       rect:
         serializedVersion: 2
-        x: 2128
-        y: 4
-        width: 40
-        height: 66
+        x: 2481
+        y: 7
+        width: 59
+        height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8cd7e3a5a9365bb4dbc86df86d400af5
+      spriteID: 7765754671c4f3a44a2cd822b87af138
       internalID: 21300066
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_34
+      name: amz2_34
       rect:
         serializedVersion: 2
-        x: 2191
-        y: 6
-        width: 39
-        height: 62
+        x: 2567
+        y: 7
+        width: 54
+        height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a1f4693691c4cd44490c41df295b8f98
+      spriteID: 1b51eb84e4f573c448c320fc7630f56d
       internalID: 21300068
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_35
+      name: amz2_35
       rect:
         serializedVersion: 2
-        x: 2253
-        y: 5
-        width: 49
-        height: 65
+        x: 2643
+        y: 8
+        width: 55
+        height: 58
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b05b16a2791af14d8b5f21f57153c57
+      spriteID: 35aa411eeb621324785db5b340fed688
       internalID: 21300070
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_36
+      name: amz2_36
       rect:
         serializedVersion: 2
-        x: 2324
-        y: 5
-        width: 46
-        height: 62
+        x: 2722
+        y: 7
+        width: 60
+        height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8222bf00da99e934cb34fe309bb45c48
+      spriteID: d56ddd2a483311a479181a8a364e3380
       internalID: 21300072
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_37
+      name: amz2_37
       rect:
         serializedVersion: 2
-        x: 2392
-        y: 11
-        width: 27
-        height: 54
+        x: 2807
+        y: 7
+        width: 57
+        height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e345d9ef502d005418b2db0a31ab65d8
+      spriteID: 6d3ea7d74c0871d4695ad46c64436d03
       internalID: 21300074
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_38
+      name: amz2_38
       rect:
         serializedVersion: 2
-        x: 2441
-        y: 6
-        width: 48
+        x: 2884
+        y: 7
+        width: 45
         height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3550e1e310090e64a89e120a47cbec10
+      spriteID: 20f57a7e036df3647a8c491e5188ba3e
       internalID: 21300076
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_39
+      name: amz2_39
       rect:
         serializedVersion: 2
-        x: 2512
-        y: 5
-        width: 48
-        height: 65
+        x: 2950
+        y: 7
+        width: 59
+        height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 05e131efbb1e3b74cacdf4fafeb01140
+      spriteID: 3586b3707150d7041bf1594d68d38cd9
       internalID: 21300078
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_40
+      name: amz2_40
       rect:
         serializedVersion: 2
-        x: 2583
+        x: 3033
         y: 8
-        width: 36
-        height: 63
+        width: 56
+        height: 58
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f24e4e09bc8a8f94198a6ebfd4445183
+      spriteID: f1d926d3c24d8ae4a8a3699e3ee99fdb
       internalID: 21300080
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_41
+      name: amz2_41
       rect:
         serializedVersion: 2
-        x: 2642
-        y: 9
-        width: 64
-        height: 61
+        x: 3113
+        y: 7
+        width: 51
+        height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9aebee3dd75975b48a4668c317bbfffa
+      spriteID: 1cf7ef537a5be9642bbcb9cdb386e0ae
       internalID: 21300082
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_42
+      name: amz2_42
       rect:
         serializedVersion: 2
-        x: 2729
-        y: 8
-        width: 55
-        height: 61
+        x: 3189
+        y: 7
+        width: 67
+        height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a2ee4eb44e65cc24ea7321add235476e
+      spriteID: 0fddaa67599b034478c767de8a9624fb
       internalID: 21300084
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_43
+      name: amz2_43
       rect:
         serializedVersion: 2
-        x: 2806
-        y: 11
-        width: 46
-        height: 58
+        x: 3286
+        y: 6
+        width: 59
+        height: 61
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a639a72bf45aa3d47b0b3c5e86ca9599
+      spriteID: 53415aea067f1e644a90f42bff06c099
       internalID: 21300086
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_44
+      name: amz2_44
       rect:
         serializedVersion: 2
-        x: 2875
+        x: 3371
         y: 7
-        width: 51
-        height: 66
+        width: 62
+        height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 353df5f9accb7c140972aec31772ed61
+      spriteID: f1a0198d211d94c47ba19a0b47f9d189
       internalID: 21300088
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_45
+      name: amz2_45
       rect:
         serializedVersion: 2
-        x: 2949
-        y: 5
-        width: 47
-        height: 67
+        x: 3461
+        y: 8
+        width: 58
+        height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c0d3278a35519048825104d8ff193a7
+      spriteID: ead40395e7fd2ed478c9de7b68fc73e9
       internalID: 21300090
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_46
+      name: amz2_46
       rect:
         serializedVersion: 2
-        x: 3019
-        y: 10
-        width: 53
-        height: 63
+        x: 3547
+        y: 0
+        width: 61
+        height: 66
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a222302647fd4f5459f9cbe629add8f5
+      spriteID: 4e851a63eced1964694c139cf52a69e4
       internalID: 21300092
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_47
+      name: amz2_47
       rect:
         serializedVersion: 2
-        x: 3095
-        y: 7
-        width: 45
-        height: 66
+        x: 3636
+        y: 8
+        width: 57
+        height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab8ea90a53a1cc0478920b52015a5206
+      spriteID: 59886af3c91784f4caa2cbc01c19112d
       internalID: 21300094
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_48
+      name: amz2_48
       rect:
         serializedVersion: 2
-        x: 3163
-        y: 10
-        width: 42
-        height: 57
+        x: 3719
+        y: 7
+        width: 58
+        height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eba7562dc06493d40909a6b7961ad792
+      spriteID: 2953970fe542d4b43918c3f89b4f8d2c
       internalID: 21300096
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_49
+      name: amz2_49
       rect:
         serializedVersion: 2
-        x: 3229
+        x: 3809
         y: 7
-        width: 54
-        height: 63
+        width: 52
+        height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 93d784cf691bbd64f817c369e4ec464a
+      spriteID: c22bcaae4a9c23b479840c5b6f405e5d
       internalID: 21300098
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_50
+      name: amz2_50
       rect:
         serializedVersion: 2
-        x: 3307
-        y: 9
-        width: 45
-        height: 63
+        x: 3881
+        y: 7
+        width: 56
+        height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db521c6353b59e44590edc3fad7248e7
+      spriteID: 8208c8989a7b8e64499ad671edd2b134
       internalID: 21300100
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_51
+      name: amz2_51
       rect:
         serializedVersion: 2
-        x: 3374
+        x: 3966
         y: 8
-        width: 69
-        height: 61
+        width: 57
+        height: 58
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1f21d3515fe47ab40ae1a172114b50d7
+      spriteID: ef2f83415a5e5c442b6b3282e6e72ce2
       internalID: 21300102
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_52
+      name: amz2_52
       rect:
         serializedVersion: 2
-        x: 3465
-        y: 5
-        width: 44
-        height: 64
+        x: 4050
+        y: 8
+        width: 71
+        height: 58
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 94ea441220fd9194aad1e42cc8927c92
+      spriteID: 794b1ff565559bb4faac4026bdb1f817
       internalID: 21300104
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_53
+      name: amz2_53
       rect:
         serializedVersion: 2
-        x: 3532
-        y: 7
-        width: 53
-        height: 63
+        x: 4139
+        y: 8
+        width: 63
+        height: 58
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42931d7015d60744a8095cb8f532b8e9
+      spriteID: 58f94a02e73224f499d8012b1e2e5ee6
       internalID: 21300106
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_54
+      name: amz2_54
       rect:
         serializedVersion: 2
-        x: 3609
+        x: 4229
         y: 7
-        width: 49
-        height: 64
+        width: 56
+        height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b8c1fea9c980c034a9ce3bdd268ebbf6
+      spriteID: 331fef24cd57bd7489495282440bb0c4
       internalID: 21300108
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_55
+      name: amz2_55
       rect:
         serializedVersion: 2
-        x: 3682
-        y: 6
-        width: 35
-        height: 67
+        x: 4304
+        y: 7
+        width: 60
+        height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8bcc27a52f0bd934ea96d4579ea223d9
+      spriteID: 4f052351d3666234dba556da763cb9dd
       internalID: 21300110
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_56
+      name: amz2_56
       rect:
         serializedVersion: 2
-        x: 3741
+        x: 4385
         y: 7
-        width: 42
-        height: 67
+        width: 37
+        height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c0e4a086cf608394ab8b33f4845a0e1f
+      spriteID: bc7832b5b3476064181ae7b9b1e17f09
       internalID: 21300112
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_57
+      name: amz2_57
       rect:
         serializedVersion: 2
-        x: 3807
-        y: 6
-        width: 35
-        height: 67
+        x: 4448
+        y: 8
+        width: 25
+        height: 58
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e32874d12010c2e40a292bad977b56ce
+      spriteID: 44d776dc4a9ca2a4788d608647cecebb
       internalID: 21300114
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_58
+      name: amz2_58
       rect:
         serializedVersion: 2
-        x: 3867
-        y: 40
-        width: 29
-        height: 31
+        x: 4499
+        y: 8
+        width: 35
+        height: 57
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8614725b8fb0a454da9bf47302bce68b
+      spriteID: 09aef4a522c75a44e8a99ce06a21059c
       internalID: 21300116
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_59
+      name: amz2_59
       rect:
         serializedVersion: 2
-        x: 3920
-        y: 48
-        width: 24
-        height: 23
+        x: 4562
+        y: 39
+        width: 31
+        height: 29
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f843339ce4776624fb1a997eb8126479
+      spriteID: 8df1820d1997e6646b42a893e9005bb0
       internalID: 21300118
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_60
+      name: amz2_60
       rect:
         serializedVersion: 2
-        x: 3967
-        y: 7
-        width: 31
-        height: 67
+        x: 4685
+        y: 37
+        width: 23
+        height: 29
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4676068841be61e4a90ee480e19052f5
+      spriteID: 13466f6dc5ba8ae459ef38243a95b78a
       internalID: 21300120
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_61
+      name: amz2_61
       rect:
         serializedVersion: 2
-        x: 4021
-        y: 6
-        width: 22
-        height: 67
+        x: 4735
+        y: 10
+        width: 35
+        height: 53
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 09a9bdf635281ae4ea0b0ec740a2fa8e
+      spriteID: 146998fab8d87d346aacb265acd77dcc
       internalID: 21300122
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_62
+      name: amz2_62
       rect:
         serializedVersion: 2
-        x: 4067
-        y: 7
-        width: 31
-        height: 67
+        x: 4794
+        y: 2
+        width: 33
+        height: 70
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 675185ec1148d544bb68c8d763782b8b
+      spriteID: 4cc8fc59250c24d4e926f73871fe3e66
       internalID: 21300124
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_63
+      name: amz2_63
       rect:
         serializedVersion: 2
-        x: 672
-        y: 25
-        width: 36
-        height: 20
+        x: 4851
+        y: 10
+        width: 35
+        height: 53
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1720128442e44da419f5a3f8cbb4d212
+      spriteID: d824e9f450f51324c90f0332f3a7d415
       internalID: 21300126
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_64
+      name: amz2_64
       rect:
         serializedVersion: 2
-        x: 4121
-        y: 16
-        width: 43
-        height: 28
+        x: 4914
+        y: 27
+        width: 35
+        height: 22
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 89acaf5f49eb81e47be13b42ea2445a0
+      spriteID: 37de2ec0c00f96f43b07d2062393f2ab
       internalID: 21300128
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_65
+      name: amz2_65
       rect:
         serializedVersion: 2
-        x: 4189
-        y: 5
-        width: 22
-        height: 28
-      alignment: 9
-      pivot: {x: 0.5, y: 1.4}
+        x: 732
+        y: 2
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 045311b41b9859040bc5a26bbe1f0b7c
+      spriteID: 6d725c5f59dd34749b09d73420181b59
       internalID: 21300130
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_66
+      name: amz2_66
       rect:
         serializedVersion: 2
-        x: 4237
-        y: 13
-        width: 21
-        height: 21
-      alignment: 9
-      pivot: {x: 0.5, y: 1.5}
+        x: 850
+        y: 7
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 81b4e2fdf0564794db2ced43bccd47be
+      spriteID: b5da9be1afcb8da4599e64316a38d376
       internalID: 21300132
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cfxr font WashYourHand_67
+      name: amz2_67
       rect:
         serializedVersion: 2
-        x: 4282
-        y: 10
-        width: 36
-        height: 17
+        x: 4611
+        y: 1
+        width: 40
+        height: 21
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 72e3d974e46e57b43b149f566a04c138
+      spriteID: 26d197e64d705d243b68cab5be54b24b
       internalID: 21300134
       vertices: []
       indices: 
@@ -1745,7 +1726,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 481c8940f6b16fa43904e3b509ab0c34
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 

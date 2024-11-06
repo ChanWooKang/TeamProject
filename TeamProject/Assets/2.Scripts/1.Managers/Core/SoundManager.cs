@@ -85,14 +85,16 @@ public class SoundManager : TSingleton<SoundManager>
     {
         m_bgmPlayer.volume = vol;
     }
-    public void PlaySfx(string name, float vol = 1f) // 사운드매니저오브젝트에서 중첩되는 sfx 재생 (일반적으로 ui에 사용)
+    public void PlaySfx(string name, float vol = 1f) 
+        // 사운드매니저오브젝트에서 중첩되는 sfx 재생 (일반적으로 ui에 사용)
     {       
         AudioClip clip = m_dicSFX[name];
 
         m_sfxPlayer.PlayOneShot(clip);
     }    
 
-    public void PlaySfxAtPoint(string name, Vector3 pos) // 특정 위치에서 오디오 클립 재생 (오디오 소스 객체가 동적으로 생성)
+    public void PlaySfxAtPoint(string name, Vector3 pos) 
+        // 특정 위치에서 오디오 클립 재생 (오디오 소스 객체가 동적으로 생성)
     {        
         AudioClip clip = m_dicSFX[name];        
       
@@ -105,9 +107,11 @@ public class SoundManager : TSingleton<SoundManager>
         audioSource.outputAudioMixerGroup = m_audioSFXGroup;
         audioSource.Play();
 
-        Destroy(audioObject, clip.length); // 클립 재생 후 오브젝트 제거
+        Destroy(audioObject, clip.length); 
+        // 클립 재생 후 오브젝트 제거
     }
-    public void PlaySfxAtObject(AudioSource source, string name) // 오브젝트에서 중첩되는(혹은 될 수 있는) sfx 재생 (오브젝트가 오디오 소스를 가지고 있어야함)
+    public void PlaySfxAtObject(AudioSource source, string name)
+        // 오브젝트에서 중첩되는(혹은 될 수 있는) sfx 재생 (오브젝트가 오디오 소스를 가지고 있어야함)
     {        
         AudioClip clip = m_dicSFX[name];
         source.spatialBlend = 1f;
