@@ -126,3 +126,7 @@ MonoBehaviour:
     m_clip: {fileID: 8300000, guid: 6f9dff41ed5eaa64788c2ce9d5dc79fd, type: 3}
   - name: PutIn
     m_clip: {fileID: 8300000, guid: 7538cfe797d202e4ab7ea6cf0539c76a, type: 3}
+  - name: Tree_Chop
+    m_clip: {fileID: 8300000, guid: 2071af8ca1187264bb4df4e5971bed05, type: 3}
+  - name: Tree_Fall
+    m_clip: {fileID: 8300000, guid: 9b072c70725e6624889a980cb408fe85, type: 3}

@@ -57,7 +57,8 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                     m_petCtrl.JobDone();
                 m_isCraftDone = true;
                 SoundManager._inst.PlaySfx("CraftDone");
-                m_dicUIMenuSlot[m_itemIndex].InactiveSlot();
+                if (m_itemIndex < 300)
+                    m_dicUIMenuSlot[m_itemIndex].InactiveSlot();
                 m_makedItemIndex = m_itemIndex;
                 m_itemIndex = 0;
                 OpenInteractionCraftTable(m_tableCtrl);
@@ -90,9 +91,11 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
                 m_progressCraft.value = 0;
                 if (m_makedItemIndex < 300)
                     InventoryManager._inst.AddInvenItem(InventoryManager._inst.Dict_Weapon[m_makedItemIndex]);
-                else
+                else if (m_makedItemIndex >= 300 && m_makedItemIndex < 600)
                     InventoryManager._inst.AddInvenItem(InventoryManager._inst.Dict_Equipment[m_makedItemIndex]);
-                m_makedItemIndex = 0;
+                else if (m_makedItemIndex >= 600)
+                    InventoryManager._inst.AddInvenItem(InventoryManager._inst.Dict_Usable[m_makedItemIndex]);
+                    m_makedItemIndex = 0;
                 OpenInteractionCraftTable(m_tableCtrl);
                 CloseMenu();
 
@@ -165,9 +168,9 @@ public class UI_CraftDeskInteraction : UI_InteractionBase
             }
             DecideSlotCount(LowDataType.UsableTable);
             num = 0;
-            for(int i = 0; i < m_maxMenuVolAmount.y;i++)
+            for (int i = 0; i < m_maxMenuVolAmount.y; i++)
             {
-                for(int j = 0; j < m_maxMenuVolAmount.x; j++)
+                for (int j = 0; j < m_maxMenuVolAmount.x; j++)
                 {
                     m_uiMenuSlotObj = Instantiate(m_uiMenuSlotPrefab, m_startSlotU);
                     UI_MenuSlot slot = m_uiMenuSlotObj.GetComponent<UI_MenuSlot>();

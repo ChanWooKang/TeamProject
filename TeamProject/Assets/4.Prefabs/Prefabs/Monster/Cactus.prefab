@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Index: 1001
-  MonsterLevel: 10
+  MonsterLevel: 1
   Stat: {fileID: 0}
   _movement: {fileID: 0}
   _animCtrl: {fileID: 0}
