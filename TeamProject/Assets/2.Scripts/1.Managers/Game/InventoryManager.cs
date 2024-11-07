@@ -61,6 +61,19 @@ public class InventoryManager : TSingleton<InventoryManager>
         OnChangeEvent -= ChangeEquipment;
         OnChangeEvent += ChangeEquipment;
     }
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            AddInvenItem(Dict_Item[101], 100);
+
+            AddInvenItem(Dict_Item[102], 100);
+            AddInvenItem(Dict_Item[100], 100);
+
+            AddInvenItem(Dict_Item[601], 300);
+            AddInvenItem(Dict_Item[103], 50);
+        }
+    }
 
     public void InitData()
     {
@@ -70,19 +83,8 @@ public class InventoryManager : TSingleton<InventoryManager>
         equipUI.Init();
         SetDictionary();
         SetInitInventoryData();
-        AddInvenItem(Dict_Item[200]);
-        AddInvenItem(Dict_Item[201]);
-        AddInvenItem(Dict_Item[202]);
-        AddInvenItem(Dict_Item[203]);
-        AddInvenItem(Dict_Item[204]);
-        AddInvenItem(Dict_Item[101],100);
-
-        AddInvenItem(Dict_Item[102], 100);
-        AddInvenItem(Dict_Item[100], 100);
-        AddInvenItem(Dict_Item[300]);
-        AddInvenItem(Dict_Item[301]);
-        AddInvenItem(Dict_Item[601], 300);
-        AddInvenItem(Dict_Item[103], 50);
+       
+       
     }
 
         

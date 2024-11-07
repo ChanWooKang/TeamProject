@@ -149,7 +149,7 @@ public class PlayerCtrl : MonoBehaviour
         {
             if(_stat.HP < _stat.MaxHP)
             {
-                _stat.HP = Mathf.Min(_stat.HP + 5, _stat.MaxHP);
+                //_stat.HP = Mathf.Min(_stat.HP + 5, _stat.MaxHP);
             }
 
             yield return new WaitForSeconds(1);

@@ -117,6 +117,9 @@ public class UI_CraftSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     }
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (m_architectureInfo == null)
+            return;
+
         m_highlightBG.enabled = false;
         m_uiInfoBox.CloseBox();
     }

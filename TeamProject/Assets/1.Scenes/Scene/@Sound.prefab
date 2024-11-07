@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3910615458387829856}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.4742508, y: 1.07936, z: 9.630325}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -49,6 +49,8 @@ MonoBehaviour:
   m_BGMClips:
   - name: InGameScene
     m_clip: {fileID: 8300000, guid: c6c5cd0ee2d7db447be3ac0e13978c23, type: 3}
+  - name: MainScene
+    m_clip: {fileID: 8300000, guid: 433d90c039792154e8aecb6d13e490ed, type: 3}
   m_SFXClips:
   - name: Player_Footstep_01
     m_clip: {fileID: 8300000, guid: 8cb191317e630554ab6b99e889a70b5f, type: 3}

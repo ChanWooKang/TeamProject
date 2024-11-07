@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.55012375, g: 0.7947832, b: 0.96905017, a: 1}
+  m_IndirectSpecularColor: {r: 0.5493344, g: 0.7941628, b: 0.9733974, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -609,10 +609,10 @@ MonoBehaviour:
   npcType: 1
   giveItems:
   - index: 100
-    count: 10
+    count: 30
     level: 0
   - index: 101
-    count: 10
+    count: 15
     level: 0
 --- !u!1 &324577835
 GameObject:
