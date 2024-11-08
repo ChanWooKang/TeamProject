@@ -3752,18 +3752,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: '@Sound'
       objectReference: {fileID: 0}
-    - target: {fileID: 3910615458387829857, guid: 79e56419c88c5754b82f11b0fcf51395, type: 3}
-      propertyPath: m_SFXClips.Array.size
-      value: 39
-      objectReference: {fileID: 0}
-    - target: {fileID: 3910615458387829857, guid: 79e56419c88c5754b82f11b0fcf51395, type: 3}
-      propertyPath: m_SFXClips.Array.data[38].name
-      value: Tree_Fall
-      objectReference: {fileID: 0}
-    - target: {fileID: 3910615458387829857, guid: 79e56419c88c5754b82f11b0fcf51395, type: 3}
-      propertyPath: m_SFXClips.Array.data[38].m_clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 9b072c70725e6624889a980cb408fe85, type: 3}
     - target: {fileID: 3910615458387829858, guid: 79e56419c88c5754b82f11b0fcf51395, type: 3}
       propertyPath: m_RootOrder
       value: 4

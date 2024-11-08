@@ -153,7 +153,7 @@ public class UI_PetInvenSlot : MonoBehaviour, IPointerClickHandler, IPointerEnte
             
             UIManager._inst.UIPetEntry.InitAllEntryIcon();
             m_managerPetbox.InitPetInven();
-           
+            InitSlot(m_slotNum, m_managerPetbox, m_petCtrl);
         }
         else
             return;
